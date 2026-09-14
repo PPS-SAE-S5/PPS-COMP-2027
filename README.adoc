@@ -95,10 +95,10 @@ _W.I.P_
 <td align="center"><a href="https://github.com/Antokkk7"><img src="https://github.com/Antokkk7.png" width="70"></a></td>
 </tr>
 <tr>
-<td align="center"><b>ZakapiaFR</b><br>Développeur</td>
-<td align="center"><b>AdamLab5</b><br>Chef de projet</td>
-<td align="center"><b>hanhai9</b><br>Développeur</td>
-<td align="center"><b>Antokkk7</b><br>Product Owner</td>
+<td align="center"><b>Erwan Pauloin</b><br>Développeur</td>
+<td align="center"><b>Adam Labadi</b><br>Chef de projet</td>
+<td align="center"><b>Jinhai Feng</b><br>Développeur</td>
+<td align="center"><b>Alexis Piquepé</b><br>Product Owner</td>
 </tr>
 </table>
 ++++
