@@ -97,7 +97,7 @@ _W.I.P_
 <tr>
 <td align="center"><b>Erwan Pauloin</b><br>Développeur</td>
 <td align="center"><b>Adam Labadi</b><br>Chef de projet</td>
-<td align="center"><b>Jinhai Feng</b><br>Développeur</td>
+<td align="center"><b>Jinhai-andrei Feng</b><br>Développeur</td>
 <td align="center"><b>Alexis Piquepé</b><br>Product Owner</td>
 </tr>
 </table>
