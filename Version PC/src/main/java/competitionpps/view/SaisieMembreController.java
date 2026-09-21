@@ -1,4 +1,4 @@
-package gestclub.view;
+package competitionpps.view;
 
 import java.io.IOException;
 import java.net.URL;
@@ -9,8 +9,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ResourceBundle;
 
-import gestclub.model.EtatMembre;
-import gestclub.model.Membre;
+import competitionpps.model.EtatMembre;
+import competitionpps.model.Membre;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;

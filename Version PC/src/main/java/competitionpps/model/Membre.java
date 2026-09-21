@@ -1,8 +1,8 @@
-package gestclub.model;
+package competitionpps.model;
 
 import java.time.LocalDate;
 
-import gestclub.util.DateFR;
+import competitionpps.util.DateFR;
 
 public class Membre {
 	

@@ -1,4 +1,4 @@
-package gestclub;
+package competitionpps;
 	
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,10 +15,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import gestclub.model.EtatMembre;
-import gestclub.model.Membre;
-import gestclub.view.ListeMembresController;
-import gestclub.view.SaisieMembreController;
+import competitionpps.model.EtatMembre;
+import competitionpps.model.Membre;
+import competitionpps.view.ListeMembresController;
+import competitionpps.view.SaisieMembreController;
 import javafx.application.Application;
 // import javafx.collections.FXCollections;
 // import javafx.collections.ObservableList;
@@ -29,7 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 
-public class GestClubApp extends Application {
+public class CompetitionPPSApp extends Application {
 	
 	private BorderPane rootPane;
 	private Stage primaryStage;
@@ -37,7 +37,7 @@ public class GestClubApp extends Application {
     private static final Path data_local = Paths.get("data", "Membres.txt");
     private List<Membre> listeMembres = new ArrayList<>();
     
-    public GestClubApp() {
+    public CompetitionPPSApp() {
         loadMembres();
     }
 
@@ -77,7 +77,7 @@ public class GestClubApp extends Application {
 
 	// Ancienne version pour créer des membres placeholder
 
-	public GestClubApp() {
+	public CompetitionPPSApp() {
 		// Création de quelques membres de départ dans liste Membre
 		// code temporaire en attendant d'avoir les méthodes le sauvegarde/restauration en base ou dans des fichiers.
 		this.listeMembres.add(new Membre("Floraville", "Rose", EtatMembre.Membre, "Toulouse", LocalDate.of(1985, 11, 13), "Amis de Tom" ));
@@ -94,8 +94,8 @@ public class GestClubApp extends Application {
 		this.rootPane = new BorderPane();
 		
 		Scene scene = new Scene(rootPane);
-		scene.getStylesheets().add(GestClubApp.class.getResource("style.css").toExternalForm());
-		primaryStage.setTitle("GestClub App");
+		scene.getStylesheets().add(CompetitionPPSApp.class.getResource("style.css").toExternalForm());
+		primaryStage.setTitle("CompetitionPPS App");
 		primaryStage.setScene(scene);
 
 		loadListeMembre();
@@ -107,7 +107,7 @@ public class GestClubApp extends Application {
 	public void loadListeMembre() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation( GestClubApp.class.getResource("view/ListeMembres.fxml"));
+			loader.setLocation( CompetitionPPSApp.class.getResource("view/ListeMembres.fxml"));
 			
 			BorderPane vueListe = loader.load();
 			
@@ -127,7 +127,7 @@ public class GestClubApp extends Application {
 	public Membre showSaisieMembre() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation( GestClubApp.class.getResource("view/SaisieMembre.fxml"));
+			loader.setLocation( CompetitionPPSApp.class.getResource("view/SaisieMembre.fxml"));
 			
 			BorderPane vueSaisie = loader.load();
 			
@@ -158,7 +158,7 @@ public class GestClubApp extends Application {
 	public Membre editSaisieMembre(Membre membre) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation( GestClubApp.class.getResource("view/SaisieMembre.fxml"));
+			loader.setLocation( CompetitionPPSApp.class.getResource("view/SaisieMembre.fxml"));
 			
 			BorderPane vueSaisie = loader.load();
 			

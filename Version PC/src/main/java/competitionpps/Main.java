@@ -1,7 +1,7 @@
-package gestclub;
+package competitionpps;
 
 public class Main {
 	public static void main(String[] args) {
-		GestClubApp.main2(args);
+		CompetitionPPSApp.main2(args);
 	}
 }

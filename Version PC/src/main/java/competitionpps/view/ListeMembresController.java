@@ -1,12 +1,12 @@
-package gestclub.view;
+package competitionpps.view;
 
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import gestclub.GestClubApp;
-import gestclub.model.Membre;
+import competitionpps.CompetitionPPSApp;
+import competitionpps.model.Membre;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -32,10 +32,10 @@ public class ListeMembresController implements Initializable {
 	private MenuItem butNouveauMenu;
 
 	
-	private GestClubApp getClubApp;
+	private CompetitionPPSApp getClubApp;
 	
 
-	public void setGetClubApp(GestClubApp getClubApp) {
+	public void setGetClubApp(CompetitionPPSApp getClubApp) {
 		this.getClubApp = getClubApp;
 	}
 
