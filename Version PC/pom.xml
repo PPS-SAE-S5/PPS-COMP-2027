@@ -8,7 +8,7 @@
     <name>PPSCompet</name>
 
     <properties>
-        <iut.pps.mainClass>pps.Main</iut.pps.mainClass>
+        <iut.pps.mainClass>competitionpps.Main</iut.pps.mainClass>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
