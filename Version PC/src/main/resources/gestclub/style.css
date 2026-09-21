@@ -1,0 +1,13 @@
+.label {
+	/* -fx-text-fill: #0000ff; */
+}
+
+.insetblock {
+	/* -fx-background-color: pink; */
+	-fx-padding:10 20 20 20;
+	-fx-border-style: solid inside;
+	-fx-border-width: 2;
+	-fx-border-insets: 5;
+	-fx-border-radius: 10;
+	-fx-border-color: green;
+}

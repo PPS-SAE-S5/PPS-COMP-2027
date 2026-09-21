@@ -1,0 +1,15 @@
+# Outils de Build Java (Maven et Gradle)
+target/
+build/
+.gradle/
+out/
+
+# Fichiers d'archive
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# Fichiers de logs
+*.log
