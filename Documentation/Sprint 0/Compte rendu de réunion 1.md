@@ -1,4 +1,4 @@
-# Réunion 1 - PPS
+# Compte rendu de la réunion 1 - PPS
 
 ## L'application doit prendre en charge
 
