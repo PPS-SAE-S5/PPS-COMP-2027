@@ -139,19 +139,19 @@ _un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Compte%20rendu%20de%20réunion%201.md[Compte rendu de réunion]
 | Compte rendu de la première réunion pour le projet
-| Sprint 0
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Compte%20rendu%20de%20réunion%202.md[Compte rendu de réunion]
 | Compte rendu de la seconde réunion pour le projet
-| Sprint 0
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
 
 |===
 
 === 4.3 Informations complémentaires
 
 - Version courante : _Release à sortir_
-- Lien vers la doc technique générale : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Technique%20(fr).md[Version Sprint 0]
-- Lien vers la doc utilisateur générale : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Utilisateur%20(fr).md[Version Sprint 0]
+- Lien vers la documentation technique générale : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Technique%20(fr).md[Version sprint 0]
+- Lien vers la documentation utilisateur générale : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Utilisateur%20(fr).md[Version sprint 0]
 
 === Liste informative sur toutes les User Stories (ToDo / En cours / Fait)
 
