@@ -7,8 +7,8 @@
 - **Contexte**
 	- Nous devons mettre en place une application de gestion de compétition (potentiellement réutilisable) pour la PPS
 
-- **Problèmatique**
-	- Date limite à fin décembre 2026
+- **Problématique**
+	- Date limite : fin décembre 2026
  	- Projet en groupe
   	- Vrai client (situation réelle)
 
@@ -19,27 +19,27 @@
 - **Inscription**
 	- Nom/Prénom
 	- Catégorie (H/F)
-	- Compétition séparée
+	- Compétitions séparées
 		- Compétition pompier
 		- Compétition publique
 
 - **Participation**
 	- "Participant n°X points"
 	- Un atelier est une série d'épreuves
-		- manche matin
-		- manche après-midi
+		- manche du matin
+		- manche de l'après-midi
 		- 2nd journée
 
 - **Barème**
 	- Gestionnaire d'épreuve (créer une épreuve avec notation au choix):
 		- pts de temps
-		- nombre de saut en parapente
+		- nombre de sauts en parapente
 		- etc...
 	- Bénévole (attribue les points)
 	- Comité (litiges / points négatifs/ retraits de points)
 	- Utilisateur (peut uniquement voir les classements en direct)
 	- Classement par jour/ classement final (refresh fréquent?)
-	- Classement avec ou sans afichage des points (switch l'affichage?)
+	- Classement avec ou sans affichage des points (switch l'affichage?)
 
 </br>
 
@@ -51,5 +51,5 @@
 
 **Pour le projet :**\
 	- Carte blanche\
-	- Réutilisable (pour des futurs compétitions)\
+	- Réutilisable (pour des futures compétitions)\
 	- Autorisation de forker le projet final pour des futurs projets personnels

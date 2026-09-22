@@ -20,19 +20,33 @@ L'objectif de ce projet est de proposer une plateforme permettant :
 
 === 2.1 Pour accéder au site
 
-_W.I.P_
+_le lien n'est pas encore disponible en l'état_
 
 === 2.2 Pour accéder à l'application sur PC
 
-_W.I.P_
+_un lien vers la release (.java / .exe / .msi) sera placé ici à la fin du sprint 1_
 
 === 2.3 Pour accéder à l'application sur mobile
 
-_W.I.P_
+_un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 
 == 3. Gestion de projet & Qualité
 
-_W.I.P_
+[cols="1,4,1", options="header"]
+|===
+| Gestion de projet
+| Description
+| Période de sprint
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Pre-projet.md[Réunion de pre-projet]
+| Réunion de pre-projet
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md[Backlog produit v0]
+| Document sur le backlog produit en début de projet
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0 - à modifier]
+
+|===
 
 == 4. Livrables et état d'avancement
 
@@ -40,49 +54,170 @@ _W.I.P_
 
 ==== 4.1.1 Sprint 0
 
-[cols="1,3,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Date
-| Nom de l'issue
-| Lien
+| Gestion de projet
+| Description
 
-|
-|
-|
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20sprint%200.md[Backlog sprint v0]
+| Document sur le backlog de sprint (la v0) en début de projet
 |===
 
 ==== 4.1.2 Sprint 1
 
-[cols="1,3,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Date
-| Nom de l'issue
-| Lien
+| Gestion de projet
+| Description
 
-|
 |
 |
 |===
 
 ==== 4.1.3 Sprint 2
 
-[cols="1,3,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Date
-| Nom de l'issue
-| Lien
+| Gestion de projet
+| Description
 
-|
 |
 |
 |===
 
-=== 4.2 Informations complémentaires
+==== 4.1.4 Sprint 3
+
+[cols="1,3", options="header"]
+|===
+| Gestion de projet
+| Description
+
+|
+|
+|===
+
+==== 4.1.5 Sprint 4
+
+[cols="1,3", options="header"]
+|===
+| Gestion de projet
+| Description
+
+|
+|
+|===
+
+==== 4.1.5 Sprint 5
+
+[cols="1,3", options="header"]
+|===
+| Gestion de projet
+| Description
+
+|
+|
+|===
+
+==== 4.1.5 Sprint 6
+
+[cols="1,3", options="header"]
+|===
+| Gestion de projet
+| Description
+
+|
+|
+|===
+
+=== 4.2 Comptes rendus de réunion
+
+[cols="1,4,1", options="header"]
+|===
+| Gestion de projet
+| Description
+| Période de sprint
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Compte%20rendu%20de%20réunion%201.md[Compte rendu de réunion]
+| Compte rendu de la première réunion pour le projet
+| Sprint 0
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Compte%20rendu%20de%20réunion%202.md[Compte rendu de réunion]
+| Compte rendu de la seconde réunion pour le projet
+| Sprint 0
+
+|===
+
+=== 4.3 Informations complémentaires
 
 - Version courante : _Release à sortir_
-- Lien vers la doc technique générale : _W.I.P_
-- Lien vers la doc utilisateur générale : _W.I.P_
-- Liste des User Stories (ToDo/En cours/Fait) : _W.I.P_
+- Lien vers la doc technique générale : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Technique%20(fr).md[Version Sprint 0]
+- Lien vers la doc utilisateur générale : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Utilisateur%20(fr).md[Version Sprint 0]
+
+=== Liste informative sur toutes les User Stories (ToDo / En cours / Fait)
+
+[cols="1,4,1", options="header"]
+|===
+| US
+| Description
+| Etat
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/9[US 01]
+| En tant que gestionnaire, je veux inscrire un participant avec son nom/prénom
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/10[US 02]
+| En tant que gestionnaire, je veux créer un atelier composé de plusieurs épreuves afin de structurer une journée de compétition
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/11[US 03]
+| En tant que gestionnaire, je veux organiser une journée contenant des ateliers (matin, après-midi, 2e journée) afin de répartir les épreuves dans le temps
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/12[US 04]
+| En tant qu'utilisateur, je veux voir le score total d'un participant afin de suivre sa performance globale
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/13[US 05]
+| En tant qu'utilisateur, je veux consulter le classement du jour afin de suivre l'évolution de la compétition
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/14[US 06]
+| En tant qu'utilisateur, je veux consulter le classement final afin de connaître les résultats globaux
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/15[US 07]
+| En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16[US 08]
+| En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/17[US 09]
+| En tant que gestionnaire, je veux pouvoir créer une épreuve en choisissant son mode de notation afin d'adapter le barème à chaque discipline
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/18[US 10]
+| En tant que gestionnaire, je veux activer ou désactiver l'affichage des points dans le classement afin de ne montrer que le rang si besoin
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/19[US 11]
+| En tant que bénévole, je veux attribuer des points à un participant pour une épreuve donnée afin d'enregistrer sa performance
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20[US 12]
+| En tant que membre du comité, je veux modifier les points d'un participant afin de traiter les cas exceptionnels
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21[US 13]
+| En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges
+| ToDo
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22[US 14]
+| En tant qu'administrateur, je veux gérer les rôles afin que chacun n'accède qu'aux fonctionnalités qui le concernent
+| ToDo
+
+|===
 
 == 5. Contributeurs
 

@@ -1,10 +1,10 @@
-# Backlog produit — Sprint 0
+# Backlog produit - Sprint 0
 
 **Durée :** Semaines 36–38 (mardi 1 sept. – 20 sept. 2026)
 
 ---
 
-# T-01 — US #01
+# T-01 - US #01
 
 ## En tant que gestionnaire, je veux inscrire un participant avec son nom/prénom.
 
@@ -24,7 +24,7 @@
 
 ---
 
-# T-02 — US #02
+# T-02 - US #02
 
 ## En tant que gestionnaire, je veux créer un atelier composé de plusieurs épreuves afin de structurer une journée de compétition
 
@@ -41,7 +41,7 @@
 
 ---
 
-# T-03 — US #03
+# T-03 - US #03
 
 ## En tant que gestionnaire, je veux organiser une journée contenant des ateliers (matin, après-midi, 2e journée) afin de répartir les épreuves dans le temps
 
@@ -58,7 +58,7 @@
 
 ---
 
-# T-04 — US #04
+# T-04 - US #04
 
 ## En tant qu'utilisateur, je veux voir le score total d'un participant ("Participant n°X points") afin de suivre sa performance globale
 
@@ -75,7 +75,7 @@
 
 ---
 
-# T-05 — US #05
+# T-05 - US #05
 
 ## En tant qu'utilisateur, je veux consulter le classement du jour afin de suivre l'évolution de la compétition
 
@@ -92,7 +92,7 @@
 
 ---
 
-# T-06 — US #06
+# T-06 - US #06
 
 ## En tant qu'utilisateur, je veux consulter le classement final afin de connaître les résultats globaux
 
@@ -102,7 +102,7 @@
 
 ---
 
-# T-07 — US #07
+# T-07 - US #07
 
 ## En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page
 
@@ -118,7 +118,7 @@
 
 ---
 
-# T-08 — US #08
+# T-08 - US #08
 
 ## En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement
 
@@ -134,7 +134,7 @@
 
 ---
 
-# T-09 — US #09
+# T-09 - US #09
 
 ## En tant que gestionnaire d'épreuve, je veux créer une épreuve en choisissant son mode de notation (points de temps, nombre de sauts, etc.) afin d'adapter le barème à chaque discipline
 
@@ -150,7 +150,7 @@
 
 ---
 
-# T-010 — US #10
+# T-010 - US #10
 
 ## En tant que gestionnaire, je veux activer/désactiver l'affichage des points dans le classement (switch) afin de ne montrer que le rang si besoin
 
@@ -166,7 +166,7 @@
 
 ---
 
-# T-011 — US #11
+# T-011 - US #11
 
 ## En tant que bénévole, je veux attribuer des points à un participant pour une épreuve donnée afin d'enregistrer sa performance
 
@@ -182,7 +182,7 @@
 
 ---
 
-# T-012 — US #12
+# T-012 - US #12
 
 ## En tant que membre du comité, je veux modifier les points d'un participant (litige, pénalité, retrait) afin de traiter les cas exceptionnels
 
@@ -198,7 +198,7 @@
 
 ---
 
-# T-013 — US #13
+# T-013 - US #13
 
 ## En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges
 
@@ -215,7 +215,7 @@
 
 ---
 
-# T-014 — US #14
+# T-014 - US #14
 
 ## En tant qu'administrateur, je veux gérer les rôles (gestionnaire, bénévole, comité, utilisateur) afin que chacun n'accède qu'aux fonctionnalités qui le concernent
 
@@ -231,7 +231,7 @@
 
 ---
 
-# T-14 — US #014
+# T-14 - US #014
 
 ## En tant qu'administrateur, je veux gérer les rôles (gestionnaire, bénévole, comité, utilisateur) afin que chacun n'accède qu'aux fonctionnalités qui le concernent
 

@@ -1,5 +1,6 @@
 # Compte rendu de la réunion 2 - PPS
 
+## L'application doit prendre en charge
 
 </br>
 
@@ -63,15 +64,15 @@
     - Poids
     - Email
     - Année de naissance
-    - catégorie
+    - Catégorie
 
 </br>
 
 - **Liste des épreuves (exemples)**
 	- Atterrissage de précision
-    - marche & vol
-    - cross
-    - checkpoint à balise en temps donnée
+    - Marche & vol
+    - Cross
+    - Checkpoint à balise en temps donnée
 
 </br>
 
@@ -94,8 +95,8 @@
 - **À prendre en compte/ À faire**
     - Cocher une case : afficher le classement ou non
     - Stockage des données en local (en cas d'absence d'internet)
-    - Toute personne inscrite doit passer les épreuves (sinon 0 pt)
+    - Toute personne inscrite doit passer les épreuves (sinon 0 pts)
     - L'administrateur coche qui a payé/ n'a pas payé les frais d'inscription (possible d'envoyer un mail de rappel)
     - Logo Ariège Tarne + sponsors **Niviuk**
     - Saisie des scores par les commissaires (départ/ arrivée)
-    - Tableau facile à trier (option de tri accessibles à tous sur la page de classement)
+    - Tableau facile à trier (options de tri accessibles à tous sur la page de classement)

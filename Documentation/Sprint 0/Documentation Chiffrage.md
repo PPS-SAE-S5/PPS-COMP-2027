@@ -1,4 +1,4 @@
-# Chiffrage — Webapp de gestion de concours de parapente
+# Chiffrage - Webapp de gestion de concours de parapente
 
 **Équipe :** 4 développeurs
 **Budget nominal :** 4 × 100h = **400h** (hors heures supplémentaires)
@@ -47,7 +47,7 @@ Développement d'une application web permettant d'organiser et de suivre des con
 | Responsive | Mobile + desktop sur l'ensemble de l'application |
 
 ### Hors périmètre (non chiffré ici)
-- Import automatique de traces GPS / intégration trackers — confirmé non nécessaire [mais vu lors de la réunion 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/3611c4203475c93ef5d7aedcf57af4cf6bd8197b/Documentation/Sprint%200/Compte%20rendu%20de%20r%C3%A9union%202.md)
+- Import automatique de traces GPS / intégration trackers - confirmé non nécessaire [mais vu lors de la réunion 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/3611c4203475c93ef5d7aedcf57af4cf6bd8197b/Documentation/Sprint%200/Compte%20rendu%20de%20r%C3%A9union%202.md)
 - Application mobile native
 - Multi-langue (?)
 
@@ -71,19 +71,19 @@ Développement d'une application web permettant d'organiser et de suivre des con
 | 12 | Recette & corrections | Tests fonctionnels multi-device, corrections de bugs | 22h |
 | 13 | Documentation | Doc technique, guide utilisateur admin, README + licence (repo public) | 12h |
 | 14 | Gestion de projet | Réunions d'équipe, points d'avancement, coordination | 18h |
-| | **TOTAL** | | **≈ 356h** |
+| | **TOTAL** | | **≈ 330h** |
 
-**Marge de sécurité (imprévus, aller-retours) : ~15% → +53h**
+**Marge de sécurité (imprévus) : ~15% → +50h**
 
-**Total estimé avec marge : ≈ 409h**
+**Total estimé avec marge : ≈ 400h**
 
 ---
 
 ## 5. Analyse par rapport au budget
 
-- Budget nominal : **400h**
-- Estimation avec marge : **≈ 409h**
-- Écart : **+9h**, soit environ **2h par développeur** — largement absorbable dans une marge d'heures sup raisonnable, sans remettre en cause le planning.
+- Budget nominal : **380h**
+- Estimation avec marge : **≈ 400h**
+- Écart : **+20h**, soit environ **5h par développeur** - largement absorbable dans une marge d'heures sup raisonnable, sans remettre en cause le planning.
 
 ---
 
@@ -94,8 +94,8 @@ Le barème étant volontairement livré en **version minimale** au départ, voic
 | Amélioration | Estimation (h) |
 |---|---|
 | Pondérations avancées du barème (coefficients par manche, bonus/malus) | ~10h |
-| Interface de configuration du barème par concours (au lieu d'un barème codé en dur) | ~8h |
-| Historique/statistiques pilotes sur plusieurs concours | ~10h |
+| Interface de configuration du barème par concours (au lieu d'un barème codé en dur qui sera, rappel, fait par l'administrateur) | ~8h |
+| Historique/statistiques des participants sur plusieurs compétitions | ~10h |
 
 ---
 
@@ -103,12 +103,10 @@ Le barème étant volontairement livré en **version minimale** au départ, voic
 
 | Profil suggéré | Lots concernés | Charge estimée |
 |---|---|---|
-| Dev Backend (x1-2) | Auth, Compétitions, Pilotes, Scores/Classements, Export | ~125h |
+| Dev Backend (x1-2) | Auth, Compétitions, Participants, Scores/Classements, Export | ~125h |
 | Dev Frontend (x1-2) | UI/UX, Page publique, Back-office | ~115h |
 | Full-stack / DevOps | Setup, hébergement/déploiement, tests transverses | ~85h |
 | Chef de projet technique (partagé) | Cadrage, gestion de projet, recette | ~65h |
-
-*(À ajuster selon les compétences réelles de l'équipe)*
 
 ---
 
@@ -117,17 +115,17 @@ Le barème étant volontairement livré en **version minimale** au départ, voic
 | Semaine | Activité |
 |---|---|
 | S1 | Cadrage, setup GitHub/CI, maquettes |
-| S2-S3 | Auth, module Compétitions (multi-concours) & Pilotes |
-| S4-S5 | Module Scores/Classements (barème minimal), page publique |
-| S6 | Back-office, exports, notifications, hébergement |
-| S7 | Tests, recette multi-device |
+| S2-S3 | Auth, classement, interfaces, page publique  |
+| S4-S5 | correctifs, création d'ateliers |
+| S6 | Back-office, exports, notifications (push tel/ email) |
+| S7 | Tests, ajouts de dernière minute|
 | S8 | Corrections, mise en prod, livraison + bonus si marge disponible |
 
 ---
 
 ## 9. Estimation tarifaire de l'hébergement (ordre de grandeur, à valider plus tard)
 
-Ces coûts sont **séparés du budget de développement (400h)** — ce sont des frais récurrents une fois l'app en ligne.
+Ces coûts sont **séparés du budget de développement (400h)** - ce sont des frais récurrents une fois l'app en ligne
 
 | Poste | Solution low-cost typique | Estimation basse | Estimation haute |
 |---|---|---|---|
@@ -140,19 +138,18 @@ Ces coûts sont **séparés du budget de développement (400h)** — ce sont des
 
 **En résumé :** pour un usage léger et saisonnier (concours ponctuel), il est tout à fait réaliste de rester sur des **tiers gratuits** pendant un moment (coût quasi nul, hors nom de domaine), quitte à passer sur une offre payante à quelques euros/mois si le trafic ou le volume de données augmente. Une fourchette réaliste à prévoir : **0 à 25 €/mois**, soit **~120 à 300 €/an** en cas de montée en charge.
 
+PS : il est possible que cela change au cours du projet selon les ressources à notre disposition /!\
+
 ---
 
 ## 10. Estimation du coût salarial (côté entreprise)
 
-⚠️ Sans connaître les salaires réels de l'équipe, voici une estimation basée sur un **taux horaire chargé moyen pour un profil junior** en France (salaire brut + charges patronales ≈ salaire brut × 1,45, converti en coût horaire). **À ajuster avec vos chiffres réels.**
 
-| Profil | Taux horaire chargé (estimation) | Coût pour 400h (budget nominal) | Coût pour 409h (avec marge) |
-|---|---|---|---|
-| **Développeur junior (×4)** | **~30 €/h** | **12 000 €** | **12 270 €** |
+| Profil | Taux horaire chargé (estimation) | Coût pour 400h (estimation finale) |
+|---|---|---|
+| **Développeur junior (×4)** | **~30 €/h** | **12 000 €** |
 
-*(Base de calcul : salaire brut junior ~35 k€/an, coût chargé employeur ~50 k€/an, soit ~31 €/h sur une base de 1 607h/an — arrondi à 30 €/h)*
-
-Si les développeurs sont en réalité en **stage** plutôt qu'en salariat classique, le coût réel pour l'entreprise est nettement plus bas (gratification de stage encadrée légalement, ~4,35 €/h net minimum en 2026, sans charges patronales) :
+**Important :** *(Base de calcul : salaire brut junior ~35 k€/an, coût chargé employeur ~50 k€/an, soit ~31 €/h sur une base de 1 607h/an - arrondi à 30 €/h)*
 
 | Statut | Coût horaire | Coût pour 400h |
 |---|---|---|
@@ -160,14 +157,14 @@ Si les développeurs sont en réalité en **stage** plutôt qu'en salariat class
 | Alternant | ~8-15 €/h (selon âge/année) | ~3 200-6 000 € |
 | Salarié junior (CDI/CDD) | ~30 €/h | ~12 000 € |
 
-**Coût total projet (indicatif) :** en additionnant coût salarial (**~12 000 €** si salariés juniors, bien moins si stage/alternance) + hébergement (~10 € à 300 €/an), le projet se situe autour de **12 000 à 12 300 €** pour la première année dans l'hypothèse "salarié junior".
+**Coût total projet (indicatif) :** en additionnant coût salarial (**~12 000 €** si salariés juniors, bien moins si stage/alternance) + hébergement (~10 € à 300 €/an), le projet se situe autour de **12 000€** pour la première année dans l'hypothèse "salarié junior".
 
 ---
 
 ## 11. Points encore ouverts
 
 - **Choix précis de l'hébergeur low-cost**
-- **Statut réel de l'équipe** (stage, alternance ou salarié) pour affiner précisément le coût de la section 10 (Render / Railway / Fly.io / VPS type OVH) — à comparer sur coût récurrent et facilité de mise en œuvre
-- **Licence open source** à choisir pour le dépôt GitHub (MIT, AGPL, etc.)
+- **Statut réel de l'équipe** nos rôles, nos ressources
+- **Licence open source** à choisir pour le dépôt GitHub (MIT, AGPL, etc) <-- à discuter avec un représentant pédagogique
 
 ---

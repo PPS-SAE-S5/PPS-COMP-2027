@@ -36,15 +36,15 @@
 
 ### 1.1 Contexte du projet
 
-Le club de parapente Parapente Pays de Sault (PPS), situé dans l'Aude, organisera à l'été 2027 le Championnat de France Pompiers de Parapente.
-Actuellement, l'organisation de cette compétition repose principalement sur l'utilisation de documents papier et de fichiers Excel. Les informations et les résultats sont collectés et traités manuellement, notamment afin de réaliser les classements provisoires à la fin de chaque journée.
-Afin de moderniser et de simplifier ce processus, le club souhaite mettre en place une solution numérique permettant de centraliser les différentes informations liées à la compétition et de faciliter leur gestion.
+Le club de parapente Parapente Pays de Sault (PPS), situé dans l'Aude, organisera à l'été 2027 le Championnat de France des Pompiers de Parapente
+Actuellement, l'organisation de cette compétition repose principalement sur l'utilisation de documents papier et de fichiers Excel. Les informations et les résultats sont collectés et traités manuellement, notamment afin de réaliser les classements provisoires à la fin de chaque journée
+Afin de moderniser et de simplifier ce processus, le club souhaite mettre en place une solution numérique permettant de centraliser les différentes informations liées à la compétition et de faciliter leur gestion
 
 ### 1.2 Objectifs
 
-L'objectif du projet est de concevoir et de développer une application web dédiée à la gestion d'une compétition de parapente.
-Cette application devra être accessible depuis différents types d'appareils, notamment les ordinateurs et les smartphones, afin de faciliter son utilisation par les organisateurs et les différents utilisateurs de la plateforme.
-Les principales fonctionnalités envisagées concernent notamment la gestion des inscriptions, des participants, des différentes épreuves, des résultats et des classements. L'application devra également permettre de faciliter l'accès aux informations et, selon les besoins du client, de proposer une mise à jour des données en quasi temps réel.
+L'objectif du projet est de concevoir et de développer une application web dédiée à la gestion d'une compétition de parapente
+Cette application devra être accessible depuis différents types d'appareils, notamment les ordinateurs et les smartphones, afin de faciliter son utilisation par les organisateurs et les différents utilisateurs de la plateforme
+Les principales fonctionnalités envisagées concernent notamment la gestion des inscriptions, des participants, des différentes épreuves, des résultats et des classements L'application devra également permettre de faciliter l'accès aux informations et, selon les besoins du client, de proposer une mise à jour des données en quasi temps réel
 
 ---
 
@@ -52,34 +52,34 @@ Les principales fonctionnalités envisagées concernent notamment la gestion des
 
 ### 2.1 Exigences fonctionnelles
 
-Les exigences fonctionnelles seront précisées et validées progressivement avec le client.
+Les exigences fonctionnelles seront précisées et validées progressivement avec le client
 À ce stade, les principales fonctionnalités envisagées sont les suivantes :
- - Gestion des inscriptions des participants.
- - Gestion des participants.
- - Gestion de différentes épreuves.
- - Gestion et saisie des résultats.
- - Calcul et affichage des classements.
- - Mise à jour des informations et des classements en quasi temps réel.
+ - Gestion des inscriptions des participants
+ - Gestion des participants
+ - Gestion de différentes épreuves
+ - Gestion et saisie des résultats
+ - Calcul et affichage des classements
+ - Mise à jour des informations et des classements en quasi temps réel
 
 
 ### 2.2 Exigences non fonctionnelles
 
-- **Multiplateforme** : l'application doit être disponible et pleinement fonctionnelle à la fois sur PC (web/desktop) et sur mobile (responsive ou application mobile dédiée).
+- **Multiplateforme** : l'application doit être disponible et pleinement fonctionnelle à la fois sur PC (web/desktop) et sur mobile (responsive ou application mobile dédiée)
 
 Multiplateforme
-- L'application doit être accessible et pleinement fonctionnelle depuis un ordinateur et un smartphone.
-- L'interface devra s'adapter aux différents formats d'écran afin de garantir une utilisation confortable sur les différents appareils.
+- L'application doit être accessible et pleinement fonctionnelle depuis un ordinateur et un smartphone
+- L'interface devra s'adapter aux différents formats d'écran afin de garantir une utilisation confortable sur les différents appareils
 - Ergonomie et simplicité d'utilisation
-- L'application devra être conçue de manière à être facilement utilisable par des personnes non informaticiennes.
-- Les différentes fonctionnalités devront être accessibles de manière claire et intuitive, sans nécessiter de connaissances techniques particulières.
+- L'application devra être conçue de manière à être facilement utilisable par des personnes non informaticiennes
+- Les différentes fonctionnalités devront être accessibles de manière claire et intuitive, sans nécessiter de connaissances techniques particulières
 Autres exigences
-- Les autres exigences non fonctionnelles, notamment concernant la sécurité, les performances, l'accessibilité et le déploiement, seront précisées avec le client au cours du projet.
+- Les autres exigences non fonctionnelles, notamment concernant la sécurité, les performances, l'accessibilité et le déploiement, seront précisées avec le client au cours du projet
 
 ### 2.3 Utilisateurs et rôles
 
 - Administrateur qui gère les épreuves et participe
-- Bénévoles qui rentrent les scores
-- Participants/Utilisateurs qui s'inscrivent pour participer à l'épreuve et qui peuvent consulter leur classement
+- Bénévoles qui saisissent les scores
+- Participants/Utilisateurs qui s'inscrivent pour participer aux l'épreuves et qui peuvent consulter leur classement
 ---
 
 ## 3. Cas d'utilisation
@@ -100,15 +100,42 @@ Autres exigences
 
 ### 4.1 User Stories
 
-*À compléter.*
+| US | Titre de l'US |
+|---|---|
+| [US 01](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/9) | **En tant que gestionnaire, je veux inscrire un participant avec son nom/prénom** |
+| [US 02](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/10) | **En tant que gestionnaire, je veux créer un atelier composé de plusieurs épreuves afin de structurer une journée de compétition** |
+| [US 03](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/11) | **En tant que gestionnaire, je veux organiser une journée contenant des ateliers (matin, après-midi, 2e journée) afin de répartir les épreuves dans le temps** |
+| [US 04](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/12) | **En tant qu'utilisateur, je veux voir le score total d'un participant ("Participant n°X points") afin de suivre sa performance globale** |
+| [US 05](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/13) | **En tant qu'utilisateur, je veux consulter le classement du jour afin de suivre l'évolution de la compétition** |
+| [US 06](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/14) | **En tant qu'utilisateur, je veux consulter le classement final afin de connaître les résultats globaux** |
+| [US 07](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/15) | **En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page** |
+| [US 08](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16) | **En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement** |
+| [US 09](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/17) | **En tant que gestionnaire, je veux pouvoir créer une épreuve en choisissant son mode de notation (points de temps, nombre de sauts, etc.) afin d'adapter le barème à chaque discipline** |
+| [US 10](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/18) | **En tant que gestionnaire, je veux activer/désactiver l'affichage des points dans le classement (switch) afin de ne montrer que le rang si besoin** |
+| [US 11](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/19) | **En tant que bénévole, je veux attribuer des points à un participant pour une épreuve donnée afin d'enregistrer sa performance** |
+| [US 12](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20) | **En tant que membre du comité, je veux modifier les points d'un participant (litige, pénalité, retrait) afin de traiter les cas exceptionnels** |
+| [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) | **En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges** |
+| [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) | **En tant qu'administrateur, je veux gérer les rôles (gestionnaire, bénévole, comité, utilisateur) afin que chacun n'accède qu'aux fonctionnalités qui le concernent** |
+
 
 ### 4.2 Product Backlog
 
-*À compléter.*
+| Backlog | Période du backlog |
+|---|---|
+| [Backlog Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md) | **01/09/2026 - 20/09/2026** |
+
 
 ### 4.3 Planification des sprints
 
-*À compléter.*
+| Sprint | Période du sprint |
+|---|---|
+| [Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1) | **01/09/2026 - 18/09/2026** |
+| [Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2) | **21/09/2026 - 02/10/2026** |
+| [Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3) | **05/10/2026 - 23/10/2026** |
+| [Sprint 3](#) | **02/11/2026 - 27/11/2026** |
+| [Sprint 4](#) | **30/11/2026 - 18/12/2026** |
+| [Sprint 5](#) | **30/11/2026 - 18/12/2026** |
+| [Sprint 6](#) | **04/01/2027 - 22/01/2027** |
 
 ---
 
@@ -116,18 +143,22 @@ Autres exigences
 
 ### 5.1 Architecture
 
-*À compléter.*
+- Application Mobile
+- Application Ordinateur
+- Page web
+- Base de données
 
-### 5.2 Conception de la base de données
+### 5.2 Conception de la base de données (en l'état lors du sprint 0)
 
-*À compléter.*
+- Planification pour du SQL (PostgreSQL(?) )
+- Tables nécessaires au bon fonctionnement de l'application
 
-### 5.3 API
+### 5.3 API (en l'état lors du sprint 0)
 
-- **Format d'échange** : JSON, utilisé pour les échanges entre le frontend, le backend et la base de données.
-- L'API est **auto-générée par Supabase** à partir du schéma PostgreSQL (pas de développement manuel d'API REST côté serveur).
+- **Format d'échange** : JSON, utilisé pour les échanges entre le frontend, le backend et la base de données
+- L'API est **auto-générée par Supabase** à partir du schéma PostgreSQL (pas de développement manuel d'API REST côté serveur)
 
-*Détails supplémentaires (endpoints spécifiques, règles de sécurité/RLS, authentification, etc.) à compléter.*
+*Détails supplémentaires (endpoints spécifiques, règles de sécurité/RLS, authentification, RGESN (num resp), etc.) à ajouter lors des futurs sprints*
 
 ---
 
@@ -136,13 +167,13 @@ Autres exigences
 ### 6.1 Frontend
 
 - **Framework** : React (ou Node.js).
-- **Style** : Tailwind CSS, pour un rendu responsive sur **PC** et **mobile**.
-- **Librairie de bracket** : utilisation d'une librairie existante (ex. `@g-loot/react-tournament-brackets`) plutôt que du développement custom.
+- **Style** : Tailwind CSS, pour un rendu responsive sur **PC** et **mobile**
+- **Librairies** : utilisation de librairies existantes plutôt que du développement custom
 
 ### 6.2 Backend
 
-- **Supabase** : backend-as-a-service incluant base de données PostgreSQL, API auto-générée, authentification et temps réel.
-- Expose une **API au format JSON** pour communiquer avec le frontend.
+- **Supabase** : "backend-as-a-service" incluant base de données PostgreSQL, API auto-générée, authentification et temps réel
+- Expose une **API au format JSON** pour communiquer avec le frontend
 
 ### 6.3 Base de données
 
@@ -155,22 +186,26 @@ Autres exigences
 
 ### 7.1 Stratégie de test
 
-*À compléter.*
+*À mettre en place lors des futurs sprints*
+
+PS : Etant un projet utilisant essentiellement Java (Mobile et Ordinateur), des tests JUnit sont à mettre en place
+PPS : Des tests globaux sont à réaliser sur les différents cas d'utilisations pour toutes les plateformes
+PPPS : L'objectif sera de faire souffrir le back et observer comment les données réagissent en direct
 
 ### 7.2 Tests
 
-*À compléter.*
+*À faire lors des futurs sprints*
 
 ---
 
 ## 8. Déploiement
 
-- **Frontend** : hébergé sur **Vercel** (gratuit).
-- **Backend/Base de données** : hébergés sur **Supabase** (gratuit pour l'usage prévu).
-- Les deux plateformes gèrent le déploiement continu à partir du dépôt de code source.
+- **Frontend** : hébergé sur **Vercel** (?)
+- **Backend/Base de données** : hébergés sur **Supabase** (gratuit pour l'usage prévu)
+- Les deux plateformes gèrent le déploiement continu à partir du dépôt de code source
 
 ---
 
 ## 9. Améliorations futures
 
-*À compléter.*
+*To be continued*

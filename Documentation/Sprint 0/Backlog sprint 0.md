@@ -11,11 +11,11 @@
 | [T-02](https://docs.google.com/spreadsheets/d/14NHMQBlj-uUeZFd9YVdDPqamd1ArLrdrxlj-j1Vyryw/edit?pli=1&gid=339041026#gid=339041026) | Confirmation du choix de projet | Valider l'affectation du projet "PPS compétition de parapente" | Équipe | 0.5h | Fait |
 | [T-03](https://github.com/AdamLab5/PPS-COMP-2027) | Initialisation du repository GitHub | Créer le repo, README, structure de dossiers, `.gitignore` | Devs | 2h | Fait |
 | [T-04](https://github.com/AdamLab5/PPS-COMP-2027/issues/6) | Mise en place du board projet | (To Do / In Progress / Review / Done) | Chef de projet | 2h | À faire |
-| T-05 | Création du backlog produit v0 | Dans `documentation/Sprint 0/backlog-produit-v0.md` | Équipe | 3h | Fait |
+| [T-05](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md) | Création du backlog produit v0 | Dans `documentation/Sprint 0/backlog-produit-v0.md` | Équipe | 3h | Fait |
 | [T-06](https://github.com/AdamLab5/PPS-COMP-2027/issues/1) | Prise de RDV client | Contacter le client réel et planifier le premier entretien de recueil de besoin | Product Owner | 0.5h | Fait |
 | [T-07](https://github.com/AdamLab5/PPS-COMP-2027/issues/2) | Réunion avec le client | Lister les questions à poser | Équipe | 2h | Fait |
 | T-08 | Choix des technologies | Choisir langage, framework front/back, BDD, hébergement | Équipe | 2h | À faire |
-| T-09 | Chiffrage du projet | Estimer la charge globale | Équipe | 2h | À faire |
+| [T-09](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/32819440ae2ed4f459b4a2e9fcc826241327f915/Documentation/Sprint%200/DocChiffrage.md) | Chiffrage du projet | Estimer la charge globale | Équipe | 2h | À faire |
 | [T-10](https://github.com/AdamLab5/PPS-COMP-2027/issues/8) | Initialisation des documents techniques | Créer : doc de conception, CR de réunion | Équipe | 2h | À faire |
 
 </br>
