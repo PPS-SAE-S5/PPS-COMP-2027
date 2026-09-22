@@ -2,7 +2,7 @@
 
 **Équipe :** 4 développeurs
 **Budget nominal :** 4 × 100h = **400h** (hors heures supplémentaires)
-**Date :** Septembre 2026
+**Date :** Septembre 2026 ~ Décembre 2026
 
 ---
 
@@ -22,12 +22,12 @@ Développement d'une application web permettant d'organiser et de suivre des con
 |---|---|
 | Backend | Node.js (quasi certain) |
 | Frontend | Vue |
-| Base de données | SQL (PostgreSQL recommandé) |
-| Hébergement | Solution **low-cost / free tier**, cohérente avec un projet open source (ex. Render, Railway, Fly.io pour le back + BDD ; Vercel/Netlify pour le front) |
-| Dépôt | GitHub public, licence open source à choisir |
-| Identité graphique | À créer, volontairement **minimale au démarrage** |
+| Base de données | SQL (PostgreSQL ?) |
+| Hébergement | Première observation : Render, Railway, Fly.io pour le back + BDD ; Vercel/Netlify pour le front |
+| Dépôt | GitHub public |
+| Identité graphique | Carte blanche/ rien de décider pour l'instant |
 
-> 💡 Le code sera écrit en gardant une **nomenclature générique** ("compétition", "épreuve" plutôt que des termes spécifiques au parapente) afin de ne pas fermer la porte à une réutilisation future pour d'autres types de concours — sans pour autant sur-ingénierer une architecture "multi-sports" dès cette version (ce serait un chantier à part entière, non chiffré ici).
+> 💡 Le code doit être écrit en gardant une **nomenclature générique** ("compétition", "épreuve" plutôt que des termes spécifiques au parapente) afin de ne pas fermer la porte à une réutilisation future pour d'autres types d'épreuves.
 
 ---
 
@@ -35,23 +35,21 @@ Développement d'une application web permettant d'organiser et de suivre des con
 
 | Domaine | Fonctionnalités incluses |
 |---|---|
-| Authentification | Connexion admin / juge / pilote, gestion des rôles |
-| Compétitions | Création et gestion de **plusieurs concours** (en cours + historique), manches (tasks), dates, lieu |
-| Pilotes | Inscription en ligne, profil (nom, licence FFVL, club, aile), liste des inscrits |
-| Scores | Saisie manuelle des résultats, **barème de calcul classique/standard**, version **minimale au lancement** |
-| Classements | Calcul automatique du classement général et par manche |
-| Résultats publics | Page publique consultable sans compte, responsive |
-| Back-office | Interface d'administration (CRUD concours, manches, pilotes, scores), responsive |
+| Authentification | Administrateur / bénévoles / pilotes / Comité des pilotes  |
+| Compétitions | Création et gestion de **plusieurs épreuves** (en cours + historique), manches, dates, lieu |
+| Pilotes | Pré-inscription en ligne, profil (nom, licence, caserne, catégorie, etc...) |
+| Scores | Saisie manuelle des résultats, **barème de calcul classique/standard** |
+| Classements | Calcul automatique du classement général/ par manche visible |
+| Résultats publics | Page publique consultable sans compte, et responsive évidemment |
+| Back-office | Interface d'administration (CRUD concours, manches, pilotes, scores), et responsive (encore) |
 | Export | Export PDF/Excel des classements |
-| Notifications | Email de confirmation d'inscription |
+| Notifications | Email de confirmation d'inscription/ rappel de paiement des frais d'inscription |
 | Responsive | Mobile + desktop sur l'ensemble de l'application |
 
 ### Hors périmètre (non chiffré ici)
-- Import automatique de traces GPS / intégration trackers — confirmé non nécessaire
-- Généralisation complète à d'autres types de concours (au-delà du parapente) — porte laissée ouverte via la nomenclature, mais pas développée dans cette version
+- Import automatique de traces GPS / intégration trackers — confirmé non nécessaire [mais vu lors de la réunion 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/3611c4203475c93ef5d7aedcf57af4cf6bd8197b/Documentation/Sprint%200/Compte%20rendu%20de%20r%C3%A9union%202.md)
 - Application mobile native
-- Paiement en ligne des inscriptions
-- Multi-langue
+- Multi-langue (?)
 
 ---
 
@@ -62,18 +60,17 @@ Développement d'une application web permettant d'organiser et de suivre des con
 | 1 | Cadrage & spécifications | Ateliers, rédaction des specs (barème classique déjà identifié, moins d'exploration) | 14h |
 | 2 | Setup projet & architecture | Repo GitHub, CI/CD, environnements, nomenclature générique | 22h |
 | 3 | UI/UX Design | Identité graphique minimale + maquettes responsive (mobile & desktop) | 32h |
-| 4 | Authentification & rôles | Login, gestion des sessions, rôles admin/juge/pilote | 20h |
+| 4 | Authentification & rôles | Login, gestion des sessions, rôles admin/bénévoles/comité | 20h |
 | 5 | Module Compétitions & Manches | CRUD multi-concours, historique, gestion des manches | 34h |
-| 6 | Module Pilotes & Inscriptions | Formulaire d'inscription, profil, liste des inscrits, validation | 26h |
-| 7 | Module Scores & Classements | Saisie des scores, implémentation MVP du barème classique, classements | 40h |
-| 8 | Page publique de résultats | Affichage responsive des classements | 26h |
-| 9 | Back-office admin | Interface de gestion globale, responsive | 30h |
-| 10 | Export & notifications | Export PDF/Excel, emails transactionnels | 16h |
-| 11 | Tests | Tests unitaires et d'intégration sur les modules critiques | 28h |
-| 12 | Hébergement & déploiement | Mise en place hébergement low-cost (PaaS), domaine, SSL, mise en prod | 16h |
-| 13 | Recette & corrections | Tests fonctionnels multi-device, corrections de bugs | 22h |
-| 14 | Documentation | Doc technique, guide utilisateur admin, README + licence (repo public) | 12h |
-| 15 | Gestion de projet | Réunions d'équipe, points d'avancement, coordination | 18h |
+| 6 | Module Scores & Classements | Saisie des scores, implémentation MVP du barème classique, classements | 40h |
+| 7 | Page publique de résultats | Affichage responsive des classements | 26h |
+| 8 | Back-office admin | Interface de gestion globale, responsive | 30h |
+| 9 | Export & notifications | Export PDF/Excel, emails transactionnels | 16h |
+| 10 | Tests | Tests unitaires et d'intégration sur les modules critiques | 28h |
+| 11 | Hébergement & déploiement | Mise en place hébergement low-cost (PaaS), domaine, SSL, mise en prod | 16h |
+| 12 | Recette & corrections | Tests fonctionnels multi-device, corrections de bugs | 22h |
+| 13 | Documentation | Doc technique, guide utilisateur admin, README + licence (repo public) | 12h |
+| 14 | Gestion de projet | Réunions d'équipe, points d'avancement, coordination | 18h |
 | | **TOTAL** | | **≈ 356h** |
 
 **Marge de sécurité (imprévus, aller-retours) : ~15% → +53h**
@@ -174,5 +171,3 @@ Si les développeurs sont en réalité en **stage** plutôt qu'en salariat class
 - **Licence open source** à choisir pour le dépôt GitHub (MIT, AGPL, etc.)
 
 ---
-
-*Document généré à titre d'estimation de cadrage — à valider en équipe avant engagement.*
