@@ -118,7 +118,7 @@ Autres exigences
 | [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) | **En tant qu'administrateur, je veux gérer les rôles (gestionnaire, bénévole, comité, utilisateur) afin que chacun n'accède qu'aux fonctionnalités qui le concernent** |
 
 
-### 4.2 Product Backlog
+### 4.2 Backlog produit
 
 | Backlog | Période du backlog |
 |---|---|

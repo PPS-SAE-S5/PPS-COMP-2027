@@ -73,7 +73,7 @@ Développement d'une application web permettant d'organiser et de suivre des con
 | 14 | Gestion de projet | Réunions d'équipe, points d'avancement, coordination | 18h |
 | | **TOTAL** | | **≈ 330h** |
 
-**Marge de sécurité (imprévus) : ~15% → +50h**
+**Marge de sécurité (imprévus) : ~20% → +50h**
 
 **Total estimé avec marge : ≈ 400h**
 
@@ -81,7 +81,7 @@ Développement d'une application web permettant d'organiser et de suivre des con
 
 ## 5. Analyse par rapport au budget
 
-- Budget nominal : **380h**
+- Budget nominal : **330h**
 - Estimation avec marge : **≈ 400h**
 - Écart : **+20h**, soit environ **5h par développeur** - largement absorbable dans une marge d'heures sup raisonnable, sans remettre en cause le planning.
 
