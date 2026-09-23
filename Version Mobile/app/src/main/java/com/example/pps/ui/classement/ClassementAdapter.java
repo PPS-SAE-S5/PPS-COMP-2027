@@ -15,9 +15,9 @@ import java.util.List;
 
 public class ClassementAdapter extends RecyclerView.Adapter<ClassementAdapter.ViewHolder> {
 
-    private List<String> items = new ArrayList<>();
+    private List<Participant> items = new ArrayList<>();
 
-    public void setItems(List<String> newItems) {
+    public void setItems(List<Participant> newItems) {
         this.items = newItems;
         notifyDataSetChanged();
     }
@@ -32,7 +32,11 @@ public class ClassementAdapter extends RecyclerView.Adapter<ClassementAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(items.get(position));
+        Participant participant = items.get(position);
+        holder.textRang.setText(String.valueOf(participant.getRang()));
+        holder.textNom.setText(participant.getNom());
+        holder.textNumero.setText(String.valueOf(participant.getNumero()));
+        holder.textPoints.setText(String.valueOf(participant.getPoints()));
     }
 
     @Override
@@ -41,11 +45,17 @@ public class ClassementAdapter extends RecyclerView.Adapter<ClassementAdapter.Vi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView textView;
+        final TextView textRang;
+        final TextView textNom;
+        final TextView textNumero;
+        final TextView textPoints;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textClassement);
+            textRang = itemView.findViewById(R.id.textRang);
+            textNom = itemView.findViewById(R.id.textNom);
+            textNumero = itemView.findViewById(R.id.textNumero);
+            textPoints = itemView.findViewById(R.id.textPoints);
         }
     }
 }

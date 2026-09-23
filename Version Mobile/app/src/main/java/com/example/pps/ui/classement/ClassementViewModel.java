@@ -9,17 +9,17 @@ import java.util.List;
 
 public class ClassementViewModel extends ViewModel {
 
-    private final MutableLiveData<List<String>> ciblesClassement = new MutableLiveData<>();
+    private final MutableLiveData<List<Participant>> ciblesClassement = new MutableLiveData<>();
 
-    public LiveData<List<String>> getClassementData() {
+    public LiveData<List<Participant>> getClassementData() {
         return ciblesClassement;
     }
 
     public void chargerClassement() {
-        List<String> simulationDonnees = new ArrayList<>();
-        simulationDonnees.add("1. Alice - 2500 pts");
-        simulationDonnees.add("2. Alain - 1250 pts");
-        simulationDonnees.add("3. Mel - 100 pts");
+        List<Participant> simulationDonnees = new ArrayList<>();
+        simulationDonnees.add(new Participant(1, "Alice",6, 2500));
+        simulationDonnees.add(new Participant(2, "Alain", 7,1250));
+        simulationDonnees.add(new Participant(3, "Mel", 2, 100));
 
         ciblesClassement.setValue(simulationDonnees);
     }
