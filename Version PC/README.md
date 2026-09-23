@@ -1,4 +1,4 @@
-# Championnat de France Pompiers de Parapente — Application de gestion
+# Championnat de France Pompiers de Parapente - Application de gestion
 
 Projet réalisé pour **Parapente Pays de Sault (PPS)**, en vue du Championnat de France
 Pompiers de Parapente (été 2027). Version de **base** (JavaFX, stockage 100% local).
@@ -20,7 +20,7 @@ Corrections apportées suite aux premiers tests, sans modification des fonctionn
    sur l'écran de connexion et en haut du tableau de bord. **Pour mettre le logo du club,
    il suffit de remplacer le fichier `src/main/resources/com/pps/parapente/view/logo.png`
    par votre propre image, en conservant exactement ce nom de fichier** (idéalement une
-   image carrée, fond transparent, en PNG) — aucune modification de code n'est nécessaire.
+   image carrée, fond transparent, en PNG) - aucune modification de code n'est nécessaire.
 
 ## Ce que fait déjà cette version
 
@@ -28,7 +28,7 @@ Corrections apportées suite aux premiers tests, sans modification des fonctionn
   (compte par défaut : `admin` / `admin123`)
 - **Gestion des pilotes** : inscription avec tous les champs demandés (n° licence, nom, prénom,
   caserne, poids, email, année de naissance, catégorie).
-- **Gestion des épreuves — 100% paramétrable** : la liste donnée par le club
+- **Gestion des épreuves - 100% paramétrable** : la liste donnée par le club
   (atterrissage de précision, marche & vol, cross, checkpoint...) n'est qu'un **exemple**.
   Le Responsable de l'épreuve crée ici librement :
   - le nom et la description de l'épreuve,
@@ -106,8 +106,8 @@ parapente-pps/
 
 - Export des classements en PDF / Excel pour affichage papier.
 - Mode "hors-ligne puis synchronisation" si un serveur central est mis en place plus tard
-  (aujourd'hui tout est local ; le passage à un serveur partagé — pour plusieurs postes de
-  saisie en simultané sur le terrain — est la prochaine étape à discuter avec le client).
+  (aujourd'hui tout est local ; le passage à un serveur partagé - pour plusieurs postes de
+  saisie en simultané sur le terrain - est la prochaine étape à discuter avec le client).
 - Historique/audit des modifications de résultats (qui a changé quoi, et quand).
 - Écran dédié "Comité des pilotes" (validation/contestation des résultats).
 - Gestion fine des catégories (classements séparés par catégorie).
