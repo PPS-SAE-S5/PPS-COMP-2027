@@ -57,4 +57,10 @@ public class Pilote {
 
     public LocalDateTime getDateInscription() { return dateInscription; }
     public void setDateInscription(LocalDateTime dateInscription) { this.dateInscription = dateInscription; }
+
+    /** Affichage par défaut dans les listes déroulantes (ComboBox) et autres contrôles JavaFX. */
+    @Override
+    public String toString() {
+        return getNomComplet() + (numeroLicence != null && !numeroLicence.isBlank() ? " (n°" + numeroLicence + ")" : "");
+    }
 }

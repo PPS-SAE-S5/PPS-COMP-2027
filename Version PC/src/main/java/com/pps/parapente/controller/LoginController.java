@@ -1,4 +1,5 @@
 package com.pps.parapente.controller;
+import com.pps.parapente.util.MessageErreurUtil;
 
 import com.pps.parapente.model.Utilisateur;
 import com.pps.parapente.service.AuthService;
@@ -37,7 +38,7 @@ public class LoginController {
                 afficherErreur("Identifiant ou mot de passe incorrect.");
             }
         } catch (SQLException e) {
-            afficherErreur("Erreur d'accès à la base locale : " + e.getMessage());
+            afficherErreur("Erreur d'accès à la base locale : " + MessageErreurUtil.traduire(e));
         }
     }
 

@@ -3,6 +3,25 @@
 Projet réalisé pour **Parapente Pays de Sault (PPS)**, en vue du Championnat de France
 Pompiers de Parapente (été 2027). Version de **base** (JavaFX, stockage 100% local).
 
+## Nouveautés version 0.2
+
+Corrections apportées suite aux premiers tests, sans modification des fonctionnalités déjà validées :
+
+1. **Messages d'erreur en français compréhensible** : plus aucun message technique brut
+   (SQL, exceptions Java) n'est affiché à l'écran. Voir `util/MessageErreurUtil.java`.
+2. **Liste déroulante des pilotes** (écran "Saisie des résultats") : affiche maintenant
+   le nom complet et le numéro de licence du pilote au lieu du nom technique de l'objet Java.
+3. **Création d'épreuve en mode Barème** : le nom d'une variable saisi/modifié dans le
+   tableau des variables apparaît désormais immédiatement dans la liste "Variable de
+   classement", sans avoir besoin d'ajouter une deuxième variable au préalable.
+4. **Taille de la fenêtre stabilisée** : elle ne change plus de taille (ni ne "rétrécit")
+   en changeant d'écran, y compris quand la fenêtre est agrandie/maximisée.
+5. **Emplacement pour le logo du club** : une image "placeholder" (`view/logo.png`) apparaît
+   sur l'écran de connexion et en haut du tableau de bord. **Pour mettre le logo du club,
+   il suffit de remplacer le fichier `src/main/resources/com/pps/parapente/view/logo.png`
+   par votre propre image, en conservant exactement ce nom de fichier** (idéalement une
+   image carrée, fond transparent, en PNG) — aucune modification de code n'est nécessaire.
+
 ## Ce que fait déjà cette version
 
 - **Connexion par rôle** : Administrateur, Responsable de l'épreuve, Bénévole, Pilote, Comité des pilotes.

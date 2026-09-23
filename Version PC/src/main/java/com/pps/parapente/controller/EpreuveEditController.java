@@ -86,7 +86,13 @@ public class EpreuveEditController {
     private void configurerTableParametres() {
         colNomVariable.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNomVariable()));
         colNomVariable.setCellFactory(TextFieldTableCell.forTableColumn());
-        colNomVariable.setOnEditCommit(e -> e.getRowValue().setNomVariable(nettoyerNomVariable(e.getNewValue())));
+        colNomVariable.setOnEditCommit(e -> {
+            e.getRowValue().setNomVariable(nettoyerNomVariable(e.getNewValue()));
+            // Rafraîchit immédiatement la liste déroulante "valeur clé" : modifier le nom
+            // d'une variable existante ne déclenche pas d'événement de liste (ce n'est pas
+            // un ajout/suppression), donc on force le rafraîchissement ici.
+            rafraichirListeVariables();
+        });
 
         colLabel.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getLabel()));
         colLabel.setCellFactory(TextFieldTableCell.forTableColumn());

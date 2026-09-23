@@ -1,4 +1,5 @@
 package com.pps.parapente.controller;
+import com.pps.parapente.util.MessageErreurUtil;
 
 import com.pps.parapente.model.Epreuve;
 import com.pps.parapente.model.ModeCalcul;
@@ -54,7 +55,7 @@ public class GestionEpreuvesController {
         try {
             donnees.setAll(epreuveService.listerToutes());
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Erreur de chargement : " + e.getMessage()).showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Erreur de chargement : " + MessageErreurUtil.traduire(e)).showAndWait();
         }
     }
 
@@ -66,7 +67,7 @@ public class GestionEpreuvesController {
                 epreuveService.creer(controleur.getEpreuve());
                 chargerDonnees();
             } catch (Exception e) {
-                new Alert(Alert.AlertType.ERROR, "Erreur : " + e.getMessage()).showAndWait();
+                new Alert(Alert.AlertType.ERROR, "Erreur : " + MessageErreurUtil.traduire(e)).showAndWait();
             }
         }
     }
@@ -85,7 +86,7 @@ public class GestionEpreuvesController {
                 epreuveService.mettreAJour(controleur.getEpreuve());
                 chargerDonnees();
             } catch (Exception e) {
-                new Alert(Alert.AlertType.ERROR, "Erreur : " + e.getMessage()).showAndWait();
+                new Alert(Alert.AlertType.ERROR, "Erreur : " + MessageErreurUtil.traduire(e)).showAndWait();
             }
         }
     }
@@ -106,7 +107,7 @@ public class GestionEpreuvesController {
                     epreuveService.supprimer(selection.getId());
                     chargerDonnees();
                 } catch (SQLException e) {
-                    new Alert(Alert.AlertType.ERROR, "Erreur de suppression : " + e.getMessage()).showAndWait();
+                    new Alert(Alert.AlertType.ERROR, "Erreur de suppression : " + MessageErreurUtil.traduire(e)).showAndWait();
                 }
             }
         });

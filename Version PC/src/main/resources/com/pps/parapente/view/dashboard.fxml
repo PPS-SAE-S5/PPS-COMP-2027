@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.pps.parapente.controller.DashboardController" prefWidth="900" prefHeight="600">
     <top>
         <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <!-- Même logo que sur l'écran de connexion : remplacez view/logo.png par le logo du club. -->
+            <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                <Image url="@logo.png"/>
+            </ImageView>
             <Label text="Championnat France Pompiers de Parapente" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Label fx:id="labelUtilisateur"/>

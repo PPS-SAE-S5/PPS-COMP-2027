@@ -1,4 +1,5 @@
 package com.pps.parapente.controller;
+import com.pps.parapente.util.MessageErreurUtil;
 
 import com.pps.parapente.dao.InscriptionDAO;
 import com.pps.parapente.model.*;
@@ -90,7 +91,7 @@ public class SaisieResultatsController {
             comboEpreuve.setItems(FXCollections.observableArrayList(actives));
             tousLesPilotes = piloteService.listerTous();
         } catch (SQLException e) {
-            afficherErreur("Erreur de chargement : " + e.getMessage());
+            afficherErreur("Erreur de chargement : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -115,7 +116,7 @@ public class SaisieResultatsController {
             List<Pilote> inscrits = tousLesPilotes.stream().filter(p -> inscritsIds.contains(p.getId())).toList();
             comboPilote.setItems(FXCollections.observableArrayList(inscrits));
         } catch (SQLException e) {
-            afficherErreur("Erreur de chargement des inscrits : " + e.getMessage());
+            afficherErreur("Erreur de chargement des inscrits : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -124,7 +125,7 @@ public class SaisieResultatsController {
             List<Resultat> resultats = new com.pps.parapente.service.ClassementService().calculerClassementEpreuve(epreuve);
             tableResultats.setItems(FXCollections.observableArrayList(resultats));
         } catch (SQLException e) {
-            afficherErreur("Erreur de chargement des résultats : " + e.getMessage());
+            afficherErreur("Erreur de chargement des résultats : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -141,7 +142,7 @@ public class SaisieResultatsController {
                 }
             });
         } catch (SQLException e) {
-            afficherErreur("Erreur : " + e.getMessage());
+            afficherErreur("Erreur : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -180,9 +181,9 @@ public class SaisieResultatsController {
             afficherInfo("Résultat enregistré pour " + pilote.getNomComplet() + ".");
             chargerTableResultats(epreuve);
         } catch (IllegalStateException | IllegalArgumentException e) {
-            afficherErreur("Erreur de calcul : " + e.getMessage());
+            afficherErreur("Erreur de calcul : " + MessageErreurUtil.traduire(e));
         } catch (SQLException e) {
-            afficherErreur("Erreur d'enregistrement : " + e.getMessage());
+            afficherErreur("Erreur d'enregistrement : " + MessageErreurUtil.traduire(e));
         }
     }
 

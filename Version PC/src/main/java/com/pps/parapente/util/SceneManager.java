@@ -18,15 +18,33 @@ public final class SceneManager {
         stagePrincipal = stage;
     }
 
-    /** Change le contenu de la fenêtre principale par la vue FXML donnée. */
+    /** Change le contenu de la fenêtre principale par la vue FXML donnée, en conservant
+     *  la taille et l'état (maximisée ou non) actuels de la fenêtre, pour éviter qu'elle
+     *  ne change de taille à chaque changement d'écran. */
     public static void naviguerVers(String nomFxml, String titre) {
         try {
+            boolean dejaAffichee = stagePrincipal.isShowing();
+            double largeurPrecedente = stagePrincipal.getWidth();
+            double hauteurPrecedente = stagePrincipal.getHeight();
+            boolean etaitMaximisee = stagePrincipal.isMaximized();
+
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/pps/parapente/view/" + nomFxml));
             Parent racine = loader.load();
             Scene scene = new Scene(racine);
             scene.getStylesheets().add(SceneManager.class.getResource("/com/pps/parapente/view/style.css").toExternalForm());
             stagePrincipal.setScene(scene);
             stagePrincipal.setTitle("Championnat France Pompiers Parapente - " + titre);
+
+            if (dejaAffichee) {
+                // On réapplique la taille précédente : sans cela, JavaFX a tendance à
+                // redimensionner la fenêtre selon la taille "préférée" de la nouvelle vue.
+                if (etaitMaximisee) {
+                    stagePrincipal.setMaximized(true);
+                } else {
+                    stagePrincipal.setWidth(largeurPrecedente);
+                    stagePrincipal.setHeight(hauteurPrecedente);
+                }
+            }
             stagePrincipal.show();
         } catch (IOException e) {
             throw new RuntimeException("Impossible de charger la vue : " + nomFxml, e);

@@ -1,4 +1,5 @@
 package com.pps.parapente.controller;
+import com.pps.parapente.util.MessageErreurUtil;
 
 import com.pps.parapente.dao.UtilisateurDAO;
 import com.pps.parapente.model.Role;
@@ -44,7 +45,7 @@ public class GestionUtilisateursController {
         try {
             donnees.setAll(utilisateurDAO.listerTous());
         } catch (SQLException e) {
-            afficherErreur("Erreur de chargement : " + e.getMessage());
+            afficherErreur("Erreur de chargement : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -67,7 +68,7 @@ public class GestionUtilisateursController {
             champRole.setValue(null);
             masquerErreur();
         } catch (SQLException e) {
-            afficherErreur("Erreur (identifiant déjà utilisé ?) : " + e.getMessage());
+            afficherErreur("Erreur (identifiant déjà utilisé ?) : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -86,7 +87,7 @@ public class GestionUtilisateursController {
             utilisateurDAO.supprimer(selection.getId());
             chargerDonnees();
         } catch (SQLException e) {
-            afficherErreur("Erreur de suppression : " + e.getMessage());
+            afficherErreur("Erreur de suppression : " + MessageErreurUtil.traduire(e));
         }
     }
 

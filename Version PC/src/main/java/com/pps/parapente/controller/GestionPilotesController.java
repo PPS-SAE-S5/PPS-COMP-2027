@@ -1,4 +1,5 @@
 package com.pps.parapente.controller;
+import com.pps.parapente.util.MessageErreurUtil;
 
 import com.pps.parapente.model.Pilote;
 import com.pps.parapente.service.PiloteService;
@@ -62,7 +63,7 @@ public class GestionPilotesController {
         try {
             donnees.setAll(piloteService.listerTous());
         } catch (SQLException e) {
-            afficherErreur("Erreur de chargement : " + e.getMessage());
+            afficherErreur("Erreur de chargement : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -125,9 +126,9 @@ public class GestionPilotesController {
             chargerDonnees();
             viderFormulaire();
         } catch (IllegalArgumentException e) {
-            afficherErreur(e.getMessage());
+            afficherErreur(MessageErreurUtil.traduire(e));
         } catch (SQLException e) {
-            afficherErreur("Erreur d'enregistrement (licence en double ?) : " + e.getMessage());
+            afficherErreur("Erreur d'enregistrement (licence en double ?) : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -143,9 +144,9 @@ public class GestionPilotesController {
             chargerDonnees();
             viderFormulaire();
         } catch (IllegalArgumentException e) {
-            afficherErreur(e.getMessage());
+            afficherErreur(MessageErreurUtil.traduire(e));
         } catch (SQLException e) {
-            afficherErreur("Erreur d'enregistrement : " + e.getMessage());
+            afficherErreur("Erreur d'enregistrement : " + MessageErreurUtil.traduire(e));
         }
     }
 
@@ -165,7 +166,7 @@ public class GestionPilotesController {
                     chargerDonnees();
                     viderFormulaire();
                 } catch (SQLException e) {
-                    afficherErreur("Erreur de suppression : " + e.getMessage());
+                    afficherErreur("Erreur de suppression : " + MessageErreurUtil.traduire(e));
                 }
             }
         });
