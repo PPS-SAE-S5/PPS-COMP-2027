@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_saisie"
-        android:name="com.example.pps.ui.saisie.SaisieFragment"
-        android:label="@string/title_saisie"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.example.pps.ui.config.ConfigFragment"
+        android:label="@string/title_config"
+        tools:layout="@layout/fragment_config" />
 
     <fragment
         android:id="@+id/navigation_notifications"

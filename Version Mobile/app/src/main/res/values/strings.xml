@@ -2,6 +2,6 @@
     <string name="app_name">PPS</string>
     <string name="title_home">Direct</string>
     <string name="title_classement">Classement</string>
-    <string name="title_saisie">Saisie</string>
+    <string name="title_config">Config</string>
     <string name="title_infos">Infos</string>
 </resources>

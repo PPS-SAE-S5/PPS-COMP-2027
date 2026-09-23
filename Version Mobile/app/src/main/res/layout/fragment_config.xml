@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Compétition"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerCompetition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type d'épreuve"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerTypeEpreuve"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Numéro de la manche"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editNumero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date (AAAA-MM-JJ)"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="2026-09-23"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance de référence (km)"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnEnregistrer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Créer la manche" />
+
+    </LinearLayout>
+</ScrollView>
