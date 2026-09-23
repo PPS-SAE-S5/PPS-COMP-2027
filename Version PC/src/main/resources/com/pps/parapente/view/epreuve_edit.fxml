@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.EpreuveEditController" prefWidth="640" prefHeight="720">
+    <VBox spacing="14">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+        <Label text="Créer / modifier une épreuve" styleClass="titre"/>
+        <Label text="La liste d'épreuves du club n'est qu'un exemple : créez ici l'épreuve et la règle de calcul de votre choix." wrapText="true" style="-fx-text-fill:#7f8c8d;"/>
+
+        <Label text="Nom de l'épreuve *" styleClass="sous-titre"/>
+        <TextField fx:id="champNom" promptText="ex: Atterrissage de précision"/>
+
+        <Label text="Description"/>
+        <TextArea fx:id="champDescription" prefRowCount="2" wrapText="true"/>
+
+        <Separator/>
+        <Label text="Mode de calcul des points" styleClass="sous-titre"/>
+        <HBox spacing="20">
+            <RadioButton fx:id="radioFormule" text="Formule mathématique">
+                <toggleGroup><ToggleGroup fx:id="groupeMode"/></toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioBareme" text="Barème par classement (rang)" toggleGroup="$groupeMode"/>
+        </HBox>
+
+        <!-- Bloc FORMULE -->
+        <VBox fx:id="blocFormule" spacing="6">
+            <Label text="Formule (utilisez les noms de variables définis ci-dessous, + 'age' et 'poidsPilote' automatiques)"/>
+            <TextField fx:id="champFormule" promptText="ex: 100 - temps*2 + nbrBalises*10 - poidsSac*0.5"/>
+        </VBox>
+
+        <!-- Bloc BAREME -->
+        <VBox fx:id="blocBareme" spacing="6">
+            <Label text="Variable de classement (doit être une des variables définies ci-dessous)"/>
+            <ComboBox fx:id="champValeurCle" editable="true" maxWidth="Infinity"/>
+            <Label text="Sens : la meilleure performance est la valeur..."/>
+            <ComboBox fx:id="champSensClassement" maxWidth="Infinity"/>
+
+            <Label text="Barème de points par rang" styleClass="sous-titre"/>
+            <TableView fx:id="tableBareme" prefHeight="150" editable="true">
+                <columns>
+                    <TableColumn fx:id="colRang" text="Rang" prefWidth="80"/>
+                    <TableColumn fx:id="colPointsBareme" text="Points" prefWidth="120"/>
+                </columns>
+            </TableView>
+            <HBox spacing="8">
+                <Button text="+ Ajouter un rang" styleClass="bouton-secondaire" onAction="#ajouterLigneBareme"/>
+                <Button text="Retirer le rang sélectionné" styleClass="bouton-secondaire" onAction="#retirerLigneBareme"/>
+            </HBox>
+            <Label text="Au-delà du dernier rang défini, les points du dernier palier sont reconduits." style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;" wrapText="true"/>
+        </VBox>
+
+        <Separator/>
+        <Label text="Variables saisissables pour cette épreuve" styleClass="sous-titre"/>
+        <Label text="Ex : temps, nbrBalises, poidsSac, distance... (ce sont ces valeurs que les bénévoles saisiront)" wrapText="true" style="-fx-text-fill:#7f8c8d;"/>
+        <TableView fx:id="tableParametres" prefHeight="160" editable="true">
+            <columns>
+                <TableColumn fx:id="colNomVariable" text="Nom variable (sans espace)" prefWidth="170"/>
+                <TableColumn fx:id="colLabel" text="Libellé affiché" prefWidth="200"/>
+                <TableColumn fx:id="colUnite" text="Unité" prefWidth="80"/>
+            </columns>
+        </TableView>
+        <HBox spacing="8">
+            <Button text="+ Ajouter une variable" styleClass="bouton-secondaire" onAction="#ajouterParametre"/>
+            <Button text="Retirer la variable sélectionnée" styleClass="bouton-secondaire" onAction="#retirerParametre"/>
+        </HBox>
+
+        <Separator/>
+        <CheckBox fx:id="checkAfficherClassement" text="Afficher le classement de cette épreuve"/>
+        <CheckBox fx:id="checkCompteGeneral" text="Cette épreuve compte dans le classement général"/>
+        <CheckBox fx:id="checkActif" text="Épreuve active (proposée à la saisie)"/>
+
+        <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Annuler" styleClass="bouton-secondaire" onAction="#annuler"/>
+            <Button text="Enregistrer l'épreuve" styleClass="bouton-principal" onAction="#enregistrer"/>
+        </HBox>
+    </VBox>
+</ScrollPane>

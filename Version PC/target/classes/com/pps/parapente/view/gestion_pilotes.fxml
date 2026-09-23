@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.GestionPilotesController" prefWidth="1000" prefHeight="650">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <Button text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
+            <Label text="Gestion des pilotes" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="tablePilotes" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="colLicence" text="N° Licence" prefWidth="100"/>
+                <TableColumn fx:id="colNom" text="Nom" prefWidth="110"/>
+                <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="110"/>
+                <TableColumn fx:id="colCaserne" text="Caserne" prefWidth="150"/>
+                <TableColumn fx:id="colPoids" text="Poids (kg)" prefWidth="80"/>
+                <TableColumn fx:id="colEmail" text="Email" prefWidth="170"/>
+                <TableColumn fx:id="colAnnee" text="Année naiss." prefWidth="90"/>
+                <TableColumn fx:id="colCategorie" text="Catégorie" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox spacing="8" prefWidth="290" styleClass="carte-menu">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+            <Label text="Fiche pilote" styleClass="sous-titre"/>
+
+            <Label text="N° de licence *"/>
+            <TextField fx:id="champLicence"/>
+            <Label text="Nom *"/>
+            <TextField fx:id="champNom"/>
+            <Label text="Prénom *"/>
+            <TextField fx:id="champPrenom"/>
+            <Label text="Caserne"/>
+            <TextField fx:id="champCaserne"/>
+            <Label text="Poids (kg)"/>
+            <TextField fx:id="champPoids"/>
+            <Label text="Email"/>
+            <TextField fx:id="champEmail"/>
+            <Label text="Année de naissance"/>
+            <TextField fx:id="champAnnee"/>
+            <Label text="Catégorie"/>
+            <ComboBox fx:id="champCategorie" editable="true" maxWidth="Infinity"/>
+
+            <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
+
+            <HBox spacing="8">
+                <Button text="Ajouter" styleClass="bouton-principal" onAction="#ajouter"/>
+                <Button text="Modifier" styleClass="bouton-secondaire" onAction="#modifier"/>
+            </HBox>
+            <HBox spacing="8">
+                <Button text="Supprimer" styleClass="bouton-danger" onAction="#supprimer"/>
+                <Button text="Nouveau" styleClass="bouton-secondaire" onAction="#viderFormulaire"/>
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>
