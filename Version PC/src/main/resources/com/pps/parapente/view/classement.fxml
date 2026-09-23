@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.ClassementController" prefWidth="1050" prefHeight="680">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <Button text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
+            <Label text="Classement général provisoire" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Actualiser" styleClass="bouton-principal" onAction="#actualiser"/>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="tableClassement" BorderPane.alignment="CENTER"/>
+    </center>
+    <bottom>
+        <Label text="Une case décochée « Afficher le classement » masque le détail d'une épreuve ici mais celle-ci peut toujours compter dans le total."
+               wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;">
+            <padding><Insets top="6" right="16" bottom="10" left="16"/></padding>
+        </Label>
+    </bottom>
+</BorderPane>

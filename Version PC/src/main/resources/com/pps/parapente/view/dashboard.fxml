@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.DashboardController" prefWidth="900" prefHeight="600">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <Label text="Championnat France Pompiers de Parapente" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="labelUtilisateur"/>
+            <Button text="Déconnexion" styleClass="bouton-secondaire" onAction="#seDeconnecter"/>
+        </HBox>
+    </top>
+    <center>
+        <FlowPane fx:id="menuFlow" hgap="20" vgap="20" alignment="TOP_LEFT">
+            <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+
+            <VBox fx:id="carteEpreuves" styleClass="carte-menu" prefWidth="220" prefHeight="140" spacing="8" onMouseClicked="#ouvrirGestionEpreuves">
+                <Label text="Gestion des épreuves" styleClass="sous-titre" wrapText="true"/>
+                <Label text="Créer et paramétrer les épreuves, formules et barèmes" wrapText="true"/>
+            </VBox>
+
+            <VBox fx:id="cartePilotes" styleClass="carte-menu" prefWidth="220" prefHeight="140" spacing="8" onMouseClicked="#ouvrirGestionPilotes">
+                <Label text="Gestion des pilotes" styleClass="sous-titre" wrapText="true"/>
+                <Label text="Inscriptions et informations des pilotes" wrapText="true"/>
+            </VBox>
+
+            <VBox fx:id="carteSaisie" styleClass="carte-menu" prefWidth="220" prefHeight="140" spacing="8" onMouseClicked="#ouvrirSaisieResultats">
+                <Label text="Saisie des résultats" styleClass="sous-titre" wrapText="true"/>
+                <Label text="Saisir les performances par épreuve" wrapText="true"/>
+            </VBox>
+
+            <VBox fx:id="carteClassement" styleClass="carte-menu" prefWidth="220" prefHeight="140" spacing="8" onMouseClicked="#ouvrirClassement">
+                <Label text="Classement général" styleClass="sous-titre" wrapText="true"/>
+                <Label text="Classement provisoire en temps réel" wrapText="true"/>
+            </VBox>
+
+            <VBox fx:id="carteUtilisateurs" styleClass="carte-menu" prefWidth="220" prefHeight="140" spacing="8" onMouseClicked="#ouvrirGestionUtilisateurs">
+                <Label text="Gestion des comptes" styleClass="sous-titre" wrapText="true"/>
+                <Label text="Créer les comptes (admin, responsables, bénévoles...)" wrapText="true"/>
+            </VBox>
+        </FlowPane>
+    </center>
+</BorderPane>

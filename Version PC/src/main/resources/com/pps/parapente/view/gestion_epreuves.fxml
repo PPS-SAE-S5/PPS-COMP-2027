@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.GestionEpreuvesController" prefWidth="1000" prefHeight="650">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <Button text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
+            <Label text="Gestion des épreuves" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="+ Nouvelle épreuve" styleClass="bouton-principal" onAction="#nouvelleEpreuve"/>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="tableEpreuves" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="colOrdre" text="#" prefWidth="40"/>
+                <TableColumn fx:id="colNom" text="Nom de l'épreuve" prefWidth="220"/>
+                <TableColumn fx:id="colMode" text="Mode de calcul" prefWidth="120"/>
+                <TableColumn fx:id="colRegle" text="Règle (formule / clé de classement)" prefWidth="260"/>
+                <TableColumn fx:id="colClassementVisible" text="Classement visible" prefWidth="120"/>
+                <TableColumn fx:id="colCompteGeneral" text="Compte au général" prefWidth="120"/>
+                <TableColumn fx:id="colActif" text="Active" prefWidth="70"/>
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <padding><Insets top="10" right="16" bottom="16" left="16"/></padding>
+            <Button text="Modifier l'épreuve sélectionnée" styleClass="bouton-secondaire" onAction="#modifierEpreuve"/>
+            <Button text="Supprimer" styleClass="bouton-danger" onAction="#supprimerEpreuve"/>
+        </HBox>
+    </bottom>
+</BorderPane>
