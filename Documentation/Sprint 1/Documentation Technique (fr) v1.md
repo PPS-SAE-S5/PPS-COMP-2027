@@ -103,13 +103,16 @@ Autres exigences
 
 ### 3.1 Diagramme de cas d'utilisation
 
-![Use case v1](./Use%20case%20v1.png)
+![Use case v1](./Use%20case%20V1.png)
 
 ### 3.2 Description des cas d'utilisation
 
-- Les participants peuvent créer un compte, puis se connecter et s'inscrire
-- Les administrateurs peuvent se connecter avec leur compte pour préparer, créer et gérer des épreuves
-- Tout le monde peut consulter le classement
+- Administrateur : toutes les droits
+- Bénévoles : ils peuvent se connecter à l’application, gérer les pilotes et saisir les résultats des épreuves.
+- Responsables d’épreuve : ils peuvent se connecter à l’application, gérer les pilotes, saisir les résultats et gérer les épreuves dont ils sont responsables.
+- Pilotes : ils peuvent se connecter à l’application et consulter les classements ainsi que leurs résultats.
+- Comité des pilotes : il peut se connecter à l’application et consulter les classements et les informations relatives aux résultats.
+- Consultation des classements : tous les utilisateurs autorisés peuvent consulter les classements générés automatiquement par l’application.
 
 ---
 
