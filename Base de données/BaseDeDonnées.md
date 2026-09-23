@@ -1,94 +1,158 @@
-# Base de données - PPS-COMP-2027
+## Table `participants`
 
-Structure de la base de données pour la plateforme de gestion de compétitions de parapente.
+### Columns
 
-## Fichiers
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `nom` | `varchar` |  |
+| `prenom` | `varchar` |  |
+| `email` | `varchar` |  Unique |
+| `mot_de_passe` | `varchar` |  |
+| `role` | `varchar` |  |
+| `date_creation` | `timestamp` |  Nullable |
 
-- `schema.sql` : script de création des tables (PostgreSQL)
+## Table `infos_participants`
 
-## Aperçu des tables
+### Columns
 
-| Table | Rôle |
-|---|---|
-| `utilisateurs` | Comptes (pilotes, organisateurs, juges, admin) |
-| `competitions` | Une compétition organisée (dates, lieu, statut) |
-| `competition_organisateurs` | Lien entre une compétition et son équipe d'organisation |
-| `parametres_calcul` | Règles et coefficients de calcul des scores, par compétition |
-| `inscriptions` | Inscription d'un pilote à une compétition (dossard, catégorie, statut) |
-| `manches` | Les épreuves/manches d'une compétition |
-| `resultats` | Résultat d'un pilote sur une manche (distance, vitesse, points) |
-| `classement_general` | Classement cumulé, recalculé après chaque manche validée |
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `utilisateur_id` | `uuid` |  Unique |
+| `numero_licence` | `varchar` |  Unique |
+| `caserne` | `varchar` |  Nullable |
+| `poids_kg` | `numeric` |  |
+| `annee_naissance` | `int4` |  |
+| `categorie` | `varchar` |  Nullable |
+| `date_creation` | `timestamp` |  Nullable |
 
-## Diagramme entité-relation
+## Table `competitions`
 
-```mermaid
-erDiagram
-    UTILISATEURS ||--o{ INSCRIPTIONS : "s'inscrit"
-    UTILISATEURS ||--o{ COMPETITION_ORGANISATEURS : "organise"
-    COMPETITIONS ||--o{ COMPETITION_ORGANISATEURS : "a pour"
-    COMPETITIONS ||--o{ INSCRIPTIONS : "reçoit"
-    COMPETITIONS ||--o{ MANCHES : "contient"
-    COMPETITIONS ||--o| PARAMETRES_CALCUL : "definit"
-    COMPETITIONS ||--o{ CLASSEMENT_GENERAL : "produit"
-    MANCHES ||--o{ RESULTATS : "genere"
-    INSCRIPTIONS ||--o{ RESULTATS : "obtient"
-    INSCRIPTIONS ||--o{ CLASSEMENT_GENERAL : "figure dans"
+### Columns
 
-    UTILISATEURS {
-        uuid id PK
-        string nom
-        string prenom
-        string email
-        string role
-    }
-    COMPETITIONS {
-        uuid id PK
-        string nom
-        date date_debut
-        date date_fin
-        string statut
-    }
-    INSCRIPTIONS {
-        uuid id PK
-        uuid competition_id FK
-        uuid utilisateur_id FK
-        int numero_dossard
-        string statut_inscription
-    }
-    MANCHES {
-        uuid id PK
-        uuid competition_id FK
-        int numero
-        string statut
-    }
-    RESULTATS {
-        uuid id PK
-        uuid manche_id FK
-        uuid inscription_id FK
-        numeric distance_km
-        numeric points
-    }
-    PARAMETRES_CALCUL {
-        uuid id PK
-        uuid competition_id FK
-        string type_formule
-    }
-    CLASSEMENT_GENERAL {
-        uuid id PK
-        uuid competition_id FK
-        uuid inscription_id FK
-        numeric total_points
-        int rang
-    }
-    COMPETITION_ORGANISATEURS {
-        uuid id PK
-        uuid competition_id FK
-        uuid utilisateur_id FK
-        string fonction
-    }
-```
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `nom` | `varchar` |  |
+| `description` | `text` |  Nullable |
+| `lieu` | `varchar` |  Nullable |
+| `date_debut` | `date` |  |
+| `date_fin` | `date` |  |
+| `statut` | `varchar` |  |
+| `createur_id` | `uuid` |  Nullable |
+| `date_creation` | `timestamp` |  Nullable |
 
-## Notes
+## Table `equipe_organisation`
 
-- Le champ `parametres_json` de `parametres_calcul` permet de stocker des réglages spécifiques à une formule de calcul (ex. type GAP de la FAI) sans modifier le schéma.
-- `classement_general` est une table de "cache" : elle est recalculée par le backend après chaque validation de résultats, plutôt que calculée à la volée à chaque requête.
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `competition_id` | `uuid` |  |
+| `utilisateur_id` | `uuid` |  |
+| `fonction` | `varchar` |  |
+| `date_ajout` | `timestamp` |  Nullable |
+
+## Table `types_epreuve`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `code` | `varchar` |  Unique |
+| `nom` | `varchar` |  |
+| `description` | `text` |  Nullable |
+| `mode_calcul` | `varchar` |  |
+
+## Table `parametres_calcul`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `competition_id` | `uuid` |  |
+| `type_epreuve_id` | `uuid` |  |
+| `points_max` | `int4` |  Nullable |
+| `parametres_json` | `jsonb` |  Nullable |
+| `date_modification` | `timestamp` |  Nullable |
+
+## Table `inscriptions`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `competition_id` | `uuid` |  |
+| `utilisateur_id` | `uuid` |  |
+| `numero_dossard` | `int4` |  Nullable |
+| `statut_inscription` | `varchar` |  |
+| `date_inscription` | `timestamp` |  Nullable |
+
+## Table `manches`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `competition_id` | `uuid` |  |
+| `type_epreuve_id` | `uuid` |  |
+| `responsable_id` | `uuid` |  Nullable |
+| `numero` | `int4` |  |
+| `date_manche` | `date` |  Nullable |
+| `statut` | `varchar` |  |
+| `distance_ref_km` | `numeric` |  Nullable |
+| `date_creation` | `timestamp` |  Nullable |
+
+## Table `resultats`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `manche_id` | `uuid` |  |
+| `inscription_id` | `uuid` |  |
+| `distance_km` | `numeric` |  Nullable |
+| `temps_vol` | `interval` |  Nullable |
+| `vitesse_kmh` | `numeric` |  Nullable |
+| `ecart_cible_m` | `numeric` |  Nullable |
+| `checkpoints_valides` | `int4` |  Nullable |
+| `mesures_json` | `jsonb` |  Nullable |
+| `points` | `numeric` |  Nullable |
+| `statut_validation` | `varchar` |  |
+| `commentaire_juge` | `text` |  Nullable |
+| `date_saisie` | `timestamp` |  Nullable |
+
+## Table `classement`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `competition_id` | `uuid` |  |
+| `inscription_id` | `uuid` |  |
+| `total_points` | `numeric` |  Nullable |
+| `rang` | `int4` |  Nullable |
+| `date_calcul` | `timestamp` |  Nullable |
+
+## RLS Policies
+
+### `participants`
+
+| Policy | Command | Roles | Action | USING | WITH CHECK |
+|--------|---------|-------|--------|-------|------------|
+| `Enable read access for all users` | SELECT | public | PERMISSIVE | `true` | — |
+
+### `classement`
+
+| Policy | Command | Roles | Action | USING | WITH CHECK |
+|--------|---------|-------|--------|-------|------------|
+| `Enable read access for all users` | SELECT | public | PERMISSIVE | `true` | — |
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Test Supabase - Participants & Classement</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 16px; }
+  h1 { font-size: 1.4rem; margin-top: 48px; }
+  h1:first-of-type { margin-top: 0; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #ddd; }
+  th { background: #f4f4f4; }
+  .status { color: #666; font-size: 0.9rem; }
+  .error { color: #b00020; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+
+<!-- Table avec les participants -->
+<h1>Participants</h1>
+<p id="status-participants" class="status">Chargement...</p>
+<pre id="error-participants" class="error"></pre>
+<table id="table-participants" hidden>
+  <thead>
+    <tr id="header-row-participants"></tr>
+  </thead>
+  <tbody id="body-rows-participants"></tbody>
+</table>
+
+<!-- Table avec le classement général -->
+<h1>Classement</h1>
+<p id="status-classement" class="status">Chargement...</p>
+<pre id="error-classement" class="error"></pre>
+<table id="table-classement" hidden>
+  <thead>
+    <tr id="header-row-classement"></tr>
+  </thead>
+  <tbody id="body-rows-classement"></tbody>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+  // URL du projet dans "Project Overview" puis "Copy" puis "Project URL"
+  // Clé API dans "Project settings" puis "API Keys" puis "Publishable key"
+  const SUPABASE_URL = "https://gpgxhmuotatvlbvitiro.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_OrRRAe_P7F8ROOjyB8MTRA_1KUPSzkj";
+
+  // Noms exacts des objets Supabase à afficher
+  const TABLE_PARTICIPANTS = "participants";
+  const TABLE_CLASSEMENT = "classement";
+
+  const client = SUPABASE_URL && SUPABASE_ANON_KEY
+    ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+  // Fonction réutilisable hehehe
+  async function chargerSection({ nomTable, colonneTri, idPrefix }) {
+    const statusEl = document.getElementById(`status-${idPrefix}`);
+    const errorEl = document.getElementById(`error-${idPrefix}`);
+    const tableEl = document.getElementById(`table-${idPrefix}`);
+    const headerRow = document.getElementById(`header-row-${idPrefix}`);
+    const bodyRows = document.getElementById(`body-rows-${idPrefix}`);
+
+    if (!client) {
+      statusEl.textContent = "";
+      errorEl.textContent =
+        "Renseignez SUPABASE_URL et SUPABASE_ANON_KEY en haut du script avant de recharger la page.";
+      return;
+    }
+
+    const { data, error } = await client
+      .from(nomTable)
+      .select("*")
+      .order(colonneTri, { ascending: true });
+
+    if (error) {
+      statusEl.textContent = "";
+      errorEl.textContent =
+        "Erreur Supabase : " + error.message +
+        "\n\nCauses fréquentes :\n" +
+        "- la RLS bloque la lecture (ajoutez une policy SELECT)\n" +
+        "- le nom '" + nomTable + "' n'existe pas ou plus (vérifiez dans Table Editor)\n" +
+        "- l'URL ou la clé anon sont incorrectes";
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      statusEl.textContent = "Aucune ligne trouvée dans '" + nomTable + "'.";
+      return;
+    }
+
+    const colonnes = Object.keys(data[0]);
+    headerRow.innerHTML = colonnes.map(c => `<th>${c}</th>`).join("");
+    bodyRows.innerHTML = data
+      .map(row => "<tr>" + colonnes.map(c => `<td>${row[c] ?? ""}</td>`).join("") + "</tr>")
+      .join("");
+
+    statusEl.textContent = data.length + " ligne(s) chargée(s).";
+    tableEl.hidden = false;
+  }
+
+  chargerSection({ nomTable: TABLE_PARTICIPANTS, colonneTri: "nom", idPrefix: "participants" });
+  chargerSection({ nomTable: TABLE_CLASSEMENT, colonneTri: "rang", idPrefix: "classement" });
+
+</script>
+
+</body>
+</html>
