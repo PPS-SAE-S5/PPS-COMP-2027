@@ -42,9 +42,23 @@ Afin de moderniser et de simplifier ce processus, le club souhaite mettre en pla
 
 ### 1.2 Objectifs
 
-L'objectif du projet est de concevoir et de développer une application web dédiée à la gestion d'une compétition de parapente
-Cette application devra être accessible depuis différents types d'appareils, notamment les ordinateurs et les smartphones, afin de faciliter son utilisation par les organisateurs et les différents utilisateurs de la plateforme
-Les principales fonctionnalités envisagées concernent notamment la gestion des inscriptions, des participants, des différentes épreuves, des résultats et des classements L'application devra également permettre de faciliter l'accès aux informations et, selon les besoins du client, de proposer une mise à jour des données en quasi temps réel
+L'objectif du projet est de concevoir et de développer une application mobile et une application pc et une page web dédiée à la gestion d'une compétition de parapente .
+
+les clients vont pouvoir utiliser l'application molli ou PC selon leur besoin , Les applications marchent avec un serveur et une base de  données en ligne, mais aussi sans internet en utilisant une base de données locale, et les données vont être transmises sur internet lorsque la connexion est établie.
+
+Il y a aussi des rôles différents qui ont des droits différents.
+
+Selon les exigences du client, l’application doit être conçue de manière durable et évolutive afin de pouvoir s’adapter aux besoins futurs. De nouvelles épreuves ou de nouvelles règles pourront être introduites à l’avenir. L’application ne doit donc pas être limitée à un ensemble prédéfini de types d’épreuves.
+
+Le client souhaite que les épreuves soient entièrement paramétrables, afin de pouvoir créer et configurer de nouveaux types d’épreuves en fonction de ses besoins, sans nécessiter de modifications importantes du système.
+
+Par ailleurs, l’application doit être accessible et facile à utiliser par tous les types d’utilisateurs. L’interface doit être claire, lisible et intuitive, et les fonctionnalités doivent être simples à comprendre et à utiliser, même pour des utilisateurs peu familiers avec les outils numériques.
+
+Les principales fonctionnalités de l’application seront les suivantes :
+
+
+
+
 
 ---
 
@@ -53,18 +67,18 @@ Les principales fonctionnalités envisagées concernent notamment la gestion des
 ### 2.1 Exigences fonctionnelles
 
 Les exigences fonctionnelles seront précisées et validées progressivement avec le client
-À ce stade, les principales fonctionnalités envisagées sont les suivantes :
- - Gestion des inscriptions des participants
- - Gestion des participants
- - Gestion de différentes épreuves
- - Gestion et saisie des résultats
- - Calcul et affichage des classements
- - Mise à jour des informations et des classements en quasi temps réel
+À ce stade (V1) , les principales fonctionnalités envisagées sont les suivantes :
+* **Gestion des épreuves** : création, modification, configuration et gestion des différentes épreuves.
+* **Gestion des pilotes** : création et gestion des profils des pilotes participant aux épreuves.
+* **Saisie des résultats** : enregistrement et gestion des résultats obtenus par les pilotes lors des différentes épreuves.
+* **Génération automatique des classements et des notes** : calcul automatique des résultats, des notes et des classements selon les règles définies pour chaque épreuve , Mise à jour des informations et des classements en     quasi temps réel
+* **Gestion des comptes utilisateurs** : création, modification et gestion des comptes ainsi que des droits d’accès des différents utilisateurs.
+
 
 
 ### 2.2 Exigences non fonctionnelles
 
-- **Multiplateforme** : l'application doit être disponible et pleinement fonctionnelle à la fois sur PC (web/desktop) et sur mobile (responsive ou application mobile dédiée)
+- **Multiplateforme** : l'application doit être disponible et pleinement fonctionnelle à la fois sur PC  et sur mobile .
 
 Multiplateforme
 - L'application doit être accessible et pleinement fonctionnelle depuis un ordinateur et un smartphone
@@ -77,16 +91,19 @@ Autres exigences
 
 ### 2.3 Utilisateurs et rôles
 
-- Administrateur qui gère les épreuves et participe
-- Bénévoles qui saisissent les scores
-- Participants/Utilisateurs qui s'inscrivent pour participer aux l'épreuves et qui peuvent consulter leur classement
+- Administrateur : toutes les droits
+- Bénévoles : ils peuvent se connecter à l’application, gérer les pilotes et saisir les résultats des épreuves.
+- Responsables d’épreuve : ils peuvent se connecter à l’application, gérer les pilotes, saisir les résultats et gérer les épreuves dont ils sont responsables.
+- Pilotes : ils peuvent se connecter à l’application et consulter les classements ainsi que leurs résultats.
+- Comité des pilotes : il peut se connecter à l’application et consulter les classements et les informations relatives aux résultats.
+- Consultation des classements : tous les utilisateurs autorisés peuvent consulter les classements générés automatiquement par l’application.
 ---
 
 ## 3. Cas d'utilisation
 
 ### 3.1 Diagramme de cas d'utilisation
 
-![Use case v0](./Use%20case%20v0.png)
+![Use case v1](./Use%20case%20v1.png)
 
 ### 3.2 Description des cas d'utilisation
 
