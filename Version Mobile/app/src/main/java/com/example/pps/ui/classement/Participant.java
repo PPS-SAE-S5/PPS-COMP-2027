@@ -1,31 +1,29 @@
 package com.example.pps.ui.classement;
 
-public class Participant {
-    private int rang;
-    private String nom;
-    private int numero;
-    private int points;
+import com.google.gson.annotations.SerializedName;
 
-    public Participant(int rang, String nom, int numero, int points) {
-        this.rang = rang;
-        this.nom = nom;
-        this.numero = numero;
-        this.points = points;
-    }
+public class Participant {
+    @SerializedName("rang")
+    private Integer rang;
+
+    @SerializedName("total_points")
+    private Double totalPoints;
+
+    @SerializedName("nom")
+    private String nom;
+
+    @SerializedName("prenom")
+    private String prenom;
 
     public int getRang() {
-        return rang;
+        return rang != null ? rang : 0;
     }
 
-    public String getNom() {
-        return nom;
+    public String getNomComplet() {
+        return (prenom != null ? prenom : "") + " " + (nom != null ? nom : "");
     }
 
-    public int getNumero() {
-        return numero;
-    }
-
-    public int getPoints() {
-        return points;
+    public double getTotalPoints() {
+        return totalPoints != null ? totalPoints : 0;
     }
 }

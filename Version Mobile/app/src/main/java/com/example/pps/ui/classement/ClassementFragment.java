@@ -39,7 +39,6 @@ public class ClassementFragment extends Fragment {
         binding.recyclerViewClassement.setAdapter(adapter);
 
         viewModel.getClassementData().observe(getViewLifecycleOwner(), adapter::setItems);
-
         viewModel.chargerClassement();
     }
 

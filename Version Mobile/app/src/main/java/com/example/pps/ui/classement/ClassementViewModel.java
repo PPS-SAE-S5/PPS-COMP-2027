@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ClassementViewModel extends ViewModel {
 
@@ -16,11 +19,22 @@ public class ClassementViewModel extends ViewModel {
     }
 
     public void chargerClassement() {
-        List<Participant> simulationDonnees = new ArrayList<>();
-        simulationDonnees.add(new Participant(1, "Alice",6, 2500));
-        simulationDonnees.add(new Participant(2, "Alain", 7,1250));
-        simulationDonnees.add(new Participant(3, "Mel", 2, 100));
+        String bearerToken = "Bearer " + SupabaseClient.API_KEY;
 
-        ciblesClassement.setValue(simulationDonnees);
+        SupabaseClient.getApi()
+                .getClassement(SupabaseClient.API_KEY, bearerToken, "rang.asc")
+                .enqueue(new Callback<List<Participant>>() {
+                    @Override
+                    public void onResponse(Call<List<Participant>> call, Response<List<Participant>> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            ciblesClassement.setValue(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Participant>> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
     }
 }

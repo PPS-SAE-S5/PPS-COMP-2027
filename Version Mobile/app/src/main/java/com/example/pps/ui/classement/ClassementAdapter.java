@@ -34,9 +34,8 @@ public class ClassementAdapter extends RecyclerView.Adapter<ClassementAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Participant participant = items.get(position);
         holder.textRang.setText(String.valueOf(participant.getRang()));
-        holder.textNom.setText(participant.getNom());
-        holder.textNumero.setText(String.valueOf(participant.getNumero()));
-        holder.textPoints.setText(String.valueOf(participant.getPoints()));
+        holder.textNom.setText(participant.getNomComplet());
+        holder.textPoints.setText(String.valueOf(participant.getTotalPoints()));
     }
 
     @Override
@@ -47,14 +46,12 @@ public class ClassementAdapter extends RecyclerView.Adapter<ClassementAdapter.Vi
     static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView textRang;
         final TextView textNom;
-        final TextView textNumero;
         final TextView textPoints;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             textRang = itemView.findViewById(R.id.textRang);
             textNom = itemView.findViewById(R.id.textNom);
-            textNumero = itemView.findViewById(R.id.textNumero);
             textPoints = itemView.findViewById(R.id.textPoints);
         }
     }
