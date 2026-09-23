@@ -1,9 +1,5 @@
 # DOCUMENTATION UTILISATEUR
 
-> **/!\ Cette documentation est une ébauche réalisée dans le cadre du Sprint 0 du projet. Il s'agit donc d'une v0.**
->
-> À ce stade, l'application est encore en phase de conception et de développement. La documentation utilisateur complète, incluant les procédures détaillées, les captures d'écran et les guides d'utilisation, sera disponible à partir du Sprint 2.
-
 ---
 
 # Table des matières
