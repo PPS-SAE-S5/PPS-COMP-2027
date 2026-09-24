@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_classement" />
 
     <fragment
-        android:id="@+id/navigation_saisie"
+        android:id="@+id/navigation_config"
         android:name="com.example.pps.ui.config.ConfigFragment"
         android:label="@string/title_config"
         tools:layout="@layout/fragment_config" />
