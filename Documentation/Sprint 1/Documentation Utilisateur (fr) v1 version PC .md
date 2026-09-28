@@ -122,7 +122,7 @@ Deux modes possibles, au choix :
 **a) Formule mathématique**
 
 
-![Création d'une épreuve](images/epreuve_creer_form.png)
+![Création d'une épreuve](./Captures/epreuve_creer_form.png)
 
 Vous écrivez directement une formule utilisant les variables définies ci-dessus, par exemple :
 
@@ -135,7 +135,7 @@ saisir : `age` et `poidsPilote` (venant de la fiche du pilote).
 
 **b) Barème par classement**
 
-![Création d'une épreuve](images/epreuve_creer.png)
+![Création d'une épreuve](./Captures/epreuve_creer.png)
 
 Les pilotes sont classés selon une variable clé de votre choix (ex: `temps` ou
 `distance`), dans le sens que vous précisez (la plus petite valeur gagne, ou la plus
