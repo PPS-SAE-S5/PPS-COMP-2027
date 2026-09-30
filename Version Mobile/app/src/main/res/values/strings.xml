@@ -1,7 +1,3 @@
 <resources>
-    <string name="app_name">PPS</string>
-    <string name="title_home">Direct</string>
-    <string name="title_classement">Classement</string>
-    <string name="title_config">Config</string>
-    <string name="title_infos">Infos</string>
+    <string name="app_name">PPS Championnat</string>
 </resources>
