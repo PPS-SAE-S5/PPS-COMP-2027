@@ -2,41 +2,29 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<title>Test Supabase - Participants & Classement</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Test Supabase - Toutes les tables</title>
 <style>
-  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 16px; }
-  h1 { font-size: 1.4rem; margin-top: 48px; }
-  h1:first-of-type { margin-top: 0; }
-  table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #ddd; }
-  th { background: #f4f4f4; }
+  body { font-family: system-ui, sans-serif; max-width: 1200px; margin: 40px auto; padding: 0 16px; }
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.2rem; margin-top: 40px; }
+  h2 small { font-weight: normal; color: #666; font-size: 0.85rem; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  nav a { padding: 4px 10px; background: #f4f4f4; border-radius: 12px; text-decoration: none; color: #333; font-size: 0.85rem; }
+  nav a:hover { background: #e2e2e2; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.85rem; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #ddd; white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
+  th { background: #f4f4f4; position: sticky; top: 0; }
   .status { color: #666; font-size: 0.9rem; }
   .error { color: #b00020; white-space: pre-wrap; }
 </style>
 </head>
 <body>
 
-<!-- Table avec les participants -->
-<h1>Participants</h1>
-<p id="status-participants" class="status">Chargement...</p>
-<pre id="error-participants" class="error"></pre>
-<table id="table-participants" hidden>
-  <thead>
-    <tr id="header-row-participants"></tr>
-  </thead>
-  <tbody id="body-rows-participants"></tbody>
-</table>
-
-<!-- Table avec le classement général -->
-<h1>Classement</h1>
-<p id="status-classement" class="status">Chargement...</p>
-<pre id="error-classement" class="error"></pre>
-<table id="table-classement" hidden>
-  <thead>
-    <tr id="header-row-classement"></tr>
-  </thead>
-  <tbody id="body-rows-classement"></tbody>
-</table>
+<h1>Base de données Supabase</h1>
+<nav id="sommaire"></nav>
+<div id="sections"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -46,62 +34,101 @@
   const SUPABASE_URL = "https://gpgxhmuotatvlbvitiro.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_OrRRAe_P7F8ROOjyB8MTRA_1KUPSzkj";
 
-  // Noms exacts des objets Supabase à afficher
-  const TABLE_PARTICIPANTS = "participants";
-  const TABLE_CLASSEMENT = "classement";
+  // Liste des tables à afficher + colonne utilisée pour le tri
+  const TABLES = [
+    { nom: "participants",         tri: "nom" },
+    { nom: "infos_participants",   tri: "numero_licence" },
+    { nom: "competitions",         tri: "date_debut" },
+    { nom: "equipe_organisation",  tri: "date_ajout" },
+    { nom: "types_epreuve",        tri: "code" },
+    { nom: "parametres_calcul",    tri: "date_modification" },
+    { nom: "inscriptions",         tri: "date_inscription" },
+    { nom: "manches",              tri: "numero" },
+    { nom: "resultats",            tri: "date_saisie" },
+    { nom: "classement",           tri: "rang" },
+  ];
+
+  // Colonnes sensibles jamais affichées (par sécurité)
+  const COLONNES_MASQUEES = ["mot_de_passe"];
 
   const client = SUPABASE_URL && SUPABASE_ANON_KEY
     ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
     : null;
 
-  // Fonction réutilisable hehehe
-  async function chargerSection({ nomTable, colonneTri, idPrefix }) {
-    const statusEl = document.getElementById(`status-${idPrefix}`);
-    const errorEl = document.getElementById(`error-${idPrefix}`);
-    const tableEl = document.getElementById(`table-${idPrefix}`);
-    const headerRow = document.getElementById(`header-row-${idPrefix}`);
-    const bodyRows = document.getElementById(`body-rows-${idPrefix}`);
+  function echapper(valeur) {
+    if (valeur === null || valeur === undefined) return "";
+    const texte = typeof valeur === "object" ? JSON.stringify(valeur) : String(valeur);
+    return texte.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  // Crée le bloc HTML d'une table et retourne ses éléments
+  function creerSection({ nom }) {
+    const section = document.createElement("section");
+    section.id = "section-" + nom;
+    section.innerHTML = `
+      <h2>${nom} <small></small></h2>
+      <p class="status">Chargement...</p>
+      <pre class="error"></pre>
+      <div class="scroll"><table hidden><thead><tr></tr></thead><tbody></tbody></table></div>`;
+    document.getElementById("sections").appendChild(section);
+
+    const lien = document.createElement("a");
+    lien.href = "#section-" + nom;
+    lien.textContent = nom;
+    document.getElementById("sommaire").appendChild(lien);
+
+    return {
+      compteur: section.querySelector("small"),
+      statusEl: section.querySelector(".status"),
+      errorEl: section.querySelector(".error"),
+      tableEl: section.querySelector("table"),
+      headerRow: section.querySelector("thead tr"),
+      bodyRows: section.querySelector("tbody"),
+    };
+  }
+
+  async function chargerSection(table) {
+    const { compteur, statusEl, errorEl, tableEl, headerRow, bodyRows } = creerSection(table);
 
     if (!client) {
       statusEl.textContent = "";
-      errorEl.textContent =
-        "Renseignez SUPABASE_URL et SUPABASE_ANON_KEY en haut du script avant de recharger la page.";
+      errorEl.textContent = "Renseignez SUPABASE_URL et SUPABASE_ANON_KEY en haut du script avant de recharger la page.";
       return;
     }
 
     const { data, error } = await client
-      .from(nomTable)
+      .from(table.nom)
       .select("*")
-      .order(colonneTri, { ascending: true });
+      .order(table.tri, { ascending: true });
 
     if (error) {
       statusEl.textContent = "";
       errorEl.textContent =
         "Erreur Supabase : " + error.message +
         "\n\nCauses fréquentes :\n" +
-        "- la RLS bloque la lecture (ajoutez une policy SELECT)\n" +
-        "- le nom '" + nomTable + "' n'existe pas ou plus (vérifiez dans Table Editor)\n" +
-        "- l'URL ou la clé anon sont incorrectes";
+        "- la RLS bloque la lecture (ajoutez une policy SELECT sur '" + table.nom + "')\n" +
+        "- la colonne de tri '" + table.tri + "' n'existe pas\n" +
+        "- l'URL ou la clé sont incorrectes";
       return;
     }
 
     if (!data || data.length === 0) {
-      statusEl.textContent = "Aucune ligne trouvée dans '" + nomTable + "'.";
+      statusEl.textContent = "Aucune ligne trouvée (ou RLS active sans policy SELECT).";
       return;
     }
 
-    const colonnes = Object.keys(data[0]);
-    headerRow.innerHTML = colonnes.map(c => `<th>${c}</th>`).join("");
+    const colonnes = Object.keys(data[0]).filter(c => !COLONNES_MASQUEES.includes(c));
+    headerRow.innerHTML = colonnes.map(c => `<th>${echapper(c)}</th>`).join("");
     bodyRows.innerHTML = data
-      .map(row => "<tr>" + colonnes.map(c => `<td>${row[c] ?? ""}</td>`).join("") + "</tr>")
+      .map(row => "<tr>" + colonnes.map(c => `<td title="${echapper(row[c])}">${echapper(row[c])}</td>`).join("") + "</tr>")
       .join("");
 
-    statusEl.textContent = data.length + " ligne(s) chargée(s).";
+    statusEl.textContent = "";
+    compteur.textContent = "(" + data.length + " ligne(s))";
     tableEl.hidden = false;
   }
 
-  chargerSection({ nomTable: TABLE_PARTICIPANTS, colonneTri: "nom", idPrefix: "participants" });
-  chargerSection({ nomTable: TABLE_CLASSEMENT, colonneTri: "rang", idPrefix: "classement" });
+  TABLES.forEach(chargerSection);
 
 </script>
 
