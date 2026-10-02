@@ -36,16 +36,13 @@
 
   // Liste des tables à afficher + colonne utilisée pour le tri
   const TABLES = [
-    { nom: "participants",         tri: "nom" },
-    { nom: "infos_participants",   tri: "numero_licence" },
-    { nom: "competitions",         tri: "date_debut" },
+    { nom: "pilotes",         tri: "nom" },
+    { nom: "epreuves",   tri: "numero_licence" },
     { nom: "equipe_organisation",  tri: "date_ajout" },
-    { nom: "types_epreuve",        tri: "code" },
-    { nom: "parametres_calcul",    tri: "date_modification" },
-    { nom: "inscriptions",         tri: "date_inscription" },
-    { nom: "manches",              tri: "numero" },
+    { nom: "epreuve_parametres",        tri: "code" },
+    { nom: "bareme_points",    tri: "date_modification" },
+    { nom: "inscriptions_epreuve",         tri: "date_inscription" },
     { nom: "resultats",            tri: "date_saisie" },
-    { nom: "classement",           tri: "rang" },
   ];
 
   // Colonnes sensibles jamais affichées (par sécurité)
