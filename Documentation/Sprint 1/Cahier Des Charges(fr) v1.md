@@ -1,4 +1,4 @@
-# Cahier des charges fonctionnel
+# Cahier Des Charges Fonctionnel
 
 > Ce document décrit **ce que l'application doit faire** et **pourquoi**. Les choix techniques (architecture, technologies, base de données, tests, déploiement) sont détaillés dans le [Document technique](./Document_technique.md).
 
