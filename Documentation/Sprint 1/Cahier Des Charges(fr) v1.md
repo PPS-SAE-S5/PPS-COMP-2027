@@ -1,4 +1,4 @@
-# Cahier Des Charges Fonctionnel
+# Cahier des charges fonctionnel
 
 > Ce document décrit **ce que l'application doit faire** et **pourquoi**. Les choix techniques (architecture, technologies, base de données, tests, déploiement) sont détaillés dans le [Document technique](./Document_technique.md).
 
@@ -14,11 +14,20 @@
 3. [Cas d'utilisation](#3-cas-dutilisation)
    - 3.1 [Diagramme de cas d'utilisation](#31-diagramme-de-cas-dutilisation)
    - 3.2 [Description des cas d'utilisation](#32-description-des-cas-dutilisation)
-4. [User Stories et Backlog](#4-user-stories-et-backlog)
-   - 4.1 [User Stories](#41-user-stories)
-   - 4.2 [Backlog produit](#42-backlog-produit)
-   - 4.3 [Planification des sprints](#43-planification-des-sprints)
-5. [Améliorations futures](#5-améliorations-futures)
+4. [Périmètre et contraintes](#4-périmètre-et-contraintes)
+   - 4.1 [Périmètre de la V1](#41-périmètre-de-la-v1)
+   - 4.2 [Contraintes](#42-contraintes)
+5. [Livrables](#5-livrables)
+6. [User Stories et Backlog](#6-user-stories-et-backlog)
+   - 6.1 [User Stories](#61-user-stories)
+   - 6.2 [Backlog produit](#62-backlog-produit)
+   - 6.3 [Planification des sprints](#63-planification-des-sprints)
+7. [Organisation du projet](#7-organisation-du-projet)
+   - 7.1 [Parties prenantes](#71-parties-prenantes)
+   - 7.2 [Fonctionnement et communication](#72-fonctionnement-et-communication)
+   - 7.3 [Budget](#73-budget)
+8. [Recette et validation](#8-recette-et-validation)
+9. [Améliorations futures](#9-améliorations-futures)
 
 ---
 
@@ -95,18 +104,74 @@ Les exigences fonctionnelles seront précisées et validées progressivement ave
 
 ### 3.2 Description des cas d'utilisation
 
-- **Administrateur** : tous les droits.
-- **Bénévoles** : ils peuvent se connecter à l'application, gérer les pilotes et saisir les résultats des épreuves.
-- **Responsables d'épreuve** : ils peuvent se connecter à l'application, gérer les pilotes, saisir les résultats et gérer les épreuves dont ils sont responsables.
-- **Pilotes** : ils peuvent se connecter à l'application et consulter les classements ainsi que leurs résultats.
-- **Comité des pilotes** : il peut se connecter à l'application et consulter les classements et les informations relatives aux résultats.
-- **Consultation des classements** : tous les utilisateurs autorisés peuvent consulter les classements générés automatiquement par l'application.
+Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-rôles). Cette section décrit ce que chaque acteur fait concrètement dans l'application.
+
+| N° | Cas d'utilisation | Acteur | Préconditions | Scénario principal | Résultat | US |
+|---|---|---|---|---|---|---|
+| CU 01 | Se connecter | Utilisateur avec compte | Le compte existe | L'utilisateur saisit ses identifiants | Il accède aux fonctionnalités de son rôle | US 14 |
+| CU 02 | Consulter les classements | Tout utilisateur, y compris sans compte | Aucune | L'utilisateur ouvre l'application ou la page web, puis choisit le classement du jour ou le classement final | Le classement s'affiche en lecture seule et se rafraîchit automatiquement | US 05, 06, 07, 08 |
+| CU 03 | Consulter le score d'un participant | Utilisateur | Le participant a au moins un résultat | L'utilisateur sélectionne un participant | Le score total du participant s'affiche | US 04 |
+| CU 04 | Inscrire un participant | Gestionnaire | Connecté | Le gestionnaire saisit le nom et le prénom du participant | Le participant est créé | US 01 |
+| CU 05 | Créer une épreuve | Gestionnaire | Connecté | Le gestionnaire crée l'épreuve, choisit son mode de notation (points de temps, nombre de sauts, etc.) et règle l'affichage ou non des points dans le classement | L'épreuve est disponible pour la saisie des résultats | US 09, 10 |
+| CU 06 | Organiser la compétition | Gestionnaire | Des épreuves existent | Le gestionnaire regroupe des épreuves en ateliers, puis répartit les ateliers dans des journées (matin, après-midi, 2e journée) | La structure de la compétition est définie | US 02, 03 |
+| CU 07 | Saisir les points d'un participant | Bénévole | Connecté, le participant et l'épreuve existent | Le bénévole sélectionne l'épreuve et le participant, puis saisit les points | Le résultat est enregistré (y compris hors-ligne, synchronisé ensuite) et les classements sont mis à jour | US 11 |
+| CU 08 | Modifier les points d'un participant | Membre du comité | Connecté, un résultat existe | Le membre du comité modifie les points en cas de litige, de pénalité ou de retrait | Les points sont modifiés et les classements recalculés | US 12 |
+| CU 09 | Consulter l'historique des modifications | Membre du comité | Connecté | Le membre du comité ouvre l'historique des modifications de points | La liste des modifications s'affiche, ce qui garantit la traçabilité des litiges | US 13 |
+| CU 10 | Gérer les rôles | Administrateur | Connecté | L'administrateur attribue ou modifie le rôle d'un utilisateur | L'utilisateur n'accède qu'aux fonctionnalités de son rôle | US 14 |
+
+> **À valider** : les user stories parlent de « gestionnaire » et de « membre du comité », alors que la section 2.3 parle de « Responsable d'épreuve » et de « Comité des pilotes ». Il faudra harmoniser les noms des rôles.
 
 ---
 
-## 4. User Stories et Backlog
+## 4. Périmètre et contraintes
 
-### 4.1 User Stories
+### 4.1 Périmètre de la V1
+
+**Inclus dans la V1**
+- Gestion des épreuves (paramétrables), des ateliers et des journées de compétition.
+- Gestion des pilotes et saisie des résultats.
+- Calcul automatique des notes et des classements (du jour et final), mis à jour en quasi temps réel.
+- Gestion des comptes et des rôles.
+- Consultation des classements en lecture seule, sans compte.
+- Fonctionnement hors-ligne avec synchronisation au retour de la connexion.
+- Application mobile, application PC et page web.
+
+**Hors périmètre de la V1** *(à valider avec le client)*
+- À compléter (ex. : paiement des inscriptions, gestion de l'hébergement ou de la logistique, etc.).
+
+### 4.2 Contraintes
+
+- **Délai** : l'application doit être opérationnelle pour le Championnat de France des Pompiers de Parapente, à l'été 2027.
+- **Conditions d'utilisation** : usage sur le terrain, avec un réseau potentiellement faible ou absent (d'où le mode hors-ligne).
+- **Public** : utilisateurs peu familiers avec les outils numériques.
+- **Évolutivité** : de nouvelles épreuves et de nouvelles règles pourront être ajoutées sans modification importante du système.
+- **Budget et hébergement** : solution privilégiant des services gratuits ou peu coûteux *(à confirmer, voir 7.3)*.
+- **Sécurité et données personnelles** : les données des pilotes doivent être protégées *(exigences à préciser avec le client, voir 2.2)*.
+
+---
+
+## 5. Livrables
+
+| Livrable | Description | Statut |
+|---|---|---|
+| Application mobile | Application utilisable sur smartphone, avec mode hors-ligne | À livrer |
+| Application PC | Application utilisable sur ordinateur, avec mode hors-ligne | À livrer |
+| Page web | Consultation des classements en lecture seule, sans compte | À livrer |
+| Base de données | Base en ligne et base locale, avec schéma documenté | À livrer |
+| Code source | Dépôt GitHub (PPS-SAE-S5/PPS-COMP-2027) | À livrer |
+| Cahier des charges | Le présent document | En cours |
+| Document technique | Architecture, base de données, API, tests, déploiement | En cours |
+| Backlog produit et user stories | Suivi des besoins et des sprints | En cours |
+| Plan de tests et rapport de recette | Cas de test et résultats de validation | À livrer |
+| Manuel utilisateur | Guide simple pour les bénévoles, responsables d'épreuve et pilotes | À livrer *(à confirmer)* |
+
+**Conditions de livraison** *(à valider avec le client)* : format, lieu de dépôt, qui héberge l'application après la livraison, qui assure la maintenance, licence du code et propriété des données.
+
+---
+
+## 6. User Stories et Backlog
+
+### 6.1 User Stories
 
 | US | Titre de l'US |
 |---|---|
@@ -125,13 +190,13 @@ Les exigences fonctionnelles seront précisées et validées progressivement ave
 | [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) | **En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges** |
 | [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) | **En tant qu'administrateur, je veux gérer les rôles (gestionnaire, bénévole, comité, utilisateur) afin que chacun n'accède qu'aux fonctionnalités qui le concernent** |
 
-### 4.2 Backlog produit
+### 6.2 Backlog produit
 
 | Backlog | Période du backlog |
 |---|---|
 | [Backlog Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md) | **01/09/2026 - 20/09/2026** |
 
-### 4.3 Planification des sprints
+### 6.3 Planification des sprints
 
 | Sprint | Période du sprint |
 |---|---|
@@ -145,6 +210,40 @@ Les exigences fonctionnelles seront précisées et validées progressivement ave
 
 ---
 
-## 5. Améliorations futures
+## 7. Organisation du projet
+
+### 7.1 Parties prenantes
+
+| Rôle | Description |
+|---|---|
+| Client | Club Parapente Pays de Sault (PPS) — *référent à préciser* |
+| Équipe projet | À compléter (noms et rôles) |
+| Validation | À préciser (qui valide les besoins et les livrables côté client) |
+
+### 7.2 Fonctionnement et communication
+
+- Méthode de travail : **agile**, par sprints (voir 6.3).
+- Suivi : issues et milestones GitHub.
+- Revue de sprint avec le client : *fréquence à définir*.
+- Les exigences sont précisées et validées progressivement avec le client.
+
+### 7.3 Budget
+
+- Outils et hébergement : services gratuits pour l'usage prévu (Supabase, et Vercel *à confirmer*).
+- Budget global : *à préciser avec le client*.
+
+---
+
+## 8. Recette et validation
+
+- La recette est réalisée avec le client à la fin des sprints concernés, puis avant la compétition.
+- Chaque livrable est validé au regard des exigences (section 2) et des user stories (section 6) : une user story est validée lorsque son comportement a été vérifié par le client.
+- Des tests sont réalisés sur les différents cas d'utilisation, sur toutes les plateformes, y compris en mode hors-ligne puis resynchronisé (stratégie détaillée dans le [Document technique](./Document_technique.md)).
+- Une répétition en conditions réelles avant la compétition est recommandée *(à valider avec le client)*.
+- Critères d'acceptation globaux : *à définir avec le client*.
+
+---
+
+## 9. Améliorations futures
 
 *To be continued*
