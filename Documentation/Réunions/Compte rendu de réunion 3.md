@@ -56,6 +56,8 @@
 
 </br>
 
+*PS : L'application mobile et ordinateur ont les mêmes fonctionnalités, ainsi une image par fonctionnalité partagée entre les deux versions (c'est donc normal pour les lignes sans images)*
+
 ---
 
 </br>
