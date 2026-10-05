@@ -50,7 +50,7 @@ public class GestionPilotesController {
         colCategorie.setCellValueFactory(new PropertyValueFactory<>("categorie"));
         tablePilotes.setItems(donnees);
 
-        champCategorie.setItems(FXCollections.observableArrayList("Espoir", "Senior", "Vétéran", "Féminine"));
+        champCategorie.setItems(FXCollections.observableArrayList("Pompier/Pompière","Invité"));
 
         tablePilotes.getSelectionModel().selectedItemProperty().addListener((obs, ancien, nouveau) -> {
             if (nouveau != null) remplirFormulaire(nouveau);
