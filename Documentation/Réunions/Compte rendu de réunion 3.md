@@ -6,6 +6,7 @@
 
 - **Contexte**
 	- 3ème réunion pour faire une démonstration de l’existant et obtenir un premier retour
+	- Lien vers l'ordre du jour : [ODJ 3 du 05/10/2026](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/d20515767637a119d451327fc6dc52c5917c75e3/Documentation/R%C3%A9unions/ODJ%203%20-%20PPS.pdf)
 
 
 - **Objectif de la réunion**
