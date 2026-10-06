@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.SyncController" prefWidth="900" prefHeight="650">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <Button text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
+            <Label text="Synchronisation en ligne (Supabase)" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox spacing="12" maxWidth="620">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+                <Label text="L'application fonctionne entièrement en local, même sans connexion internet. Quand un appareil retrouve internet, utilisez cet écran pour recevoir ou envoyer les données avec la base en ligne (Supabase), partagée entre tous les ordinateurs du championnat."
+                       wrapText="true" style="-fx-text-fill:#7f8c8d;"/>
+
+                <Label text="Project URL (Project Overview → Copy → Project URL)" styleClass="sous-titre"/>
+                <TextField fx:id="champUrl" promptText="https://xxxxxxxx.supabase.co"/>
+
+                <Label text="Clé API publique (Project Settings → API Keys → Publishable key)" styleClass="sous-titre"/>
+                <TextField fx:id="champCle" promptText="sb_publishable_..."/>
+
+                <CheckBox fx:id="checkAuto" text="Essayer de synchroniser automatiquement (en arrière-plan) à chaque démarrage de l'application"/>
+
+                <Label fx:id="labelDerniereSync" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
+
+                <HBox spacing="10">
+                    <Button text="Enregistrer la configuration" styleClass="bouton-secondaire" onAction="#enregistrerConfig"/>
+                    <Button text="Tester la connexion" styleClass="bouton-secondaire" onAction="#tester"/>
+                </HBox>
+
+                <Separator/>
+
+                <Label text="Choisissez le sens de la synchronisation (comme git pull / git push) :" styleClass="sous-titre"/>
+                <Button text="&#8595;  Synchroniser : base en ligne &#8594; application" styleClass="bouton-principal" maxWidth="Infinity" onAction="#synchroniserVersAppli"/>
+                <Label text="Récupère les données en ligne. L'application devient identique à la base en ligne (ce qui a été supprimé en ligne est supprimé ici)."
+                       wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
+                <Button text="&#8593;  Synchroniser : application &#8594; base en ligne" styleClass="bouton-principal" maxWidth="Infinity" onAction="#synchroniserVersBase"/>
+                <Label text="Envoie vos données vers la base en ligne. La base en ligne devient identique à l'application (ce que vous avez supprimé ici est supprimé en ligne)."
+                       wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
+                <Button text="Fusionner les deux bases (sans aucune suppression)" styleClass="bouton-secondaire" maxWidth="Infinity" onAction="#synchroniser"/>
+                <ProgressIndicator fx:id="indicateur" visible="false" managed="false" maxWidth="28" maxHeight="28"/>
+
+                <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
+                <TextArea fx:id="zoneResultat" wrapText="true" editable="false" prefRowCount="10" managed="false" visible="false"/>
+
+                <Label text="Remarque : les comptes de connexion sont seulement fusionnés dans les deux sens, jamais supprimés par les deux boutons de synchronisation ci-dessus."
+                       wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
