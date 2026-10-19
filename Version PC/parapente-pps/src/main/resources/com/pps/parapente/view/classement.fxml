@@ -21,7 +21,7 @@
                         <TableView fx:id="tableClassement" BorderPane.alignment="CENTER"/>
                     </center>
                     <bottom>
-                        <Label text="Une case décochée « Afficher le classement » masque le détail d'une épreuve ici (la colonne disparaît) mais celle-ci peut toujours compter dans le total si « compte dans le général » est coché."
+                        <Label text="Si la case « Afficher le classement » est décochée, alors cela masque le détail d'une épreuve. Cependant cela compte toujours dans le total si « compte dans le général » est coché."
                                wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;">
                             <padding><Insets top="6" right="16" bottom="10" left="16"/></padding>
                         </Label>
