@@ -38,7 +38,7 @@ public final class SceneManager {
             } else {
                 scene.setRoot(racine);
             }
-            stagePrincipal.setTitle("Championnat France Pompiers Parapente - " + titre);
+            stagePrincipal.setTitle("Championnat de France de Parapente sapeur-pompiers - " + titre);
 
             if (!stagePrincipal.isShowing()) {
                 stagePrincipal.show();
