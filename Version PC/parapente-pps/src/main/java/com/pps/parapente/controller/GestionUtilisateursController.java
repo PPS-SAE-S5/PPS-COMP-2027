@@ -98,7 +98,7 @@ public class GestionUtilisateursController {
         }
     }
 
-    /** Active ou désactive le compte sélectionné (un compte désactivé ne peut plus se connecter). */
+    /** Active ou désactive le compte sélectionné (un compte désactivé ne peut plus se connecter, question de logique finalement... */
     @FXML
     private void basculerActif() {
         Utilisateur selection = tableUtilisateurs.getSelectionModel().getSelectedItem();
@@ -121,7 +121,7 @@ public class GestionUtilisateursController {
         }
     }
 
-    /** Change le mot de passe du compte sélectionné (l'identifiant et le rôle ne changent pas). */
+    /** Change le mot de passe du compte sélectionné */
     @FXML
     private void changerMotDePasse() {
         Utilisateur selection = tableUtilisateurs.getSelectionModel().getSelectedItem();

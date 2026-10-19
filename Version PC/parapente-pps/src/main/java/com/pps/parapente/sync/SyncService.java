@@ -77,8 +77,6 @@ public class SyncService {
         return rapport;
     }
 
-    // ============================================================ RECEVOIR / ENVOYER (mode "miroir")
-
     /**
      * Base en ligne -> application (équivalent d'un "git pull").
      * Après l'opération, pilotes, épreuves, inscriptions et résultats de l'application sont
@@ -88,7 +86,7 @@ public class SyncService {
      */
     public RapportSync recevoirDepuisSupabase() throws Exception {
         RapportSync rapport = new RapportSync();
-        // Lecture préalable : sert aussi de garde-fou (voir plus bas) et aux suppressions.
+        // Lecture préalable
         JSONArray distPilotes = client.recuperer("pilotes", "numero_licence");
         JSONArray distEpreuves = client.recuperer("epreuves", "uuid");
 
@@ -96,8 +94,6 @@ public class SyncService {
         boolean autoCommitInitial = conn.getAutoCommit();
         conn.setAutoCommit(false);
         try {
-            // Garde-fou : base en ligne vide + base locale remplie = probablement une erreur
-            // (mauvaise URL, tables vidées...). On refuse plutôt que d'effacer tout l'appareil.
             if (distPilotes.isEmpty() && distEpreuves.isEmpty()
                     && (compter(conn, "pilotes") > 0 || compter(conn, "epreuves") > 0)) {
                 throw new IllegalStateException(
@@ -127,9 +123,8 @@ public class SyncService {
     }
 
     /**
-     * Application -> base en ligne (équivalent d'un "git push").
-     * Après l'opération, la base en ligne est IDENTIQUE à l'application : ce qui n'existe pas
-     * en local est supprimé en ligne (donc pour tous les ordinateurs).
+     * Application -> base en ligne 
+     * Donc en gros, un appel à la base de données qui écrase les données locales
      */
     public RapportSync envoyerVersSupabase() throws Exception {
         RapportSync rapport = new RapportSync();
@@ -137,7 +132,6 @@ public class SyncService {
         boolean autoCommitInitial = conn.getAutoCommit();
         conn.setAutoCommit(false);
         try {
-            // Garde-fou : base locale vide + base en ligne remplie = on refuse de tout effacer en ligne.
             if (compter(conn, "pilotes") == 0 && compter(conn, "epreuves") == 0
                     && (!client.recuperer("pilotes", "id").isEmpty() || !client.recuperer("epreuves", "id").isEmpty())) {
                 throw new IllegalStateException(

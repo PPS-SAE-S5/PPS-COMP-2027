@@ -9,7 +9,7 @@
             fx:controller="com.pps.parapente.controller.DashboardController" prefWidth="900" prefHeight="600">
     <top>
         <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
-            <!-- Même logo que sur l'écran de connexion : remplacez view/logo.png par le logo du club. -->
+            <!-- Remplacer le logo quand on aura le vrai logo (viiite) -->
             <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
                 <Image url="@logo.png"/>
             </ImageView>
@@ -50,7 +50,7 @@
 
             <VBox fx:id="carteSync" styleClass="carte-menu" prefWidth="220" prefHeight="140" spacing="8" onMouseClicked="#ouvrirSync">
                 <Label text="Synchronisation en ligne" styleClass="sous-titre" wrapText="true"/>
-                <Label text="Envoyer/recevoir les données avec Supabase quand internet est disponible" wrapText="true"/>
+                <Label text="(TEMP) Envoyer/recevoir les infos dans la base de données quand internet est disponible" wrapText="true"/>
             </VBox>
         </FlowPane>
     </center>

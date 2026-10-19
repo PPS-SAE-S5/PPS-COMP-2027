@@ -62,7 +62,7 @@ public class ClassementController {
         }
     }
 
-    // -------------------- Onglet "Classement général" --------------------
+    // Classement général
 
     private void construireColonnesClassementGeneral() throws SQLException {
         tableClassement.getColumns().clear();
@@ -86,7 +86,7 @@ public class ClassementController {
         List<Epreuve> epreuvesComptees = epreuveService.listerToutes().stream()
                 .filter(Epreuve::isActif)
                 .filter(Epreuve::isCompteDansGeneral)
-                .filter(Epreuve::isAfficherClassement) // respecte la case "afficher le classement ou non"
+                .filter(Epreuve::isAfficherClassement) // check si respecte la case "afficher le classement ou non"
                 .toList();
 
         for (Epreuve epreuve : epreuvesComptees) {
@@ -104,7 +104,7 @@ public class ClassementController {
         tableClassement.getColumns().add(colTotal);
     }
 
-    // -------------------- Onglet "Détail par épreuve" --------------------
+    // Détail par épreuve
 
     private void configurerColonnesDetail() {
         colDetailRang.setCellValueFactory(c -> new javafx.beans.property.SimpleIntegerProperty(

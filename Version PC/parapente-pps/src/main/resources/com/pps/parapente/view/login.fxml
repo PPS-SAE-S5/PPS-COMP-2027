@@ -8,19 +8,19 @@
 <StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.pps.parapente.controller.LoginController" prefWidth="900" prefHeight="600">
     <VBox alignment="CENTER" spacing="18" maxWidth="380">
-        <!-- Emplacement du logo du club : remplacez le fichier
-             src/main/resources/com/pps/parapente/view/logo.png par votre logo (même nom de fichier,
-             idéalement carré, fond transparent) pour qu'il apparaisse automatiquement ici. -->
+        <!-- Faut remplacer l'image logo.png par le vrai logo quand on l'aura -->
+        <!-- Et éventuellement ajouter les sponsors -->
         <ImageView fitWidth="90" fitHeight="90" preserveRatio="true">
             <Image url="@logo.png"/>
         </ImageView>
-        <Label text="Championnat de France Pompiers de Parapente" wrapText="true" alignment="CENTER"
+        <Label text="Championnat de France de Parapente sapeur-pompiers" wrapText="true" alignment="CENTER"
                textAlignment="CENTER" styleClass="titre"/>
-        <Label text="Parapente Pays de Sault - Été 2027" style="-fx-text-fill: #7f8c8d;"/>
+        <!-- Faire en sorte que l'admin puisse remplacer le texte ci-dessous et du coup peut-être mettre un @edition via un autre fichier -->
+        <Label text="PPS - édition Été 2027" style="-fx-text-fill: #7f8c8d;"/>
 
         <VBox spacing="10" styleClass="carte-menu" maxWidth="340">
             <Label text="Identifiant" styleClass="champ-formulaire"/>
-            <TextField fx:id="champIdentifiant" promptText="ex: admin"/>
+            <TextField fx:id="champIdentifiant" promptText="ex: Benevole01Adam"/>
 
             <Label text="Mot de passe" styleClass="champ-formulaire"/>
             <PasswordField fx:id="champMotDePasse" promptText="********" onAction="#seConnecter"/>
@@ -28,7 +28,7 @@
             <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
 
             <Button text="Se connecter" styleClass="bouton-principal" maxWidth="Infinity" onAction="#seConnecter"/>
-            <Label text="Compte par défaut : admin / admin123" style="-fx-text-fill:#95a5a6; -fx-font-size:11px;"/>
+            <Label text="Compte par défaut pour l'instant : admin / admin123" style="-fx-text-fill:#95a5a6; -fx-font-size:11px;"/>
         </VBox>
     </VBox>
 </StackPane>
