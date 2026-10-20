@@ -6,6 +6,7 @@ import com.pps.parapente.model.Utilisateur;
 import com.pps.parapente.util.MessageErreurUtil;
 import com.pps.parapente.util.SceneManager;
 import com.pps.parapente.util.SecuriteUtil;
+import com.pps.parapente.util.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -86,6 +87,13 @@ public class GestionUtilisateursController {
             return;
         }
         try {
+            // "Jean" et "jean" seraient deux comptes distincts en base mais confondus par la synchronisation : on refuse.
+            for (Utilisateur existant : utilisateurDAO.listerTous()) {
+                if (existant.getIdentifiant().equalsIgnoreCase(identifiant)) {
+                    afficherErreur("Un compte avec cet identifiant existe déjà (les majuscules/minuscules ne comptent pas).");
+                    return;
+                }
+            }
             Utilisateur u = new Utilisateur(identifiant, SecuriteUtil.hacher(motDePasse), role);
             utilisateurDAO.creer(u);
             chargerDonnees();
@@ -108,6 +116,10 @@ public class GestionUtilisateursController {
         }
         if ("admin".equals(selection.getIdentifiant())) {
             afficherErreur("Le compte administrateur par défaut ne peut pas être désactivé.");
+            return;
+        }
+        if (estCompteConnecte(selection)) {
+            afficherErreur("Vous ne pouvez pas désactiver le compte avec lequel vous êtes connecté.");
             return;
         }
         try {
@@ -155,13 +167,31 @@ public class GestionUtilisateursController {
             afficherErreur("Le compte administrateur par défaut ne peut pas être supprimé.");
             return;
         }
+        if (estCompteConnecte(selection)) {
+            afficherErreur("Vous ne pouvez pas supprimer le compte avec lequel vous êtes connecté.");
+            return;
+        }
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,
+                "Supprimer définitivement le compte « " + selection.getIdentifiant() + " » ?",
+                ButtonType.OK, ButtonType.CANCEL);
+        confirmation.setTitle("Confirmation");
+        confirmation.setHeaderText("Suppression d'un compte");
+        confirmation.initOwner(SceneManager.getStagePrincipal());
+        if (confirmation.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK) return;
         try {
             utilisateurDAO.supprimer(selection.getId());
             masquerMessages();
+            afficherInfo("Compte « " + selection.getIdentifiant() + " » supprimé. Pour le supprimer aussi en ligne : "
+                    + "Synchronisation en ligne → « application → base en ligne ».");
             chargerDonnees();
         } catch (SQLException e) {
             afficherErreur("Erreur de suppression : " + MessageErreurUtil.traduire(e));
         }
+    }
+
+    private boolean estCompteConnecte(Utilisateur u) {
+        Utilisateur connecte = SessionManager.getUtilisateurConnecte();
+        return connecte != null && connecte.getId() == u.getId();
     }
 
     @FXML

@@ -1,6 +1,8 @@
 package com.pps.parapente.sync;
 
 import com.pps.parapente.dao.DatabaseManager;
+import com.pps.parapente.model.Utilisateur;
+import com.pps.parapente.util.SessionManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -78,17 +80,46 @@ public class SyncService {
     }
 
     /**
+     * Réception "douce" : récupère les nouveautés de la base en ligne (fusion par date de modification)
+     * SANS rien envoyer et SANS rien supprimer. C'est ce qu'utilise la synchronisation automatique au
+     * démarrage : un appareil resté en retard ne peut ainsi jamais RENVOYER en ligne des données que
+     * quelqu'un d'autre a supprimées entre-temps (ce qui les ferait réapparaître partout).
+     */
+    public RapportSync recevoirNouveautes() throws Exception {
+        RapportSync rapport = new RapportSync();
+        Connection conn = DatabaseManager.getConnection();
+        boolean autoCommitInitial = conn.getAutoCommit();
+        conn.setAutoCommit(false);
+        try {
+            ecraser = false;
+            tirerUtilisateurs(conn, rapport);
+            tirerPilotes(conn, rapport);
+            tirerEpreuves(conn, rapport);
+            tirerInscriptions(conn, rapport);
+            tirerResultats(conn, rapport);
+            conn.commit();
+        } catch (Exception e) {
+            conn.rollback();
+            throw e;
+        } finally {
+            conn.setAutoCommit(autoCommitInitial);
+        }
+        return rapport;
+    }
+
+    /**
      * Base en ligne -> application (équivalent d'un "git pull").
      * Après l'opération, pilotes, épreuves, inscriptions et résultats de l'application sont
      * IDENTIQUES à ceux de la base en ligne : ce qui n'existe pas en ligne est supprimé en local.
-     * Les comptes utilisateurs sont seulement fusionnés (jamais supprimés), pour ne pas risquer
-     * de se retrouver sans compte administrateur.
+     * Les comptes utilisateurs sont alignés eux aussi (un compte supprimé en ligne est supprimé ici),
+     * sauf « admin » et le compte actuellement connecté, qui ne sont jamais supprimés.
      */
     public RapportSync recevoirDepuisSupabase() throws Exception {
         RapportSync rapport = new RapportSync();
         // Lecture préalable
         JSONArray distPilotes = client.recuperer("pilotes", "numero_licence");
         JSONArray distEpreuves = client.recuperer("epreuves", "uuid");
+        JSONArray distUtilisateurs = client.recuperer("utilisateurs", "identifiant");
 
         Connection conn = DatabaseManager.getConnection();
         boolean autoCommitInitial = conn.getAutoCommit();
@@ -110,6 +141,7 @@ public class SyncService {
             tirerResultats(conn, rapport);
 
             supprimerLocalAbsentsDuDistant(conn, rapport, distPilotes, distEpreuves);
+            supprimerComptesLocauxAbsents(conn, rapport, distUtilisateurs);
 
             conn.commit();
         } catch (Exception e) {
@@ -123,8 +155,10 @@ public class SyncService {
     }
 
     /**
-     * Application -> base en ligne 
-     * Donc en gros, un appel à la base de données qui écrase les données locales
+     * Application -> base en ligne ("git push").
+     * Après l'opération, la base en ligne est IDENTIQUE à l'application : ce qui n'existe pas en local
+     * (pilotes, épreuves, inscriptions, résultats, comptes) est supprimé en ligne, donc pour tous les
+     * appareils. Le compte « admin » n'est jamais supprimé.
      */
     public RapportSync envoyerVersSupabase() throws Exception {
         RapportSync rapport = new RapportSync();
@@ -258,6 +292,8 @@ public class SyncService {
             rapport.pilotesSupprimes++;
         }
 
+        supprimerComptesDistantsAbsents(conn, rapport);
+
         rapport.inscriptionsSupprimees += supprimerDistantLiaisonsAbsentes("inscriptions_epreuve", inscriptionsLocales);
         rapport.resultatsSupprimes += supprimerDistantLiaisonsAbsentes("resultats", resultatsLocaux);
     }
@@ -276,6 +312,69 @@ public class SyncService {
             n++;
         }
         return n;
+    }
+
+    /**
+     * Réception miroir : supprime en local les comptes qui n'existent plus en ligne.
+     * Jamais « admin », ni le compte actuellement connecté (il sera supprimé à la prochaine réception
+     * une fois déconnecté). Si la liste distante est vide on ne touche à rien (base en ligne probablement vidée par erreur).
+     */
+    private void supprimerComptesLocauxAbsents(Connection conn, RapportSync rapport, JSONArray distUtilisateurs) throws SQLException {
+        if (distUtilisateurs.isEmpty()) return;
+        Set<String> distants = new HashSet<>();
+        for (int i = 0; i < distUtilisateurs.length(); i++) {
+            distants.add(cle(distUtilisateurs.getJSONObject(i).optString("identifiant", null)));
+        }
+        Utilisateur connecte = SessionManager.getUtilisateurConnecte();
+        String identifiantConnecte = connecte != null ? cle(connecte.getIdentifiant()) : null;
+
+        List<Integer> aSupprimer = new ArrayList<>();
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery("SELECT id, identifiant FROM utilisateurs")) {
+            while (rs.next()) {
+                String identifiant = rs.getString(2);
+                if ("admin".equals(identifiant) || cle(identifiant).equals(identifiantConnecte)) continue;
+                if (!distants.contains(cle(identifiant))) aSupprimer.add(rs.getInt(1));
+            }
+        }
+        try (PreparedStatement del = conn.prepareStatement("DELETE FROM utilisateurs WHERE id = ?")) {
+            for (int id : aSupprimer) {
+                del.setInt(1, id);
+                rapport.utilisateursSupprimes += del.executeUpdate();
+            }
+        }
+    }
+
+    /**
+     * Envoi miroir : supprime en ligne les comptes absents de cet appareil (jamais « admin »).
+     * Supabase peut ignorer silencieusement une suppression si sa politique de sécurité (RLS) ne l'autorise pas :
+     * on relit donc la liste après coup et on ALERTE si un compte est toujours là.
+     */
+    private void supprimerComptesDistantsAbsents(Connection conn, RapportSync rapport) throws Exception {
+        Set<String> locaux = lireClesLocales(conn, "SELECT identifiant FROM utilisateurs");
+        JSONArray comptes = client.recuperer("utilisateurs", "identifiant");
+
+        List<String> demandes = new ArrayList<>();
+        for (int i = 0; i < comptes.length(); i++) {
+            String identifiant = comptes.getJSONObject(i).optString("identifiant", "");
+            if (identifiant.isEmpty() || "admin".equals(identifiant) || locaux.contains(cle(identifiant))) continue;
+            String valeur = java.net.URLEncoder.encode(identifiant, java.nio.charset.StandardCharsets.UTF_8).replace("+", "%20");
+            client.supprimerOu("utilisateurs", "identifiant=eq." + valeur);
+            demandes.add(cle(identifiant));
+        }
+        if (demandes.isEmpty()) return;
+
+        JSONArray apres = client.recuperer("utilisateurs", "identifiant");
+        Set<String> restants = new HashSet<>();
+        for (int i = 0; i < apres.length(); i++) restants.add(cle(apres.getJSONObject(i).optString("identifiant", null)));
+
+        int reellementSupprimes = 0;
+        for (String d : demandes) if (!restants.contains(d)) reellementSupprimes++;
+        rapport.utilisateursSupprimes += reellementSupprimes;
+        if (reellementSupprimes < demandes.size()) {
+            rapport.avertissement = "Supabase a refusé de supprimer certains comptes (ils sont toujours en ligne). " +
+                    "Exécutez une fois le script supabase_migration_v4_suppression_comptes.sql dans l'éditeur SQL de Supabase, puis recommencez.";
+        }
     }
 
     private Set<String> lireClesLocales(Connection conn, String sql) throws SQLException {

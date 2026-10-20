@@ -7,15 +7,23 @@ public class RapportSync {
     public int epreuvesRecues, epreuvesEnvoyees;
     public int inscriptionsRecues, inscriptionsEnvoyees;
     public int resultatsRecus, resultatsEnvoyes;
-    public int pilotesSupprimes, epreuvesSupprimees, inscriptionsSupprimees, resultatsSupprimes;
+    public int pilotesSupprimes, epreuvesSupprimees, inscriptionsSupprimees, resultatsSupprimes, utilisateursSupprimes;
+
+    /** Message d'alerte non bloquant (ex: Supabase a refusé une suppression). Null si tout s'est bien passé. */
+    public String avertissement;
 
     public String resume() {
-        String base = resumeBase();
-        int total = pilotesSupprimes + epreuvesSupprimees + inscriptionsSupprimees + resultatsSupprimes;
-        if (total == 0) return base;
-        return base + String.format("%n%nSuppressions (pour rendre les deux bases identiques) :%n" +
-                        "Pilotes : %d, Épreuves : %d, Inscriptions : %d, Résultats : %d",
-                pilotesSupprimes, epreuvesSupprimees, inscriptionsSupprimees, resultatsSupprimes);
+        StringBuilder sb = new StringBuilder(resumeBase());
+        int total = pilotesSupprimes + epreuvesSupprimees + inscriptionsSupprimees + resultatsSupprimes + utilisateursSupprimes;
+        if (total > 0) {
+            sb.append(String.format("%n%nSuppressions (pour rendre les deux bases identiques) :%n" +
+                            "Pilotes : %d, Épreuves : %d, Inscriptions : %d, Résultats : %d, Comptes : %d",
+                    pilotesSupprimes, epreuvesSupprimees, inscriptionsSupprimees, resultatsSupprimes, utilisateursSupprimes));
+        }
+        if (avertissement != null && !avertissement.isBlank()) {
+            sb.append(String.format("%n%n⚠ %s", avertissement));
+        }
+        return sb.toString();
     }
 
     private String resumeBase() {

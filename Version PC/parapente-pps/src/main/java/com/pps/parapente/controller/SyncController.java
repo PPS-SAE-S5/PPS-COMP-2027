@@ -88,8 +88,8 @@ public class SyncController {
     private void synchroniserVersAppli() {
         if (!confirmer("Synchroniser : base en ligne → application",
                 "Votre application va devenir IDENTIQUE à la base en ligne.\n\n" +
-                "Les pilotes, épreuves, inscriptions et résultats qui n'existent pas en ligne " +
-                "seront SUPPRIMÉS de cet ordinateur.\n\nContinuer ?")) return;
+                "Les pilotes, épreuves, inscriptions, résultats et comptes utilisateurs (sauf « admin ») " +
+                "qui n'existent pas en ligne seront SUPPRIMÉS de cet ordinateur.\n\nContinuer ?")) return;
         lancer("sync-base-vers-appli", "Réception terminée : l'application est maintenant identique à la base en ligne.",
                 () -> new SyncService(config).recevoirDepuisSupabase());
     }
@@ -99,8 +99,9 @@ public class SyncController {
     private void synchroniserVersBase() {
         if (!confirmer("Synchroniser : application → base en ligne",
                 "La base en ligne va devenir IDENTIQUE à votre application.\n\n" +
-                "Les pilotes, épreuves, inscriptions et résultats qui n'existent pas dans cette application " +
-                "seront SUPPRIMÉS de la base en ligne, donc pour tous les ordinateurs.\n\nContinuer ?")) return;
+                "Les pilotes, épreuves, inscriptions, résultats et comptes utilisateurs (sauf « admin ») " +
+                "qui n'existent pas dans cette application seront SUPPRIMÉS de la base en ligne, " +
+                "donc pour tous les appareils.\n\nContinuer ?")) return;
         lancer("sync-appli-vers-base", "Envoi terminé : la base en ligne est maintenant identique à l'application.",
                 () -> new SyncService(config).envoyerVersSupabase());
     }

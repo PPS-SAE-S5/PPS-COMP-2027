@@ -50,7 +50,7 @@
 
             <VBox fx:id="carteSync" styleClass="carte-menu" prefWidth="240" prefHeight="140" spacing="8" onMouseClicked="#ouvrirSync">
                 <Label text="Synchronisation en ligne" styleClass="sous-titre" wrapText="true"/>
-                <Label text="(TEMPORAIRE) Envoyer/recevoir les infos dans la base de données quand internet est disponible" wrapText="true"/>
+                <Label text="Envoyer/recevoir les infos dans la base de données quand internet est disponible" wrapText="true"/>
             </VBox>
         </FlowPane>
     </center>

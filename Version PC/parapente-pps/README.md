@@ -3,6 +3,34 @@
 Projet réalisé pour **Parapente Pays de Sault (PPS)**, en vue du Championnat de France
 Pompiers de Parapente (été 2027). Version de **base** (JavaFX, stockage 100% local).
 
+## Nouveautés version 0.6
+
+1. **Classements Mixte / Hommes / Femmes** (écran « Classements ») : une liste déroulante
+   « Classement » permet d'afficher le classement mixte (hommes + femmes, comme avant), seulement
+   les hommes ou seulement les femmes. Le choix s'applique au classement général ET au détail par
+   épreuve ; les rangs sont recalculés parmi les pilotes retenus. Une colonne « Genre » a été ajoutée.
+   Un pilote dont le genre n'est pas renseigné n'apparaît que dans le classement mixte.
+2. **Synchronisation dans un sens précis** (écran « Synchronisation en ligne ») :
+   - « base en ligne → application » (comme `git pull`) : l'application devient identique à la base en ligne ;
+   - « application → base en ligne » (comme `git push`) : la base en ligne devient identique à l'application ;
+   - « Fusionner » : ancien comportement, ne supprime jamais rien.
+   Les deux boutons « sens unique » **suppriment** ce qui n'existe pas de l'autre côté (pilotes, épreuves,
+   inscriptions, résultats **et comptes utilisateurs**) et demandent une confirmation. Le compte `admin` n'est
+   jamais supprimé, ni le compte connecté. Garde-fou : une base vide en face d'une base remplie est refusée.
+   **Pour supprimer quelque chose partout** : supprimez-le sur un appareil, puis « application → base en ligne » ;
+   sur les autres appareils, « base en ligne → application ».
+   Si Supabase ignore la suppression des comptes (sécurité RLS), l'application l'indique et il suffit
+   d'exécuter une fois `supabase_migration_v4_suppression_comptes.sql`.
+3. **Synchronisation automatique au démarrage = réception seule** : elle récupère les nouveautés sans rien
+   envoyer ni supprimer. Avant, un ordinateur resté en retard pouvait renvoyer en ligne des données supprimées
+   entre-temps et les faire réapparaître partout.
+4. **Fenêtre** : la fenêtre ne change plus de taille/position à chaque changement d'écran (une seule scène,
+   seul son contenu est remplacé).
+5. **Gestion des comptes** : confirmation avant suppression, impossible de supprimer/désactiver le compte avec lequel
+   on est connecté, identifiants uniques sans tenir compte des majuscules.
+6. **Messages d'erreur de synchronisation** plus clairs (pas de connexion, URL invalide, délai dépassé, erreur renvoyée
+   par Supabase avec son code).
+
 ## Nouveautés version 0.5
 
 1. **Les comptes utilisateurs sont maintenant synchronisés** (identifiant, mot de passe
@@ -50,8 +78,8 @@ Ensuite, dans l'écran "Synchronisation en ligne" :
 1. Collez l'URL du projet et la clé API publique (mêmes informations que dans le fichier de
    test `lookerBD.html`).
 2. "Tester la connexion" pour vérifier.
-3. "Synchroniser maintenant" pour envoyer/recevoir les données. Un résumé indique combien de
-   lignes ont été reçues/envoyées par table.
+3. Choisir le sens : « base en ligne → application », « application → base en ligne » ou « Fusionner »
+   (voir version 0.6). Un résumé indique combien de lignes ont été reçues/envoyées/supprimées par table.
 4. Cochez "synchronisation automatique au démarrage" si vous voulez qu'une synchronisation
    soit tentée en arrière-plan à chaque ouverture de l'application (silencieuse, n'empêche
    jamais l'ouverture si l'appareil est hors ligne).
@@ -65,9 +93,9 @@ Ensuite, dans l'écran "Synchronisation en ligne" :
 - Les pilotes se fusionnent automatiquement par numéro de licence, les inscriptions et
   résultats par couple pilote+épreuve : pas de doublon si deux bénévoles inscrivent le même
   pilote sur deux ordinateurs différents avant leur première synchronisation.
-- **Les comptes de connexion (identifiants/mots de passe) ne sont jamais synchronisés** :
-  chaque appareil garde ses propres comptes, pour qu'aucun mot de passe ne transite sur le
-  réseau.
+- **Les comptes de connexion sont synchronisés** (depuis la version 0.5) : le mot de passe haché transite par
+  Supabase, choix assumé pour un outil interne au club. Depuis la version 0.6, leur suppression l'est aussi
+  (boutons « sens unique »).
 - Avertissement de sécurité à connaître : la clé API utilisée est la clé publique ("anon"),
   intégrée dans la configuration de l'application. C'est une simplification volontaire pour
   un outil interne au club ; une personne ayant accès au fichier `data/sync.properties`

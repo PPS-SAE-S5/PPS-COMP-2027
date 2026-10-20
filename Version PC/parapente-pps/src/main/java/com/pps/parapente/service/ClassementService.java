@@ -22,8 +22,18 @@ public class ClassementService {
     private final ResultatDAO resultatDAO = new ResultatDAO();
     private final InscriptionDAO inscriptionDAO = new InscriptionDAO();
 
+    /** Classement général mixte (hommes + femmes). */
     public List<LigneClassement> calculerClassementGeneral() throws SQLException {
-        List<Pilote> pilotes = piloteDAO.listerTous();
+        return calculerClassementGeneral(FiltreGenre.MIXTE);
+    }
+
+    /**
+     * Classement général restreint à un genre. Les rangs sont recalculés parmi les pilotes retenus
+     * (la 1re femme du classement « Femmes » a le rang 1). Un pilote dont le genre n'est pas renseigné
+     * n'apparaît que dans le classement mixte.
+     */
+    public List<LigneClassement> calculerClassementGeneral(FiltreGenre filtre) throws SQLException {
+        List<Pilote> pilotes = piloteDAO.listerTous().stream().filter(filtre::accepte).toList();
         List<Epreuve> epreuves = epreuveDAO.listerToutes();
         List<Epreuve> epreuvesComptees = epreuves.stream()
                 .filter(Epreuve::isActif)
@@ -59,11 +69,17 @@ public class ClassementService {
 
     /** Classement d'une seule épreuve (pour affichage détaillé), respecte le flag "afficherClassement". */
     public List<Resultat> calculerClassementEpreuve(Epreuve epreuve) throws SQLException {
-        List<Resultat> resultats = resultatDAO.listerParEpreuve(epreuve.getId());
+        return calculerClassementEpreuve(epreuve, FiltreGenre.MIXTE);
+    }
+
+    /** Classement d'une épreuve restreint à un genre (le rang affiché est la position dans la liste filtrée). */
+    public List<Resultat> calculerClassementEpreuve(Epreuve epreuve, FiltreGenre filtre) throws SQLException {
+        List<Resultat> resultats = new ArrayList<>(resultatDAO.listerParEpreuve(epreuve.getId()));
         List<Pilote> pilotes = piloteDAO.listerTous();
         Map<Integer, Pilote> piloteParId = new HashMap<>();
         for (Pilote p : pilotes) piloteParId.put(p.getId(), p);
         for (Resultat r : resultats) r.setPilote(piloteParId.get(r.getPiloteId()));
+        resultats.removeIf(r -> !filtre.accepte(r.getPilote()));
 
         resultats.sort(Comparator.comparingDouble(Resultat::getPoints).reversed());
         return resultats;

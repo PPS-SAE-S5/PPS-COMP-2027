@@ -25,7 +25,7 @@
                 <Label text="Clé API publique (Project Settings → API Keys → Publishable key)" styleClass="sous-titre"/>
                 <TextField fx:id="champCle" promptText="sb_publishable_..."/>
 
-                <CheckBox fx:id="checkAuto" text="Essayer de synchroniser automatiquement (en arrière-plan) à chaque démarrage de l'application"/>
+                <CheckBox fx:id="checkAuto" text="Au démarrage, récupérer automatiquement les nouveautés de la base en ligne (en arrière-plan ; rien n'est envoyé ni supprimé)"/>
 
                 <Label fx:id="labelDerniereSync" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
 
@@ -38,10 +38,10 @@
 
                 <Label text="Choisissez le sens de la synchronisation (comme git pull / git push) :" styleClass="sous-titre"/>
                 <Button text="&#8595;  Synchroniser : base en ligne &#8594; application" styleClass="bouton-principal" maxWidth="Infinity" onAction="#synchroniserVersAppli"/>
-                <Label text="Récupère les données en ligne. L'application devient identique à la base en ligne (ce qui a été supprimé en ligne est supprimé ici)."
+                <Label text="Récupère les données en ligne. L'application devient identique à la base en ligne (ce qui a été supprimé en ligne, y compris les comptes, est supprimé ici)."
                        wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
                 <Button text="&#8593;  Synchroniser : application &#8594; base en ligne" styleClass="bouton-principal" maxWidth="Infinity" onAction="#synchroniserVersBase"/>
-                <Label text="Envoie vos données vers la base en ligne. La base en ligne devient identique à l'application (ce que vous avez supprimé ici est supprimé en ligne)."
+                <Label text="Envoie vos données vers la base en ligne. La base en ligne devient identique à l'application (ce que vous avez supprimé ici, y compris les comptes, est supprimé en ligne)."
                        wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
                 <Button text="Fusionner les deux bases (sans aucune suppression)" styleClass="bouton-secondaire" maxWidth="Infinity" onAction="#synchroniser"/>
                 <ProgressIndicator fx:id="indicateur" visible="false" managed="false" maxWidth="28" maxHeight="28"/>
@@ -49,7 +49,7 @@
                 <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
                 <TextArea fx:id="zoneResultat" wrapText="true" editable="false" prefRowCount="10" managed="false" visible="false"/>
 
-                <Label text="Remarque : les comptes de connexion sont seulement fusionnés dans les deux sens, jamais supprimés par les deux boutons de synchronisation ci-dessus."
+                <Label text="Remarque : le compte « admin » n'est jamais supprimé, ni le compte avec lequel vous êtes connecté. Le bouton « Fusionner » ne supprime jamais rien. Après avoir supprimé quelque chose ici, pensez à utiliser « application → base en ligne » pour que la suppression soit aussi faite en ligne."
                        wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
             </VBox>
         </ScrollPane>

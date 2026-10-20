@@ -2,6 +2,7 @@ package com.pps.parapente.controller;
 import com.pps.parapente.util.MessageErreurUtil;
 
 import com.pps.parapente.model.Epreuve;
+import com.pps.parapente.model.FiltreGenre;
 import com.pps.parapente.model.LigneClassement;
 import com.pps.parapente.model.Resultat;
 import com.pps.parapente.service.ClassementService;
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -28,6 +30,9 @@ import java.util.Map;
  */
 public class ClassementController {
 
+    @FXML private ComboBox<FiltreGenre> comboFiltreGenre;
+    @FXML private Label labelFiltre;
+
     @FXML private TableView<LigneClassement> tableClassement;
 
     @FXML private ComboBox<Epreuve> comboEpreuveDetail;
@@ -35,6 +40,7 @@ public class ClassementController {
     @FXML private TableColumn<Resultat, Number> colDetailRang;
     @FXML private TableColumn<Resultat, String> colDetailPilote;
     @FXML private TableColumn<Resultat, String> colDetailCaserne;
+    @FXML private TableColumn<Resultat, String> colDetailGenre;
     @FXML private TableColumn<Resultat, String> colDetailValeurs;
     @FXML private TableColumn<Resultat, Number> colDetailPoints;
     @FXML private TableColumn<Resultat, String> colDetailDisqualifie;
@@ -45,6 +51,10 @@ public class ClassementController {
     @FXML
     public void initialize() {
         configurerColonnesDetail();
+        // Filtre Mixte / Hommes / Femmes (valeur fixée AVANT d'ajouter l'écouteur pour ne pas recalculer deux fois).
+        comboFiltreGenre.setItems(FXCollections.observableArrayList(FiltreGenre.values()));
+        comboFiltreGenre.setValue(FiltreGenre.MIXTE);
+        comboFiltreGenre.valueProperty().addListener((obs, ancien, nouveau) -> actualiser());
         comboEpreuveDetail.valueProperty().addListener((obs, ancien, nouveau) -> chargerDetailEpreuve(nouveau));
         actualiser();
     }
@@ -53,10 +63,21 @@ public class ClassementController {
     private void actualiser() {
         try {
             construireColonnesClassementGeneral();
-            List<LigneClassement> classement = classementService.calculerClassementGeneral();
+            FiltreGenre filtre = filtreCourant();
+            List<LigneClassement> classement = classementService.calculerClassementGeneral(filtre);
             tableClassement.getItems().setAll(classement);
 
+            boolean afficherNote = filtre != FiltreGenre.MIXTE;
+            labelFiltre.setText(afficherNote
+                    ? "Classement « " + filtre.getLibelle() + " » : les rangs sont recalculés parmi ces pilotes. "
+                      + "Les pilotes dont le genre n'est pas renseigné n'apparaissent que dans le classement mixte."
+                    : "");
+            labelFiltre.setVisible(afficherNote);
+            labelFiltre.setManaged(afficherNote);
+
             chargerListeEpreuvesAffichables();
+            // Recharge explicitement le détail : si l'épreuve sélectionnée n'a pas changé, aucun événement n'est émis.
+            chargerDetailEpreuve(comboEpreuveDetail.getValue());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Erreur de calcul du classement : " + MessageErreurUtil.traduire(e)).showAndWait();
         }
@@ -81,7 +102,12 @@ public class ClassementController {
                 c.getValue().getPilote().getCaserne()));
         colCaserne.setPrefWidth(150);
 
-        tableClassement.getColumns().addAll(colRang, colPilote, colCaserne);
+        TableColumn<LigneClassement, String> colGenre = new TableColumn<>("Genre");
+        colGenre.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
+                c.getValue().getPilote().getGenre() != null ? c.getValue().getPilote().getGenre() : ""));
+        colGenre.setPrefWidth(70);
+
+        tableClassement.getColumns().addAll(colRang, colPilote, colCaserne, colGenre);
 
         List<Epreuve> epreuvesComptees = epreuveService.listerToutes().stream()
                 .filter(Epreuve::isActif)
@@ -113,6 +139,9 @@ public class ClassementController {
                 c.getValue().getPilote() != null ? c.getValue().getPilote().getNomComplet() : "?"));
         colDetailCaserne.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
                 c.getValue().getPilote() != null ? c.getValue().getPilote().getCaserne() : ""));
+        colDetailGenre.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
+                c.getValue().getPilote() != null && c.getValue().getPilote().getGenre() != null
+                        ? c.getValue().getPilote().getGenre() : ""));
         colDetailValeurs.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
                 formaterValeurs(c.getValue().getValeurs())));
         colDetailPoints.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getPoints()));
@@ -149,12 +178,17 @@ public class ClassementController {
         }
         try {
             // Résultats triés par points décroissants = classement de cette seule épreuve.
-            List<Resultat> resultats = classementService.calculerClassementEpreuve(epreuve);
+            List<Resultat> resultats = classementService.calculerClassementEpreuve(epreuve, filtreCourant());
             tableDetailEpreuve.getItems().setAll(resultats);
             tableDetailEpreuve.refresh(); // pour recalculer les rangs affichés (basés sur la position dans la liste)
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Erreur de chargement du détail : " + MessageErreurUtil.traduire(e)).showAndWait();
         }
+    }
+
+    private FiltreGenre filtreCourant() {
+        FiltreGenre f = comboFiltreGenre.getValue();
+        return f != null ? f : FiltreGenre.MIXTE;
     }
 
     @FXML

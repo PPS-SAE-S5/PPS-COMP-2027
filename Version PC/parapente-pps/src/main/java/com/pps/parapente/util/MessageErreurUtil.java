@@ -9,11 +9,36 @@ public final class MessageErreurUtil {
 
     private MessageErreurUtil() {}
 
+    /** Vrai si l'exception, ou l'une de ses causes, est d'un des types donnés. */
+    private static boolean causeDe(Throwable e, Class<?>... types) {
+        for (Throwable t = e; t != null; t = t.getCause()) {
+            for (Class<?> type : types) if (type.isInstance(t)) return true;
+        }
+        return false;
+    }
+
     public static String traduire(Throwable e) {
         if (e == null) return "Une erreur inconnue est survenue.";
 
         String messageOriginal = e.getMessage() != null ? e.getMessage() : "";
         String m = messageOriginal.toLowerCase();
+
+        // --- Synchronisation en ligne (Supabase) : traité EN PREMIER, sinon un message de Supabase contenant
+        //     "duplicate key..." serait pris à tort pour un doublon local de numéro de licence.
+        if (causeDe(e, java.net.http.HttpTimeoutException.class, java.net.SocketTimeoutException.class)) {
+            return "Supabase ne répond pas (délai dépassé). Vérifiez votre connexion Internet puis réessayez.";
+        }
+        if (causeDe(e, java.net.ConnectException.class, java.net.UnknownHostException.class,
+                java.nio.channels.UnresolvedAddressException.class, java.net.NoRouteToHostException.class)) {
+            return "Impossible de joindre Supabase : vérifiez la connexion Internet de l'ordinateur et l'adresse (URL) du projet.";
+        }
+        if (e instanceof IllegalArgumentException
+                && (m.contains("illegal character in") || m.contains("expected scheme") || m.contains("url must"))) {
+            return "L'adresse (URL) Supabase n'est pas valide. Elle doit ressembler à https://xxxxxxxx.supabase.co";
+        }
+        if (m.contains("supabase") || m.contains("synchronisation")) {
+            return messageOriginal; // message déjà rédigé en français (code HTTP + détail) par le module de synchronisation
+        }
 
         if (m.contains("unique index or primary key violation") || m.contains("duplicate")) {
             if (m.contains("numero_licence") || m.contains("pilotes")) {

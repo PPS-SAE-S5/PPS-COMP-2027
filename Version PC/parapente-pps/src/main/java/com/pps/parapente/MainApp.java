@@ -27,7 +27,8 @@ public class MainApp extends Application {
 
     /**
      * Si la synchronisation Supabase est configurée ET que la case "synchronisation
-     * automatique" est cochée, on tente une synchronisation en arrière-plan au démarrage.
+     * automatique" est cochée, on RÉCUPÈRE les nouveautés de la base en ligne en arrière-plan au démarrage
+     * (réception seule : rien n'est envoyé ni supprimé, voir SyncService.recevoirNouveautes).
      * Entièrement silencieux et sans bloquer l'ouverture de l'application : si l'appareil
      * est hors ligne ou que la configuration est absente, rien ne se passe (l'application
      * continue de fonctionner normalement en local, comme avant).
@@ -38,7 +39,7 @@ public class MainApp extends Application {
 
         Thread tache = new Thread(() -> {
             try {
-                new SyncService(config).synchroniser();
+                new SyncService(config).recevoirNouveautes();
                 config.setDerniereSync(LocalDateTime.now().format(SyncConfig.FORMAT_DATE));
                 config.sauvegarder();
             } catch (Exception ignoree) {
