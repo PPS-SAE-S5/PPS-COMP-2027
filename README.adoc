@@ -42,6 +42,10 @@ _un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 | Réunion de pre-projet
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
 
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/c305b96a4f6deaee0dddd8703e16c696934ed8ae/Documentation/Sprint%201/Cahier%20Des%20Charges(fr)%20v1.md[Cahier Des Charges]
+| Cahier Des Charges (FR)
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
+
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md[Backlog produit v0]
 | Document sur le backlog produit en début de projet
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
@@ -162,8 +166,8 @@ _un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 === 4.3 Informations complémentaires
 
 - Version courante : _Release à sortir_
-- Lien vers la documentation technique générale : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Technique%20(fr).md[Version sprint 0]
-- Lien vers la documentation utilisateur générale : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Utilisateur%20(fr).md[Version sprint 0]
+- Lien vers la documentation technique générale (FR): https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/c305b96a4f6deaee0dddd8703e16c696934ed8ae/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md[Version sprint 1]
+- Lien vers la documentation utilisateur générale (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/c305b96a4f6deaee0dddd8703e16c696934ed8ae/Documentation/Sprint%201/Documentation%20Utilisateur%20(fr)%20v1%20version%20PC%20.md[Version sprint 1]
 
 === Liste informative sur toutes les User Stories (ToDo / En cours / Fait)
 
