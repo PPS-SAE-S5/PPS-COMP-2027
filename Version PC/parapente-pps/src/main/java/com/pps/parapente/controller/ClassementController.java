@@ -51,7 +51,7 @@ public class ClassementController {
     @FXML
     public void initialize() {
         configurerColonnesDetail();
-        // Filtre Mixte / Hommes / Femmes (valeur fixée AVANT d'ajouter l'écouteur pour ne pas recalculer deux fois).
+        // Filtre Mixte / Hommes / Femmes
         comboFiltreGenre.setItems(FXCollections.observableArrayList(FiltreGenre.values()));
         comboFiltreGenre.setValue(FiltreGenre.MIXTE);
         comboFiltreGenre.valueProperty().addListener((obs, ancien, nouveau) -> actualiser());
@@ -76,7 +76,7 @@ public class ClassementController {
             labelFiltre.setManaged(afficherNote);
 
             chargerListeEpreuvesAffichables();
-            // Recharge explicitement le détail : si l'épreuve sélectionnée n'a pas changé, aucun événement n'est émis.
+            // Recharge explicitement le détail : si l'épreuve sélectionnée n'a pas changé, aucun événement n'est émis
             chargerDetailEpreuve(comboEpreuveDetail.getValue());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Erreur de calcul du classement : " + MessageErreurUtil.traduire(e)).showAndWait();
@@ -177,7 +177,7 @@ public class ClassementController {
             return;
         }
         try {
-            // Résultats triés par points décroissants = classement de cette seule épreuve.
+            // Résultats triés par points décroissants = classement de cette seule épreuve
             List<Resultat> resultats = classementService.calculerClassementEpreuve(epreuve, filtreCourant());
             tableDetailEpreuve.getItems().setAll(resultats);
             tableDetailEpreuve.refresh(); // pour recalculer les rangs affichés (basés sur la position dans la liste)

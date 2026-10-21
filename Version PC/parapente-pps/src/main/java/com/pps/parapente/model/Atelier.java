@@ -10,8 +10,8 @@ public class Atelier {
     private int journeeId;
     private String nom;
     private Creneau creneau = Creneau.MATIN;
-    private String heureDebut;   // HH:mm, facultatif
-    private String heureFin;     // HH:mm, facultatif
+    private String heureDebut;
+    private String heureFin;
     private String lieu;
     private String responsable;
     private int ordre;
@@ -53,7 +53,7 @@ public class Atelier {
     public List<Epreuve> getEpreuves() { return epreuves; }
     public void setEpreuves(List<Epreuve> epreuves) { this.epreuves = epreuves; }
 
-    /** « 08:00 – 10:30 », « dès 08:00 » ou chaîne vide. */
+    /** Formatage logique : 08:00 – 10:30, dès 08:00 ou chaîne vide. */
     public String getPlageHoraire() {
         boolean d = heureDebut != null && !heureDebut.isBlank();
         boolean f = heureFin != null && !heureFin.isBlank();

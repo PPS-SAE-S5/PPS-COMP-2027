@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Journée de compétition (ex: « Journée 1 », « Finale »), qui contient des ateliers. */
+/** Journée de compétition (ex: "Journée 1" ou "Finale") qui contient des ateliers. */
 public class Journee {
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

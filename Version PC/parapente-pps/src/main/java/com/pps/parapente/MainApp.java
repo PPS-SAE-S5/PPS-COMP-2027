@@ -20,8 +20,8 @@ public class MainApp extends Application {
         DatabaseManager.initialiserSchema();
         SceneManager.initialiser(stagePrincipal);
         SceneManager.naviguerVers("login.fxml", "Connexion");
-        stagePrincipal.setMinWidth(900);
-        stagePrincipal.setMinHeight(600);
+        stagePrincipal.setMinWidth(1200);
+        stagePrincipal.setMinHeight(900);
         tenterSynchronisationAutomatique();
     }
 

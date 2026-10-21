@@ -71,7 +71,7 @@ public class PlanningController {
         }
     }
 
-    // ---------------------------------------------------------------- onglets des journées
+    // onglets des journées
 
     private void construireOnglets(List<Journee> journees) {
         ongletsJournees.getChildren().clear();
@@ -94,7 +94,7 @@ public class PlanningController {
         });
     }
 
-    // ---------------------------------------------------------------- contenu de la journée sélectionnée
+    // contenu de la journée sélectionnée
 
     private void construireContenuJournee(List<Journee> journees) throws SQLException {
         contenuJournee.getChildren().clear();
@@ -211,7 +211,7 @@ public class PlanningController {
         sb.append(texte);
     }
 
-    // ---------------------------------------------------------------- panneau « épreuves à placer »
+    // panneau "épreuves à placer"
 
     private void construirePanneauEpreuves() throws SQLException {
         List<Epreuve> libres = planningService.listerEpreuvesNonAffectees();
@@ -221,7 +221,7 @@ public class PlanningController {
         labelResume.setText(total + (total > 1 ? " épreuves actives" : " épreuve active") + " · " + libres.size() + " à placer");
     }
 
-    // ---------------------------------------------------------------- actions : journées
+    // actions : journées
 
     @FXML
     private void nouvelleJournee() {
@@ -318,7 +318,7 @@ public class PlanningController {
         }
     }
 
-    // ---------------------------------------------------------------- actions : ateliers
+    // actions : ateliers
 
     @FXML
     private void nouvelAtelier() {
@@ -363,7 +363,7 @@ public class PlanningController {
         });
     }
 
-    // ---------------------------------------------------------------- divers
+    // divers
 
     @FXML
     private void retour() {

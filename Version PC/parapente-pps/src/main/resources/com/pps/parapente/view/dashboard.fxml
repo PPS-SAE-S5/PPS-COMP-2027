@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.pps.parapente.controller.DashboardController" prefWidth="900" prefHeight="600">
+            fx:controller="com.pps.parapente.controller.DashboardController" prefWidth="1200" prefHeight="900">
     <top>
         <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
             <!-- Remplacer le logo quand on aura le vrai logo (viiite) -->

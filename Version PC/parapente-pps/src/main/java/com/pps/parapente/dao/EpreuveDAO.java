@@ -111,7 +111,7 @@ public class EpreuveDAO {
         }
     }
 
-    // -------------------- helpers internes --------------------
+    // helpers internes
 
     private void enregistrerParametres(Connection conn, Epreuve e) throws SQLException {
         String sql = "INSERT INTO epreuve_parametres (epreuve_id, nom_variable, label, unite, obligatoire, ordre) VALUES (?,?,?,?,?,?)";
