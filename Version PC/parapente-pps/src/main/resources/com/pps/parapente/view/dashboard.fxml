@@ -20,38 +20,65 @@
         </HBox>
     </top>
     <center>
-        <FlowPane fx:id="menuFlow" hgap="20" vgap="20" alignment="TOP_LEFT">
-            <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+        <ScrollPane fitToWidth="true" styleClass="zone-defilement">
+            <VBox spacing="28">
+                <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
 
-            <VBox fx:id="carteEpreuves" styleClass="carte-menu" prefWidth="240" prefHeight="140" spacing="8" onMouseClicked="#ouvrirGestionEpreuves">
-                <Label text="Gestion des épreuves" styleClass="sous-titre" wrapText="true"/>
-                <Label text="Créer et paramétrer les épreuves, formules et barèmes" wrapText="true"/>
-            </VBox>
+                <!-- Préparer la compétition  -->
+                <VBox fx:id="sectionPreparation" spacing="12">
+                    <Label text="PRÉPARER LA COMPÉTITION" styleClass="section-titre"/>
+                    <FlowPane hgap="20" vgap="20" alignment="TOP_LEFT">
+                        <VBox fx:id="carteEpreuves" styleClass="carte-menu" prefWidth="240" prefHeight="130" spacing="8" onMouseClicked="#ouvrirGestionEpreuves">
+                            <Label text="Gestion des épreuves" styleClass="sous-titre" wrapText="true"/>
+                            <Label text="Créer et paramétrer les épreuves, formules et barèmes" wrapText="true"/>
+                        </VBox>
 
-            <VBox fx:id="cartePilotes" styleClass="carte-menu" prefWidth="240" prefHeight="140" spacing="8" onMouseClicked="#ouvrirGestionPilotes">
-                <Label text="Gestion des pilotes" styleClass="sous-titre" wrapText="true"/>
-                <Label text="Inscriptions et informations des pilotes" wrapText="true"/>
-            </VBox>
+                        <VBox fx:id="cartePlanning" styleClass="carte-menu" prefWidth="240" prefHeight="130" spacing="8" onMouseClicked="#ouvrirPlanning">
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Label text="Planning des journées" styleClass="sous-titre" wrapText="true"/>
+                            </HBox>
+                            <Label text="Organiser la compétition en journées, ateliers et épreuves" wrapText="true"/>
+                        </VBox>
 
-            <VBox fx:id="carteSaisie" styleClass="carte-menu" prefWidth="240" prefHeight="140" spacing="8" onMouseClicked="#ouvrirSaisieResultats">
-                <Label text="Saisie des résultats" styleClass="sous-titre" wrapText="true"/>
-                <Label text="Saisir les performances par épreuve" wrapText="true"/>
-            </VBox>
+                        <VBox fx:id="cartePilotes" styleClass="carte-menu" prefWidth="240" prefHeight="130" spacing="8" onMouseClicked="#ouvrirGestionPilotes">
+                            <Label text="Gestion des pilotes" styleClass="sous-titre" wrapText="true"/>
+                            <Label text="Inscriptions et informations des pilotes" wrapText="true"/>
+                        </VBox>
+                    </FlowPane>
+                </VBox>
 
-            <VBox fx:id="carteClassement" styleClass="carte-menu" prefWidth="240" prefHeight="140" spacing="8" onMouseClicked="#ouvrirClassement">
-                <Label text="Classement général" styleClass="sous-titre" wrapText="true"/>
-                <Label text="Classement provisoire en temps réel" wrapText="true"/>
-            </VBox>
+                <!--  Pendant la compétition  -->
+                <VBox fx:id="sectionCompetition" spacing="12">
+                    <Label text="PENDANT LA COMPÉTITION" styleClass="section-titre"/>
+                    <FlowPane hgap="20" vgap="20" alignment="TOP_LEFT">
+                        <VBox fx:id="carteSaisie" styleClass="carte-menu" prefWidth="240" prefHeight="130" spacing="8" onMouseClicked="#ouvrirSaisieResultats">
+                            <Label text="Saisie des résultats" styleClass="sous-titre" wrapText="true"/>
+                            <Label text="Saisir les performances par épreuve" wrapText="true"/>
+                        </VBox>
 
-            <VBox fx:id="carteUtilisateurs" styleClass="carte-menu" prefWidth="240" prefHeight="140" spacing="8" onMouseClicked="#ouvrirGestionUtilisateurs">
-                <Label text="Gestion des comptes" styleClass="sous-titre" wrapText="true"/>
-                <Label text="Créer les comptes (admin, responsables, bénévoles...)" wrapText="true"/>
-            </VBox>
+                        <VBox fx:id="carteClassement" styleClass="carte-menu" prefWidth="240" prefHeight="130" spacing="8" onMouseClicked="#ouvrirClassement">
+                            <Label text="Classement général" styleClass="sous-titre" wrapText="true"/>
+                            <Label text="Classement provisoire en temps réel" wrapText="true"/>
+                        </VBox>
+                    </FlowPane>
+                </VBox>
 
-            <VBox fx:id="carteSync" styleClass="carte-menu" prefWidth="240" prefHeight="140" spacing="8" onMouseClicked="#ouvrirSync">
-                <Label text="Synchronisation en ligne" styleClass="sous-titre" wrapText="true"/>
-                <Label text="Envoyer/recevoir les infos dans la base de données quand internet est disponible" wrapText="true"/>
+                <!-- Administration -->
+                <VBox fx:id="sectionAdministration" spacing="12">
+                    <Label text="ADMINISTRATION" styleClass="section-titre"/>
+                    <FlowPane hgap="20" vgap="20" alignment="TOP_LEFT">
+                        <VBox fx:id="carteUtilisateurs" styleClass="carte-menu" prefWidth="240" prefHeight="130" spacing="8" onMouseClicked="#ouvrirGestionUtilisateurs">
+                            <Label text="Gestion des comptes" styleClass="sous-titre" wrapText="true"/>
+                            <Label text="Créer les comptes (admin, responsables, bénévoles...)" wrapText="true"/>
+                        </VBox>
+
+                        <VBox fx:id="carteSync" styleClass="carte-menu" prefWidth="240" prefHeight="130" spacing="8" onMouseClicked="#ouvrirSync">
+                            <Label text="Synchronisation en ligne" styleClass="sous-titre" wrapText="true"/>
+                            <Label text="(TEMPORAIRE) Envoyer/recevoir les infos dans la base de données quand internet est disponible" wrapText="true"/>
+                        </VBox>
+                    </FlowPane>
+                </VBox>
             </VBox>
-        </FlowPane>
+        </ScrollPane>
     </center>
 </BorderPane>

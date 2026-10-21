@@ -6,13 +6,19 @@ import com.pps.parapente.service.AuthService;
 import com.pps.parapente.util.SceneManager;
 import com.pps.parapente.util.SessionManager;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 public class DashboardController {
 
     @FXML private Label labelUtilisateur;
+    @FXML private VBox sectionPreparation;
+    @FXML private VBox sectionCompetition;
+    @FXML private VBox sectionAdministration;
     @FXML private VBox carteEpreuves;
+    @FXML private VBox cartePlanning;
     @FXML private VBox cartePilotes;
     @FXML private VBox carteSaisie;
     @FXML private VBox carteClassement;
@@ -30,14 +36,17 @@ public class DashboardController {
         }
         labelUtilisateur.setText(u.getIdentifiant() + " (" + u.getRole().getLibelle() + ")");
         appliquerDroitsAccesParRole(u.getRole());
+        masquerSectionsVides(sectionPreparation, sectionCompetition, sectionAdministration);
     }
 
     /**
      * Affiche/masque les cartes du menu selon le rôle connecté.
      * - Administrateur : tout
-     * - Responsable de l'épreuve : épreuves, pilotes (lecture), saisie, classement
-     * - Bénévole : saisie des résultats, classement
-     * - Pilote / Comité des pilotes : classement uniquement (consultation)
+     * - Responsable de l'épreuve : épreuves, planning, pilotes (lecture), saisie, classement
+     * - Bénévole : planning (lecture seule), saisie des résultats, classement
+     * - Pilote / Comité des pilotes : planning (lecture seule) et classement (consultation)
+     * Le planning est visible de tous ; seuls l'administrateur et le responsable peuvent le modifier
+     * (voir PlanningController).
      */
     private void appliquerDroitsAccesParRole(Role role) {
         switch (role) {
@@ -55,7 +64,20 @@ public class DashboardController {
         }
     }
 
+    /** Masque une section (titre compris) quand toutes ses cartes sont masquées pour le rôle connecté. */
+    private void masquerSectionsVides(VBox... sections) {
+        for (VBox section : sections) {
+            FlowPane cartes = (FlowPane) section.getChildren().get(1);
+            boolean uneCarteVisible = cartes.getChildren().stream().anyMatch(Node::isManaged);
+            if (!uneCarteVisible) {
+                section.setVisible(false);
+                section.setManaged(false);
+            }
+        }
+    }
+
     @FXML private void ouvrirGestionEpreuves() { SceneManager.naviguerVers("gestion_epreuves.fxml", "Gestion des épreuves"); }
+    @FXML private void ouvrirPlanning() { SceneManager.naviguerVers("planning.fxml", "Planning de la compétition"); }
     @FXML private void ouvrirGestionPilotes() { SceneManager.naviguerVers("gestion_pilotes.fxml", "Gestion des pilotes"); }
     @FXML private void ouvrirSaisieResultats() { SceneManager.naviguerVers("saisie_resultats.fxml", "Saisie des résultats"); }
     @FXML private void ouvrirClassement() { SceneManager.naviguerVers("classement.fxml", "Classement général"); }

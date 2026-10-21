@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.PlanningController" prefWidth="1000" prefHeight="650">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <Button text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
+            <Label text="Planning de la compétition" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="boutonNouvelleJournee" text="+ Nouvelle journée" styleClass="bouton-secondaire" onAction="#nouvelleJournee"/>
+            <Button fx:id="boutonNouvelAtelier" text="+ Nouvel atelier" styleClass="bouton-principal" onAction="#nouvelAtelier"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="zone-defilement">
+            <VBox spacing="16">
+                <padding><Insets top="20" right="24" bottom="24" left="24"/></padding>
+
+                <FlowPane fx:id="ongletsJournees" hgap="10" vgap="10"/>
+
+                <HBox fx:id="actionsJournee" spacing="10" alignment="CENTER_LEFT">
+                    <Label fx:id="labelJournee" styleClass="titre"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Renommer / changer la date" styleClass="bouton-secondaire" onAction="#modifierJournee"/>
+                    <Button text="Supprimer la journée" styleClass="bouton-danger" onAction="#supprimerJournee"/>
+                </HBox>
+
+                <VBox fx:id="contenuJournee" spacing="18"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+    <right>
+        <VBox spacing="10" prefWidth="270" styleClass="panneau-lateral">
+            <padding><Insets top="20" right="16" bottom="20" left="16"/></padding>
+            <Label text="Épreuves à placer" styleClass="sous-titre"/>
+            <Label text="Ces épreuves ne sont dans aucun atelier. Ouvrez ou créez un atelier pour les y ajouter." wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:12px;"/>
+            <ListView fx:id="listeNonAffectees" VBox.vgrow="ALWAYS"/>
+            <Label fx:id="labelResume" wrapText="true" style="-fx-text-fill:#566779; -fx-font-size:12px;"/>
+        </VBox>
+    </right>
+</BorderPane>
