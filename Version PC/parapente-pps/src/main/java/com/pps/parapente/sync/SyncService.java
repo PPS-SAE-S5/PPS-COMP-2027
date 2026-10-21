@@ -60,12 +60,14 @@ public class SyncService {
             tirerUtilisateurs(conn, rapport);
             tirerPilotes(conn, rapport);
             tirerEpreuves(conn, rapport);
+            tirerPlanningSecurise(conn, rapport);
             tirerInscriptions(conn, rapport);
             tirerResultats(conn, rapport);
 
             pousserUtilisateurs(conn, rapport);
             pousserPilotes(conn, rapport);
             pousserEpreuves(conn, rapport);
+            pousserPlanningSecurise(conn, rapport);
             pousserInscriptions(conn, rapport);
             pousserResultats(conn, rapport);
 
@@ -95,6 +97,7 @@ public class SyncService {
             tirerUtilisateurs(conn, rapport);
             tirerPilotes(conn, rapport);
             tirerEpreuves(conn, rapport);
+            tirerPlanningSecurise(conn, rapport);
             tirerInscriptions(conn, rapport);
             tirerResultats(conn, rapport);
             conn.commit();
@@ -137,10 +140,12 @@ public class SyncService {
             ecraser = true;
             tirerPilotes(conn, rapport);
             tirerEpreuves(conn, rapport);
+            boolean planningLu = tirerPlanningSecurise(conn, rapport);
             tirerInscriptions(conn, rapport);
             tirerResultats(conn, rapport);
 
             supprimerLocalAbsentsDuDistant(conn, rapport, distPilotes, distEpreuves);
+            if (planningLu) supprimerPlanningLocalAbsentDuDistant(conn, rapport);
             supprimerComptesLocauxAbsents(conn, rapport, distUtilisateurs);
 
             conn.commit();
@@ -175,10 +180,12 @@ public class SyncService {
             pousserUtilisateurs(conn, rapport);
             pousserPilotes(conn, rapport);
             pousserEpreuves(conn, rapport);
+            boolean planningEnvoye = pousserPlanningSecurise(conn, rapport);
             pousserInscriptions(conn, rapport);
             pousserResultats(conn, rapport);
 
             supprimerDistantAbsentsDuLocal(conn, rapport);
+            if (planningEnvoye) supprimerPlanningDistantAbsentDuLocal(conn, rapport);
 
             conn.commit();
         } catch (Exception e) {
@@ -274,7 +281,7 @@ public class SyncService {
             JSONObject r = epreuves.getJSONObject(i);
             if (uuidsLocaux.contains(cle(r.optString("uuid", null)))) continue;
             int id = r.getInt("id");
-            for (String enfant : new String[]{"resultats", "inscriptions_epreuve", "epreuve_parametres", "bareme_points"}) {
+            for (String enfant : new String[]{"resultats", "inscriptions_epreuve", "epreuve_parametres", "bareme_points", "atelier_epreuves"}) {
                 client.supprimerOu(enfant, "epreuve_id=eq." + id);
             }
             client.supprimerOu("epreuves", "id=eq." + id);
@@ -404,7 +411,7 @@ public class SyncService {
         return valeur == null ? "" : valeur.trim().toLowerCase();
     }
 
-    // ============================================================ COMPTES UTILISATEURS
+    //  COMPTES UTILISATEURS (à modif en vrai jsp)
 
     private void tirerUtilisateurs(Connection conn, RapportSync rapport) throws Exception {
         JSONArray distantes = client.recuperer("utilisateurs", "*");
@@ -463,7 +470,7 @@ public class SyncService {
         }
     }
 
-    // ============================================================ PILOTES
+    //  PILOTES
 
     private void tirerPilotes(Connection conn, RapportSync rapport) throws Exception {
         JSONArray distantes = client.recuperer("pilotes", "*");
@@ -551,7 +558,7 @@ public class SyncService {
         }
     }
 
-    // ============================================================ ÉPREUVES (+ variables + barème)
+    //  ÉPREUVES (+ variables + barème)
 
     private void tirerEpreuves(Connection conn, RapportSync rapport) throws Exception {
         JSONArray distantes = client.recuperer("epreuves", "*,epreuve_parametres(*),bareme_points(*)");
@@ -728,7 +735,290 @@ public class SyncService {
         }
     }
 
-    // ============================================================ INSCRIPTIONS
+    //  PLANNING (journées > ateliers > épreuves)
+
+    private static final String MESSAGE_PLANNING_ABSENT =
+            "Le planning (journées et ateliers) n'a pas été synchronisé : les tables correspondantes n'existent pas encore en ligne. " +
+                    "Exécutez une fois le script supabase_migration_v5_planning.sql dans l'éditeur SQL de Supabase, puis recommencez.";
+
+    /**
+     * Réception du planning sans jamais bloquer le reste de la synchronisation : si les tables n'existent pas
+     * encore côté Supabase (script v5 pas encore exécuté), on ajoute un avertissement et on continue.
+     * @return vrai si le planning distant a pu être lu.
+     */
+    private boolean tirerPlanningSecurise(Connection conn, RapportSync rapport) {
+        try {
+            tirerPlanning(conn, rapport);
+            return true;
+        } catch (Exception e) {
+            rapport.ajouterAvertissement(MESSAGE_PLANNING_ABSENT);
+            return false;
+        }
+    }
+
+    /** @return vrai si le planning local a pu être envoyé. */
+    private boolean pousserPlanningSecurise(Connection conn, RapportSync rapport) {
+        try {
+            pousserPlanning(conn, rapport);
+            return true;
+        } catch (Exception e) {
+            rapport.ajouterAvertissement(MESSAGE_PLANNING_ABSENT);
+            return false;
+        }
+    }
+
+    private void tirerPlanning(Connection conn, RapportSync rapport) throws Exception {
+        JSONArray journees = client.recuperer("journees", "*");
+        JSONArray ateliers = client.recuperer("ateliers", "*,journees(uuid),atelier_epreuves(ordre,epreuves(uuid))");
+
+        for (int i = 0; i < journees.length(); i++) {
+            JSONObject r = journees.getJSONObject(i);
+            String uuid = r.getString("uuid");
+            Instant majDistante = lireInstant(r, "updated_at");
+            java.sql.Date date = r.isNull("date_journee") || r.optString("date_journee", "").isBlank()
+                    ? null : java.sql.Date.valueOf(r.getString("date_journee"));
+
+            Integer localId = trouverId(conn, "SELECT id FROM journees WHERE uuid = ?", uuid);
+            if (localId != null) {
+                if (estPlusRecent(majDistante, lireInstantLocal(conn, "journees", localId))) {
+                    try (PreparedStatement maj = conn.prepareStatement(
+                            "UPDATE journees SET nom=?, date_journee=?, ordre=?, updated_at=? WHERE id=?")) {
+                        maj.setString(1, r.getString("nom"));
+                        maj.setDate(2, date);
+                        maj.setInt(3, r.optInt("ordre", 0));
+                        maj.setTimestamp(4, Timestamp.from(majDistante != null ? majDistante : Instant.now()));
+                        maj.setInt(5, localId);
+                        maj.executeUpdate();
+                    }
+                    rapport.planningRecu++;
+                }
+            } else {
+                try (PreparedStatement ins = conn.prepareStatement(
+                        "INSERT INTO journees (uuid, nom, date_journee, ordre, updated_at) VALUES (?,?,?,?,?)")) {
+                    ins.setString(1, uuid);
+                    ins.setString(2, r.getString("nom"));
+                    ins.setDate(3, date);
+                    ins.setInt(4, r.optInt("ordre", 0));
+                    ins.setTimestamp(5, Timestamp.from(majDistante != null ? majDistante : Instant.now()));
+                    ins.executeUpdate();
+                }
+                rapport.planningRecu++;
+            }
+        }
+
+        for (int i = 0; i < ateliers.length(); i++) {
+            JSONObject r = ateliers.getJSONObject(i);
+            JSONObject journeeEmb = r.optJSONObject("journees");
+            if (journeeEmb == null) continue;
+            Integer journeeId = trouverId(conn, "SELECT id FROM journees WHERE uuid = ?", journeeEmb.optString("uuid", null));
+            if (journeeId == null) continue;
+
+            String uuid = r.getString("uuid");
+            Instant majDistante = lireInstant(r, "updated_at");
+            Integer localId = trouverId(conn, "SELECT id FROM ateliers WHERE uuid = ?", uuid);
+            boolean remplacerEpreuves = false;
+
+            if (localId != null) {
+                if (estPlusRecent(majDistante, lireInstantLocal(conn, "ateliers", localId))) {
+                    try (PreparedStatement maj = conn.prepareStatement(
+                            "UPDATE ateliers SET journee_id=?, nom=?, creneau=?, heure_debut=?, heure_fin=?, lieu=?, responsable=?, " +
+                                    "ordre=?, updated_at=? WHERE id=?")) {
+                        maj.setInt(1, journeeId);
+                        maj.setString(2, r.getString("nom"));
+                        maj.setString(3, r.getString("creneau"));
+                        maj.setString(4, r.optString("heure_debut", null));
+                        maj.setString(5, r.optString("heure_fin", null));
+                        maj.setString(6, r.optString("lieu", null));
+                        maj.setString(7, r.optString("responsable", null));
+                        maj.setInt(8, r.optInt("ordre", 0));
+                        maj.setTimestamp(9, Timestamp.from(majDistante != null ? majDistante : Instant.now()));
+                        maj.setInt(10, localId);
+                        maj.executeUpdate();
+                    }
+                    remplacerEpreuves = true;
+                    rapport.planningRecu++;
+                }
+            } else {
+                try (PreparedStatement ins = conn.prepareStatement(
+                        "INSERT INTO ateliers (uuid, journee_id, nom, creneau, heure_debut, heure_fin, lieu, responsable, ordre, updated_at) " +
+                                "VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+                    ins.setString(1, uuid);
+                    ins.setInt(2, journeeId);
+                    ins.setString(3, r.getString("nom"));
+                    ins.setString(4, r.getString("creneau"));
+                    ins.setString(5, r.optString("heure_debut", null));
+                    ins.setString(6, r.optString("heure_fin", null));
+                    ins.setString(7, r.optString("lieu", null));
+                    ins.setString(8, r.optString("responsable", null));
+                    ins.setInt(9, r.optInt("ordre", 0));
+                    ins.setTimestamp(10, Timestamp.from(majDistante != null ? majDistante : Instant.now()));
+                    ins.executeUpdate();
+                    try (ResultSet keys = ins.getGeneratedKeys()) {
+                        if (keys.next()) localId = keys.getInt(1);
+                    }
+                }
+                remplacerEpreuves = true;
+                rapport.planningRecu++;
+            }
+
+            if (remplacerEpreuves && localId != null) {
+                try (PreparedStatement del = conn.prepareStatement("DELETE FROM atelier_epreuves WHERE atelier_id = ?")) {
+                    del.setInt(1, localId);
+                    del.executeUpdate();
+                }
+                JSONArray liens = r.optJSONArray("atelier_epreuves");
+                if (liens == null) continue;
+                for (int k = 0; k < liens.length(); k++) {
+                    JSONObject lien = liens.getJSONObject(k);
+                    JSONObject epreuveEmb = lien.optJSONObject("epreuves");
+                    if (epreuveEmb == null) continue;
+                    Integer epreuveId = trouverId(conn, "SELECT id FROM epreuves WHERE uuid = ?", epreuveEmb.optString("uuid", null));
+                    if (epreuveId == null) continue;
+                    // Une épreuve = un seul atelier : on la retire d'un éventuel autre atelier local avant de la placer ici
+                    try (PreparedStatement retirer = conn.prepareStatement("DELETE FROM atelier_epreuves WHERE epreuve_id = ?");
+                         PreparedStatement ajouter = conn.prepareStatement(
+                                 "INSERT INTO atelier_epreuves (atelier_id, epreuve_id, ordre) VALUES (?,?,?)")) {
+                        retirer.setInt(1, epreuveId);
+                        retirer.executeUpdate();
+                        ajouter.setInt(1, localId);
+                        ajouter.setInt(2, epreuveId);
+                        ajouter.setInt(3, lien.optInt("ordre", 0));
+                        ajouter.executeUpdate();
+                    }
+                }
+            }
+        }
+    }
+
+    private void pousserPlanning(Connection conn, RapportSync rapport) throws Exception {
+        // 1) Journées
+        java.util.Map<String, Integer> idJourneeDistant = new java.util.HashMap<>();
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery("SELECT uuid, nom, date_journee, ordre, updated_at FROM journees")) {
+            while (rs.next()) {
+                JSONObject payload = new JSONObject();
+                payload.put("uuid", rs.getString("uuid"));
+                payload.put("nom", rs.getString("nom"));
+                java.sql.Date d = rs.getDate("date_journee");
+                payload.put("date_journee", d == null ? JSONObject.NULL : d.toString());
+                payload.put("ordre", rs.getInt("ordre"));
+                payload.put("updated_at", versIso(rs.getTimestamp("updated_at")));
+                JSONObject retour = client.envoyer("journees", payload, "uuid");
+                idJourneeDistant.put(cle(rs.getString("uuid")), retour.getInt("id"));
+                rapport.planningEnvoye++;
+            }
+        }
+
+        // 2) Ateliers (les liens avec les épreuves sont posés ensuite, une fois tous les ateliers envoyés)
+        java.util.Map<Integer, List<int[]>> liensParAtelierDistant = new java.util.LinkedHashMap<>();
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(
+                     "SELECT a.id, a.uuid, a.nom, a.creneau, a.heure_debut, a.heure_fin, a.lieu, a.responsable, a.ordre, a.updated_at, " +
+                             "j.uuid AS journee_uuid FROM ateliers a JOIN journees j ON j.id = a.journee_id")) {
+            while (rs.next()) {
+                Integer journeeDistantId = idJourneeDistant.get(cle(rs.getString("journee_uuid")));
+                if (journeeDistantId == null) continue;
+                JSONObject payload = new JSONObject();
+                payload.put("uuid", rs.getString("uuid"));
+                payload.put("journee_id", journeeDistantId);
+                payload.put("nom", rs.getString("nom"));
+                payload.put("creneau", rs.getString("creneau"));
+                mettreOuNull(payload, "heure_debut", rs.getString("heure_debut"));
+                mettreOuNull(payload, "heure_fin", rs.getString("heure_fin"));
+                mettreOuNull(payload, "lieu", rs.getString("lieu"));
+                mettreOuNull(payload, "responsable", rs.getString("responsable"));
+                payload.put("ordre", rs.getInt("ordre"));
+                payload.put("updated_at", versIso(rs.getTimestamp("updated_at")));
+                JSONObject retour = client.envoyer("ateliers", payload, "uuid");
+                int atelierDistantId = retour.getInt("id");
+                rapport.planningEnvoye++;
+
+                List<int[]> liens = new ArrayList<>();
+                try (PreparedStatement sel = conn.prepareStatement(
+                        "SELECT e.supabase_id, ae.ordre FROM atelier_epreuves ae JOIN epreuves e ON e.id = ae.epreuve_id " +
+                                "WHERE ae.atelier_id = ? AND e.supabase_id IS NOT NULL")) {
+                    sel.setInt(1, rs.getInt("id"));
+                    try (ResultSet rl = sel.executeQuery()) {
+                        while (rl.next()) liens.add(new int[]{rl.getInt(1), rl.getInt(2)});
+                    }
+                }
+                liensParAtelierDistant.put(atelierDistantId, liens);
+            }
+        }
+
+        // 3) Épreuves des ateliers : on efface d'abord TOUS les anciens liens concernés (côté atelier ET côté épreuve,
+        //    pour respecter « une épreuve = un seul atelier » quand une épreuve a changé d'atelier), puis on réécrit.
+        for (var entree : liensParAtelierDistant.entrySet()) {
+            client.supprimerOu("atelier_epreuves", "atelier_id=eq." + entree.getKey());
+            for (int[] lien : entree.getValue()) {
+                client.supprimerOu("atelier_epreuves", "epreuve_id=eq." + lien[0]);
+            }
+        }
+        for (var entree : liensParAtelierDistant.entrySet()) {
+            List<JSONObject> lignes = new ArrayList<>();
+            for (int[] lien : entree.getValue()) {
+                JSONObject l = new JSONObject();
+                l.put("atelier_id", entree.getKey());
+                l.put("epreuve_id", lien[0]);
+                l.put("ordre", lien[1]);
+                lignes.add(l);
+            }
+            client.inserer("atelier_epreuves", new JSONArray(lignes));
+        }
+    }
+
+    /** Miroir « base en ligne -> application » : supprime en local journées et ateliers absents en ligne. */
+    private void supprimerPlanningLocalAbsentDuDistant(Connection conn, RapportSync rapport) throws Exception {
+        JSONArray journees = client.recuperer("journees", "uuid");
+        JSONArray ateliers = client.recuperer("ateliers", "uuid");
+        // Même garde-fou que pour les épreuves : un planning en ligne totalement vide n'efface pas le planning local
+        if (journees.isEmpty() && ateliers.isEmpty()) return;
+
+        Set<String> uuidsJournees = new HashSet<>();
+        for (int i = 0; i < journees.length(); i++) uuidsJournees.add(cle(journees.getJSONObject(i).optString("uuid", null)));
+        Set<String> uuidsAteliers = new HashSet<>();
+        for (int i = 0; i < ateliers.length(); i++) uuidsAteliers.add(cle(ateliers.getJSONObject(i).optString("uuid", null)));
+
+        rapport.planningSupprime += supprimerLocalSiAbsent(conn,
+                "SELECT id, uuid FROM ateliers", "DELETE FROM ateliers WHERE id = ?", uuidsAteliers);
+        rapport.planningSupprime += supprimerLocalSiAbsent(conn,
+                "SELECT id, uuid FROM journees", "DELETE FROM journees WHERE id = ?", uuidsJournees);
+    }
+
+    /** Miroir « application -> base en ligne » : supprime en ligne journées et ateliers absents en local. */
+    private void supprimerPlanningDistantAbsentDuLocal(Connection conn, RapportSync rapport) throws Exception {
+        Set<String> uuidsAteliersLocaux = lireClesLocales(conn, "SELECT uuid FROM ateliers");
+        Set<String> uuidsJourneesLocales = lireClesLocales(conn, "SELECT uuid FROM journees");
+
+        JSONArray ateliers = client.recuperer("ateliers", "id,uuid");
+        for (int i = 0; i < ateliers.length(); i++) {
+            JSONObject r = ateliers.getJSONObject(i);
+            if (uuidsAteliersLocaux.contains(cle(r.optString("uuid", null)))) continue;
+            int id = r.getInt("id");
+            client.supprimerOu("atelier_epreuves", "atelier_id=eq." + id);
+            client.supprimerOu("ateliers", "id=eq." + id);
+            rapport.planningSupprime++;
+        }
+        JSONArray journees = client.recuperer("journees", "id,uuid");
+        for (int i = 0; i < journees.length(); i++) {
+            JSONObject r = journees.getJSONObject(i);
+            if (uuidsJourneesLocales.contains(cle(r.optString("uuid", null)))) continue;
+            int id = r.getInt("id");
+            // Ateliers restants de cette journée (rattachés à une journée supprimée) : on les retire d'abord
+            JSONArray enfants = client.recuperer("ateliers", "id,journee_id");
+            for (int k = 0; k < enfants.length(); k++) {
+                JSONObject enfant = enfants.getJSONObject(k);
+                if (enfant.optInt("journee_id", -1) != id) continue;
+                int atelierId = enfant.getInt("id");
+                client.supprimerOu("atelier_epreuves", "atelier_id=eq." + atelierId);
+                client.supprimerOu("ateliers", "id=eq." + atelierId);
+            }
+            client.supprimerOu("journees", "id=eq." + id);
+            rapport.planningSupprime++;
+        }
+    }
+
+    //  INSCRIPTIONS
 
     private void tirerInscriptions(Connection conn, RapportSync rapport) throws Exception {
         JSONArray distantes = client.recuperer("inscriptions_epreuve", "*,pilotes(numero_licence),epreuves(uuid)");
@@ -777,7 +1067,7 @@ public class SyncService {
         }
     }
 
-    // ============================================================ RÉSULTATS
+    //  RÉSULTATS
 
     private void tirerResultats(Connection conn, RapportSync rapport) throws Exception {
         JSONArray distantes = client.recuperer("resultats", "*,pilotes(numero_licence),epreuves(uuid)");

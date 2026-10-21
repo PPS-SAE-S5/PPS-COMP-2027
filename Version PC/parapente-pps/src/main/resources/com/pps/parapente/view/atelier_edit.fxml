@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.AtelierEditController" prefWidth="620" prefHeight="700">
+    <VBox spacing="12">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+        <Label fx:id="labelTitre" text="Nouvel atelier" styleClass="titre"/>
+        <Label text="Un atelier regroupe plusieurs épreuves sur un créneau d'une journée de compétition." wrapText="true" style="-fx-text-fill:#7f8c8d;"/>
+
+        <Label text="Nom de l'atelier *" styleClass="sous-titre"/>
+        <TextField fx:id="champNom" promptText="ex: Atelier Atterrissage"/>
+
+        <HBox spacing="16">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Journée *"/>
+                <ComboBox fx:id="champJournee" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="4">
+                <Label text="Créneau *"/>
+                <HBox spacing="16" alignment="CENTER_LEFT" minHeight="30">
+                    <RadioButton fx:id="radioMatin" text="Matin" selected="true">
+                        <toggleGroup><ToggleGroup fx:id="groupeCreneau"/></toggleGroup>
+                    </RadioButton>
+                    <RadioButton fx:id="radioApresMidi" text="Après-midi" toggleGroup="$groupeCreneau"/>
+                </HBox>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="16">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Début (HH:mm)"/>
+                <TextField fx:id="champDebut" promptText="08:00"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Fin (HH:mm)"/>
+                <TextField fx:id="champFin" promptText="10:30"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="16">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Lieu"/>
+                <TextField fx:id="champLieu" promptText="ex: Zone d'atterrissage"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Responsable"/>
+                <TextField fx:id="champResponsable" promptText="ex: Dupont"/>
+            </VBox>
+        </HBox>
+
+        <Separator/>
+        <Label text="Épreuves de l'atelier" styleClass="sous-titre"/>
+        <Label text="L'ordre de la liste est l'ordre de passage. Une épreuve ne peut appartenir qu'à un seul atelier." wrapText="true" style="-fx-text-fill:#7f8c8d;"/>
+
+        <ListView fx:id="listeEpreuves" prefHeight="170"/>
+        <HBox spacing="8">
+            <Button text="&#9650; Monter" styleClass="bouton-secondaire" onAction="#monter"/>
+            <Button text="&#9660; Descendre" styleClass="bouton-secondaire" onAction="#descendre"/>
+            <Button text="Retirer" styleClass="bouton-secondaire" onAction="#retirer"/>
+        </HBox>
+
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ComboBox fx:id="champAjout" promptText="Ajouter une épreuve..." HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button text="Ajouter" styleClass="bouton-secondaire" onAction="#ajouter"/>
+        </HBox>
+        <Label fx:id="labelAucuneEpreuve" text="Toutes les épreuves actives sont déjà placées dans un atelier." style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;" wrapText="true" managed="false" visible="false"/>
+
+        <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Annuler" styleClass="bouton-secondaire" onAction="#annuler"/>
+            <Button text="Enregistrer l'atelier" styleClass="bouton-principal" onAction="#enregistrer"/>
+        </HBox>
+    </VBox>
+</ScrollPane>

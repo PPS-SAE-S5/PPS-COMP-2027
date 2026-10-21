@@ -7,18 +7,24 @@ public class RapportSync {
     public int epreuvesRecues, epreuvesEnvoyees;
     public int inscriptionsRecues, inscriptionsEnvoyees;
     public int resultatsRecus, resultatsEnvoyes;
+    public int planningRecu, planningEnvoye, planningSupprime;   // journées + ateliers
     public int pilotesSupprimes, epreuvesSupprimees, inscriptionsSupprimees, resultatsSupprimes, utilisateursSupprimes;
 
     /** Message d'alerte non bloquant (ex: Supabase a refusé une suppression). Null si tout s'est bien passé. */
     public String avertissement;
 
+    /** Ajoute un avertissement à la suite d'un éventuel avertissement existant. */
+    public void ajouterAvertissement(String message) {
+        avertissement = (avertissement == null || avertissement.isBlank()) ? message : avertissement + "\n" + message;
+    }
+
     public String resume() {
         StringBuilder sb = new StringBuilder(resumeBase());
-        int total = pilotesSupprimes + epreuvesSupprimees + inscriptionsSupprimees + resultatsSupprimes + utilisateursSupprimes;
+        int total = pilotesSupprimes + epreuvesSupprimees + inscriptionsSupprimees + resultatsSupprimes + utilisateursSupprimes + planningSupprime;
         if (total > 0) {
             sb.append(String.format("%n%nSuppressions (pour rendre les deux bases identiques) :%n" +
-                            "Pilotes : %d, Épreuves : %d, Inscriptions : %d, Résultats : %d, Comptes : %d",
-                    pilotesSupprimes, epreuvesSupprimees, inscriptionsSupprimees, resultatsSupprimes, utilisateursSupprimes));
+                            "Pilotes : %d, Épreuves : %d, Inscriptions : %d, Résultats : %d, Comptes : %d, Journées/ateliers : %d",
+                    pilotesSupprimes, epreuvesSupprimees, inscriptionsSupprimees, resultatsSupprimes, utilisateursSupprimes, planningSupprime));
         }
         if (avertissement != null && !avertissement.isBlank()) {
             sb.append(String.format("%n%n⚠ %s", avertissement));
@@ -32,10 +38,11 @@ public class RapportSync {
                 "Pilotes : %d reçus, %d envoyés%n" +
                 "Épreuves (+ variables/barèmes) : %d reçues, %d envoyées%n" +
                 "Inscriptions : %d reçues, %d envoyées%n" +
+                "Planning (journées + ateliers) : %d reçus, %d envoyés%n" +
                 "Résultats : %d reçus, %d envoyés",
                 utilisateursRecus, utilisateursEnvoyes,
                 pilotesRecus, pilotesEnvoyes, epreuvesRecues, epreuvesEnvoyees,
-                inscriptionsRecues, inscriptionsEnvoyees, resultatsRecus, resultatsEnvoyes
+                inscriptionsRecues, inscriptionsEnvoyees, planningRecu, planningEnvoye, resultatsRecus, resultatsEnvoyes
         );
     }
 }
