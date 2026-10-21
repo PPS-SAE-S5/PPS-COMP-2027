@@ -78,3 +78,89 @@
 .champ-formulaire {
     -fx-padding: 4 0 4 0;
 }
+
+/* ============================================================
+   Tableau de bord rangé + planning des journées (v0.5)
+   ============================================================ */
+.zone-defilement {
+    -fx-background-color: transparent;
+    -fx-background: #f4f6f8;
+}
+
+.section-titre {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #566779;
+}
+
+.panneau-lateral {
+    -fx-background-color: white;
+    -fx-border-color: #e1e7ee;
+    -fx-border-width: 0 0 0 1;
+}
+
+.onglet-journee {
+    -fx-background-color: white;
+    -fx-text-fill: #243447;
+    -fx-border-color: #b9c5d2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 18 8 18;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+}
+
+.onglet-journee:selected {
+    -fx-background-color: #1b3a5c;
+    -fx-text-fill: white;
+    -fx-border-color: #1b3a5c;
+}
+
+.pastille-creneau {
+    -fx-font-weight: bold;
+    -fx-padding: 3 14 3 14;
+    -fx-background-radius: 12;
+}
+
+.pastille-matin {
+    -fx-background-color: #e4eefb;
+    -fx-text-fill: #1c4a85;
+}
+
+.pastille-apres-midi {
+    -fx-background-color: #fcecd6;
+    -fx-text-fill: #7a4608;
+}
+
+.carte-atelier {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-padding: 14 16 14 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 6, 0, 0, 1);
+}
+
+.ligne-epreuve {
+    -fx-background-color: #f4f6f8;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10 6 10;
+}
+
+.pastille-numero {
+    -fx-background-color: #1b3a5c;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-min-width: 22;
+    -fx-min-height: 22;
+    -fx-alignment: CENTER;
+    -fx-background-radius: 11;
+}
+
+.etat-vide {
+    -fx-text-fill: #566779;
+    -fx-border-color: #a9b8c8;
+    -fx-border-style: dashed;
+    -fx-border-radius: 8;
+    -fx-padding: 16;
+}
