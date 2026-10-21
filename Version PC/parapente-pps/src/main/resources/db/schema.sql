@@ -160,3 +160,43 @@ ALTER TABLE resultats ALTER COLUMN updated_at SET DEFAULT CURRENT_TIMESTAMP;
 -- ============================================================
 ALTER TABLE pilotes ADD COLUMN IF NOT EXISTS genre VARCHAR(10);
 ALTER TABLE pilotes DROP COLUMN IF EXISTS categorie;
+
+-- ============================================================
+-- Planning : journees > ateliers > epreuves - version 0.5
+-- Une journee contient des ateliers (repartis sur le matin ou l'apres-midi),
+-- un atelier regroupe plusieurs epreuves. Une epreuve n'appartient qu'a UN seul atelier.
+-- "uuid" et "updated_at" servent a la synchronisation Supabase (meme principe que les autres tables).
+-- ============================================================
+CREATE TABLE IF NOT EXISTS journees (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    uuid            VARCHAR(36) DEFAULT RANDOM_UUID() NOT NULL UNIQUE,
+    nom             VARCHAR(100) NOT NULL,
+    date_journee    DATE NULL,
+    ordre           INT DEFAULT 0,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS ateliers (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    uuid            VARCHAR(36) DEFAULT RANDOM_UUID() NOT NULL UNIQUE,
+    journee_id      INT NOT NULL,
+    nom             VARCHAR(150) NOT NULL,
+    creneau         VARCHAR(20) NOT NULL DEFAULT 'MATIN',   -- MATIN ou APRES_MIDI
+    heure_debut     VARCHAR(5),                             -- format HH:mm
+    heure_fin       VARCHAR(5),                             -- format HH:mm
+    lieu            VARCHAR(150),
+    responsable     VARCHAR(150),
+    ordre           INT DEFAULT 0,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (journee_id) REFERENCES journees(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS atelier_epreuves (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    atelier_id      INT NOT NULL,
+    epreuve_id      INT NOT NULL,
+    ordre           INT DEFAULT 0,                          -- ordre de passage dans l'atelier
+    FOREIGN KEY (atelier_id) REFERENCES ateliers(id) ON DELETE CASCADE,
+    FOREIGN KEY (epreuve_id) REFERENCES epreuves(id) ON DELETE CASCADE,
+    UNIQUE(epreuve_id)
+);
