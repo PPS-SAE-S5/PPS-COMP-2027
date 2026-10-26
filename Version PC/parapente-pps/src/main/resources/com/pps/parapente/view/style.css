@@ -93,6 +93,15 @@
     -fx-text-fill: #566779;
 }
 
+.badge-nouveau {
+    -fx-background-color: #c8362d;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 8 2 8;
+    -fx-background-radius: 10;
+}
+
 .panneau-lateral {
     -fx-background-color: white;
     -fx-border-color: #e1e7ee;
@@ -163,4 +172,20 @@
     -fx-border-style: dashed;
     -fx-border-radius: 8;
     -fx-padding: 16;
+}
+
+.fleche-journees {
+    -fx-background-color: white;
+    -fx-text-fill: #1b3a5c;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-border-color: #b9c5d2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 2 12 4 12;
+    -fx-cursor: hand;
+}
+
+.fleche-journees:disabled {
+    -fx-opacity: 0.35;
 }

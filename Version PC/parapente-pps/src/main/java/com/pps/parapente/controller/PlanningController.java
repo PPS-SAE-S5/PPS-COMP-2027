@@ -32,7 +32,9 @@ public class PlanningController {
 
     @FXML private Button boutonNouvelleJournee;
     @FXML private Button boutonNouvelAtelier;
-    @FXML private FlowPane ongletsJournees;
+    @FXML private HBox ongletsJournees;
+    @FXML private Button flecheGauche;
+    @FXML private Button flecheDroite;
     @FXML private HBox actionsJournee;
     @FXML private Label labelJournee;
     @FXML private VBox contenuJournee;
@@ -42,6 +44,13 @@ public class PlanningController {
     private final PlanningService planningService = new PlanningService();
     private boolean peutModifier;
     private int journeeSelectionneeId = 0;
+
+    // Limite sur la liste des des journées
+    private static final int MAX_ONGLETS = 7;
+    private static final double LARGEUR_MIN_ONGLET = 118;
+    private static final double ECART_ONGLETS = 10;
+    private List<Journee> journeesAffichees = List.of();
+    private int premierOnglet = 0;
 
     @FXML
     public void initialize() {
@@ -54,6 +63,8 @@ public class PlanningController {
         if (!peutModifier) {
             masquer(boutonNouvelleJournee, boutonNouvelAtelier);
         }
+        // Nbr d'onglets visibles à partir de la largeur dispo
+        ongletsJournees.widthProperty().addListener((obs, ancien, nouveau) -> afficherOnglets());
         rafraichir();
     }
 
@@ -74,13 +85,54 @@ public class PlanningController {
     // onglets des journées
 
     private void construireOnglets(List<Journee> journees) {
+        journeesAffichees = journees;
+
+        int idx = indexJourneeSelectionnee();
+        int n = nombreOngletsVisibles();
+        if (idx >= 0 && n > 0) {
+            if (idx < premierOnglet) premierOnglet = idx;
+            else if (idx >= premierOnglet + n) premierOnglet = idx - n + 1;
+        }
+        afficherOnglets();
+    }
+
+    private int indexJourneeSelectionnee() {
+        for (int i = 0; i < journeesAffichees.size(); i++) {
+            if (journeesAffichees.get(i).getId() == journeeSelectionneeId) return i;
+        }
+        return -1;
+    }
+
+    /** Au plus 7 onglets, moins si fenetre réduite */
+    private int nombreOngletsVisibles() {
+        double largeur = ongletsJournees.getWidth();
+        if (largeur <= 0) return MAX_ONGLETS;
+        int n = (int) Math.floor((largeur + ECART_ONGLETS) / (LARGEUR_MIN_ONGLET + ECART_ONGLETS));
+        return Math.max(1, Math.min(MAX_ONGLETS, n));
+    }
+
+    private void afficherOnglets() {
         ongletsJournees.getChildren().clear();
+        int total = journeesAffichees.size();
+        int n = nombreOngletsVisibles();
+        premierOnglet = Math.max(0, Math.min(premierOnglet, Math.max(0, total - n)));
+
+        double largeur = ongletsJournees.getWidth();
+        double largeurOnglet = largeur > 0
+                ? (largeur - (n - 1) * ECART_ONGLETS) / n
+                : LARGEUR_MIN_ONGLET;
+
         ToggleGroup groupe = new ToggleGroup();
-        for (Journee j : journees) {
+        int fin = Math.min(total, premierOnglet + n);
+        for (int i = premierOnglet; i < fin; i++) {
+            Journee j = journeesAffichees.get(i);
             String texte = j.getNom() + (j.getDateJournee() == null ? "" : "\n" + j.getDateFormatee());
             ToggleButton onglet = new ToggleButton(texte);
             onglet.getStyleClass().add("onglet-journee");
             onglet.setToggleGroup(groupe);
+            onglet.setMinWidth(largeurOnglet);
+            onglet.setPrefWidth(largeurOnglet);
+            onglet.setMaxWidth(largeurOnglet);
             onglet.setSelected(j.getId() == journeeSelectionneeId);
             onglet.setOnAction(ev -> {
                 journeeSelectionneeId = j.getId();
@@ -92,6 +144,21 @@ public class PlanningController {
         groupe.selectedToggleProperty().addListener((obs, ancien, nouveau) -> {
             if (nouveau == null && ancien != null) ancien.setSelected(true);
         });
+
+        flecheGauche.setDisable(premierOnglet <= 0);
+        flecheDroite.setDisable(premierOnglet + n >= total);
+    }
+
+    @FXML
+    private void journeesPrecedentes() {
+        premierOnglet--;
+        afficherOnglets();
+    }
+
+    @FXML
+    private void journeesSuivantes() {
+        premierOnglet++;
+        afficherOnglets();
     }
 
     // contenu de la journée sélectionnée
