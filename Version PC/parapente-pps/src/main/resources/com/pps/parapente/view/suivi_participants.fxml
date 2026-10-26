@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.SuiviParticipantsController" prefWidth="1050" prefHeight="680">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <Button text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
+            <Label text="Suivi des participants" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Actualiser" styleClass="bouton-principal" onAction="#actualiser"/>
+        </HBox>
+    </top>
+    <left>
+        <VBox spacing="10" prefWidth="320" styleClass="panneau-lateral-gauche">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+            <Label text="Rechercher un pilote" styleClass="sous-titre"/>
+            <TextField fx:id="champRecherche" promptText="Nom, prénom, licence ou caserne..."/>
+            <ListView fx:id="listePilotes" VBox.vgrow="ALWAYS"/>
+            <Label fx:id="labelNbResultats" style="-fx-text-fill:#566779; -fx-font-size:12px;"/>
+        </VBox>
+    </left>
+    <center>
+        <StackPane>
+            <VBox fx:id="panneauVide" alignment="CENTER" spacing="6">
+                <Label text="Sélectionnez un pilote" styleClass="sous-titre"/>
+                <Label text="Cherchez un nom dans la liste de gauche pour afficher ses scores." style="-fx-text-fill:#7f8c8d;"/>
+            </VBox>
+
+            <ScrollPane fx:id="panneauDetail" fitToWidth="true" styleClass="zone-defilement" visible="false" managed="false">
+                <VBox spacing="16">
+                    <padding><Insets top="20" right="24" bottom="24" left="24"/></padding>
+
+                    <VBox spacing="4">
+                        <Label fx:id="labelNom" styleClass="titre"/>
+                        <Label fx:id="labelInfos" style="-fx-text-fill:#566779;" wrapText="true"/>
+                    </VBox>
+
+                    <HBox spacing="16">
+                        <VBox styleClass="tuile-stat" HBox.hgrow="ALWAYS">
+                            <Label fx:id="valeurTotal" styleClass="tuile-valeur"/>
+                            <Label text="Total de points" styleClass="tuile-libelle"/>
+                        </VBox>
+                        <VBox styleClass="tuile-stat" HBox.hgrow="ALWAYS">
+                            <Label fx:id="valeurRang" styleClass="tuile-valeur"/>
+                            <Label text="Rang au classement général" styleClass="tuile-libelle"/>
+                        </VBox>
+                        <VBox styleClass="tuile-stat" HBox.hgrow="ALWAYS">
+                            <Label fx:id="valeurSaisies" styleClass="tuile-valeur"/>
+                            <Label text="Épreuves saisies" styleClass="tuile-libelle"/>
+                        </VBox>
+                    </HBox>
+
+                    <Label text="Scores par épreuve" styleClass="sous-titre"/>
+                    <TableView fx:id="tableScores" prefHeight="360">
+                        <columns>
+                            <TableColumn fx:id="colEpreuve" text="Épreuve" prefWidth="200"/>
+                            <TableColumn fx:id="colValeurs" text="Valeurs saisies" prefWidth="320"/>
+                            <TableColumn fx:id="colPoints" text="Points" prefWidth="80"/>
+                            <TableColumn fx:id="colStatut" text="Statut" prefWidth="130"/>
+                            <TableColumn fx:id="colCompte" text="Compte au général" prefWidth="130"/>
+                        </columns>
+                    </TableView>
+                    <Label text="Un pilote inscrit qui n'a pas encore de résultat compte 0 point pour l'épreuve (règle du classement général)."
+                           wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
+                </VBox>
+            </ScrollPane>
+        </StackPane>
+    </center>
+</BorderPane>

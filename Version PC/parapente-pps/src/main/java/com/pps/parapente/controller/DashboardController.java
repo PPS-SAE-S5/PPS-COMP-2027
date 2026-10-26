@@ -22,6 +22,7 @@ public class DashboardController {
     @FXML private VBox cartePilotes;
     @FXML private VBox carteSaisie;
     @FXML private VBox carteClassement;
+    @FXML private VBox carteScoreParticipant;
     @FXML private VBox carteUtilisateurs;
     @FXML private VBox carteSync;
 
@@ -43,9 +44,9 @@ public class DashboardController {
      * Affiche/masque les cartes du menu selon le rôle connecté.
      * - Administrateur : tout
      * - Responsable de l'épreuve : épreuves, planning, pilotes (lecture), saisie, classement
-     * - Bénévole : planning (lecture seule), saisie des résultats, classement
-     * - Pilote / Comité des pilotes : planning (lecture seule) et classement (consultation)
-     * Le planning est visible de tous ; seuls l'administrateur et le responsable peuvent le modifier
+     * - Bénévole : planning (lecture seule), saisie des résultats, suivi des participants, classement
+     * - Pilote / Comité des pilotes : planning (lecture seule) et classement (consultation), pas de suivi individuel
+     * Le planning est visible de tous, seuls l'administrateur et le responsable peuvent le modifier
      * (voir PlanningController).
      */
     private void appliquerDroitsAccesParRole(Role role) {
@@ -53,7 +54,7 @@ public class DashboardController {
             case ADMINISTRATEUR -> { /* tout visible par défaut */ }
             case RESPONSABLE_EPREUVE -> masquer(carteUtilisateurs);
             case BENEVOLE -> masquer(carteUtilisateurs, carteEpreuves, carteSync);
-            case PILOTE, COMITE_PILOTES -> masquer(carteUtilisateurs, carteEpreuves, carteSaisie, cartePilotes, carteSync);
+            case PILOTE, COMITE_PILOTES -> masquer(carteUtilisateurs, carteEpreuves, carteSaisie, cartePilotes, carteSync, carteScoreParticipant);
         }
     }
 
@@ -80,6 +81,7 @@ public class DashboardController {
     @FXML private void ouvrirPlanning() { SceneManager.naviguerVers("planning.fxml", "Planning de la compétition"); }
     @FXML private void ouvrirGestionPilotes() { SceneManager.naviguerVers("gestion_pilotes.fxml", "Gestion des pilotes"); }
     @FXML private void ouvrirSaisieResultats() { SceneManager.naviguerVers("saisie_resultats.fxml", "Saisie des résultats"); }
+    @FXML private void ouvrirSuiviParticipants() { SceneManager.naviguerVers("suivi_participants.fxml", "Suivi des participants"); }
     @FXML private void ouvrirClassement() { SceneManager.naviguerVers("classement.fxml", "Classement général"); }
     @FXML private void ouvrirGestionUtilisateurs() { SceneManager.naviguerVers("gestion_utilisateurs.fxml", "Gestion des comptes"); }
     @FXML private void ouvrirSync() { SceneManager.naviguerVers("sync.fxml", "Synchronisation en ligne"); }
