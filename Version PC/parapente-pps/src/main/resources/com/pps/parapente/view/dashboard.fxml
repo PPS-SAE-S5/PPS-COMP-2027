@@ -60,6 +60,11 @@
                             <Label text="Classement général" styleClass="sous-titre" wrapText="true"/>
                             <Label text="Classement provisoire en temps réel" wrapText="true"/>
                         </VBox>
+
+                        <VBox fx:id="carteScoreParticipant" styleClass="carte-menu" prefWidth="240" prefHeight="130" spacing="8" onMouseClicked="#ouvrirSuiviParticipants">
+                            <Label text="Suivi des Participants" styleClass="sous-titre" wrapText="true"/>
+                            <Label text="Suivi en détails des participants en temps réel" wrapText="true"/>
+                        </VBox>
                     </FlowPane>
                 </VBox>
 
