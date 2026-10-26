@@ -57,7 +57,7 @@ public class SuiviParticipantsController {
                 if (vide || p == null) {
                     setText(null);
                 } else {
-                    String caserne = p.getCaserne() == null || p.getCaserne().isBlank() ? "" : "  ·  " + p.getCaserne();
+                    String caserne = p.getCaserne() == null || p.getCaserne().isBlank() ? "" : "   ·   " + p.getCaserne();
                     setText(p.getNom() + " " + p.getPrenom() + caserne);
                 }
             }
