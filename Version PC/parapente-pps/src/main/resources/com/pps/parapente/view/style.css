@@ -79,9 +79,7 @@
     -fx-padding: 4 0 4 0;
 }
 
-/* ============================================================
-   Tableau de bord rangé + planning des journées (v0.5)
-   ============================================================ */
+/* Tableau de bord rangé + planning des journées (v0.5) */
 .zone-defilement {
     -fx-background-color: transparent;
     -fx-background: #f4f6f8;
@@ -188,4 +186,30 @@
 
 .fleche-journees:disabled {
     -fx-opacity: 0.35;
+}
+
+/* Suivi des participants */
+.panneau-lateral-gauche {
+    -fx-background-color: white;
+    -fx-border-color: #e1e7ee;
+    -fx-border-width: 0 1 0 0;
+}
+
+.tuile-stat {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-padding: 14 16 14 16;
+    -fx-spacing: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 6, 0, 0, 1);
+}
+
+.tuile-valeur {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1b3a5c;
+}
+
+.tuile-libelle {
+    -fx-text-fill: #566779;
+    -fx-font-size: 12px;
 }
