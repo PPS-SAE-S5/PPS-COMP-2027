@@ -29,7 +29,7 @@
     <bottom>
         <HBox spacing="10" alignment="CENTER_RIGHT">
             <padding><Insets top="10" right="16" bottom="16" left="16"/></padding>
-            <Button text="Dupliquer l'épreuve sélectionnée"/>
+            <Button text="Dupliquer l'épreuve sélectionnée" styleClass="bouton-secondaire" onAction="#dupliquerEpreuve"/>
             <Button text="Modifier l'épreuve sélectionnée" styleClass="bouton-secondaire" onAction="#modifierEpreuve"/>
             <Button text="Supprimer" styleClass="bouton-danger" onAction="#supprimerEpreuve"/>
         </HBox>

@@ -91,6 +91,26 @@ public class GestionEpreuvesController {
         }
     }
 
+    /** Duplique l'épreuve sélectionnée */
+    @FXML
+    private void dupliquerEpreuve() {
+        Epreuve selection = tableEpreuves.getSelectionModel().getSelectedItem();
+        if (selection == null) {
+            new Alert(Alert.AlertType.WARNING, "Sélectionnez une épreuve à dupliquer.").showAndWait();
+            return;
+        }
+        try {
+            Epreuve copie = epreuveService.dupliquer(selection.getId());
+            chargerDonnees();
+            donnees.stream().filter(e -> e.getId() == copie.getId()).findFirst().ifPresent(e -> {
+                tableEpreuves.getSelectionModel().select(e);
+                tableEpreuves.scrollTo(e);
+            });
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Erreur : " + MessageErreurUtil.traduire(e)).showAndWait();
+        }
+    }
+
     @FXML
     private void supprimerEpreuve() {
         Epreuve selection = tableEpreuves.getSelectionModel().getSelectedItem();
