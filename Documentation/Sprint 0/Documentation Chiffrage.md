@@ -1,7 +1,7 @@
 # Chiffrage - Webapp de gestion de concours de parapente
 
-**Équipe :** 4 développeurs
-**Budget nominal :** 4 × 100h = **400h** (hors heures supplémentaires)
+**Équipe :** 4 développeurs\
+**Budget nominal :** 4 × 100h = **400h** (hors heures supplémentaires)\
 **Date :** Septembre 2026 ~ Décembre 2026
 
 ---
@@ -10,9 +10,9 @@
 
 Développement d'une application web permettant d'organiser et de suivre des concours de parapente : inscription des pilotes, gestion des épreuves/manches, saisie et calcul des scores (barème classique), classements et diffusion des résultats.
 
-- **Destination actuelle :** un concours organisé pour des pompiers.
-- **Projet open source (GitHub)**, pensé pour être **réutilisable ultérieurement pour d'autres types de concours**.
-- L'application doit gérer **plusieurs concours** (historique) et être **totalement responsive** (mobile et desktop).
+- **Destination actuelle :** Championnat de France de Parapente sapeur-pompier
+- **Projet open source (GitHub)**, pensé pour être **réutilisable ultérieurement pour d'autres éditions**
+- L'application doit gérer **plusieurs éditions** (historique) et être **totalement responsive** (mobile et desktop)
 
 ---
 
@@ -20,9 +20,9 @@ Développement d'une application web permettant d'organiser et de suivre des con
 
 | Élément | Choix |
 |---|---|
-| Backend | Node.js (quasi certain) |
-| Frontend | Vue |
-| Base de données | SQL (PostgreSQL ?) |
+| Backend | Node.js |
+| Frontend | React (Vue) |
+| Base de données | SQL (Supabase) |
 | Hébergement | Première observation : Render, Railway, Fly.io pour le back + BDD ; Vercel/Netlify pour le front |
 | Dépôt | GitHub public |
 | Identité graphique | Carte blanche/ rien de décider pour l'instant |
@@ -35,7 +35,7 @@ Développement d'une application web permettant d'organiser et de suivre des con
 
 | Domaine | Fonctionnalités incluses |
 |---|---|
-| Authentification | Administrateur / bénévoles / pilotes / Comité des pilotes  |
+| Authentification | Administrateur / bénévoles / Comité des pilotes  |
 | Compétitions | Création et gestion de **plusieurs épreuves** (en cours + historique), manches, dates, lieu |
 | Pilotes | Pré-inscription en ligne, profil (nom, licence, caserne, catégorie, etc...) |
 | Scores | Saisie manuelle des résultats, **barème de calcul classique/standard** |
@@ -47,7 +47,7 @@ Développement d'une application web permettant d'organiser et de suivre des con
 | Responsive | Mobile + desktop sur l'ensemble de l'application |
 
 ### Hors périmètre (non chiffré ici)
-- Import automatique de traces GPS / intégration trackers - confirmé non nécessaire [mais vu lors de la réunion 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/3611c4203475c93ef5d7aedcf57af4cf6bd8197b/Documentation/Sprint%200/Compte%20rendu%20de%20r%C3%A9union%202.md)
+- Import automatique de traces GPS / intégration trackers - confirmé non nécessaire [et vu lors de la réunion 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%202.md)
 - Application mobile native
 - Multi-langue (?)
 
@@ -166,5 +166,13 @@ PS : il est possible que cela change au cours du projet selon les ressources à 
 - **Choix précis de l'hébergeur low-cost**
 - **Statut réel de l'équipe** nos rôles, nos ressources
 - **Licence open source** à choisir pour le dépôt GitHub (MIT, AGPL, etc) <-- à discuter avec un représentant pédagogique
+
+---
+
+
+## 12. Le projet
+
+Le coût initial est donc estimé à 12.000€ cependant...\
+Étant un projet de "SAE" à l'IUT BLAGNAC, il a donc un coût final estimé à **0€**
 
 ---

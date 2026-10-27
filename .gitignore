@@ -1,3 +1,6 @@
-/Version PC/target
 /Version PC/parapente-pps/target
 /Version PC/parapente-pps/.vscode
+/Version Mobile/parapente-pps-android/app/build
+/Version Mobile/parapente-pps-android/.gradle
+/Version Mobile/parapente-pps-android/.idea
+/Version Mobile/parapente-pps-android

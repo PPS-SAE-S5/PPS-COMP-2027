@@ -1,6 +1,6 @@
 # Cahier des charges fonctionnel
 
-> Ce document décrit **ce que l'application doit faire** et **pourquoi**. Les choix techniques (architecture, technologies, base de données, tests, déploiement) sont détaillés dans le [Document technique](./Document_technique.md).
+> Ce document décrit **ce que l'application doit faire** et **pourquoi**. Les choix techniques (architecture, technologies, base de données, tests, déploiement) sont détaillés dans le [Document technique](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/b35d9c8418aab53550c73f0166fd34f6fdd6ba26/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md).
 
 ## Table des matières
 
@@ -87,12 +87,11 @@ Les exigences fonctionnelles seront précisées et validées progressivement ave
 
 ### 2.3 Utilisateurs et rôles
 
-- **Administrateur** : tous les droits.
-- **Bénévoles** : ils peuvent se connecter à l'application, gérer les pilotes et saisir les résultats des épreuves.
-- **Responsables d'épreuve** : ils peuvent se connecter à l'application, gérer les pilotes, saisir les résultats et gérer les épreuves dont ils sont responsables.
-- **Pilotes** : ils peuvent se connecter à l'application et consulter les classements ainsi que leurs résultats.
-- **Comité des pilotes** : il peut se connecter à l'application et consulter les classements et les informations relatives aux résultats.
-- **Consultation des classements** : tous les utilisateurs autorisés peuvent consulter les classements générés automatiquement par l'application.
+- **Administrateur** : tous les droits
+- **Bénévoles** : ils peuvent se connecter à l'application, gérer les pilotes et saisir les résultats des épreuves
+- **Responsables d'épreuve** : ils peuvent se connecter à l'application, gérer les pilotes, saisir les résultats et gérer les épreuves dont ils sont responsables
+- **Comité des pilotes** : il peut se connecter à l'application et consulter les classements et les informations relatives aux résultats
+- **Consultation des classements** : tous les utilisateurs autorisés peuvent consulter les classements générés automatiquement par l'application
 
 ---
 
@@ -119,7 +118,6 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 | CU 09 | Consulter l'historique des modifications | Membre du comité | Connecté | Le membre du comité ouvre l'historique des modifications de points | La liste des modifications s'affiche, ce qui garantit la traçabilité des litiges | US 13 |
 | CU 10 | Gérer les rôles | Administrateur | Connecté | L'administrateur attribue ou modifie le rôle d'un utilisateur | L'utilisateur n'accède qu'aux fonctionnalités de son rôle | US 14 |
 
-> **À valider** : les user stories parlent de « gestionnaire » et de « membre du comité », alors que la section 2.3 parle de « Responsable d'épreuve » et de « Comité des pilotes ». Il faudra harmoniser les noms des rôles.
 
 ---
 
@@ -128,25 +126,23 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 ### 4.1 Périmètre de la V1
 
 **Inclus dans la V1**
-- Gestion des épreuves (paramétrables), des ateliers et des journées de compétition.
-- Gestion des pilotes et saisie des résultats.
-- Calcul automatique des notes et des classements (du jour et final), mis à jour en quasi temps réel.
-- Gestion des comptes et des rôles.
-- Consultation des classements en lecture seule, sans compte.
-- Fonctionnement hors-ligne avec synchronisation au retour de la connexion.
-- Application mobile, application PC et page web.
+- Gestion des épreuves (paramétrables), des ateliers et des journées de compétition
+- Gestion des pilotes et saisie des résultats
+- Calcul automatique des notes et des classements (du jour et final), mis à jour en quasi temps réel
+- Gestion des comptes et des rôles
+- Consultation des classements en lecture seule, sans compte
+- Fonctionnement hors-ligne avec synchronisation au retour de la connexion
+- Application mobile, application PC et page web
 
-**Hors périmètre de la V1** *(à valider avec le client)*
-- À compléter (ex. : paiement des inscriptions, gestion de l'hébergement ou de la logistique, etc.).
 
 ### 4.2 Contraintes
 
-- **Délai** : l'application doit être opérationnelle pour le Championnat de France des Pompiers de Parapente, à l'été 2027.
-- **Conditions d'utilisation** : usage sur le terrain, avec un réseau potentiellement faible ou absent (d'où le mode hors-ligne).
-- **Public** : utilisateurs peu familiers avec les outils numériques.
-- **Évolutivité** : de nouvelles épreuves et de nouvelles règles pourront être ajoutées sans modification importante du système.
-- **Budget et hébergement** : solution privilégiant des services gratuits ou peu coûteux *(à confirmer, voir 7.3)*.
-- **Sécurité et données personnelles** : les données des pilotes doivent être protégées *(exigences à préciser avec le client, voir 2.2)*.
+- **Délai** : l'application doit être opérationnelle pour le Championnat de France des Pompiers de Parapente, à l'été 2027
+- **Conditions d'utilisation** : usage sur le terrain, avec un réseau potentiellement faible ou absent (d'où le mode hors-ligne)
+- **Public** : utilisateurs peu familiers avec les outils numériques
+- **Évolutivité** : de nouvelles épreuves et de nouvelles règles pourront être ajoutées sans modification importante du système
+- **Budget et hébergement** : solution privilégiant des services gratuits ou peu coûteux *(voir 7.3)*
+- **Sécurité et données personnelles** : les données des pilotes doivent être protégées *(voir 2.2)*
 
 ---
 
@@ -162,10 +158,10 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 | Cahier des charges | Le présent document | En cours |
 | Document technique | Architecture, base de données, API, tests, déploiement | En cours |
 | Backlog produit et user stories | Suivi des besoins et des sprints | En cours |
-| Plan de tests et rapport de recette | Cas de test et résultats de validation | À livrer |
-| Manuel utilisateur | Guide simple pour les bénévoles, responsables d'épreuve et pilotes | À livrer *(à confirmer)* |
+| Plan de tests | Cas de test et résultats de validation | À faire |
+| Manuel utilisateur | Guide simple pour les bénévoles, responsables d'épreuve et pilotes | En cours |
 
-**Conditions de livraison** *(à valider avec le client)* : format, lieu de dépôt, qui héberge l'application après la livraison, qui assure la maintenance, licence du code et propriété des données.
+**Conditions de livraison** *(à valider avec le client)* : format, qui héberge l'application après la livraison, qui assure la maintenance, licence du code et propriété des données.
 
 ---
 
@@ -203,10 +199,10 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 | [Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1) | **01/09/2026 - 18/09/2026** |
 | [Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2) | **21/09/2026 - 02/10/2026** |
 | [Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3) | **05/10/2026 - 23/10/2026** |
-| [Sprint 3](#) | **02/11/2026 - 27/11/2026** |
-| [Sprint 4](#) | **30/11/2026 - 18/12/2026** |
-| [Sprint 5](#) | **30/11/2026 - 18/12/2026** |
-| [Sprint 6](#) | **04/01/2027 - 22/01/2027** |
+| [Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4) | **02/11/2026 - 27/11/2026** |
+| [Sprint 4](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/5) | **30/11/2026 - 18/12/2026** |
+| [Sprint 5](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/6) | **30/11/2026 - 18/12/2026** |
+| [Sprint 6](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/7) | **04/01/2027 - 22/01/2027** |
 
 ---
 
@@ -216,31 +212,29 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 
 | Rôle | Description |
 |---|---|
-| Client | Club Parapente Pays de Sault (PPS) — *référent à préciser* |
-| Équipe projet | À compléter (noms et rôles) |
-| Validation | À préciser (qui valide les besoins et les livrables côté client) |
+| Client | Club Parapente Pays de Sault avec **Jean-Marie Rolando** |
+| Équipe projet | Erwan Pauloin : Développeur / Adam Labadi Chef de projet / Jinhai-andrei Feng Développeur / Alexis Piquepé Product Owner |
+| Validation | **Jean-Marie Rolando** & **Jean-Michel Bruel** |
 
 ### 7.2 Fonctionnement et communication
 
-- Méthode de travail : **agile**, par sprints (voir 6.3).
-- Suivi : issues et milestones GitHub.
-- Revue de sprint avec le client : *fréquence à définir*.
-- Les exigences sont précisées et validées progressivement avec le client.
+- Méthode de travail : **agile**, par sprints (voir 6.3)
+- Suivi : issues et milestones GitHub
+- Revue de sprint avec le client : lorsque nécessaire/ pertinent
+- Les exigences sont précisées et validées progressivement avec le client
 
 ### 7.3 Budget
 
 - Outils et hébergement : services gratuits pour l'usage prévu (Supabase, et Vercel *à confirmer*).
-- Budget global : *à préciser avec le client*.
+- Budget global : 0€ *pour l'instant*
 
 ---
 
 ## 8. Recette et validation
 
-- La recette est réalisée avec le client à la fin des sprints concernés, puis avant la compétition.
-- Chaque livrable est validé au regard des exigences (section 2) et des user stories (section 6) : une user story est validée lorsque son comportement a été vérifié par le client.
-- Des tests sont réalisés sur les différents cas d'utilisation, sur toutes les plateformes, y compris en mode hors-ligne puis resynchronisé (stratégie détaillée dans le [Document technique](./Document_technique.md)).
-- Une répétition en conditions réelles avant la compétition est recommandée *(à valider avec le client)*.
-- Critères d'acceptation globaux : *à définir avec le client*.
+- La recette est réalisée avec le client à la fin des sprints concernés, puis avant la compétition
+- Chaque livrable est validé au regard des exigences (section 2) et des user stories (section 6) : une user story est validée lorsque son comportement a été vérifié par le client
+- Des tests sont réalisés sur les différents cas d'utilisation, sur toutes les plateformes, y compris en mode hors-ligne puis resynchronisé (stratégie détaillée dans le [Document technique](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/b35d9c8418aab53550c73f0166fd34f6fdd6ba26/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md))
 
 ---
 

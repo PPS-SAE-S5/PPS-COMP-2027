@@ -65,28 +65,28 @@ votre rôle donne accès, sous forme de cartes cliquables.
 
 Cet écran sert à inscrire les pilotes au championnat.
 
-![Gestion des pilotes]()
+![Gestion des pilotes](./Captures/pilotes_mobile_gerer.png)
 
 **Informations demandées à l'inscription :**
 
-- Numéro de licence (obligatoire, unique — sert d'assurance/identifiant fédéral)
+- Numéro de licence (obligatoire, unique & sert d'identifiant)
 - Nom, prénom (obligatoires)
 - Caserne
 - Poids
 - Email
 - Année de naissance
-- Catégorie (Espoir, Senior, Vétéran, Féminine — modifiable librement)
+- Catégorie (Homme, Femme)
 
 **Utilisation :**
 
 1. Remplissez le formulaire à droite, cliquez sur **Ajouter**.
-2. Pour modifier un pilote : cliquez sur sa ligne dans le tableau (le formulaire se
-   remplit automatiquement), modifiez les champs, cliquez sur **Modifier**.
-3. Pour supprimer un pilote : sélectionnez-le puis cliquez sur **Supprimer**
-   (⚠️ cela supprime aussi tous ses résultats déjà saisis).
+2. Pour modifier un pilote : cliquez sur sa ligne dans le tableau (le formulaire se remplit automatiquement), modifiez les champs, cliquez sur **Modifier**.
+3. Pour supprimer un pilote : sélectionnez-le puis cliquez sur **Supprimer** (⚠️ cela supprime aussi tous ses résultats déjà saisis).
+
+</br>
 
 > Dès qu'un pilote est ajouté, il est automatiquement inscrit à toutes les épreuves déjà
-> actives. Il devra donc les passer — s'il ne se présente pas à une épreuve, il aura
+> actives. Il devra donc les passer - s'il ne se présente pas à une épreuve, il aura
 > automatiquement 0 point à celle-ci dans le classement général.
 
 ---
@@ -217,7 +217,7 @@ Toutes les données (pilotes, épreuves, résultats, comptes) sont stockées **l
 dans un dossier `data/` situé à côté de l'application. Aucune connexion internet n'est
 nécessaire pour utiliser l'application au quotidien.
 
-⚠️ **Pensez à sauvegarder régulièrement ce dossier `data/`** (copie sur clé USB, disque
+**Pensez à sauvegarder régulièrement ce dossier `data/`** (copie sur clé USB, disque
 externe...), notamment avant et pendant l'événement, afin de ne jamais perdre les
 résultats du championnat.
 

@@ -132,10 +132,10 @@ Autres exigences
 | [Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1) | **01/09/2026 - 18/09/2026** |
 | [Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2) | **21/09/2026 - 02/10/2026** |
 | [Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3) | **05/10/2026 - 23/10/2026** |
-| [Sprint 3](#) | **02/11/2026 - 27/11/2026** |
-| [Sprint 4](#) | **30/11/2026 - 18/12/2026** |
-| [Sprint 5](#) | **30/11/2026 - 18/12/2026** |
-| [Sprint 6](#) | **04/01/2027 - 22/01/2027** |
+| [Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4) | **02/11/2026 - 27/11/2026** |
+| [Sprint 4](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/5) | **30/11/2026 - 18/12/2026** |
+| [Sprint 5](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/6) | **30/11/2026 - 18/12/2026** |
+| [Sprint 6](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/7) | **04/01/2027 - 22/01/2027** |
 
 ---
 
@@ -150,13 +150,13 @@ Autres exigences
 
 ### 5.2 Conception de la base de données (en l'état lors du sprint 0)
 
-- Planification pour du SQL (PostgreSQL(?) )
+- Planification pour du SQL (PostgreSQL / Supabase)
 - Tables nécessaires au bon fonctionnement de l'application
 
 ### 5.3 API (en l'état lors du sprint 0)
 
 - **Format d'échange** : JSON, utilisé pour les échanges entre le frontend, le backend et la base de données
-- L'API est **auto-générée par Supabase** à partir du schéma PostgreSQL (pas de développement manuel d'API REST côté serveur)
+- L'API est **auto-générée par Supabase** à partir du schéma PostgreSQL / Supabase
 
 *Détails supplémentaires (endpoints spécifiques, règles de sécurité/RLS, authentification, RGESN (num resp), etc.) à ajouter lors des futurs sprints*
 

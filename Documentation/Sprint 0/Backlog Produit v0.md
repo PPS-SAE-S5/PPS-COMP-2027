@@ -12,13 +12,13 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                             | Description | Responsable | Estimation | Statut  |
-| ---------- | ------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Conception de la base de données                  |             |             | 5 pts      | À faire |
-| Tâche [US] | Création des permissions utilisateurs             |             |             | 5 pts      | À faire |
-| Tâche [US] | Création de l'interface de base mobile            |             |             | 5 pts      | À faire |
-| Tâche [US] | Création de l'interface de base PC                |             |             | 5 pts      | À faire |
-| Tâche [US] | Gestion des préinscriptions pour les utilisateurs |             |             | 5 pts      | À faire |
+| ID         | Tâche                                             | Statut  |
+| ---------- | ------------------------------------------------- | ------- |
+| Tâche [US] | Conception de la base de données                  |À faire |
+| Tâche [US] | Création des permissions utilisateurs             |À faire |
+| Tâche [US] | Création de l'interface de base mobile            |À faire |
+| Tâche [US] | Création de l'interface de base PC                |À faire |
+| Tâche [US] | Gestion des préinscriptions pour les utilisateurs |À faire |
 
 <br>
 
@@ -32,10 +32,10 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                                                                                                                                                  | Description | Responsable | Estimation | Statut  |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | En tant que gestionnaire, je veux pouvoir créer une épreuve en choisissant son mode de notation (points de  temps, nombre de sauts, etc.) afin d'adapter le barème à chaque discipline |             |             | 5 pts      | À faire |
-| Tâche [US] | Mettre en place des ateliers par défaut reprenant les anciennes éditions                                                                                                               |             |             | 5 pts      | À faire |
+| ID         | Tâche                                                                                                                                                                                  | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | En tant que gestionnaire, je veux pouvoir créer une épreuve en choisissant son mode de notation (points de  temps, nombre de sauts, etc.) afin d'adapter le barème à chaque discipline |À faire |
+| Tâche [US] | Mettre en place des ateliers par défaut reprenant les anciennes éditions |À faire |
 
 <br>
 
@@ -49,10 +49,10 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                                                                                          | Description | Responsable | Estimation | Statut  |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | En tant que gestionnaire, je veux créer un atelier composé de plusieurs épreuves afin de structurer une journée de compétition |             |             | 5 pts      | À faire |
-| Tâche [US] | Mettre en place des journées par défaut reprenant les anciennes édition                                                        |             |             | 5 pts      | À faire |
+| ID         | Tâche                                                                                                                          | Statut  |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| Tâche [US] | En tant que gestionnaire, je veux créer un atelier composé de plusieurs épreuves afin de structurer une journée de compétition |À faire |
+| Tâche [US] | Mettre en place des journées par défaut reprenant les anciennes édition |À faire |
 
 <br>
 
@@ -66,10 +66,10 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                                                                                        | Description | Responsable | Estimation | Statut  |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement |             |             | 5 pts      | À faire |
-| Tâche [US] | Ajouter une fonctionnalité qui permet de rechercher                                                                          |             |             | 5 pts      | À faire |
+| ID         | Tâche                                                                                                                        | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement |À faire |
+| Tâche [US] | Ajouter une fonctionnalité qui permet de rechercher |À faire |
 
 <br>
 
@@ -83,10 +83,10 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                                                                                                    | Description | Responsable | Estimation | Statut  |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Mettre en place un classement                                                                                                            |             |             | 5 pts      | À faire |
-| Tâche [US] | En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | Mettre en place un classement |À faire |
+| Tâche [US] | En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page |À faire |
 
 <br>
 
@@ -110,9 +110,9 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                                                  | Description | Responsable | Estimation | Statut  |
-| ---------- | -------------------------------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Mettre en place un job qui refresh le classement automatiquement toutes les X secondes |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | Mettre en place un job qui refresh le classement automatiquement toutes les X secondes |À faire |
 
 <br>
 
@@ -126,9 +126,9 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                               | Description | Responsable | Estimation | Statut  |
-| ---------- | ------------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Mettre en place la page du classement du tournoi actuel en readonly |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | Mettre en place la page du classement du tournoi actuel en readonly |À faire |
 
 <br>
 
@@ -142,9 +142,9 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                                     | Description | Responsable | Estimation | Statut  |
-| ---------- | ------------------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Mettre en place des épreuves par défaut à partir des éditions précédentes |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | Mettre en place des épreuves par défaut à partir des éditions précédentes |À faire |
 
 <br>
 
@@ -158,9 +158,9 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                                     | Description | Responsable | Estimation | Statut  |
-| ---------- | ------------------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Mettre en place des épreuves par défaut à partir des éditions précédentes |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | Mettre en place des épreuves par défaut à partir des éditions précédentes |À faire |
 
 <br>
 
@@ -174,9 +174,9 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                         | Description | Responsable | Estimation | Statut  |
-| ---------- | ------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Mettre en place la gestion des scores pour ajouter des points |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | Mettre en place la gestion des scores pour ajouter des points |À faire |
 
 <br>
 
@@ -190,9 +190,9 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                         | Description | Responsable | Estimation | Statut  |
-| ---------- | ------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Mettre en place la gestion des scores pour retirer des points |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | Mettre en place la gestion des scores pour retirer des points |À faire |
 
 <br>
 
@@ -206,10 +206,10 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                                                                                                        | Description | Responsable | Estimation | Statut  |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | En tant que membre du comité, je veux modifier les points d'un participant (litige, pénalité, retrait) afin de traiter les cas exceptionnels |             |             | 5 pts      | À faire |
-| Tâche [US] | Mettre en place un historique (des logs) sur l'ajout/ le retrait de points                                                                   |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | En tant que membre du comité, je veux modifier les points d'un participant (litige, pénalité, retrait) afin de traiter les cas exceptionnels | À faire |
+| Tâche [US] | Mettre en place un historique (des logs) sur l'ajout/ le retrait de points |À faire |
 
 <br>
 
@@ -223,9 +223,9 @@
 
 ### Sous-tâches
 
-| ID         | Tâche                                                         | Description | Responsable | Estimation | Statut  |
-| ---------- | ------------------------------------------------------------- | ----------- | ----------- | ---------- | ------- |
-| Tâche [US] | Mettre en place la gestion des scores pour retirer des points |             |             | 5 pts      | À faire |
+| ID         | Tâche | Statut  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Tâche [US] | Mettre en place la gestion des scores pour retirer des points |À faire |
 
 <br>
 

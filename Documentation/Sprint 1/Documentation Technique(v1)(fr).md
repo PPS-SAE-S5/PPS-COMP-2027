@@ -1,6 +1,6 @@
 # Document technique
 
-> Ce document décrit **comment** l'application est conçue et réalisée : architecture, base de données, API, technologies, tests et déploiement. Les besoins et objectifs sont décrits dans le [Cahier des charges](./Cahier_des_charges.md).
+> Ce document décrit **comment** l'application est conçue et réalisée : architecture, base de données, API, technologies, tests et déploiement. Les besoins et objectifs sont décrits dans le [Cahier des charges](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Cahier%20Des%20Charges(fr)%20v1.md).
 
 ## Table des matières
 
@@ -29,7 +29,7 @@
 
 *(en l'état lors du sprint 0)*
 
-- Planification pour du SQL (PostgreSQL(?))
+- Planification pour du SQL (PostgreSQL/ Supabase)
 - Tables nécessaires au bon fonctionnement de l'application
 
 ## 3. API
@@ -47,9 +47,8 @@
 
 ### 4.1 Frontend
 
-- **Framework** : React (ou Node.js).
+- **Framework** : JavaFX / JavaKotlin / React (ou Node.js).
 - **Style** : Tailwind CSS, pour un rendu responsive sur **PC** et **mobile**.
-- **Librairies** : utilisation de librairies existantes plutôt que du développement custom.
 
 ### 4.2 Backend
 
@@ -69,9 +68,9 @@
 
 *À mettre en place lors des futurs sprints.*
 
-- Le projet utilisant essentiellement Java (Mobile et Ordinateur), des tests JUnit sont à mettre en place.
-- Des tests globaux sont à réaliser sur les différents cas d'utilisation pour toutes les plateformes.
-- L'objectif sera de faire souffrir le back et d'observer comment les données réagissent en direct.
+- Le projet utilisant essentiellement Java (Mobile et Ordinateur), des tests JUnit sont à mettre en place
+- Des tests globaux sont à réaliser sur les différents cas d'utilisation pour toutes les plateformes
+- L'objectif sera de faire souffrir le back et d'observer comment les données réagissent en direct
 
 ### 5.2 Tests
 
@@ -81,6 +80,6 @@
 
 ## 6. Déploiement
 
-- **Frontend** : hébergé sur **Vercel** (?)
-- **Backend / Base de données** : hébergés sur **Supabase** (gratuit pour l'usage prévu).
-- Les deux plateformes gèrent le déploiement continu à partir du dépôt de code source.
+- **Frontend** : hébergé sur **Vercel**
+- **Backend / Base de données** : hébergés sur **Supabase** (gratuit pour l'usage prévu)
+- Les deux plateformes gèrent le déploiement continu à partir du dépôt de code source
