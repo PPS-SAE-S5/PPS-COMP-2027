@@ -24,13 +24,15 @@ _le lien n'est pas encore disponible en l'état_
 
 === 2.2 Pour accéder à l'application sur PC
 
-_un lien vers la release (.java / .exe / .msi) sera placé ici à la fin du sprint 1_
+_un lien vers la release (.java / .exe / .msi) sera placé ici à la fin du sprint 2_
 
 === 2.3 Pour accéder à l'application sur mobile
 
-_un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
+_aucune release (.apk) n'est disponible pour l'instant : l'application mobile est en cours de développement_
 
 == 3. Gestion de projet & Qualité
+
+=== 3.1 Le projet
 
 [cols="1,4,1", options="header"]
 |===
@@ -42,23 +44,90 @@ _un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 | Réunion de pre-projet
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
 
-| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Cahier%20Des%20Charges(fr)%20v1.md[Cahier Des Charges]
-| Cahier Des Charges (FR)
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Documentation%20Chiffrage.md[Documentation de chiffrage]
+| Chiffrage du projet (estimation de la charge de travail)
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Cahier%20Des%20Charges(fr)%20v1.md[Cahier Des Charges]
+| Cahier Des Charges (FR) v1
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/CahierDesCharges(FR)v2.md[Cahier Des Charges v2]
+| Cahier Des Charges (FR) v2 : nouveaux rôles, statuts des user stories, planification des sprints
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 2]
+
+|===
+
+---
+
+=== 3.2 Backlogs
+
+[cols="1,4,1", options="header"]
+|===
+| Gestion de projet
+| Description
+| Période de sprint
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md[Backlog produit v0]
 | Document sur le backlog produit en début de projet
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
 
-| [Backlog produit v1]
-| Document sur le backlog produit lors du premier sprint
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Backlog%20sprint%201.md[Backlog de sprint v1]
+| Document sur le backlog de sprint lors du premier sprint
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2[sprint 1]
 
-| [Backlog produit v2]
-| Document sur le backlog produit lors du second sprint
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Backlog%20sprint%202.md[Backlog de sprint v2]
+| Document sur le backlog de sprint lors du second sprint
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 2]
 
 |===
+
+---
+
+=== 3.3 Documentations
+
+==== 3.3.1 Documentation Technique
+
+[cols="1,4,1", options="header"]
+|===
+| Gestion de projet
+| Description
+| Période de sprint
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md[Documentation technique v1]
+| Documentation technique (FR) v1 
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2[sprint 1]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Technique(v2)(fr).md[Documentation technique v2]
+| Documentation technique (FR) v2 : architecture réelle, base de données, synchronisation, sécurité, tests, déploiement
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 2]
+
+|===
+
+---
+
+==== 3.3.2 Documentation Utilisateur
+
+[cols="1,4,1", options="header"]
+|===
+| Gestion de projet
+| Description
+| Période de sprint
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Utilisateur%20(fr)%20v1%20version%20PC%20.md[Documentation utilisateur v1 (PC)]
+| Documentation utilisateur (FR) v1 de l'application PC
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2[sprint 1]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Utilisateur(v2)(fr)%20version%20PC.md[Documentation utilisateur v2 (PC)]
+| Documentation utilisateur (FR) v2 de l'application PC
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 2]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Utilisateur(v2)(fr)%20version%20Mobile.md[Documentation utilisateur v2 (Mobile)]
+| Documentation utilisateur (FR) v2 de l'application mobile (version de test)
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 2]
+
+|===
+
 
 == 4. Livrables et état d'avancement
 
@@ -149,16 +218,24 @@ _un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 | Description
 | Période de sprint
 
-| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Compte%20rendu%20de%20réunion%201.md[Compte rendu de réunion]
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%201.md[Compte rendu de réunion 1]
 | Compte rendu de la première réunion pour le projet
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
 
-| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Compte%20rendu%20de%20réunion%202.md[Compte rendu de réunion]
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%202.md[Compte rendu de réunion 2]
 | Compte rendu de la seconde réunion pour le projet
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1[sprint 0]
 
-| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%203.md[Compte rendu de réunion]
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/ODJ%203%20-%20PPS.pdf[Ordre du jour de la réunion 3]
+| Ordre du jour de la troisième réunion pour le projet
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2[sprint 1]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%203.md[Compte rendu de réunion 3]
 | Compte rendu de la troisième réunion pour le projet
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2[sprint 1]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%203.pdf[Compte rendu de réunion 3 (PDF)]
+| Compte rendu de la troisième réunion pour le projet (version PDF)
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2[sprint 1]
 
 |===
@@ -166,8 +243,12 @@ _un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 === 4.3 Informations complémentaires
 
 - Version courante : _Release à sortir_
-- Lien vers la documentation technique générale (FR): https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md[Version sprint 1]
-- Lien vers la documentation utilisateur générale (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Utilisateur%20(fr)%20v1%20version%20PC%20.md[Version sprint 1]
+- Lien vers la documentation technique générale (FR): https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Technique(v2)(fr).md[Version sprint 2] (https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md[version sprint 1])
+
+- Lien vers la documentation utilisateur PC (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Utilisateur(v2)(fr)%20version%20PC.md[Version PC sprint 2], (https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Utilisateur%20(fr)%20v1%20version%20PC%20.md[version PC sprint 1])
+
+- Lien vers la documentation utilisateur Mobile (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Utilisateur(v2)(fr)%20version%20Mobile.md[Version mobile sprint 2]
+- Lien vers le cahier des charges (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/CahierDesCharges(FR)v2.md[Version sprint 2]
 
 === Liste informative sur toutes les User Stories (ToDo / En cours / Fait)
 
@@ -179,31 +260,31 @@ _un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/9[US 01]
 | En tant que gestionnaire, je veux inscrire un participant avec son nom/prénom
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/10[US 02]
 | En tant que gestionnaire, je veux créer un atelier composé de plusieurs épreuves afin de structurer une journée de compétition
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/11[US 03]
 | En tant que gestionnaire, je veux organiser une journée contenant des ateliers (matin, après-midi, 2e journée) afin de répartir les épreuves dans le temps
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/12[US 04]
 | En tant qu'utilisateur, je veux voir le score total d'un participant afin de suivre sa performance globale
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/13[US 05]
 | En tant qu'utilisateur, je veux consulter le classement du jour afin de suivre l'évolution de la compétition
-| ToDo
+| In Progress
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/14[US 06]
 | En tant qu'utilisateur, je veux consulter le classement final afin de connaître les résultats globaux
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/15[US 07]
 | En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page
-| ToDo
+| In Progress
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16[US 08]
 | En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement
@@ -211,27 +292,27 @@ _un lien vers la release (.apk) sera placé ici à la fin du sprint 1_
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/17[US 09]
 | En tant que gestionnaire, je veux pouvoir créer une épreuve en choisissant son mode de notation afin d'adapter le barème à chaque discipline
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/18[US 10]
 | En tant que gestionnaire, je veux activer ou désactiver l'affichage des points dans le classement afin de ne montrer que le rang si besoin
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/19[US 11]
 | En tant que bénévole, je veux attribuer des points à un participant pour une épreuve donnée afin d'enregistrer sa performance
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20[US 12]
 | En tant que membre du comité, je veux modifier les points d'un participant afin de traiter les cas exceptionnels
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21[US 13]
 | En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges
-| ToDo
+| In Progress
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22[US 14]
 | En tant qu'administrateur, je veux gérer les rôles afin que chacun n'accède qu'aux fonctionnalités qui le concernent
-| ToDo
+| Done
 
 |===
 
