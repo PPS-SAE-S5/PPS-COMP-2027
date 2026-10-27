@@ -130,10 +130,10 @@ Le tableau liste les épreuves avec leur mode de calcul, leur règle, et trois i
 **Classement visible**, **Compte au général** et **Active**.
 
 Sous le tableau :
-- **+ Nouvelle épreuve** ouvre le formulaire de création ;
-- **Modifier l'épreuve sélectionnée** ;
-- **Dupliquer l'épreuve sélectionnée** : crée une copie pratique pour une épreuve proche d'une autre ;
-- **Supprimer** (supprime aussi les résultats de l'épreuve).
+- **+ Nouvelle épreuve** ouvre le formulaire de création
+- **Modifier l'épreuve sélectionnée**
+- **Dupliquer l'épreuve sélectionnée** : crée une copie pratique pour une épreuve proche d'une autre
+- **Supprimer** (supprime aussi les résultats de l'épreuve)
 
 ![Modifier ou supprimer une épreuve](./Captures/interface_modifEpreuve1.png)
 </br>
@@ -221,11 +221,11 @@ Cet écran permet d'organiser la compétition dans le temps. La structure est la
 
 Un atelier regroupe plusieurs épreuves sur un créneau d'une journée de compétition. Renseignez :
 
-- le **nom** de l'atelier et la **journée** (obligatoires) ;
-- le **créneau** : Matin ou Après-midi (obligatoire) ;
-- les **horaires** de début et de fin (format `HH:mm`, facultatifs) ;
-- le **lieu** et le **responsable** (facultatifs) ;
-- les **épreuves de l'atelier** : choisissez-les avec **Ajouter une épreuve...**. L'ordre de la liste est l'ordre de passage ; utilisez **▲ Monter** / **▼ Descendre** pour le changer, et **Retirer** pour l'enlever.
+- le **nom** de l'atelier et la **journée** (obligatoires)
+- le **créneau** : Matin ou Après-midi (obligatoire)
+- les **horaires** de début et de fin (format `HH:mm`, facultatifs)
+- le **lieu** et le **responsable** (facultatifs)
+- les **épreuves de l'atelier** : choisissez-les avec **Ajouter une épreuve...**. L'ordre de la liste est l'ordre de passage , utilisez **▲ Monter** / **▼ Descendre** pour le changer, et **Retirer** pour l'enlever
 
 > Une épreuve ne peut appartenir qu'à **un seul** atelier.
 
@@ -242,12 +242,9 @@ planning. Les autres rôles le consultent en lecture seule.
 
 1. Choisissez l'**épreuve** concernée dans la liste déroulante.
 2. Choisissez le **pilote** (seuls les pilotes inscrits à cette épreuve apparaissent).
-3. Le formulaire de saisie s'adapte **automatiquement** : il affiche un champ pour
-   chaque variable définie pour cette épreuve (voir [section 5.2](#52-variables-saisissables)).
-4. Renseignez les valeurs mesurées. Appuyer sur **Entrée** passe au champ suivant ;
-   le dernier champ valide la saisie.
-5. Si le pilote doit être disqualifié (problème de sécurité, etc.), cochez la case
-   correspondante : il obtient automatiquement 0 point.
+3. Le formulaire de saisie s'adapte **automatiquement** : il affiche un champ pour chaque variable définie pour cette épreuve (voir [section 5.2](#52-variables-saisissables)).
+4. Renseignez les valeurs mesurées. Appuyer sur **Entrée** passe au champ suivant, le dernier champ valide la saisie.
+5. Si le pilote doit être disqualifié (problème de sécurité, etc.), cochez la case correspondante : il obtient automatiquement 0 point.
 6. Cliquez sur **Enregistrer le résultat**.
 
 Le tableau à droite liste tous les résultats déjà saisis pour l'épreuve sélectionnée,
@@ -268,9 +265,9 @@ Affiche, pour chaque pilote : son rang, son genre, ses points sur chaque épreuv
 classement général, et son total.
 
 La liste déroulante **Classement** permet de choisir :
-- **Mixte** : hommes et femmes ensemble ;
-- **Hommes** : seulement les hommes ;
-- **Femmes** : seulement les femmes.
+- **Mixte** : hommes et femmes ensemble
+- **Hommes** : seulement les hommes
+- **Femmes** : seulement les femmes
 
 Les rangs sont recalculés parmi les pilotes retenus (la 1re femme du classement « Femmes »
 a le rang 1). Ce choix s'applique aussi au détail par épreuve.
@@ -321,9 +318,9 @@ impliquée dans l'organisation (responsable d'épreuve, bénévoles...).
 sans tenir compte des majuscules.
 
 **Gérer un compte existant :** sélectionnez-le dans le tableau, puis :
-- **Activer / Désactiver le compte** : un compte désactivé ne peut plus se connecter, sans perdre son historique ;
-- **Changer le mot de passe** : saisissez le nouveau mot de passe puis validez ;
-- **Supprimer le compte sélectionné** (une confirmation est demandée).
+- **Activer / Désactiver le compte** : un compte désactivé ne peut plus se connecter, sans perdre son historique
+- **Changer le mot de passe** : saisissez le nouveau mot de passe puis validez
+- **Supprimer le compte sélectionné** (une confirmation est demandée)
 
 > Le compte `admin` par défaut ne peut ni être supprimé, ni désactivé. Vous ne pouvez pas
 > non plus supprimer ou désactiver le compte avec lequel vous êtes connecté.

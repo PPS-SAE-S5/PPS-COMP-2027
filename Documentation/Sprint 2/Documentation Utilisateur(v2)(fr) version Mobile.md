@@ -36,7 +36,7 @@ puis partagées en ligne dès qu'une connexion est disponible (voir [section 10]
 > L'application mobile est **en retard sur la version PC**.\
 > Les fonctionnalités suivantes **n'existent pas encore** sur mobile (elles sont disponibles uniquement dans la version PC) :
 >
-> - le **planning des journées** (journées, ateliers, épreuves) ;
+> - le **planning des journées** (journées, ateliers, épreuves)
 > - le **suivi des participants** (détail des scores d'un pilote).
 
 ---
@@ -120,7 +120,7 @@ son numéro de licence, sa caserne, son genre, son année de naissance et son po
 <!-- Image à fournir : Sprint 2/Captures/mobile_pilote_fiche.png -->
 
 **Modifier ou supprimer un pilote :** touchez sa fiche dans la liste, modifiez les champs puis touchez
-**Enregistrer les modifications**, ou touchez **Supprimer ce pilote** (cela supprime aussi tous ses résultats déjà saisis ; une confirmation est demandée).
+**Enregistrer les modifications**, ou touchez **Supprimer ce pilote** (cela supprime aussi tous ses résultats déjà saisis, une confirmation est demandée).
 
 > Dès qu'un pilote est ajouté, il est automatiquement inscrit à toutes les épreuves déjà
 > actives. S'il ne se présente pas à une épreuve, il aura automatiquement 0 point à celle-ci
@@ -188,7 +188,7 @@ les points du dernier palier sont reconduits.
 - **Épreuve active (proposée à la saisie)** : l'épreuve apparaît (ou non) dans l'écran de saisie.
 
 Terminez avec **Enregistrer l'épreuve**. Pour supprimer une épreuve, touchez **Supprimer cette épreuve**
-(cela supprime aussi ses résultats ; une confirmation est demandée).
+(cela supprime aussi ses résultats, une confirmation est demandée).
 
 ---
 
@@ -201,8 +201,7 @@ Terminez avec **Enregistrer l'épreuve**. Pour supprimer une épreuve, touchez *
 2. Choisissez le **pilote** (seuls les pilotes inscrits à cette épreuve apparaissent).
 3. Le formulaire s'adapte **automatiquement** : un champ par variable définie pour l'épreuve.
 4. Renseignez les valeurs mesurées.
-5. Si le pilote doit être disqualifié (problème de sécurité, etc.), cochez
-   **Disqualifié / problème de sécurité (0 point automatique)**.
+5. Si le pilote doit être disqualifié (problème de sécurité, etc.), cochez **Disqualifié / problème de sécurité (0 point automatique)**.
 6. Touchez **Enregistrer le résultat**.
 
 La liste des résultats déjà saisis pour l'épreuve s'affiche en dessous, avec les points calculés.
@@ -221,7 +220,7 @@ L'écran **Classements** propose deux onglets, **Général** et **Détail par é
 <!-- Image à fournir : Sprint 2/Captures/mobile_classement_general.png -->
 
 - **Général** : rang, points sur chaque épreuve comptant au général, et total de chaque pilote.
-  La liste **Classement** permet de choisir **Mixte**, **Hommes** ou **Femmes** ; les rangs sont
+  La liste **Classement** permet de choisir **Mixte**, **Hommes** ou **Femmes**, les rangs sont
   recalculés parmi les pilotes retenus. Un pilote sans genre n'apparaît que dans le classement mixte.
 - **Détail par épreuve** : classement complet d'une seule épreuve, avec les valeurs saisies.
   Seules les épreuves dont « Afficher le classement » est coché sont proposées.
@@ -245,9 +244,9 @@ Réservé au rôle Administrateur.
 dans la liste, puis touchez **Créer le compte**. Les identifiants sont uniques, sans tenir compte des majuscules.
 
 **Gérer un compte existant :** touchez le compte dans la liste, puis :
-- **Désactiver ce compte** / **Réactiver ce compte** : un compte désactivé ne peut plus se connecter, sans perdre son historique ;
-- **Nouveau mot de passe** puis **Changer le mot de passe** ;
-- **Supprimer ce compte** (une confirmation est demandée).
+- **Désactiver ce compte** / **Réactiver ce compte** : un compte désactivé ne peut plus se connecter, sans perdre son historique
+- **Nouveau mot de passe** puis **Changer le mot de passe**
+- **Supprimer ce compte** (une confirmation est demandée)
 
 > Le compte `admin` par défaut ne peut ni être supprimé, ni désactivé. Vous ne pouvez pas non plus supprimer ou désactiver le compte avec lequel vous êtes connecté.
 
@@ -266,9 +265,7 @@ Responsable de l'épreuve.
 
 1. Saisissez l'**URL du projet** et la **clé API publique** (les mêmes que sur la version PC, fournies par l'équipe technique).
 2. Touchez **Enregistrer la configuration**, puis **Tester la connexion**.
-3. (Facultatif) Activez la **synchronisation automatique au démarrage** : l'application récupère
-   discrètement les nouveautés au lancement, sans rien envoyer ni supprimer, et sans bloquer
-   l'ouverture si vous êtes hors-ligne.
+3. (Facultatif) Activez la **synchronisation automatique au démarrage** : l'application récupère discrètement les nouveautés au lancement, sans rien envoyer ni supprimer, et sans bloquer l'ouverture si vous êtes hors-ligne.
 
 L'écran indique la **dernière synchronisation réussie** de l'appareil.
 

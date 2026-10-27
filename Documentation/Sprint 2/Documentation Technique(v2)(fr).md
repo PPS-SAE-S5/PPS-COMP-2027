@@ -174,7 +174,7 @@ Les épreuves sont **100 % paramétrables** : le responsable crée ses variables
 | `BAREME` | Les pilotes sont classés sur une **valeur clé** (`ASC` : plus petit = meilleur, `DESC` : plus grand = meilleur), puis reçoivent les points du barème selon leur rang. Les points de tous les pilotes sont **recalculés** à chaque nouvelle saisie |
 
 Règles du club appliquées :
-- un pilote **disqualifié** (sécurité) obtient **0 point** et ne prend pas de rang ;
+- un pilote **disqualifié** (sécurité) obtient **0 point** et ne prend pas de rang
 - un pilote inscrit à une épreuve **sans résultat** obtient **0 point**.
 
 Chaque épreuve possède aussi les options **« afficher le classement »** (affichage des points ou seulement du rang, US 10) et **« compte dans le classement général »**.
@@ -183,11 +183,11 @@ Chaque épreuve possède aussi les options **« afficher le classement »** (aff
 
 - **Classement général** : une colonne par épreuve, recalculé à la demande.
 - **Détail par épreuve**.
-- **Filtre par genre** : classement **Mixte**, **Hommes** ou **Femmes** ; les rangs sont recalculés parmi les pilotes retenus. Un pilote sans genre renseigné n'apparaît que dans le classement mixte.
+- **Filtre par genre** : classement **Mixte**, **Hommes** ou **Femmes**, les rangs sont recalculés parmi les pilotes retenus. Un pilote sans genre renseigné n'apparaît que dans le classement mixte.
 
 ### 3.3 Planning (journées, ateliers, épreuves)
 
-Structure hiérarchique : **journée → ateliers (matin / après-midi) → épreuves**. Une épreuve n'appartient qu'à un seul atelier ; l'ordre de passage dans l'atelier est conservé.
+Structure hiérarchique : **journée → ateliers (matin / après-midi) → épreuves**. Une épreuve n'appartient qu'à un seul atelier, l'ordre de passage dans l'atelier est conservé.
 
 ### 3.4 Rôles et droits d'accès
 
@@ -226,7 +226,7 @@ L'URL du projet et la clé sont saisies dans l'écran de synchronisation et enre
 Points actuellement en place :
 - **Mots de passe hachés** en SHA-256 avant stockage et avant envoi à Supabase.
 - **RLS activée** sur toutes les tables Supabase.
-- Comptes **désactivables** sans perte d'historique ; identifiants uniques sans tenir compte des majuscules ; le compte `admin` ne peut être ni supprimé ni désactivé.
+- Comptes **désactivables** sans perte d'historique, identifiants uniques sans tenir compte des majuscules, le compte `admin` ne peut être ni supprimé ni désactivé.
 - La clé API n'est pas dans le dépôt (fichier de configuration local).
 
 Limites connues, assumées pour un outil interne au club à ce stade :
@@ -273,7 +273,7 @@ Limites connues, assumées pour un outil interne au club à ce stade :
 
 | Sujet | Prévu en v1 | Réalisé (v2) |
 |---|---|---|
-| Frontend | React / Node.js, Tailwind CSS/ Java, JavaFX | **JavaFX** (PC) et **Kotlin / Jetpack Compose** (mobile) ; pas de Tailwind |
+| Frontend | React / Node.js, Tailwind CSS/ Java, JavaFX | **JavaFX** (PC) et **Kotlin / Jetpack Compose** (mobile), pas de Tailwind |
 | Architecture | Frontend + Supabase | Applications **locales** + synchronisation Supabase (offline-first) |
 | Base de données | PostgreSQL via Supabase uniquement | **H2** (PC) et **SQLite/Room** (mobile) en local + PostgreSQL en ligne |
 | Authentification | Supabase Auth (envisagée) | Comptes gérés par l'application (SHA-256) |
@@ -307,12 +307,12 @@ Limites connues, assumées pour un outil interne au club à ce stade :
 
 | Composant | Mode de livraison | Détail |
 |---|---|---|
-| Application PC | Lancement via Maven (`mvn clean javafx:run`) ou JAR (`mvn clean package`) | Java 17+ ; la base locale est le dossier `data/` à côté de l'application (à sauvegarder pour conserver les données) |
+| Application PC | Lancement via Maven (`mvn clean javafx:run`) ou JAR (`mvn clean package`) | Java 17+ & la base locale est le dossier `data/` à côté de l'application (à sauvegarder pour conserver les données) |
 | Application mobile | Fichier **APK** installable | Généré depuis Android Studio (`Build > Build APK(s)`), Android 8.0 minimum |
 | Base en ligne | **Supabase** (offre gratuite pour l'usage prévu) | Scripts SQL à exécuter une fois dans l'éditeur SQL de Supabase |
 | Page web (à venir) | **Vercel** *(à confirmer)* | Consultation des classements en lecture seule |
 
-Il n'y a pas encore de déploiement continu automatisé ; les releases (démo + installation) sont préparées à la fin de chaque sprint.
+Il n'y a pas encore de déploiement continu automatisé, les releases (démo + installation) sont préparées à la fin de chaque sprint.
 
 ---
 
@@ -322,7 +322,7 @@ Il n'y a pas encore de déploiement continu automatisé ; les releases (démo + 
 
 - **Page web** de consultation des classements sans compte (US 08) et page du classement en lecture seule (Sprint 3).
 - **Historique des modifications de points** (logs d'ajout / retrait, US 13).
-- **Rafraîchissement automatique du classement** : à ce jour le classement est recalculé à la demande ; le rafraîchissement périodique et la mise à jour « quasi temps réel » reposent sur la synchronisation (à confirmer pour le mode d'actualisation final : sondage périodique ou Supabase Realtime).
+- **Rafraîchissement automatique du classement** : à ce jour le classement est recalculé à la demande, le rafraîchissement périodique et la mise à jour « quasi temps réel » reposent sur la synchronisation (à confirmer pour le mode d'actualisation final : sondage périodique ou Supabase Realtime).
 - **Sécurité renforcée** : hachage avec sel, droits côté serveur (RLS par rôle), changement obligatoire du mot de passe par défaut.
 - **Migrations de la base mobile** à la place de la recréation automatique.
 - **Alignement de la documentation de la base** (`schema.sql` Supabase et `BaseDeDonnées.md`) avec le schéma réel.

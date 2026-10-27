@@ -45,7 +45,7 @@ Afin de moderniser et de simplifier ce processus, le club souhaite mettre en pla
 
 L'objectif du projet est de concevoir et de développer une application mobile, une application PC et une page web dédiées à la gestion d'une compétition de parapente.
 
-Les utilisateurs pourront utiliser l'application mobile ou PC selon leur besoin. Les applications fonctionnent avec un serveur et une base de données en ligne, mais aussi sans internet grâce à une base de données locale ; les données sont transmises sur internet dès que la connexion est rétablie.
+Les utilisateurs pourront utiliser l'application mobile ou PC selon leur besoin. Les applications fonctionnent avec un serveur et une base de données en ligne, mais aussi sans internet grâce à une base de données locale, les données sont transmises sur internet dès que la connexion est rétablie.
 
 Il existe également différents rôles, qui ont des droits différents.
 

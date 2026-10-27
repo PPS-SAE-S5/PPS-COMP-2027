@@ -143,7 +143,7 @@ grande), puis les points sont attribués selon un tableau "rang → points" que 
 définissez (ex: 1er = 100 pts, 2e = 90 pts, 3e = 80 pts...). Au-delà du dernier rang
 défini, les points du dernier palier sont automatiquement reconduits pour tout le monde.
 
-> 💡 Le barème se recalcule automatiquement pour **tous** les pilotes de l'épreuve à
+> Le barème se recalcule automatiquement pour **tous** les pilotes de l'épreuve à
 > chaque nouvelle saisie, puisque les rangs sont relatifs les uns aux autres.
 
 ### 5.4 Options de l'épreuve
