@@ -116,8 +116,7 @@ son numéro de licence, sa caserne, son genre, son année de naissance et son po
    - Genre (Homme ou Femme)
 3. Touchez **Ajouter le pilote**.
 
-![Fiche pilote](#)
-<!-- Image à fournir : Sprint 2/Captures/mobile_pilote_fiche.png -->
+![Fiche pilote](./Captures/mobile_pilote_fiche.png)
 
 **Modifier ou supprimer un pilote :** touchez sa fiche dans la liste, modifiez les champs puis touchez
 **Enregistrer les modifications**, ou touchez **Supprimer ce pilote** (cela supprime aussi tous ses résultats déjà saisis, une confirmation est demandée).
@@ -137,15 +136,13 @@ son numéro de licence, sa caserne, son genre, son année de naissance et son po
 (atterrissage de précision, marche & vol, cross, checkpoint... ou toute autre épreuve),
 avec ses propres règles de calcul des points.
 
-![Liste des épreuves](#)
-<!-- Image à fournir : Sprint 2/Captures/mobile_epreuves_liste.png -->
+![Liste des épreuves](./Captures/mobile_epreuves_liste.png)
 
 La liste affiche chaque épreuve avec sa règle (formule, ou barème avec la variable de classement et son sens).
 Touchez **Nouvelle épreuve** pour en créer une, ou touchez une épreuve existante pour la modifier
 (**Modifier l'épreuve**).
 
-![Création d'une épreuve](#)
-<!-- Image à fournir : Sprint 2/Captures/mobile_epreuve_form.png -->
+![Création d'une épreuve](./Captures/mobile_epreuve_form.png)
 
 ### 6.1 Informations générales
 
@@ -194,8 +191,7 @@ Terminez avec **Enregistrer l'épreuve**. Pour supprimer une épreuve, touchez *
 
 ## 7. Saisie des résultats
 
-![Saisie des résultats](#)
-<!-- Image à fournir : Sprint 2/Captures/mobile_saisie.png -->
+![Saisie des résultats](./Captures/mobile_saisie.png)
 
 1. Choisissez l'**épreuve** concernée.
 2. Choisissez le **pilote** (seuls les pilotes inscrits à cette épreuve apparaissent).
@@ -206,8 +202,7 @@ Terminez avec **Enregistrer l'épreuve**. Pour supprimer une épreuve, touchez *
 
 La liste des résultats déjà saisis pour l'épreuve s'affiche en dessous, avec les points calculés.
 
-![Saisie avec disqualification](#)
-<!-- Image à fournir : Sprint 2/Captures/mobile_saisie_disq.png -->
+![Saisie avec disqualification](./Captures/mobile_saisie_disq.png)
 
 ---
 
@@ -216,8 +211,7 @@ La liste des résultats déjà saisis pour l'épreuve s'affiche en dessous, avec
 L'écran **Classements** propose deux onglets, **Général** et **Détail par épreuve**, et un bouton
 **Actualiser** pour recalculer après de nouvelles saisies.
 
-![Classement général](#)
-<!-- Image à fournir : Sprint 2/Captures/mobile_classement_general.png -->
+![Classement général](./Captures/mobile_classement_general.png)
 
 - **Général** : rang, points sur chaque épreuve comptant au général, et total de chaque pilote.
   La liste **Classement** permet de choisir **Mixte**, **Hommes** ou **Femmes**, les rangs sont
@@ -225,8 +219,7 @@ L'écran **Classements** propose deux onglets, **Général** et **Détail par é
 - **Détail par épreuve** : classement complet d'une seule épreuve, avec les valeurs saisies.
   Seules les épreuves dont « Afficher le classement » est coché sont proposées.
 
-![Détail par épreuve](#)
-<!-- Image à fournir : Sprint 2/Captures/mobile_classement_epreuve.png -->
+![Détail par épreuve](./Captures/mobile_classement_epreuve.png)
 
 > Un pilote inscrit sans résultat saisi obtient automatiquement 0 point à l'épreuve.
 
@@ -258,7 +251,7 @@ Quand le téléphone retrouve internet, cet écran permet d'envoyer ou de recevo
 en ligne (Supabase), **la même que celle des ordinateurs**. Il est réservé à l'Administrateur et au
 Responsable de l'épreuve.
 
-![Synchronisation en ligne](#)
+_Image de la synchronisation en ligne non disponible car pas encore implémentée dans l'application mobile_
 <!-- Image à fournir : Sprint 2/Captures/mobile_sync.png -->
 
 ### 10.1 Première configuration
