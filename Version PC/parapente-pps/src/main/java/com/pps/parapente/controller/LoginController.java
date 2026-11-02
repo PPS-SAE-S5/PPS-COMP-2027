@@ -1,6 +1,7 @@
 package com.pps.parapente.controller;
 import com.pps.parapente.util.MessageErreurUtil;
 
+import com.pps.parapente.model.Role;
 import com.pps.parapente.model.Utilisateur;
 import com.pps.parapente.service.AuthService;
 import com.pps.parapente.util.SceneManager;
@@ -33,7 +34,7 @@ public class LoginController {
         try {
             Optional<Utilisateur> utilisateur = authService.seConnecter(identifiant, motDePasse);
             if (utilisateur.isPresent()) {
-                SceneManager.naviguerVers("dashboard.fxml", "Tableau de bord");
+                ouvrirPageAccueil(utilisateur.get());
             } else {
                 afficherErreur("Identifiant ou mot de passe incorrect.");
             }
@@ -48,12 +49,21 @@ public class LoginController {
         try {
             Optional<Utilisateur> utilisateur = authService.seConnecter("invité", "invitationPPS");
             if (utilisateur.isPresent()) {
-                SceneManager.naviguerVers("dashboard.fxml", "Tableau de bord");
+                ouvrirPageAccueil(utilisateur.get());
             } else {
                 afficherErreur("Le compte invité a un problème.");
             }
         } catch (SQLException e) {
             afficherErreur("Erreur d'accès à la base locale : " + MessageErreurUtil.traduire(e));
+        }
+    }
+
+    /** Le pilote arrive directement sur le classement ; les autres rôles sur le tableau de bord. */
+    private void ouvrirPageAccueil(Utilisateur utilisateur) {
+        if (utilisateur.getRole() == Role.PILOTE) {
+            SceneManager.naviguerVers("classement.fxml", "Classement général");
+        } else {
+            SceneManager.naviguerVers("dashboard.fxml", "Tableau de bord");
         }
     }
 

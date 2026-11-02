@@ -7,7 +7,7 @@
             fx:controller="com.pps.parapente.controller.ClassementController" prefWidth="1050" prefHeight="680">
     <top>
         <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
-            <Button text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
+            <Button fx:id="boutonRetour" text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
             <Label text="Classements" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Label text="Classement :"/>

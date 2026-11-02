@@ -5,13 +5,18 @@ import com.pps.parapente.model.Epreuve;
 import com.pps.parapente.model.FiltreGenre;
 import com.pps.parapente.model.LigneClassement;
 import com.pps.parapente.model.Resultat;
+import com.pps.parapente.model.Role;
+import com.pps.parapente.model.Utilisateur;
+import com.pps.parapente.service.AuthService;
 import com.pps.parapente.service.ClassementService;
 import com.pps.parapente.service.EpreuveService;
 import com.pps.parapente.util.SceneManager;
+import com.pps.parapente.util.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -30,6 +35,7 @@ import java.util.Map;
  */
 public class ClassementController {
 
+    @FXML private Button boutonRetour;
     @FXML private ComboBox<FiltreGenre> comboFiltreGenre;
     @FXML private Label labelFiltre;
 
@@ -47,9 +53,14 @@ public class ClassementController {
 
     private final ClassementService classementService = new ClassementService();
     private final EpreuveService epreuveService = new EpreuveService();
+    private final AuthService authService = new AuthService();
 
     @FXML
     public void initialize() {
+        if (estPilote()) {
+            // Le pilote n'a pas de tableau de bord : le bouton sert à se déconnecter
+            boutonRetour.setText("Déconnexion");
+        }
         configurerColonnesDetail();
         // Filtre Mixte / Hommes / Femmes
         comboFiltreGenre.setItems(FXCollections.observableArrayList(FiltreGenre.values()));
@@ -191,8 +202,18 @@ public class ClassementController {
         return f != null ? f : FiltreGenre.MIXTE;
     }
 
+    private boolean estPilote() {
+        Utilisateur u = SessionManager.getUtilisateurConnecte();
+        return u != null && u.getRole() == Role.PILOTE;
+    }
+
     @FXML
     private void retour() {
-        SceneManager.naviguerVers("dashboard.fxml", "Tableau de bord");
+        if (estPilote()) {
+            authService.seDeconnecter();
+            SceneManager.naviguerVers("login.fxml", "Connexion");
+        } else {
+            SceneManager.naviguerVers("dashboard.fxml", "Tableau de bord");
+        }
     }
 }

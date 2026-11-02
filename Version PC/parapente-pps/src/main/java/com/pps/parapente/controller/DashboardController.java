@@ -45,8 +45,9 @@ public class DashboardController {
      * - Administrateur : tout
      * - Responsable de l'épreuve : épreuves, planning, pilotes (lecture), saisie, classement
      * - Bénévole : planning (lecture seule), saisie des résultats, suivi des participants, classement
-     * - Pilote / Comité des pilotes : planning (lecture seule) et classement (consultation), pas de suivi individuel
-     * Le planning est visible de tous, seuls l'administrateur et le responsable peuvent le modifier
+     * - Pilote : classement uniquement (pas de planning, pas de suivi individuel)
+     * - Comité des pilotes : planning (lecture seule) et classement (consultation), pas de suivi individuel
+     * Le planning est visible de tous sauf du pilote ; seuls l'administrateur et le responsable peuvent le modifier
      * (voir PlanningController).
      */
     private void appliquerDroitsAccesParRole(Role role) {
@@ -54,7 +55,8 @@ public class DashboardController {
             case ADMINISTRATEUR -> { /* tout visible par défaut */ }
             case RESPONSABLE_EPREUVE -> masquer(carteUtilisateurs);
             case BENEVOLE -> masquer(carteUtilisateurs, carteEpreuves, carteSync);
-            case PILOTE, COMITE_PILOTES -> masquer(carteUtilisateurs, carteEpreuves, carteSaisie, cartePilotes, carteSync, carteScoreParticipant);
+            case PILOTE -> masquer(carteUtilisateurs, carteEpreuves, carteSaisie, cartePilotes, cartePlanning, carteSync, carteScoreParticipant);
+            case COMITE_PILOTES -> masquer(carteUtilisateurs, carteEpreuves, carteSaisie, cartePilotes, carteSync, carteScoreParticipant);
         }
     }
 

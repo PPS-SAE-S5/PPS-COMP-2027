@@ -59,6 +59,11 @@ public class PlanningController {
             SceneManager.naviguerVers("login.fxml", "Connexion");
             return;
         }
+        if (u.getRole() == Role.PILOTE) {
+            // Le pilote n'a pas accès au planning donc on le redirige vers le classement général
+            SceneManager.naviguerVers("classement.fxml", "Classement général");
+            return;
+        }
         peutModifier = u.getRole() == Role.ADMINISTRATEUR || u.getRole() == Role.RESPONSABLE_EPREUVE;
         if (!peutModifier) {
             masquer(boutonNouvelleJournee, boutonNouvelAtelier);
