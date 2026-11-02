@@ -28,7 +28,7 @@
             <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
 
             <Button text="Se connecter" styleClass="bouton-principal" maxWidth="Infinity" onAction="#seConnecter"/>
-            <Label text="Compte par défaut pour l'instant : admin / admin123" style="-fx-text-fill:#95a5a6; -fx-font-size:11px;"/>
+            <!-- <Label text="Compte par défaut pour l'instant : admin / admin123" style="-fx-text-fill:#95a5a6; -fx-font-size:11px;"/> -->
         </VBox>
     </VBox>
 </StackPane>
