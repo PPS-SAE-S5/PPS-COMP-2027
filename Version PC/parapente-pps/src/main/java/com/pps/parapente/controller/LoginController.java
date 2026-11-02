@@ -42,6 +42,21 @@ public class LoginController {
         }
     }
 
+    @FXML
+    private void etreInvite() {
+
+        try {
+            Optional<Utilisateur> utilisateur = authService.seConnecter("invité", "invitationPPS");
+            if (utilisateur.isPresent()) {
+                SceneManager.naviguerVers("dashboard.fxml", "Tableau de bord");
+            } else {
+                afficherErreur("Le compte invité a un problème.");
+            }
+        } catch (SQLException e) {
+            afficherErreur("Erreur d'accès à la base locale : " + MessageErreurUtil.traduire(e));
+        }
+    }
+
     private void afficherErreur(String message) {
         labelErreur.setText(message);
         labelErreur.setVisible(true);
