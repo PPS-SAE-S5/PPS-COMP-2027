@@ -81,7 +81,7 @@ fun LoginScreen(repo: Repository, onConnecte: (UtilisateurEntity) -> Unit) {
                     BoutonPrincipal("Se connecter") { connexion() }
                 }
             }
-            Text("Compte par défaut : admin / admin123", color = Gris, fontSize = 11.sp)
+            // Text("Compte par défaut : admin / admin123", color = Gris, fontSize = 11.sp)
         }
     }
 }
