@@ -24,11 +24,13 @@ _le lien n'est pas encore disponible en l'état_
 
 === 2.2 Pour accéder à l'application sur PC
 
-_un lien vers la release (.java / .exe / .msi) sera placé ici à la fin du sprint 2_
+_un lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.0[PPS-COMP v2.0] +
+_un lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v2.0/PPS-COMP.v2.0-SNAPSHOT.jar[PPS-COMP PC 2.0]
 
 === 2.3 Pour accéder à l'application sur mobile
 
-_aucune release (.apk) n'est disponible pour l'instant : l'application mobile est en cours de développement_
+_un lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.0[PPS-COMP v2.0] +
+_un lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v2.0/PPS-COMP.v2.0.apk[PPS-COMP Mobile 2.0] 
 
 == 3. Gestion de projet & Qualité
 
@@ -242,7 +244,7 @@ _aucune release (.apk) n'est disponible pour l'instant : l'application mobile es
 
 === 4.3 Informations complémentaires
 
-- Version courante : _Release à sortir_
+- Version courante : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.0[Release v2.0]
 - Lien vers la documentation technique générale (FR): https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Technique(v2)(fr).md[Version sprint 2] (https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md[version sprint 1])
 
 - Lien vers la documentation utilisateur PC (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Utilisateur(v2)(fr)%20version%20PC.md[Version PC sprint 2], (https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Utilisateur%20(fr)%20v1%20version%20PC%20.md[version PC sprint 1])
@@ -288,7 +290,7 @@ _aucune release (.apk) n'est disponible pour l'instant : l'application mobile es
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16[US 08]
 | En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement
-| ToDo
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/17[US 09]
 | En tant que gestionnaire, je veux pouvoir créer une épreuve en choisissant son mode de notation afin d'adapter le barème à chaque discipline
