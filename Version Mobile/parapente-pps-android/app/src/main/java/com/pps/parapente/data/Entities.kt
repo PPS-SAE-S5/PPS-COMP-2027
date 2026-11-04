@@ -109,3 +109,50 @@ data class ResultatEntity(
     val dateSaisie: Long = System.currentTimeMillis(),
     val updatedAt: Long = System.currentTimeMillis() // synchronisation : date de dernière modification
 )
+
+// ====================================================================== Planning (version PC 0.5)
+// Journée > ateliers (matin / après-midi) > épreuves. Une épreuve n'appartient qu'à UN seul atelier.
+
+@Entity(tableName = "journees")
+data class JourneeEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val uuid: String = java.util.UUID.randomUUID().toString(), // synchronisation : identifiant stable entre appareils
+    val nom: String,
+    val dateJournee: String? = null, // format ISO "yyyy-MM-dd" (comme Supabase)
+    val ordre: Int = 0,
+    val updatedAt: Long = System.currentTimeMillis()
+)
+
+@Entity(
+    tableName = "ateliers",
+    foreignKeys = [ForeignKey(entity = JourneeEntity::class, parentColumns = ["id"], childColumns = ["journeeId"], onDelete = ForeignKey.CASCADE)],
+    indices = [Index("journeeId")]
+)
+data class AtelierEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val uuid: String = java.util.UUID.randomUUID().toString(),
+    val journeeId: Int,
+    val nom: String,
+    val creneau: String = Creneau.MATIN, // MATIN ou APRES_MIDI
+    val heureDebut: String? = null,      // HH:mm
+    val heureFin: String? = null,        // HH:mm
+    val lieu: String? = null,
+    val responsable: String? = null,
+    val ordre: Int = 0,
+    val updatedAt: Long = System.currentTimeMillis()
+)
+
+@Entity(
+    tableName = "atelier_epreuves",
+    foreignKeys = [
+        ForeignKey(entity = AtelierEntity::class, parentColumns = ["id"], childColumns = ["atelierId"], onDelete = ForeignKey.CASCADE),
+        ForeignKey(entity = EpreuveEntity::class, parentColumns = ["id"], childColumns = ["epreuveId"], onDelete = ForeignKey.CASCADE)
+    ],
+    indices = [Index("atelierId"), Index(value = ["epreuveId"], unique = true)]
+)
+data class AtelierEpreuveEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val atelierId: Int,
+    val epreuveId: Int,
+    val ordre: Int = 0 // ordre de passage dans l'atelier
+)

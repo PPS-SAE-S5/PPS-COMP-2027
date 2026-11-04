@@ -41,6 +41,7 @@ import com.pps.parapente.ui.Deroulant
 import com.pps.parapente.ui.DialogueConfirmation
 import com.pps.parapente.ui.Erreur
 import com.pps.parapente.ui.Gris
+import com.pps.parapente.ui.Info
 import com.pps.parapente.ui.Page
 import com.pps.parapente.ui.SousTitre
 import kotlinx.coroutines.launch
@@ -49,9 +50,26 @@ import kotlinx.coroutines.launch
 fun EpreuvesScreen(repo: Repository, onBack: () -> Unit, onOuvrir: (EpreuveComplete?) -> Unit) {
     var epreuves by remember { mutableStateOf<List<EpreuveComplete>>(emptyList()) }
     var erreur by remember { mutableStateOf<String?>(null) }
+    var info by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         try { epreuves = repo.epreuves() } catch (e: Exception) { erreur = MessageErreur.traduire(e) }
+    }
+
+    /** Duplique une épreuve (variables et barème inclus, sans les résultats des pilotes). */
+    fun dupliquer(ec: EpreuveComplete) {
+        scope.launch {
+            try {
+                val copie = repo.dupliquerEpreuve(ec.epreuve.id)
+                epreuves = repo.epreuves()
+                erreur = null
+                info = "« ${copie.nom} » a été créée."
+            } catch (e: Exception) {
+                info = null
+                erreur = MessageErreur.traduire(e)
+            }
+        }
     }
 
     Page("Gestion des épreuves", onBack) { pad ->
@@ -61,6 +79,7 @@ fun EpreuvesScreen(repo: Repository, onBack: () -> Unit, onOuvrir: (EpreuveCompl
         ) {
             BoutonPrincipal("+ Nouvelle épreuve") { onOuvrir(null) }
             Erreur(erreur)
+            Info(info)
             if (epreuves.isEmpty()) Text("Aucune épreuve créée pour le moment.", color = Gris)
             epreuves.forEach { ec ->
                 val e = ec.epreuve
@@ -77,6 +96,9 @@ fun EpreuvesScreen(repo: Repository, onBack: () -> Unit, onOuvrir: (EpreuveCompl
                             "Active : ${if (e.actif) "oui" else "non"}",
                         color = Gris, fontSize = 12.sp
                     )
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                        androidx.compose.material3.TextButton(onClick = { dupliquer(ec) }) { Text("Dupliquer") }
+                    }
                 }
             }
         }
@@ -148,7 +170,11 @@ fun EpreuveFormScreen(repo: Repository, existante: EpreuveComplete?, onTermine: 
                     modeCalcul = mode, formule = formule.trim().ifBlank { null },
                     valeurCle = valeurCle.ifBlank { null }, sensClassement = sens,
                     afficherClassement = afficher, compteDansGeneral = compte, actif = actif,
-                    ordre = e?.ordre ?: 0
+                    ordre = e?.ordre ?: 0,
+                    // IMPORTANT : on conserve l'identité de l'épreuve. Sans cela, chaque modification lui donnait
+                    // un nouvel uuid et la synchronisation la considérait comme une AUTRE épreuve (doublons).
+                    uuid = e?.uuid ?: java.util.UUID.randomUUID().toString(),
+                    supabaseId = e?.supabaseId
                 )
                 repo.sauverEpreuve(EpreuveComplete(entite, params, lignesBareme))
                 onTermine()

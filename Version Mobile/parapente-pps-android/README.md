@@ -18,6 +18,37 @@ Version Android de l'application du Championnat de France Pompiers de Parapente
   Responsable de l'épreuve) — voir plus bas
 - messages d'erreur en français
 
+## Nouveautés (alignées sur la version PC mise à jour par un camarade)
+
+- **Planning des journées** : journées > créneaux (matin / après-midi) > ateliers > épreuves, avec horaires,
+  lieu, responsable et ordre de passage. Seuls l'administrateur et le responsable de l'épreuve le modifient ;
+  les autres rôles (sauf Pilote) le consultent. Synchronisé avec Supabase.
+- **Suivi des participants** : recherche d'un pilote, total de points, rang, scores épreuve par épreuve
+  (administrateur, responsable, bénévole).
+- **Dupliquer une épreuve** (variables et barème inclus, sans les résultats) depuis la liste des épreuves.
+- **Compte invité** : bouton « Non, je veux uniquement suivre le classement » sur l'écran de connexion.
+  Le compte `invité` (rôle Pilote = classement seulement) est créé automatiquement s'il n'existe pas.
+  Un compte de rôle **Pilote** arrive directement sur le classement ; « retour » le déconnecte.
+- **Tableau de bord** rangé en trois sections (Préparer / Pendant la compétition / Administration).
+
+### Corrections importantes
+- **Données qui « disparaissaient » après une coupure réseau** : l'envoi d'une épreuve supprime puis réécrit
+  ses variables et son barème en plusieurs requêtes ; une coupure entre les deux laissait l'épreuve VIDE en
+  ligne, et la réception suivante vidait ensuite les listes sur les autres appareils.
+  Désormais : (1) le démarrage automatique ne fait que **recevoir** (jamais d'envoi ni de suppression) ;
+  (2) une épreuve sans variables en ligne ne vide plus celles de l'appareil ; (3) on n'efface jamais en
+  ligne les variables d'une épreuve qui n'en a aucune ici ; (4) test de connexion rapide avant toute
+  synchronisation (échec en quelques secondes sans réseau).
+- **Modifier une épreuve changeait son identifiant (uuid)** : la synchronisation la prenait pour une autre
+  épreuve (doublons / épreuve supprimée qui réapparaît). L'identité est maintenant conservée.
+- **Valeurs vides lues « null »** : sur Android, un champ JSON `null` (caserne, genre, email...) était
+  enregistré comme le texte « null ». Corrigé (cela excluait aussi des pilotes des classements Hommes/Femmes).
+- **Base de données version 3 avec vraie migration** : les données du téléphone sont conservées.
+
+### Scripts Supabase (éditeur SQL)
+- `supabase_migration_v5_planning.sql` : tables du planning (inutile si elles existent déjà).
+- `supabase_migration_v4_suppression_comptes.sql` : à exécuter si un compte supprimé réapparaît en ligne.
+
 ## Lancer le projet
 
 1. Installer **Android Studio** (version récente, JDK 17 inclus).
@@ -28,10 +59,10 @@ Version Android de l'application du Championnat de France Pompiers de Parapente
 
 Android 8.0 (API 26) minimum.
 
-⚠️ La base locale passe en version 2 (ajout du genre et des champs de synchronisation). Pour un
-appareil ayant déjà la version précédente installée, la base est **recréée automatiquement**
-(`fallbackToDestructiveMigration`) : acceptable en phase de test, mais cela efface les données
-locales existantes sur cet appareil au premier lancement de cette mise à jour.
+La base locale est en **version 3** (ajout du planning). Depuis la version 2, la mise à jour se fait par une
+**vraie migration** : les données déjà présentes sur le téléphone sont conservées. (Seule une très vieille base
+en version 1 serait recréée.) En cas de doute, faites d'abord « Synchronisation → application → base en ligne »
+pour sauvegarder les données en ligne avant d'installer la mise à jour.
 
 ## Changer le logo
 
@@ -48,9 +79,13 @@ Supabase supplémentaire n'est nécessaire côté mobile.
 Dans cet écran :
 1. Collez l'URL du projet et la clé API publique.
 2. "Tester la connexion" pour vérifier.
-3. "Synchroniser maintenant" pour envoyer/recevoir les données (résumé affiché à l'écran).
-4. Cochez "synchroniser automatiquement au démarrage" pour une tentative silencieuse en arrière-plan
-   à chaque ouverture de l'application (n'empêche jamais l'ouverture hors ligne).
+3. Choisissez le sens : « base en ligne → application » (comme `git pull`), « application → base en ligne »
+   (comme `git push`) ou « Fusionner » (ne supprime jamais rien). Les deux premiers rendent les deux bases
+   identiques (suppressions comprises, comptes inclus sauf `admin`) et demandent une confirmation.
+   Pour supprimer quelque chose partout : le supprimer sur un appareil, puis « application → base en ligne » ;
+   sur les autres appareils, « base en ligne → application ».
+4. La case « au démarrage » récupère silencieusement les **nouveautés** à chaque ouverture (réception seule :
+   rien n'est envoyé ni supprimé ; n'empêche jamais l'ouverture hors ligne).
 
 Les pilotes se fusionnent par numéro de licence, les comptes par identifiant, les inscriptions et
 résultats par couple pilote+épreuve : pas de doublon si la même donnée est créée indépendamment sur

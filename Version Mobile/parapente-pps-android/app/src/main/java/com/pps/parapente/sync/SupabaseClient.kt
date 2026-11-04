@@ -28,6 +28,20 @@ class SupabaseClient(url: String, private val cleAnon: String) {
         JSONArray(corps)
     }
 
+    /**
+     * Test de connexion RAPIDE (délais courts). Sert à échouer tout de suite et proprement quand il n'y a
+     * pas de réseau, AVANT de démarrer une synchronisation (qui garde la base locale occupée tant qu'elle dure).
+     */
+    suspend fun ping(): Unit = withContext(Dispatchers.IO) {
+        val conn = ouvrir("$baseUrl/rest/v1/pilotes?select=id&limit=1", "GET", 6_000, 8_000)
+        try {
+            val corps = lire(conn)
+            verifier(conn, corps, "test de connexion")
+        } finally {
+            conn.disconnect()
+        }
+    }
+
     /** Insère ou met à jour (upsert) selon la ou les colonnes de conflit, renvoie la ligne enregistrée. */
     suspend fun envoyer(table: String, ligne: JSONObject, colonneConflit: String): JSONObject = withContext(Dispatchers.IO) {
         val encode = URLEncoder.encode(colonneConflit, "UTF-8")
@@ -59,11 +73,11 @@ class SupabaseClient(url: String, private val cleAnon: String) {
         verifier(conn, corps, "écriture dans la table « $table »")
     }
 
-    private fun ouvrir(urlStr: String, methode: String): HttpURLConnection {
+    private fun ouvrir(urlStr: String, methode: String, delaiConnexion: Int = 10_000, delaiLecture: Int = 25_000): HttpURLConnection {
         val conn = URL(urlStr).openConnection() as HttpURLConnection
         conn.requestMethod = methode
-        conn.connectTimeout = 10_000
-        conn.readTimeout = 25_000
+        conn.connectTimeout = delaiConnexion
+        conn.readTimeout = delaiLecture
         conn.setRequestProperty("apikey", cleAnon)
         conn.setRequestProperty("Authorization", "Bearer $cleAnon")
         conn.setRequestProperty("Content-Type", "application/json")

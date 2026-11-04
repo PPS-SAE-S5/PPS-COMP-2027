@@ -118,4 +118,80 @@ interface PpsDao {
 
     @Query("UPDATE epreuves SET supabaseId = :supabaseId WHERE id = :id")
     suspend fun definirSupabaseIdEpreuve(id: Int, supabaseId: Int)
+
+    // ---------- Suivi d'un pilote ----------
+    @Query("SELECT epreuveId FROM inscriptions WHERE piloteId = :piloteId")
+    suspend fun epreuvesDuPilote(piloteId: Int): List<Int>
+
+    // ---------- Planning : journées ----------
+    @Query("SELECT * FROM journees ORDER BY ordre, id")
+    suspend fun toutesJournees(): List<JourneeEntity>
+
+    @Query("SELECT * FROM journees WHERE uuid = :uuid LIMIT 1")
+    suspend fun journeeParUuid(uuid: String): JourneeEntity?
+
+    @Insert
+    suspend fun insererJournee(j: JourneeEntity): Long
+
+    @Update
+    suspend fun majJournee(j: JourneeEntity)
+
+    @Query("DELETE FROM journees WHERE id = :id")
+    suspend fun supprimerJournee(id: Int)
+
+    @Query("SELECT COALESCE(MAX(ordre), -1) + 1 FROM journees")
+    suspend fun prochainOrdreJournee(): Int
+
+    // ---------- Planning : ateliers ----------
+    @Query("SELECT * FROM ateliers WHERE journeeId = :journeeId ORDER BY heureDebut, ordre, id")
+    suspend fun ateliersDeJournee(journeeId: Int): List<AtelierEntity>
+
+    @Query("SELECT * FROM ateliers")
+    suspend fun tousAteliers(): List<AtelierEntity>
+
+    @Query("SELECT * FROM ateliers WHERE uuid = :uuid LIMIT 1")
+    suspend fun atelierParUuid(uuid: String): AtelierEntity?
+
+    @Query("SELECT COUNT(*) FROM ateliers WHERE journeeId = :journeeId")
+    suspend fun compterAteliers(journeeId: Int): Int
+
+    @Insert
+    suspend fun insererAtelier(a: AtelierEntity): Long
+
+    @Update
+    suspend fun majAtelier(a: AtelierEntity)
+
+    @Query("DELETE FROM ateliers WHERE id = :id")
+    suspend fun supprimerAtelier(id: Int)
+
+    @Query("SELECT COALESCE(MAX(ordre), -1) + 1 FROM ateliers WHERE journeeId = :journeeId")
+    suspend fun prochainOrdreAtelier(journeeId: Int): Int
+
+    // ---------- Planning : épreuves des ateliers ----------
+    @Query("SELECT * FROM atelier_epreuves")
+    suspend fun tousLiensAtelier(): List<AtelierEpreuveEntity>
+
+    @Insert
+    suspend fun insererLiensAtelier(liens: List<AtelierEpreuveEntity>)
+
+    @Query("DELETE FROM atelier_epreuves WHERE atelierId = :atelierId")
+    suspend fun supprimerLiensAtelier(atelierId: Int)
+
+    @Query("DELETE FROM atelier_epreuves WHERE epreuveId IN (:epreuveIds)")
+    suspend fun retirerEpreuvesDesAteliers(epreuveIds: List<Int>)
+
+    @Query("SELECT e.* FROM epreuves e JOIN atelier_epreuves ae ON ae.epreuveId = e.id WHERE ae.atelierId = :atelierId ORDER BY ae.ordre, ae.id")
+    suspend fun epreuvesDeAtelier(atelierId: Int): List<EpreuveEntity>
+
+    @Query("SELECT * FROM epreuves WHERE actif = 1 AND id NOT IN (SELECT epreuveId FROM atelier_epreuves) ORDER BY ordre, id")
+    suspend fun epreuvesNonAffectees(): List<EpreuveEntity>
+
+    @Query("SELECT * FROM epreuves WHERE actif = 1 AND (id NOT IN (SELECT epreuveId FROM atelier_epreuves) OR id IN (SELECT epreuveId FROM atelier_epreuves WHERE atelierId = :atelierId)) ORDER BY ordre, id")
+    suspend fun epreuvesDisponibles(atelierId: Int): List<EpreuveEntity>
+
+    @Query("SELECT COUNT(*) FROM epreuves WHERE actif = 1")
+    suspend fun compterEpreuvesActives(): Int
+
+    @Query("SELECT * FROM epreuves WHERE uuid = :uuid LIMIT 1")
+    suspend fun epreuveParUuid(uuid: String): EpreuveEntity?
 }
