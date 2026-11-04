@@ -20,7 +20,7 @@ L'objectif de ce projet est de proposer une plateforme permettant :
 
 === 2.1 Pour accéder au site
 
-_Le lien n'est pas encore disponible en l'état_
+_Lien vers le site_ : https://pps-classement.vercel.app/[PPS-Classement]
 
 === 2.2 Pour accéder à l'application sur PC
 
