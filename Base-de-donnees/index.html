@@ -6,36 +6,74 @@
 <title>Classement en direct</title>
 <style>
   :root {
+    color-scheme: light;
     --bg: #f6f7f9; --carte: #ffffff; --texte: #1c1e21; --discret: #6b7280;
-    --bordure: #e3e5e8; --accent: #2563eb; --survol: #eef2ff;
+    --bordure: #e3e5e8; --accent: #2563eb; --accent-texte: #ffffff; --survol: #eef2ff;
+    --erreur: #dc2626; --or: #a16207; --or-fond: rgba(234,179,8,.22);
+    --argent: #475569; --argent-fond: rgba(148,163,184,.28);
+    --bronze: #b45309; --bronze-fond: rgba(217,119,6,.18);
   }
   :root[data-theme="dark"] {
+    color-scheme: dark;
     --bg: #0f1115; --carte: #181b21; --texte: #e8eaed; --discret: #9aa0a6;
-    --bordure: #2a2e36; --accent: #60a5fa; --survol: #1e2430;
+    --bordure: #2a2e36; --accent: #60a5fa; --accent-texte: #0f1115; --survol: #1e2430;
+    --erreur: #f87171; --or: #facc15; --or-fond: rgba(250,204,21,.16);
+    --argent: #cbd5e1; --argent-fond: rgba(203,213,225,.14);
+    --bronze: #fb923c; --bronze-fond: rgba(251,146,60,.16);
   }
   * { box-sizing: border-box; }
   body {
     margin: 0; padding: 24px 16px; background: var(--bg); color: var(--texte);
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   }
-  main { max-width: 760px; margin: 0 auto; }
-  h1 { font-size: 1.6rem; margin: 0 0 16px; }
-  .barre { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; }
-  button {
+  main { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .sous { margin: 0 0 16px; color: var(--discret); font-size: 0.9rem; }
+
+  button, select {
     padding: 8px 14px; border: 1px solid var(--bordure); border-radius: 8px;
-    background: var(--carte); color: var(--texte); cursor: pointer; font-size: 0.9rem;
+    background: var(--carte); color: var(--texte); cursor: pointer; font: inherit; font-size: 0.9rem;
   }
-  button:hover { border-color: var(--accent); }
+  button:hover, select:hover { border-color: var(--accent); }
+  button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .barre, .filtres { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
   #maj { color: var(--discret); font-size: 0.85rem; margin-left: auto; }
+
+  .seg { display: inline-flex; border: 1px solid var(--bordure); border-radius: 8px; overflow: hidden; background: var(--carte); }
+  .seg button { border: none; border-radius: 0; background: transparent; }
+  .seg button + button { border-left: 1px solid var(--bordure); }
+  .seg button[aria-selected="true"], .seg button[aria-pressed="true"] {
+    background: var(--accent); color: var(--accent-texte); font-weight: 600;
+  }
+  .filtres .espace { margin-left: auto; }
+  #bloc-epreuve { display: flex; align-items: center; gap: 8px; }
+  #bloc-epreuve label { color: var(--discret); font-size: 0.85rem; }
+
+  .note { margin: 0 0 12px; color: var(--discret); font-size: 0.85rem; }
   .carte { background: var(--carte); border: 1px solid var(--bordure); border-radius: 12px; overflow: hidden; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--bordure); }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--bordure); white-space: nowrap; background: var(--carte); }
   tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover { background: var(--survol); }
+  tbody tr:hover td { background: var(--survol); }
   th { color: var(--discret); font-size: 0.8rem; text-transform: uppercase; letter-spacing: .04em; }
-  td.rang { width: 60px; font-weight: 700; color: var(--accent); }
-  td.points, th.points { text-align: right; font-variant-numeric: tabular-nums; }
-  .erreur { color: #dc2626; padding: 16px; white-space: pre-wrap; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .total { font-weight: 700; }
+  .c-rang { width: 64px; min-width: 64px; position: sticky; left: 0; z-index: 1; }
+  .c-pilote { position: sticky; left: 64px; z-index: 1; font-weight: 600; }
+  .valeurs { color: var(--discret); font-size: 0.85rem; }
+  .disq { color: var(--erreur); font-weight: 600; }
+  .pastille {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 28px; height: 28px; border-radius: 14px; font-weight: 700; color: var(--accent);
+  }
+  .top1 { background: var(--or-fond); color: var(--or); }
+  .top2 { background: var(--argent-fond); color: var(--argent); }
+  .top3 { background: var(--bronze-fond); color: var(--bronze); }
+
+  .erreur { color: var(--erreur); padding: 12px 16px; margin-bottom: 14px; white-space: pre-wrap;
+            border: 1px solid var(--erreur); border-radius: 8px; background: var(--carte); }
   .vide { padding: 24px; text-align: center; color: var(--discret); }
 </style>
 <script>
@@ -51,6 +89,7 @@
 <body>
 <main>
   <h1>🏆 Classement en direct</h1>
+  <p class="sous">Championnat de parapente</p>
 
   <div class="barre">
     <button id="btn-actualiser">Actualiser</button>
@@ -59,63 +98,210 @@
     <span id="maj"></span>
   </div>
 
+  <div class="filtres">
+    <div class="seg" role="tablist" aria-label="Vue">
+      <button role="tab" id="onglet-general" aria-selected="true">Classement général</button>
+      <button role="tab" id="onglet-detail" aria-selected="false">Détail par épreuve</button>
+    </div>
+    <div class="seg" role="group" aria-label="Filtre de genre">
+      <button data-genre="mixte" aria-pressed="true">Mixte</button>
+      <button data-genre="hommes" aria-pressed="false">Hommes</button>
+      <button data-genre="femmes" aria-pressed="false">Femmes</button>
+    </div>
+    <div id="bloc-epreuve" class="espace" hidden>
+      <label for="choix-epreuve">Épreuve</label>
+      <select id="choix-epreuve"></select>
+    </div>
+  </div>
+
+  <p id="note" class="note" hidden></p>
+  <div id="erreur" class="erreur" role="alert" hidden></div>
+
   <div class="carte">
-    <div id="erreur" class="erreur" hidden></div>
-    <table id="table" hidden>
-      <thead><tr><th>#</th><th>Pilote</th><th class="points">Points</th></tr></thead>
-      <tbody id="corps"></tbody>
-    </table>
+    <div class="scroll">
+      <table id="table-general" hidden><thead></thead><tbody></tbody></table>
+      <table id="table-detail" hidden><thead></thead><tbody></tbody></table>
+    </div>
     <div id="vide" class="vide">Chargement…</div>
   </div>
 </main>
 
 <script>
-  const INTERVALLE = 15000; // 15 secondes
+  const INTERVALLE = 60000; // 60 secondes pour le refresh
+  const GENRES = {
+    mixte:  { libelle: "Mixte",   valeur: null },
+    hommes: { libelle: "Hommes",  valeur: "homme" },
+    femmes: { libelle: "Femmes",  valeur: "femme" },
+  };
+
   let minuteur = null;
   let enPause = false;
+  let enCours = false;
+  let derniere = 0;       // horodatage de la dernière actualisation réussie
+  let donnees = null;     // dernière réponse de /api/classement
+  let vue = "general";    // "general" | "detail"
+  let genre = "mixte";
+  let epreuveId = null;
 
   const $ = (id) => document.getElementById(id);
+  const nombre = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 });
 
   function echapper(v) {
     return String(v ?? "").replace(/[&<>"']/g, (c) =>
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
+  // Comme FiltreGenre.accepte() de l'appli : le mixte accepte tout, sinon le genre doit correspondre
+  function accepte(genrePilote) {
+    const voulu = GENRES[genre].valeur;
+    if (!voulu) return true;
+    return String(genrePilote || "").trim().toLowerCase() === voulu;
+  }
+
+  function pastille(rang) {
+    const classe = rang <= 3 ? " top" + rang : "";
+    return `<span class="pastille${classe}">${rang}</span>`;
+  }
+
+  // Affichage
+
+  function afficherGeneral() {
+    const lignes = donnees.general.filter((l) => accepte(l.genre));
+    const colonnes = donnees.colonnes;
+
+    $("table-general").querySelector("thead").innerHTML =
+      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Caserne</th><th>Genre</th>" +
+      colonnes.map((c) => `<th class="num">${echapper(c.nom)}</th>`).join("") +
+      "<th class='num'>TOTAL</th></tr>";
+
+    // Les rangs sont recalculés parmi les pilotes retenus par le filtre
+    $("table-general").querySelector("tbody").innerHTML = lignes.map((l, i) =>
+      `<tr><td class="c-rang">${pastille(i + 1)}</td>` +
+      `<td class="c-pilote">${echapper(l.nom)}</td>` +
+      `<td>${echapper(l.caserne)}</td><td>${echapper(l.genre)}</td>` +
+      colonnes.map((c) => `<td class="num">${nombre.format(l.points[c.id] || 0)}</td>`).join("") +
+      `<td class="num total">${nombre.format(l.total)}</td></tr>`
+    ).join("");
+
+    return lignes.length;
+  }
+
+  // Met à jour la liste déroulante sans la reconstruire si elle n'a pas changé
+  // (sinon elle se refermerait toutes les 60 s pendant que l'on choisit)
+  function majListeEpreuves() {
+    const select = $("choix-epreuve");
+    const liste = donnees.epreuves;
+    const signature = liste.map((e) => e.id + ":" + e.nom).join("|");
+    if (select.dataset.signature !== signature) {
+      select.innerHTML = liste.map((e) => `<option value="${e.id}">${echapper(e.nom)}</option>`).join("");
+      select.dataset.signature = signature;
+    }
+    if (!liste.some((e) => e.id === epreuveId)) epreuveId = liste.length ? liste[0].id : null;
+    if (epreuveId !== null) select.value = String(epreuveId);
+  }
+
+  function afficherDetail() {
+    majListeEpreuves();
+    const epreuve = donnees.epreuves.find((e) => e.id === epreuveId);
+    if (!epreuve) return -1; // aucune épreuve à afficher
+
+    const lignes = epreuve.resultats.filter((r) => accepte(r.genre));
+    $("table-detail").querySelector("thead").innerHTML =
+      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Caserne</th><th>Genre</th>" +
+      "<th>Valeurs saisies</th><th class='num'>Points</th><th>Disqualifié</th></tr>";
+
+    // Rang = position dans la liste (triée par points décroissants, filtrée par genre)
+    $("table-detail").querySelector("tbody").innerHTML = lignes.map((r, i) =>
+      `<tr><td class="c-rang">${pastille(i + 1)}</td>` +
+      `<td class="c-pilote">${echapper(r.nom)}</td>` +
+      `<td>${echapper(r.caserne)}</td><td>${echapper(r.genre)}</td>` +
+      `<td class="valeurs">${echapper(r.valeurs)}</td>` +
+      `<td class="num total">${nombre.format(r.points)}</td>` +
+      `<td>${r.disqualifie ? '<span class="disq">Oui</span>' : ""}</td></tr>`
+    ).join("");
+
+    return lignes.length;
+  }
+
+  function afficher() {
+    // Onglets, filtres et libellés (fonctionne même avant le premier chargement)
+    $("onglet-general").setAttribute("aria-selected", vue === "general");
+    $("onglet-detail").setAttribute("aria-selected", vue === "detail");
+    document.querySelectorAll("[data-genre]").forEach((b) =>
+      b.setAttribute("aria-pressed", b.dataset.genre === genre));
+    $("bloc-epreuve").hidden = vue !== "detail" || !donnees || !donnees.epreuves.length;
+
+    const note = $("note");
+    note.hidden = genre === "mixte";
+    note.textContent = genre === "mixte" ? "" :
+      `Classement « ${GENRES[genre].libelle} » : les rangs sont recalculés parmi ces pilotes. ` +
+      "Les pilotes dont le genre n'est pas renseigné n'apparaissent que dans le classement mixte.";
+
+    if (!donnees) return;
+
+    let nb;
+    if (vue === "general") nb = afficherGeneral(); else nb = afficherDetail();
+
+    $("table-general").hidden = vue !== "general" || nb === 0;
+    $("table-detail").hidden = vue !== "detail" || !(nb > 0);
+
+    const vide = $("vide");
+    vide.hidden = nb > 0;
+    if (nb === -1) vide.textContent = "Aucune épreuve n'a son classement affiché pour le moment.";
+    else if (nb === 0) vide.textContent = genre === "mixte"
+      ? "Aucun résultat pour le moment."
+      : "Aucun pilote dans ce classement.";
+  }
+
+  function majStatut() {
+    if (!derniere) return;
+    $("maj").textContent = "Dernière actualisation : " + new Date(derniere).toLocaleTimeString("fr-FR") +
+      " · refresh auto " + (enPause ? "en pause" : "toutes les " + INTERVALLE / 1000 + " s");
+  }
+
+  // Chargement
+
   async function charger() {
+    if (enCours) return;
+    enCours = true;
     try {
       // La clé Supabase n'est PAS ici : elle reste dans la fonction serveur /api/classement
       const r = await fetch("/api/classement", { cache: "no-store" });
-      const data = await r.json();
+      let data;
+      try { data = await r.json(); }
+      catch (e) { throw new Error("réponse invalide du serveur (la fonction /api/classement est-elle déployée ?)"); }
       if (!r.ok) throw new Error(data.erreur || "Erreur " + r.status);
 
+      donnees = data;
+      derniere = Date.now();
       $("erreur").hidden = true;
-      if (!data.classement.length) {
-        $("table").hidden = true;
-        $("vide").hidden = false;
-        $("vide").textContent = "Aucun résultat pour le moment.";
-      } else {
-        $("corps").innerHTML = data.classement.map((l) =>
-          `<tr><td class="rang">${l.rang}</td><td>${echapper(l.nom)}</td><td class="points">${echapper(l.points)}</td></tr>`
-        ).join("");
-        $("table").hidden = false;
-        $("vide").hidden = true;
-      }
-      $("maj").textContent = "Dernière actualisation : " + new Date().toLocaleTimeString("fr-FR");
+      afficher();
+      majStatut();
     } catch (e) {
+      // On garde les dernières données affichées : une coupure réseau ne vide pas la page
       $("erreur").textContent = "Impossible de charger le classement : " + e.message;
       $("erreur").hidden = false;
-      $("vide").hidden = true;
+      if (!donnees) $("vide").textContent = "Aucune donnée à afficher.";
+    } finally {
+      enCours = false;
     }
   }
 
   function demarrerAuto() {
     clearInterval(minuteur);
-    minuteur = setInterval(charger, INTERVALLE);
+    minuteur = setInterval(() => { if (!document.hidden) charger(); }, INTERVALLE);
   }
+
+  // Onglet masqué = pas de requêtes, au retour on rafraîchit si les données ont plus de 60 s
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && !enPause && Date.now() - derniere > INTERVALLE) charger();
+  });
+
+  // Boutons
 
   $("btn-actualiser").addEventListener("click", () => {
     charger();
-    if (!enPause) demarrerAuto(); // repart pour 15 s pleines
+    if (!enPause) demarrerAuto(); // repart pour 60 s pleines
   });
 
   $("btn-pause").addEventListener("click", () => {
@@ -128,7 +314,14 @@
       demarrerAuto();
       $("btn-pause").textContent = "Mettre en pause le refresh auto";
     }
+    majStatut();
   });
+
+  $("onglet-general").addEventListener("click", () => { vue = "general"; afficher(); });
+  $("onglet-detail").addEventListener("click", () => { vue = "detail"; afficher(); });
+  document.querySelectorAll("[data-genre]").forEach((b) =>
+    b.addEventListener("click", () => { genre = b.dataset.genre; afficher(); }));
+  $("choix-epreuve").addEventListener("change", (e) => { epreuveId = Number(e.target.value); afficher(); });
 
   function majBoutonTheme() {
     const sombre = document.documentElement.dataset.theme === "dark";
@@ -142,6 +335,7 @@
   });
 
   majBoutonTheme();
+  afficher();
   charger();
   demarrerAuto();
 </script>
