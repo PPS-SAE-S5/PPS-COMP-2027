@@ -1,15 +1,12 @@
 // Fonction serverless Vercel : GET /api/classement
 //
-// La clé Supabase reste côté serveur (variables d'environnement Vercel) et n'apparaît
-// jamais dans le HTML. Cette fonction reproduit le calcul de l'appli PC (ClassementService.java) :
+// La clé Supabase reste côté serveur (variables d'environnement Vercel) et n'apparaît jamais dans le HTML. 
 //
-//  - Classement général : pour chaque épreuve ACTIVE qui COMPTE DANS LE GÉNÉRAL, un pilote inscrit
-//    sans résultat obtient 0 point. Total = somme des points. Tri par total décroissant.
-//    Les colonnes affichées sont les épreuves dont "afficher_classement" est vrai.
+//  - Classement général : pour chaque épreuve ACTIVE qui COMPTE DANS LE GÉNÉRAL, un pilote inscrit sans résultat obtient 0 point. Total = somme des points. Tri par total décroissant.
 //  - Détail par épreuve : épreuves dont "afficher_classement" est vrai, résultats triés par points décroissants.
 //
-// Les points sont déjà calculés et stockés dans resultats.points par l'appli : on ne fait que les lire.
-// Les rangs et le filtre Mixte / Hommes / Femmes sont appliqués côté navigateur (comme dans l'appli).
+// Les points sont déjà calculés et stockés dans resultats.points par l'appli et dans la BD : donc on ne fait que les lire.
+// Les rangs et le filtre Mixte / Hommes / Femmes sont appliqués côté navigateur.
 
 const TAILLE_PAGE = 1000; // limite par défaut de l'API REST Supabase
 
@@ -37,20 +34,9 @@ async function lire(table, colonnes, ordre) {
   return lignes;
 }
 
-// '{"temps": 812, "nbrBalises": 6}' -> "temps=812, nbrBalises=6"
-function formaterValeurs(json) {
-  if (!json) return "";
-  try {
-    const obj = typeof json === "string" ? JSON.parse(json) : json;
-    return Object.entries(obj).map(([k, v]) => `${k}=${v}`).join(", ");
-  } catch (e) {
-    return "";
-  }
-}
-
 const arrondir = (n) => Math.round(n * 100) / 100;
 
-// Calcul pur (sans réseau) : facile à tester
+// Calcul pur
 function calculer({ pilotes, epreuves, inscriptions, resultats }) {
   const piloteParId = new Map(pilotes.map((p) => [p.id, p]));
   const nomDe = (p) => [p.prenom, p.nom].filter(Boolean).join(" ");
@@ -67,16 +53,15 @@ function calculer({ pilotes, epreuves, inscriptions, resultats }) {
     inscritsParEpreuve.get(i.epreuve_id).push(i.pilote_id);
   }
 
-  // Épreuves comptées dans le général / colonnes affichées / épreuves au détail
+  // Épreuves comptées dans le général / épreuves au détail
   const comptees = epreuves.filter((e) => e.actif && e.compte_dans_general);
-  const colonnes = comptees.filter((e) => e.afficher_classement);
   const affichables = epreuves.filter((e) => e.afficher_classement);
 
-  // Une ligne par pilote (même sans inscription : 0 point, comme dans l'appli)
+  // Une ligne par pilote
   const lignes = new Map(
     pilotes.map((p) => [
       p.id,
-      { nom: nomDe(p), caserne: p.caserne || "", genre: p.genre || "", total: 0, points: {} },
+      { nom: nomDe(p), region: p.region || "", genre: p.genre || "", total: 0 },
     ])
   );
 
@@ -87,9 +72,7 @@ function calculer({ pilotes, epreuves, inscriptions, resultats }) {
     for (const piloteId of inscritsParEpreuve.get(e.id) || []) {
       const ligne = lignes.get(piloteId);
       if (!ligne) continue;
-      const pts = pointsParPilote.get(piloteId) || 0; // pas de résultat = 0 pt
-      ligne.points[e.id] = pts;
-      ligne.total += pts;
+      ligne.total += pointsParPilote.get(piloteId) || 0; // pas de résultat = 0 pt
     }
   }
 
@@ -106,9 +89,8 @@ function calculer({ pilotes, epreuves, inscriptions, resultats }) {
         const p = piloteParId.get(r.pilote_id);
         return {
           nom: p ? nomDe(p) : "?",
-          caserne: p ? p.caserne || "" : "",
+          region: p ? p.region || "" : "",
           genre: p ? p.genre || "" : "",
-          valeurs: formaterValeurs(r.valeurs_json),
           points: arrondir(Number(r.points) || 0),
           disqualifie: !!r.disqualifie,
         };
@@ -116,11 +98,7 @@ function calculer({ pilotes, epreuves, inscriptions, resultats }) {
       .sort((a, b) => b.points - a.points),
   }));
 
-  return {
-    colonnes: colonnes.map((e) => ({ id: e.id, nom: e.nom })),
-    general,
-    epreuves: detail,
-  };
+  return { general, epreuves: detail };
 }
 
 async function handler(req, res) {
@@ -131,10 +109,10 @@ async function handler(req, res) {
 
     // Seulement les colonnes nécessaires : pas d'e-mail, de poids, de n° de licence, etc.
     const [pilotes, epreuves, inscriptions, resultats] = await Promise.all([
-      lire("pilotes", "id,nom,prenom,caserne,genre", "nom.asc,prenom.asc"),
+      lire("pilotes", "id,nom,prenom,region,genre", "nom.asc,prenom.asc"),
       lire("epreuves", "id,nom,actif,compte_dans_general,afficher_classement,ordre", "ordre.asc,id.asc"),
       lire("inscriptions_epreuve", "pilote_id,epreuve_id", "id.asc"),
-      lire("resultats", "epreuve_id,pilote_id,valeurs_json,points,disqualifie", "id.asc"),
+      lire("resultats", "epreuve_id,pilote_id,points,disqualifie", "id.asc"),
     ]);
 
     const corps = calculer({ pilotes, epreuves, inscriptions, resultats });

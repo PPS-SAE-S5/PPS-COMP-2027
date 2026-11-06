@@ -36,6 +36,8 @@
   }
   button:hover, select:hover { border-color: var(--accent); }
   button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  select:disabled { opacity: .5; cursor: not-allowed; }
+  select:disabled:hover { border-color: var(--bordure); }
 
   .barre, .filtres { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
   #maj { color: var(--discret); font-size: 0.85rem; margin-left: auto; }
@@ -77,7 +79,7 @@
   .vide { padding: 24px; text-align: center; color: var(--discret); }
 </style>
 <script>
-  // Applique le thème avant l'affichage (évite le flash blanc)
+  // Applique le thème avant l'affichage (et évite un flash blanc)
   (function () {
     let t = null;
     try { t = localStorage.getItem("theme"); } catch (e) {}
@@ -108,7 +110,7 @@
       <button data-genre="hommes" aria-pressed="false">Hommes</button>
       <button data-genre="femmes" aria-pressed="false">Femmes</button>
     </div>
-    <div id="bloc-epreuve" class="espace" hidden>
+    <div id="bloc-epreuve" class="espace">
       <label for="choix-epreuve">Épreuve</label>
       <select id="choix-epreuve"></select>
     </div>
@@ -151,7 +153,7 @@
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
-  // Comme FiltreGenre.accepte() de l'appli : le mixte accepte tout, sinon le genre doit correspondre
+  // Le mode mixte accepte tout, sinon le genre doit correspondre
   function accepte(genrePilote) {
     const voulu = GENRES[genre].valeur;
     if (!voulu) return true;
@@ -167,55 +169,68 @@
 
   function afficherGeneral() {
     const lignes = donnees.general.filter((l) => accepte(l.genre));
-    const colonnes = donnees.colonnes;
 
     $("table-general").querySelector("thead").innerHTML =
-      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Caserne</th><th>Genre</th>" +
-      colonnes.map((c) => `<th class="num">${echapper(c.nom)}</th>`).join("") +
-      "<th class='num'>TOTAL</th></tr>";
+      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Région</th><th>Genre</th>" +
+      "<th class='num'>Total</th></tr>";
 
     // Les rangs sont recalculés parmi les pilotes retenus par le filtre
     $("table-general").querySelector("tbody").innerHTML = lignes.map((l, i) =>
       `<tr><td class="c-rang">${pastille(i + 1)}</td>` +
       `<td class="c-pilote">${echapper(l.nom)}</td>` +
-      `<td>${echapper(l.caserne)}</td><td>${echapper(l.genre)}</td>` +
-      colonnes.map((c) => `<td class="num">${nombre.format(l.points[c.id] || 0)}</td>`).join("") +
+      `<td>${echapper(l.region)}</td><td>${echapper(l.genre)}</td>` +
       `<td class="num total">${nombre.format(l.total)}</td></tr>`
     ).join("");
 
     return lignes.length;
   }
 
-  // Met à jour la liste déroulante sans la reconstruire si elle n'a pas changé
-  // (sinon elle se refermerait toutes les 60 s pendant que l'on choisit)
-  function majListeEpreuves() {
+  // Liste déroulante des épreuves :
+  //  - vue "Classement général" : affiche "Général", grisée et non cliquable
+  //  - vue "Détail par épreuve"  : liste des épreuves, utilisable normalement
+  // PS : Elle n'est reconstruite que si son contenu change (sinon elle se refermerait toutes les 60 s pendant que l'on choisit).
+  function majSelect() {
     const select = $("choix-epreuve");
-    const liste = donnees.epreuves;
-    const signature = liste.map((e) => e.id + ":" + e.nom).join("|");
+    const liste = donnees ? donnees.epreuves : [];
+    let signature, options;
+    if (vue === "general") {
+      signature = "general";
+      options = '<option value="">Général</option>';
+    } else if (!donnees) {
+      signature = "chargement";
+      options = '<option value="">Chargement…</option>';
+    } else if (!liste.length) {
+      signature = "vide";
+      options = '<option value="">Aucune épreuve</option>';
+    } else {
+      signature = liste.map((e) => e.id + ":" + e.nom).join("|");
+      options = liste.map((e) => `<option value="${e.id}">${echapper(e.nom)}</option>`).join("");
+    }
     if (select.dataset.signature !== signature) {
-      select.innerHTML = liste.map((e) => `<option value="${e.id}">${echapper(e.nom)}</option>`).join("");
+      select.innerHTML = options;
       select.dataset.signature = signature;
     }
-    if (!liste.some((e) => e.id === epreuveId)) epreuveId = liste.length ? liste[0].id : null;
-    if (epreuveId !== null) select.value = String(epreuveId);
+    select.disabled = vue === "general" || !liste.length;
+    if (!select.disabled) {
+      if (!liste.some((e) => e.id === epreuveId)) epreuveId = liste[0].id;
+      select.value = String(epreuveId);
+    }
   }
 
   function afficherDetail() {
-    majListeEpreuves();
     const epreuve = donnees.epreuves.find((e) => e.id === epreuveId);
     if (!epreuve) return -1; // aucune épreuve à afficher
 
     const lignes = epreuve.resultats.filter((r) => accepte(r.genre));
     $("table-detail").querySelector("thead").innerHTML =
-      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Caserne</th><th>Genre</th>" +
-      "<th>Valeurs saisies</th><th class='num'>Points</th><th>Disqualifié</th></tr>";
+      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Région</th><th>Genre</th>" +
+      "<th class='num'>Points</th><th>Disqualifié</th></tr>";
 
     // Rang = position dans la liste (triée par points décroissants, filtrée par genre)
     $("table-detail").querySelector("tbody").innerHTML = lignes.map((r, i) =>
       `<tr><td class="c-rang">${pastille(i + 1)}</td>` +
       `<td class="c-pilote">${echapper(r.nom)}</td>` +
-      `<td>${echapper(r.caserne)}</td><td>${echapper(r.genre)}</td>` +
-      `<td class="valeurs">${echapper(r.valeurs)}</td>` +
+      `<td>${echapper(r.region)}</td><td>${echapper(r.genre)}</td>` +
       `<td class="num total">${nombre.format(r.points)}</td>` +
       `<td>${r.disqualifie ? '<span class="disq">Oui</span>' : ""}</td></tr>`
     ).join("");
@@ -229,7 +244,7 @@
     $("onglet-detail").setAttribute("aria-selected", vue === "detail");
     document.querySelectorAll("[data-genre]").forEach((b) =>
       b.setAttribute("aria-pressed", b.dataset.genre === genre));
-    $("bloc-epreuve").hidden = vue !== "detail" || !donnees || !donnees.epreuves.length;
+    majSelect();
 
     const note = $("note");
     note.hidden = genre === "mixte";
