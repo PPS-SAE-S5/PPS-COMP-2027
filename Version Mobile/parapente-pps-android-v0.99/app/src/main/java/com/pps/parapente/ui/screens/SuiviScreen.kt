@@ -91,11 +91,11 @@ fun SuiviScreen(repo: Repository, onBack: () -> Unit) {
             Erreur(erreur)
             val detail = suivi
             if (selection == null || detail == null) {
-                Champ("Rechercher un pilote (nom, prénom, licence, caserne)", recherche, { recherche = it })
+                Champ("Rechercher un pilote (nom, prénom, licence, département)", recherche, { recherche = it })
 
                 val mots = normaliser(recherche).split(Regex("\\s+")).filter { it.isNotEmpty() }
                 val filtres = pilotes.filter { p ->
-                    val botte = normaliser("${p.nom} ${p.prenom} ${p.prenom} ${p.nom} ${p.numeroLicence} ${p.caserne ?: ""}")
+                    val botte = normaliser("${p.nom} ${p.prenom} ${p.prenom} ${p.nom} ${p.numeroLicence} ${p.departement ?: ""}")
                     mots.all { it in botte }
                 }
                 val n = filtres.size
@@ -114,8 +114,8 @@ fun SuiviScreen(repo: Repository, onBack: () -> Unit) {
                         }
                     }) {
                         Text(p.nomComplet, fontWeight = FontWeight.Bold)
-                        val caserne = p.caserne?.takeIf { it.isNotBlank() }
-                        if (caserne != null) Text(caserne, color = Gris, fontSize = 13.sp)
+                        val departement = p.departement?.takeIf { it.isNotBlank() }
+                        if (departement != null) Text(departement, color = Gris, fontSize = 13.sp)
                     }
                 }
             } else {
@@ -131,7 +131,7 @@ private fun DetailSuivi(s: SuiviParticipant) {
     Text(p.nomComplet, fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Bleu)
     val infos = listOfNotNull(
         p.numeroLicence.takeIf { it.isNotBlank() }?.let { "Licence n°$it" },
-        p.caserne?.takeIf { it.isNotBlank() },
+        p.departement?.takeIf { it.isNotBlank() },
         p.genre?.takeIf { it.isNotBlank() },
         if (p.anneeNaissance != null) "${p.age} ans" else null
     ).joinToString("   ·   ")

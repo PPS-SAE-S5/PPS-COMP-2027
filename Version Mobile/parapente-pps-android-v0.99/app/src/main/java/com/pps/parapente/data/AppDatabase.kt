@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         ParametreEntity::class, BaremeEntity::class, InscriptionEntity::class, ResultatEntity::class,
         JourneeEntity::class, AtelierEntity::class, AtelierEpreuveEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -40,12 +40,22 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("CREATE TABLE IF NOT EXISTS `pilotes_new` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `numeroLicence` TEXT NOT NULL, `nom` TEXT NOT NULL, `prenom` TEXT NOT NULL, `departement` TEXT, `poids` REAL, `email` TEXT, `anneeNaissance` INTEGER, `genre` TEXT, `updatedAt` INTEGER NOT NULL, `supabaseId` INTEGER)")
+                db.execSQL("INSERT INTO `pilotes_new` (`id`, `numeroLicence`, `nom`, `prenom`, `departement`, `poids`, `email`, `anneeNaissance`, `genre`, `updatedAt`, `supabaseId`) SELECT `id`, `numeroLicence`, `nom`, `prenom`, `caserne`, `poids`, `email`, `anneeNaissance`, `genre`, `updatedAt`, `supabaseId` FROM `pilotes`")
+                db.execSQL("DROP TABLE `pilotes`")
+                db.execSQL("ALTER TABLE `pilotes_new` RENAME TO `pilotes`")
+                db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_pilotes_numeroLicence` ON `pilotes` (`numeroLicence`)")
+            }
+        }
+
         fun get(context: Context): AppDatabase =
             instance ?: synchronized(this) {
                 instance ?: Room.databaseBuilder(
                     context.applicationContext, AppDatabase::class.java, "pps_championnat.db"
                 )
-                    .addMigrations(MIGRATION_2_3)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
                     // Reste de secours pour une très vieille base (version 1) : on la recrée.
                     .fallbackToDestructiveMigration()
                     .addCallback(object : Callback() {

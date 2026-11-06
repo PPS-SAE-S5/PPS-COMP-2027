@@ -302,7 +302,7 @@ class SyncService(private val db: AppDatabase, config: SyncConfig) {
 
     /**
      * Lit un texte JSON en renvoyant un VRAI null quand la valeur est null.
-     * Sur Android, optString(champ, null) renvoie la chaîne "null" pour un null JSON (ex : caserne ou genre
+     * Sur Android, optString(champ, null) renvoie la chaîne "null" pour un null JSON (ex : departement ou genre
      * vides côté Supabase), ce qui polluait la base locale et faisait disparaître des pilotes des classements
      * Hommes/Femmes. isNull() se comporte pareil partout.
      */
@@ -378,7 +378,7 @@ class SyncService(private val db: AppDatabase, config: SyncConfig) {
                     dao.majPilote(
                         local.copy(
                             nom = r.getString("nom"), prenom = r.getString("prenom"),
-                            caserne = r.texteOuNull("caserne"),
+                            departement = r.texteOuNull("departement"),
                             poids = if (r.isNull("poids")) null else r.getDouble("poids"),
                             email = r.texteOuNull("email"),
                             anneeNaissance = if (r.isNull("annee_naissance")) null else r.getInt("annee_naissance"),
@@ -392,7 +392,7 @@ class SyncService(private val db: AppDatabase, config: SyncConfig) {
                 dao.insererPilote(
                     PiloteEntity(
                         numeroLicence = licence, nom = r.getString("nom"), prenom = r.getString("prenom"),
-                        caserne = r.texteOuNull("caserne"),
+                        departement = r.texteOuNull("departement"),
                         poids = if (r.isNull("poids")) null else r.getDouble("poids"),
                         email = r.texteOuNull("email"),
                         anneeNaissance = if (r.isNull("annee_naissance")) null else r.getInt("annee_naissance"),
@@ -411,7 +411,7 @@ class SyncService(private val db: AppDatabase, config: SyncConfig) {
                 put("numero_licence", p.numeroLicence)
                 put("nom", p.nom)
                 put("prenom", p.prenom)
-                mettreOuNull(this, "caserne", p.caserne)
+                mettreOuNull(this, "departement", p.departement)
                 mettreOuNull(this, "poids", p.poids)
                 mettreOuNull(this, "email", p.email)
                 mettreOuNull(this, "annee_naissance", p.anneeNaissance)

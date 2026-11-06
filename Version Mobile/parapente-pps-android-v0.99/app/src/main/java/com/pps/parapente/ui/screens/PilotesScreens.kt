@@ -53,7 +53,7 @@ fun PilotesScreen(repo: Repository, onBack: () -> Unit, onOuvrir: (PiloteEntity?
                 items(pilotes, key = { it.id }) { p ->
                     CarteBloc(onClick = { onOuvrir(p) }) {
                         Text(p.nomComplet, fontWeight = FontWeight.Bold)
-                        Text("Licence n°${p.numeroLicence} • ${p.caserne ?: "caserne non renseignée"}", color = Gris)
+                        Text("Licence n°${p.numeroLicence} • ${p.departement ?: "département non renseigné"}", color = Gris)
                         Text(
                             listOfNotNull(p.genre, p.anneeNaissance?.toString(), p.poids?.let { "$it kg" })
                                 .joinToString(" • "),
@@ -71,7 +71,7 @@ fun PiloteFormScreen(repo: Repository, pilote: PiloteEntity?, onTermine: () -> U
     var licence by remember { mutableStateOf(pilote?.numeroLicence ?: "") }
     var nom by remember { mutableStateOf(pilote?.nom ?: "") }
     var prenom by remember { mutableStateOf(pilote?.prenom ?: "") }
-    var caserne by remember { mutableStateOf(pilote?.caserne ?: "") }
+    var departement by remember { mutableStateOf(pilote?.departement ?: "") }
     var poids by remember { mutableStateOf(pilote?.poids?.toString() ?: "") }
     var email by remember { mutableStateOf(pilote?.email ?: "") }
     var annee by remember { mutableStateOf(pilote?.anneeNaissance?.toString() ?: "") }
@@ -92,7 +92,7 @@ fun PiloteFormScreen(repo: Repository, pilote: PiloteEntity?, onTermine: () -> U
                 val p = PiloteEntity(
                     id = pilote?.id ?: 0,
                     numeroLicence = licence.trim(), nom = nom.trim(), prenom = prenom.trim(),
-                    caserne = caserne.trim().ifBlank { null }, poids = poidsNombre,
+                    departement = departement.trim().ifBlank { null }, poids = poidsNombre,
                     email = email.trim().ifBlank { null }, anneeNaissance = anneeNombre,
                     genre = genre.trim().ifBlank { null }
                 )
@@ -112,7 +112,7 @@ fun PiloteFormScreen(repo: Repository, pilote: PiloteEntity?, onTermine: () -> U
             Champ("N° de licence *", licence, { licence = it })
             Champ("Nom *", nom, { nom = it })
             Champ("Prénom *", prenom, { prenom = it })
-            Champ("Caserne", caserne, { caserne = it })
+            Champ("Département", departement, { departement = it })
             Champ("Poids (kg)", poids, { poids = it }, numerique = true)
             Champ("Email", email, { email = it })
             Champ("Année de naissance", annee, { annee = it }, numerique = true)

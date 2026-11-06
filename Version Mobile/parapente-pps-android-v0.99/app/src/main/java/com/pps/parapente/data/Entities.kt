@@ -22,7 +22,7 @@ data class PiloteEntity(
     val numeroLicence: String,
     val nom: String,
     val prenom: String,
-    val caserne: String? = null,
+    val departement: String? = null,
     val poids: Double? = null,
     val email: String? = null,
     val anneeNaissance: Int? = null,
