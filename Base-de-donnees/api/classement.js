@@ -61,7 +61,7 @@ function calculer({ pilotes, epreuves, inscriptions, resultats }) {
   const lignes = new Map(
     pilotes.map((p) => [
       p.id,
-      { nom: nomDe(p), region: p.region || "", genre: p.genre || "", total: 0 },
+      { nom: nomDe(p), departement: p.departement || "", genre: p.genre || "", total: 0 },
     ])
   );
 
@@ -89,7 +89,7 @@ function calculer({ pilotes, epreuves, inscriptions, resultats }) {
         const p = piloteParId.get(r.pilote_id);
         return {
           nom: p ? nomDe(p) : "?",
-          region: p ? p.region || "" : "",
+          departement: p ? p.departement || "" : "",
           genre: p ? p.genre || "" : "",
           points: arrondir(Number(r.points) || 0),
           disqualifie: !!r.disqualifie,
@@ -109,7 +109,7 @@ async function handler(req, res) {
 
     // Seulement les colonnes nécessaires : pas d'e-mail, de poids, de n° de licence, etc.
     const [pilotes, epreuves, inscriptions, resultats] = await Promise.all([
-      lire("pilotes", "id,nom,prenom,region,genre", "nom.asc,prenom.asc"),
+      lire("pilotes", "id,nom,prenom,departement,genre", "nom.asc,prenom.asc"),
       lire("epreuves", "id,nom,actif,compte_dans_general,afficher_classement,ordre", "ordre.asc,id.asc"),
       lire("inscriptions_epreuve", "pilote_id,epreuve_id", "id.asc"),
       lire("resultats", "epreuve_id,pilote_id,points,disqualifie", "id.asc"),

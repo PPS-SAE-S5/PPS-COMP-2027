@@ -171,14 +171,14 @@
     const lignes = donnees.general.filter((l) => accepte(l.genre));
 
     $("table-general").querySelector("thead").innerHTML =
-      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Région</th><th>Genre</th>" +
+      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Département</th><th>Genre</th>" +
       "<th class='num'>Total</th></tr>";
 
     // Les rangs sont recalculés parmi les pilotes retenus par le filtre
     $("table-general").querySelector("tbody").innerHTML = lignes.map((l, i) =>
       `<tr><td class="c-rang">${pastille(i + 1)}</td>` +
       `<td class="c-pilote">${echapper(l.nom)}</td>` +
-      `<td>${echapper(l.region)}</td><td>${echapper(l.genre)}</td>` +
+      `<td>${echapper(l.departement)}</td><td>${echapper(l.genre)}</td>` +
       `<td class="num total">${nombre.format(l.total)}</td></tr>`
     ).join("");
 
@@ -223,14 +223,14 @@
 
     const lignes = epreuve.resultats.filter((r) => accepte(r.genre));
     $("table-detail").querySelector("thead").innerHTML =
-      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Région</th><th>Genre</th>" +
+      "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Département</th><th>Genre</th>" +
       "<th class='num'>Points</th><th>Disqualifié</th></tr>";
 
     // Rang = position dans la liste (triée par points décroissants, filtrée par genre)
     $("table-detail").querySelector("tbody").innerHTML = lignes.map((r, i) =>
       `<tr><td class="c-rang">${pastille(i + 1)}</td>` +
       `<td class="c-pilote">${echapper(r.nom)}</td>` +
-      `<td>${echapper(r.region)}</td><td>${echapper(r.genre)}</td>` +
+      `<td>${echapper(r.departement)}</td><td>${echapper(r.genre)}</td>` +
       `<td class="num total">${nombre.format(r.points)}</td>` +
       `<td>${r.disqualifie ? '<span class="disq">Oui</span>' : ""}</td></tr>`
     ).join("");
