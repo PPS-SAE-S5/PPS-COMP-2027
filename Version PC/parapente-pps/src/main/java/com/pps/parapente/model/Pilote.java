@@ -10,7 +10,7 @@ public class Pilote {
     private String numeroLicence;
     private String nom;
     private String prenom;
-    private String caserne;
+    private String departement;
     private Double poids;
     private String email;
     private Integer anneeNaissance;
@@ -40,8 +40,8 @@ public class Pilote {
     public String getPrenom() { return prenom; }
     public void setPrenom(String prenom) { this.prenom = prenom; }
 
-    public String getCaserne() { return caserne; }
-    public void setCaserne(String caserne) { this.caserne = caserne; }
+    public String getDepartement() { return departement; }
+    public void setDepartement(String departement) { this.departement = departement; }
 
     public Double getPoids() { return poids; }
     public void setPoids(Double poids) { this.poids = poids; }

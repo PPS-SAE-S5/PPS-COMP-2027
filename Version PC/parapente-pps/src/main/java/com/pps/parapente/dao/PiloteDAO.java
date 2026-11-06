@@ -31,7 +31,7 @@ public class PiloteDAO {
     }
 
     public void creer(Pilote p) throws SQLException {
-        String sql = "INSERT INTO pilotes (numero_licence, nom, prenom, caserne, poids, email, annee_naissance, genre) " +
+        String sql = "INSERT INTO pilotes (numero_licence, nom, prenom, departement, poids, email, annee_naissance, genre) " +
                 "VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = DatabaseManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             remplirParametres(ps, p);
@@ -43,7 +43,7 @@ public class PiloteDAO {
     }
 
     public void mettreAJour(Pilote p) throws SQLException {
-        String sql = "UPDATE pilotes SET numero_licence=?, nom=?, prenom=?, caserne=?, poids=?, email=?, annee_naissance=?, genre=?, " +
+        String sql = "UPDATE pilotes SET numero_licence=?, nom=?, prenom=?, departement=?, poids=?, email=?, annee_naissance=?, genre=?, " +
                 "updated_at=CURRENT_TIMESTAMP WHERE id=?";
         try (PreparedStatement ps = DatabaseManager.getConnection().prepareStatement(sql)) {
             remplirParametres(ps, p);
@@ -64,7 +64,7 @@ public class PiloteDAO {
         ps.setString(1, p.getNumeroLicence());
         ps.setString(2, p.getNom());
         ps.setString(3, p.getPrenom());
-        ps.setString(4, p.getCaserne());
+        ps.setString(4, p.getDepartement());
         if (p.getPoids() != null) ps.setDouble(5, p.getPoids()); else ps.setNull(5, Types.DOUBLE);
         ps.setString(6, p.getEmail());
         if (p.getAnneeNaissance() != null) ps.setInt(7, p.getAnneeNaissance()); else ps.setNull(7, Types.INTEGER);
@@ -77,7 +77,7 @@ public class PiloteDAO {
         p.setNumeroLicence(rs.getString("numero_licence"));
         p.setNom(rs.getString("nom"));
         p.setPrenom(rs.getString("prenom"));
-        p.setCaserne(rs.getString("caserne"));
+        p.setDepartement(rs.getString("departement"));
         double poids = rs.getDouble("poids");
         p.setPoids(rs.wasNull() ? null : poids);
         p.setEmail(rs.getString("email"));

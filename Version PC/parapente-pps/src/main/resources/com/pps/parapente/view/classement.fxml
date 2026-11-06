@@ -46,7 +46,7 @@
                             <columns>
                                 <TableColumn fx:id="colDetailRang" text="Rang" prefWidth="60"/>
                                 <TableColumn fx:id="colDetailPilote" text="Pilote" prefWidth="180"/>
-                                <TableColumn fx:id="colDetailCaserne" text="Caserne" prefWidth="150"/>
+                                <TableColumn fx:id="colDetailDepartement" text="Département" prefWidth="150"/>
                                 <TableColumn fx:id="colDetailGenre" text="Genre" prefWidth="70"/>
                                 <TableColumn fx:id="colDetailValeurs" text="Valeurs saisies" prefWidth="220"/>
                                 <TableColumn fx:id="colDetailPoints" text="Points" prefWidth="80"/>

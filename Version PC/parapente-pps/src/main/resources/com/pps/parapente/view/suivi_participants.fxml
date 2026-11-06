@@ -17,7 +17,7 @@
         <VBox spacing="10" prefWidth="320" styleClass="panneau-lateral-gauche">
             <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
             <Label text="Rechercher un pilote" styleClass="sous-titre"/>
-            <TextField fx:id="champRecherche" promptText="Nom, prénom, licence ou caserne..."/>
+            <TextField fx:id="champRecherche" promptText="Nom, prénom, licence ou département..."/>
             <ListView fx:id="listePilotes" VBox.vgrow="ALWAYS"/>
             <Label fx:id="labelNbResultats" style="-fx-text-fill:#566779; -fx-font-size:12px;"/>
         </VBox>
