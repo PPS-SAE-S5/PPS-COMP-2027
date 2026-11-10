@@ -45,7 +45,7 @@ public class ClassementController {
     @FXML private TableView<Resultat> tableDetailEpreuve;
     @FXML private TableColumn<Resultat, Number> colDetailRang;
     @FXML private TableColumn<Resultat, String> colDetailPilote;
-    @FXML private TableColumn<Resultat, String> colDetailCaserne;
+    @FXML private TableColumn<Resultat, String> colDetailDepartement;
     @FXML private TableColumn<Resultat, String> colDetailGenre;
     @FXML private TableColumn<Resultat, String> colDetailValeurs;
     @FXML private TableColumn<Resultat, Number> colDetailPoints;
@@ -108,17 +108,17 @@ public class ClassementController {
                 c.getValue().getPilote().getNomComplet()));
         colPilote.setPrefWidth(180);
 
-        TableColumn<LigneClassement, String> colCaserne = new TableColumn<>("Caserne");
-        colCaserne.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
-                c.getValue().getPilote().getCaserne()));
-        colCaserne.setPrefWidth(150);
+        TableColumn<LigneClassement, String> colDepartement = new TableColumn<>("Département");
+        colDepartement.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
+                c.getValue().getPilote().getDepartement()));
+        colDepartement.setPrefWidth(150);
 
         TableColumn<LigneClassement, String> colGenre = new TableColumn<>("Genre");
         colGenre.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
                 c.getValue().getPilote().getGenre() != null ? c.getValue().getPilote().getGenre() : ""));
         colGenre.setPrefWidth(70);
 
-        tableClassement.getColumns().addAll(colRang, colPilote, colCaserne, colGenre);
+        tableClassement.getColumns().addAll(colRang, colPilote, colDepartement, colGenre);
 
         List<Epreuve> epreuvesComptees = epreuveService.listerToutes().stream()
                 .filter(Epreuve::isActif)
@@ -148,8 +148,8 @@ public class ClassementController {
                 tableDetailEpreuve.getItems().indexOf(c.getValue()) + 1));
         colDetailPilote.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
                 c.getValue().getPilote() != null ? c.getValue().getPilote().getNomComplet() : "?"));
-        colDetailCaserne.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
-                c.getValue().getPilote() != null ? c.getValue().getPilote().getCaserne() : ""));
+        colDetailDepartement.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
+                c.getValue().getPilote() != null ? c.getValue().getPilote().getDepartement() : ""));
         colDetailGenre.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
                 c.getValue().getPilote() != null && c.getValue().getPilote().getGenre() != null
                         ? c.getValue().getPilote().getGenre() : ""));

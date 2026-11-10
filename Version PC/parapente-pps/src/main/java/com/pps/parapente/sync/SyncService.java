@@ -484,12 +484,12 @@ public class SyncService {
                 Instant majLocale = lireInstantLocal(conn, "pilotes", localId);
                 if (estPlusRecent(majDistante, majLocale)) {
                     try (PreparedStatement maj = conn.prepareStatement(
-                            "UPDATE pilotes SET uuid=?, nom=?, prenom=?, caserne=?, poids=?, email=?, " +
+                            "UPDATE pilotes SET uuid=?, nom=?, prenom=?, departement=?, poids=?, email=?, " +
                                     "annee_naissance=?, genre=?, updated_at=? WHERE id=?")) {
                         maj.setString(1, r.getString("uuid"));
                         maj.setString(2, r.getString("nom"));
                         maj.setString(3, r.getString("prenom"));
-                        maj.setString(4, r.optString("caserne", null));
+                        maj.setString(4, r.optString("departement", null));
                         setNullableDouble(maj, 5, r, "poids");
                         maj.setString(6, r.optString("email", null));
                         setNullableInt(maj, 7, r, "annee_naissance");
@@ -508,13 +508,13 @@ public class SyncService {
                 }
             } else {
                 try (PreparedStatement ins = conn.prepareStatement(
-                        "INSERT INTO pilotes (uuid, numero_licence, nom, prenom, caserne, poids, email, annee_naissance, genre, updated_at) " +
+                        "INSERT INTO pilotes (uuid, numero_licence, nom, prenom, departement, poids, email, annee_naissance, genre, updated_at) " +
                                 "VALUES (?,?,?,?,?,?,?,?,?,?)")) {
                     ins.setString(1, r.getString("uuid"));
                     ins.setString(2, licence);
                     ins.setString(3, r.getString("nom"));
                     ins.setString(4, r.getString("prenom"));
-                    ins.setString(5, r.optString("caserne", null));
+                    ins.setString(5, r.optString("departement", null));
                     setNullableDouble(ins, 6, r, "poids");
                     ins.setString(7, r.optString("email", null));
                     setNullableInt(ins, 8, r, "annee_naissance");
@@ -530,14 +530,14 @@ public class SyncService {
     private void pousserPilotes(Connection conn, RapportSync rapport) throws Exception {
         try (Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(
-                     "SELECT id, uuid, numero_licence, nom, prenom, caserne, poids, email, annee_naissance, genre, updated_at FROM pilotes")) {
+                     "SELECT id, uuid, numero_licence, nom, prenom, departement, poids, email, annee_naissance, genre, updated_at FROM pilotes")) {
             while (rs.next()) {
                 JSONObject payload = new JSONObject();
                 payload.put("uuid", rs.getString("uuid"));
                 payload.put("numero_licence", rs.getString("numero_licence"));
                 payload.put("nom", rs.getString("nom"));
                 payload.put("prenom", rs.getString("prenom"));
-                mettreOuNull(payload, "caserne", rs.getString("caserne"));
+                mettreOuNull(payload, "departement", rs.getString("departement"));
                 mettreDoubleOuNull(payload, "poids", rs, "poids");
                 mettreOuNull(payload, "email", rs.getString("email"));
                 mettreIntOuNull(payload, "annee_naissance", rs, "annee_naissance");

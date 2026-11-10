@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS pilotes (
     numero_licence      VARCHAR(50) NOT NULL UNIQUE,
     nom                 VARCHAR(100) NOT NULL,
     prenom              VARCHAR(100) NOT NULL,
-    caserne             VARCHAR(150),
+    departement         VARCHAR(150),
     poids               DOUBLE,
     email               VARCHAR(150),
     annee_naissance     INT,
@@ -111,6 +111,7 @@ ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP;
 UPDATE utilisateurs SET updated_at = CURRENT_TIMESTAMP WHERE updated_at IS NULL;
 ALTER TABLE utilisateurs ALTER COLUMN updated_at SET DEFAULT CURRENT_TIMESTAMP;
 
+ALTER TABLE pilotes ALTER COLUMN IF EXISTS caserne RENAME TO departement;
 ALTER TABLE pilotes ADD COLUMN IF NOT EXISTS uuid VARCHAR(36);
 ALTER TABLE pilotes ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP;
 ALTER TABLE pilotes ADD COLUMN IF NOT EXISTS supabase_id INT;

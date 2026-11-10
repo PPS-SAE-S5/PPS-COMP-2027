@@ -18,7 +18,7 @@ public class GestionPilotesController {
     @FXML private TableColumn<Pilote, String> colLicence;
     @FXML private TableColumn<Pilote, String> colNom;
     @FXML private TableColumn<Pilote, String> colPrenom;
-    @FXML private TableColumn<Pilote, String> colCaserne;
+    @FXML private TableColumn<Pilote, String> colDepartement;
     @FXML private TableColumn<Pilote, Double> colPoids;
     @FXML private TableColumn<Pilote, String> colEmail;
     @FXML private TableColumn<Pilote, Integer> colAnnee;
@@ -27,7 +27,7 @@ public class GestionPilotesController {
     @FXML private TextField champLicence;
     @FXML private TextField champNom;
     @FXML private TextField champPrenom;
-    @FXML private TextField champCaserne;
+    @FXML private TextField champDepartement;
     @FXML private TextField champPoids;
     @FXML private TextField champEmail;
     @FXML private TextField champAnnee;
@@ -43,7 +43,7 @@ public class GestionPilotesController {
         colLicence.setCellValueFactory(new PropertyValueFactory<>("numeroLicence"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        colCaserne.setCellValueFactory(new PropertyValueFactory<>("caserne"));
+        colDepartement.setCellValueFactory(new PropertyValueFactory<>("departement"));
         colPoids.setCellValueFactory(new PropertyValueFactory<>("poids"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colAnnee.setCellValueFactory(new PropertyValueFactory<>("anneeNaissance"));
@@ -72,7 +72,7 @@ public class GestionPilotesController {
         champLicence.setText(p.getNumeroLicence());
         champNom.setText(p.getNom());
         champPrenom.setText(p.getPrenom());
-        champCaserne.setText(p.getCaserne());
+        champDepartement.setText(p.getDepartement());
         champPoids.setText(p.getPoids() != null ? String.valueOf(p.getPoids()) : "");
         champEmail.setText(p.getEmail());
         champAnnee.setText(p.getAnneeNaissance() != null ? String.valueOf(p.getAnneeNaissance()) : "");
@@ -82,7 +82,7 @@ public class GestionPilotesController {
     @FXML
     private void viderFormulaire() {
         piloteSelectionne = null;
-        champLicence.clear(); champNom.clear(); champPrenom.clear(); champCaserne.clear();
+        champLicence.clear(); champNom.clear(); champPrenom.clear(); champDepartement.clear();
         champPoids.clear(); champEmail.clear(); champAnnee.clear(); champGenre.setValue(null);
         tablePilotes.getSelectionModel().clearSelection();
         masquerErreur();
@@ -93,7 +93,7 @@ public class GestionPilotesController {
         p.setNumeroLicence(champLicence.getText().trim());
         p.setNom(champNom.getText().trim());
         p.setPrenom(champPrenom.getText().trim());
-        p.setCaserne(champCaserne.getText().trim());
+        p.setDepartement(champDepartement.getText().trim());
         p.setEmail(champEmail.getText().trim());
         p.setGenre(champGenre.getValue());
         try {
@@ -117,7 +117,7 @@ public class GestionPilotesController {
             p.setNumeroLicence(champLicence.getText().trim());
             p.setNom(champNom.getText().trim());
             p.setPrenom(champPrenom.getText().trim());
-            p.setCaserne(champCaserne.getText().trim());
+            p.setDepartement(champDepartement.getText().trim());
             p.setEmail(champEmail.getText().trim());
             p.setGenre(champGenre.getValue());
             p.setPoids(champPoids.getText().isBlank() ? null : Double.parseDouble(champPoids.getText().trim().replace(",", ".")));

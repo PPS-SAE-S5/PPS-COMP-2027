@@ -57,8 +57,8 @@ public class SuiviParticipantsController {
                 if (vide || p == null) {
                     setText(null);
                 } else {
-                    String caserne = p.getCaserne() == null || p.getCaserne().isBlank() ? "" : "   ·   " + p.getCaserne();
-                    setText(p.getNom() + " " + p.getPrenom() + caserne);
+                    String departement = p.getDepartement() == null || p.getDepartement().isBlank() ? "" : "   ·   " + p.getDepartement();
+                    setText(p.getNom() + " " + p.getPrenom() + departement);
                 }
             }
         });
@@ -131,7 +131,7 @@ public class SuiviParticipantsController {
         pilotesFiltres.setPredicate(p -> {
             String botteDeFoin = normaliser(p.getNom() + " " + p.getPrenom() + " " + p.getPrenom() + " " + p.getNom()
                     + " " + (p.getNumeroLicence() == null ? "" : p.getNumeroLicence())
-                    + " " + (p.getCaserne() == null ? "" : p.getCaserne()));
+                    + " " + (p.getDepartement() == null ? "" : p.getDepartement()));
             for (String mot : mots) {
                 if (!mot.isEmpty() && !botteDeFoin.contains(mot)) return false;
             }
@@ -161,7 +161,7 @@ public class SuiviParticipantsController {
 
             StringBuilder infos = new StringBuilder();
             ajouter(infos, pilote.getNumeroLicence() == null || pilote.getNumeroLicence().isBlank() ? null : "Licence n°" + pilote.getNumeroLicence());
-            ajouter(infos, pilote.getCaserne());
+            ajouter(infos, pilote.getDepartement());
             ajouter(infos, pilote.getGenre());
             ajouter(infos, pilote.getAnneeNaissance() == null ? null : pilote.getAge() + " ans");
             labelInfos.setText(infos.toString());

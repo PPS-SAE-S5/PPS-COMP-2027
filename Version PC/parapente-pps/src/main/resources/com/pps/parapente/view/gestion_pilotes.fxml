@@ -17,7 +17,7 @@
                 <TableColumn fx:id="colLicence" text="N° Licence" prefWidth="100"/>
                 <TableColumn fx:id="colNom" text="Nom" prefWidth="110"/>
                 <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="110"/>
-                <TableColumn fx:id="colCaserne" text="Caserne" prefWidth="150"/>
+                <TableColumn fx:id="colDepartement" text="Département" prefWidth="150"/>
                 <TableColumn fx:id="colPoids" text="Poids (kg)" prefWidth="80"/>
                 <TableColumn fx:id="colEmail" text="Email" prefWidth="170"/>
                 <TableColumn fx:id="colAnnee" text="Année naiss." prefWidth="90"/>
@@ -36,8 +36,8 @@
             <TextField fx:id="champNom"/>
             <Label text="Prénom *"/>
             <TextField fx:id="champPrenom"/>
-            <Label text="Caserne"/>
-            <TextField fx:id="champCaserne"/>
+            <Label text="Département"/>
+            <TextField fx:id="champDepartement"/>
             <Label text="Poids (kg)"/>
             <TextField fx:id="champPoids"/>
             <Label text="Email"/>
