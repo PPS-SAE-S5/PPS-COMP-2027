@@ -108,7 +108,7 @@ fun SyncScreen(db: AppDatabase, config: SyncConfig, onBack: () -> Unit) {
                     Row2(
                         checked = auto,
                         onCheckedChange = { auto = it },
-                        texte = "Essayer de synchroniser automatiquement au démarrage"
+                        texte = "Au démarrage, récupérer automatiquement les nouveautés de la base en ligne (rien n'est envoyé ni supprimé)"
                     )
                 }
             }

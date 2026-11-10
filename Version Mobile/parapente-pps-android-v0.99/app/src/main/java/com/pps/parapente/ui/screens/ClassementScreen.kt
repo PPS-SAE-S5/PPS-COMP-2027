@@ -129,7 +129,7 @@ private fun ClassementGeneral(lignes: List<LigneClassement>, epreuves: List<Epre
             LigneTableau(entete = true) {
                 Cellule("Rang", 48.dp, true, Color.White)
                 Cellule("Pilote", 150.dp, true, Color.White)
-                Cellule("Caserne", 110.dp, true, Color.White)
+                Cellule("Département", 110.dp, true, Color.White)
                 colonnes.forEach { Cellule(it.epreuve.nom, 96.dp, true, Color.White) }
                 Cellule("TOTAL", 70.dp, true, Color.White)
             }
@@ -137,7 +137,7 @@ private fun ClassementGeneral(lignes: List<LigneClassement>, epreuves: List<Epre
                 LigneTableau {
                     Cellule(l.rang.toString(), 48.dp)
                     Cellule(l.pilote.nomComplet, 150.dp, true)
-                    Cellule(l.pilote.caserne ?: "", 110.dp)
+                    Cellule(l.pilote.departement ?: "", 110.dp)
                     colonnes.forEach { c -> Cellule(fmt(l.pointsParEpreuve[c.epreuve.id] ?: 0.0), 96.dp) }
                     Cellule(fmt(l.total), 70.dp, true, Orange)
                 }
@@ -157,7 +157,7 @@ private fun DetailEpreuve(lignes: List<ResultatAffiche>) {
             LigneTableau(entete = true) {
                 Cellule("Rang", 48.dp, true, Color.White)
                 Cellule("Pilote", 150.dp, true, Color.White)
-                Cellule("Caserne", 110.dp, true, Color.White)
+                Cellule("Département", 110.dp, true, Color.White)
                 Cellule("Valeurs saisies", 170.dp, true, Color.White)
                 Cellule("Points", 64.dp, true, Color.White)
                 Cellule("Disq.", 50.dp, true, Color.White)
@@ -166,7 +166,7 @@ private fun DetailEpreuve(lignes: List<ResultatAffiche>) {
                 LigneTableau {
                     Cellule((index + 1).toString(), 48.dp)
                     Cellule(r.pilote?.nomComplet ?: "?", 150.dp, true)
-                    Cellule(r.pilote?.caserne ?: "", 110.dp)
+                    Cellule(r.pilote?.departement ?: "", 110.dp)
                     Cellule(r.valeurs.entries.joinToString(", ") { "${it.key}=${fmt(it.value)}" }, 170.dp)
                     Cellule(fmt(r.resultat.points), 64.dp, true, Orange)
                     Cellule(if (r.resultat.disqualifie) "Oui" else "", 50.dp, false, Rouge)

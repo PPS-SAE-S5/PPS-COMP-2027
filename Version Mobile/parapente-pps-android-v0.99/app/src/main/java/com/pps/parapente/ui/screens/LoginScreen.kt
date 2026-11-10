@@ -30,6 +30,7 @@ import com.pps.parapente.data.MessageErreur
 import com.pps.parapente.data.Repository
 import com.pps.parapente.data.UtilisateurEntity
 import com.pps.parapente.ui.BoutonPrincipal
+import com.pps.parapente.ui.BoutonSecondaire
 import com.pps.parapente.ui.Bleu
 import com.pps.parapente.ui.CarteBloc
 import com.pps.parapente.ui.Champ
@@ -60,6 +61,18 @@ fun LoginScreen(repo: Repository, onConnecte: (UtilisateurEntity) -> Unit) {
         }
     }
 
+    // « Non, je veux uniquement suivre le classement » (comme sur PC) : compte invité, classement seulement
+    fun invite() {
+        scope.launch {
+            try {
+                val u = repo.connexionInvite()
+                if (u == null) erreur = "Le compte invité a un problème." else onConnecte(u)
+            } catch (e: Exception) {
+                erreur = MessageErreur.traduire(e)
+            }
+        }
+    }
+
     Box(Modifier.fillMaxSize().background(Fond), contentAlignment = Alignment.Center) {
         Column(
             Modifier.padding(24.dp).verticalScroll(rememberScrollState()),
@@ -81,7 +94,7 @@ fun LoginScreen(repo: Repository, onConnecte: (UtilisateurEntity) -> Unit) {
                     BoutonPrincipal("Se connecter") { connexion() }
                 }
             }
-            // Text("Compte par défaut : admin / admin123", color = Gris, fontSize = 11.sp)
+            BoutonSecondaire("Non, je veux uniquement suivre le classement") { invite() }
         }
     }
 }
