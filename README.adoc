@@ -24,13 +24,13 @@ _Lien vers le site_ : https://pps-classement.vercel.app/[PPS-Classement]
 
 === 2.2 Pour accéder à l'application sur PC
 
-_Lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.0[PPS-COMP v2.0] +
-_Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v2.0/PPS-COMP.v2.0-SNAPSHOT.jar[PPS-COMP PC 2.0]
+_Lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1[PPS-COMP v2.1] +
+_Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v2.1/PPS-COMP.v2.1-SNAPSHOT.jar[PPS-COMP PC 2.1]
 
 === 2.3 Pour accéder à l'application sur mobile
 
-_Lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.0[PPS-COMP v2.0] +
-_Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v2.0/PPS-COMP.v2.0.apk[PPS-COMP Mobile 2.0] 
+_Lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1[PPS-COMP v2.1] +
+_Lien direct vers l'application_ : hhttps://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v2.1/PPS-COMP-2.1.apk[PPS-COMP Mobile 2.1] 
 
 == 3. Gestion de projet & Qualité
 
@@ -240,11 +240,31 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 | Compte rendu de la troisième réunion pour le projet (version PDF)
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2[sprint 1]
 
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/ODJ%204%20-%20PPS%20Rolando.pdf[Ordre du jour de la réunion 4 (Avec Jean-Marie ROLANDO)]
+| Ordre du jour de la troisième réunion pour le projet
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4[sprint 3]
+
+|https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%204.md[Compte rendu de réunion 4]
+| Compte rendu de la quatrième réunion pour le projet (Avec Jean-Marie ROLANDO)
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4[sprint 3]
+
+|https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%204.pdf[Compte rendu de réunion 4 (PDF)]
+| Compte rendu de la quatrième réunion pour le projet (Avec Jean-Marie ROLANDO)
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4[sprint 3]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/ODJ%204%20-%20PPS%20JMB.pdf[Ordre du jour de la réunion 4 (Avec Jean-Michel BRUEL)]
+| Ordre du jour de la troisième réunion pour le projet
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4[sprint 3]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%204bis.md[Compte rendu de réunion 4BIS]
+| Compte rendu de la quatrième réunion pour le projet (Jean-Michel BRUEL)
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4[sprint 3]
+
 |===
 
 === 4.3 Informations complémentaires
 
-- Version courante : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.0[Release v2.0]
+- Version courante : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases#release-v2.1[Release v2.1]
 - Lien vers la documentation technique générale (FR): https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Technique(v2)(fr).md[Version sprint 2] (https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md[version sprint 1])
 
 - Lien vers la documentation utilisateur PC (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Utilisateur(v2)(fr)%20version%20PC.md[Version PC sprint 2], (https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Utilisateur%20(fr)%20v1%20version%20PC%20.md[version PC sprint 1])
