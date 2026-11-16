@@ -75,6 +75,19 @@
     -fx-font-weight: bold;
 }
 
+/* Champ obligatoire non renseigné (formulaire atelier) */
+.text-field.champ-invalide,
+.combo-box.champ-invalide {
+    -fx-border-color: #c0392b;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 3;
+}
+
+.radio-button.champ-invalide {
+    -fx-text-fill: #c0392b;
+    -fx-font-weight: bold;
+}
+
 .champ-formulaire {
     -fx-padding: 4 0 4 0;
 }

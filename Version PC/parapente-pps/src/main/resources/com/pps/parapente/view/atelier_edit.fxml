@@ -22,7 +22,7 @@
             <VBox spacing="4">
                 <Label text="Créneau *"/>
                 <HBox spacing="16" alignment="CENTER_LEFT" minHeight="30">
-                    <RadioButton fx:id="radioMatin" text="Matin" selected="true">
+                    <RadioButton fx:id="radioMatin" text="Matin">
                         <toggleGroup><ToggleGroup fx:id="groupeCreneau"/></toggleGroup>
                     </RadioButton>
                     <RadioButton fx:id="radioApresMidi" text="Après-midi" toggleGroup="$groupeCreneau"/>
@@ -32,22 +32,22 @@
 
         <HBox spacing="16">
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Début (HH:mm)"/>
+                <Label text="Début (HH:mm) *"/>
                 <TextField fx:id="champDebut" promptText="08:00"/>
             </VBox>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Fin (HH:mm)"/>
+                <Label text="Fin (HH:mm) *"/>
                 <TextField fx:id="champFin" promptText="10:30"/>
             </VBox>
         </HBox>
 
         <HBox spacing="16">
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Lieu"/>
+                <Label text="Lieu *"/>
                 <TextField fx:id="champLieu" promptText="ex: Zone d'atterrissage"/>
             </VBox>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Responsable"/>
+                <Label text="Responsable *"/>
                 <TextField fx:id="champResponsable" promptText="ex: Dupont"/>
             </VBox>
         </HBox>

@@ -60,6 +60,26 @@ public class AtelierEditController {
             }
         });
         chargerEpreuvesDisponibles();
+
+        configurerChampHeure(champDebut);
+        configurerChampHeure(champFin);
+    }
+
+    /**
+     * Verification des champs horaires : seuls les chiffres et le caractère ':' sont autorisés et la longueur maximale est de 5 caractères
+     */
+    private void configurerChampHeure(TextField champ) {
+        champ.setTextFormatter(new TextFormatter<String>(changement ->
+                changement.getControlNewText().matches("[0-9:]{0,5}") ? changement : null));
+        champ.focusedProperty().addListener((obs, avant, focus) -> {
+            if (focus) return;
+            String texte = champ.getText();
+            if (texte == null || texte.isBlank() || PlanningService.heureValide(texte)) {
+                champ.getStyleClass().remove(CLASSE_INVALIDE);
+            } else {
+                marquer(champ);
+            }
+        });
     }
 
     /** Appelé avant l'affichage : atelier existant à modifier (ou null) et journée à présélectionner pour un nouvel atelier. */
@@ -68,7 +88,8 @@ public class AtelierEditController {
             this.atelier = existant;
             labelTitre.setText("Modifier l'atelier");
             champNom.setText(existant.getNom());
-            (existant.getCreneau() == Creneau.APRES_MIDI ? radioApresMidi : radioMatin).setSelected(true);
+            if (existant.getCreneau() == Creneau.APRES_MIDI) radioApresMidi.setSelected(true);
+            else if (existant.getCreneau() == Creneau.MATIN) radioMatin.setSelected(true);
             champDebut.setText(existant.getHeureDebut());
             champFin.setText(existant.getHeureFin());
             champLieu.setText(existant.getLieu());
@@ -146,18 +167,45 @@ public class AtelierEditController {
 
     @FXML
     private void enregistrer() {
+        masquerErreur();
         Journee journee = champJournee.getValue();
-        if (journee == null) {
-            afficherErreur("Choisissez la journée de cet atelier.");
+
+        // Saisie copiée dans un objet temporaire : l'atelier d'origine (affiché dans le planning)
+        // n'est modifié que si les contrôles passent (obligé pour rétablir les valeurs précédentes en cas d'erreur de saisie)
+        Atelier saisie = new Atelier();
+        saisie.setNom(champNom.getText());
+        saisie.setJourneeId(journee == null ? 0 : journee.getId());
+        saisie.setCreneau(radioApresMidi.isSelected() ? Creneau.APRES_MIDI
+                : radioMatin.isSelected() ? Creneau.MATIN : null);
+        saisie.setHeureDebut(champDebut.getText());
+        saisie.setHeureFin(champFin.getText());
+        saisie.setLieu(champLieu.getText());
+        saisie.setResponsable(champResponsable.getText());
+
+        List<String> manquants = PlanningService.champsObligatoiresManquants(saisie);
+        if (!manquants.isEmpty()) {
+            signalerChampsManquants(manquants);
+            afficherErreur(PlanningService.messageChampsManquants(manquants));
             return;
         }
-        atelier.setNom(champNom.getText());
-        atelier.setJourneeId(journee.getId());
-        atelier.setCreneau(radioApresMidi.isSelected() ? Creneau.APRES_MIDI : Creneau.MATIN);
-        atelier.setHeureDebut(champDebut.getText());
-        atelier.setHeureFin(champFin.getText());
-        atelier.setLieu(champLieu.getText());
-        atelier.setResponsable(champResponsable.getText());
+
+        // Format HH:mm des horaires
+        List<String> erreursHoraires = PlanningService.erreursHoraires(saisie.getHeureDebut(), saisie.getHeureFin());
+        if (!erreursHoraires.isEmpty()) {
+            if (!PlanningService.heureValide(saisie.getHeureDebut())) marquer(champDebut);
+            if (!PlanningService.heureValide(saisie.getHeureFin())) marquer(champFin);
+            if (erreursHoraires.contains(PlanningService.MESSAGE_ORDRE_HORAIRES)) { marquer(champDebut); marquer(champFin); }
+            afficherErreur(String.join("\n", erreursHoraires));
+            return;
+        }
+
+        atelier.setNom(saisie.getNom());
+        atelier.setJourneeId(saisie.getJourneeId());
+        atelier.setCreneau(saisie.getCreneau());
+        atelier.setHeureDebut(saisie.getHeureDebut());
+        atelier.setHeureFin(saisie.getHeureFin());
+        atelier.setLieu(saisie.getLieu());
+        atelier.setResponsable(saisie.getResponsable());
         atelier.setEpreuves(new ArrayList<>(epreuves));
 
         try {
@@ -184,6 +232,33 @@ public class AtelierEditController {
         labelErreur.setText(message);
         labelErreur.setVisible(true);
         labelErreur.setManaged(true);
+    }
+
+    private void masquerErreur() {
+        labelErreur.setVisible(false);
+        labelErreur.setManaged(false);
+        for (Control c : champsControles()) c.getStyleClass().remove(CLASSE_INVALIDE);
+    }
+
+    private static final String CLASSE_INVALIDE = "champ-invalide";
+
+    private List<Control> champsControles() {
+        return List.of(champNom, champJournee, radioMatin, radioApresMidi, champDebut, champFin, champLieu, champResponsable);
+    }
+
+    /** Si mauvaise saisie/ manquants : encadre en rouge les champs obligatoires non renseignés. */
+    private void signalerChampsManquants(List<String> manquants) {
+        if (manquants.contains(PlanningService.CHAMP_NOM)) marquer(champNom);
+        if (manquants.contains(PlanningService.CHAMP_JOURNEE)) marquer(champJournee);
+        if (manquants.contains(PlanningService.CHAMP_CRENEAU)) { marquer(radioMatin); marquer(radioApresMidi); }
+        if (manquants.contains(PlanningService.CHAMP_DEBUT)) marquer(champDebut);
+        if (manquants.contains(PlanningService.CHAMP_FIN)) marquer(champFin);
+        if (manquants.contains(PlanningService.CHAMP_LIEU)) marquer(champLieu);
+        if (manquants.contains(PlanningService.CHAMP_RESPONSABLE)) marquer(champResponsable);
+    }
+
+    private void marquer(Control c) {
+        if (!c.getStyleClass().contains(CLASSE_INVALIDE)) c.getStyleClass().add(CLASSE_INVALIDE);
     }
 
     public boolean isEnregistre() { return enregistre; }
