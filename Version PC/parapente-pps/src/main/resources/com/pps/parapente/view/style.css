@@ -46,6 +46,22 @@
     -fx-cursor: hand;
 }
 
+/* Export PDF du planning */
+.bouton-export {
+    -fx-background-color: white;
+    -fx-text-fill: #1b3a5c;
+    -fx-font-weight: bold;
+    -fx-border-color: #1b3a5c;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
+}
+
+.bouton-export:hover {
+    -fx-background-color: #eef3f8;
+}
+
 .bouton-danger {
     -fx-background-color: #c0392b;
     -fx-text-fill: white;

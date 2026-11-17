@@ -29,6 +29,10 @@
                 <HBox fx:id="actionsJournee" spacing="10" alignment="CENTER_LEFT">
                     <Label fx:id="labelJournee" styleClass="titre"/>
                     <Region HBox.hgrow="ALWAYS"/>
+                    <!-- Export accessible à tous les rôles qui voient le planning (lecture seule comprise) -->
+                    <Button fx:id="boutonExportPdf" text="Exporter en PDF" styleClass="bouton-export" onAction="#exporterPdf">
+                        <tooltip><Tooltip text="Enregistrer le planning de cette journée en PDF pour l'imprimer ou le diffuser"/></tooltip>
+                    </Button>
                     <Button text="Renommer / changer la date" styleClass="bouton-secondaire" onAction="#modifierJournee"/>
                     <Button text="Supprimer la journée" styleClass="bouton-danger" onAction="#supprimerJournee"/>
                 </HBox>

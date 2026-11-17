@@ -6,6 +6,7 @@ import com.pps.parapente.model.Epreuve;
 import com.pps.parapente.model.Journee;
 import com.pps.parapente.model.Role;
 import com.pps.parapente.model.Utilisateur;
+import com.pps.parapente.service.ExportPdfService;
 import com.pps.parapente.service.PlanningService;
 import com.pps.parapente.util.MessageErreurUtil;
 import com.pps.parapente.util.SceneManager;
@@ -18,6 +19,11 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+import javafx.stage.FileChooser;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -40,8 +46,12 @@ public class PlanningController {
     @FXML private VBox contenuJournee;
     @FXML private ListView<Epreuve> listeNonAffectees;
     @FXML private Label labelResume;
+    @FXML private Button boutonExportPdf;
 
     private final PlanningService planningService = new PlanningService();
+    private final ExportPdfService exportPdfService = new ExportPdfService();
+    /** Dossier du dernier export, reproposé au suivant */
+    private static File dernierDossierExport;
     private boolean peutModifier;
     private int journeeSelectionneeId = 0;
 
@@ -188,8 +198,10 @@ public class PlanningController {
         actionsJournee.setManaged(true);
         labelJournee.setText(courante.getNom() + (courante.getDateJournee() == null ? "" : " · " + courante.getDateFormatee()));
         if (!peutModifier) {
-            // Lecture seule : on garde le titre, on retire les boutons d'action
-            actionsJournee.getChildren().stream().filter(n -> n instanceof Button).forEach(n -> masquer((Button) n));
+            // Lecture seule : on garde le titre et l'export PDF, on retire les boutons de modification
+            actionsJournee.getChildren().stream()
+                    .filter(n -> n instanceof Button && n != boutonExportPdf)
+                    .forEach(n -> masquer((Button) n));
         }
 
         List<Atelier> ateliers = planningService.listerAteliers(courante.getId());
@@ -388,6 +400,71 @@ public class PlanningController {
         } catch (SQLException e) {
             return 1;
         }
+    }
+
+    // action : export PDF de la journée
+
+    @FXML
+    private void exporterPdf() {
+        Journee courante;
+        List<Atelier> ateliers;
+        try {
+            courante = planningService.listerJournees().stream()
+                    .filter(j -> j.getId() == journeeSelectionneeId).findFirst().orElse(null);
+            if (courante == null) return;
+            ateliers = planningService.listerAteliers(courante.getId());
+        } catch (SQLException e) {
+            erreur(MessageErreurUtil.traduire(e));
+            return;
+        }
+
+        FileChooser choix = new FileChooser();
+        choix.setTitle("Exporter « " + courante.getNom() + " » en PDF");
+        choix.getExtensionFilters().add(new FileChooser.ExtensionFilter("Document PDF (*.pdf)", "*.pdf"));
+        choix.setInitialFileName(ExportPdfService.nomFichierParDefaut(courante));
+        File dossier = dernierDossierExport != null ? dernierDossierExport
+                : new File(System.getProperty("user.home"), "Documents");
+        if (dossier.isDirectory()) choix.setInitialDirectory(dossier);
+
+        File fichier = choix.showSaveDialog(SceneManager.getStagePrincipal());
+        if (fichier == null) return;   // annulé
+        if (!fichier.getName().toLowerCase().endsWith(".pdf")) {
+            fichier = new File(fichier.getParentFile(), fichier.getName() + ".pdf");
+        }
+
+        try {
+            exportPdfService.exporterJournee(courante, ateliers, fichier.toPath());
+        } catch (IOException e) {
+            erreur("Le PDF n'a pas pu être enregistré. Vérifiez qu'il n'est pas déjà ouvert dans un autre logiciel "
+                    + "et que vous avez le droit d'écrire dans ce dossier, puis réessayez.");
+            return;
+        }
+        dernierDossierExport = fichier.getParentFile();
+        proposerOuverture(fichier);
+    }
+
+    /** Confirme l'export et propose d'ouvrir le PDF avec le lecteur par défaut */
+    private void proposerOuverture(File fichier) {
+        ButtonType ouvrir = new ButtonType("Ouvrir le PDF", ButtonBar.ButtonData.OK_DONE);
+        ButtonType fermer = new ButtonType("Fermer", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert info = new Alert(Alert.AlertType.INFORMATION, "Le planning a été enregistré :\n" + fichier.getAbsolutePath(), ouvrir, fermer);
+        info.setTitle("Export PDF");
+        info.setHeaderText("Export terminé");
+        info.showAndWait().filter(rep -> rep == ouvrir).ifPresent(rep -> {
+            // Ouverture hors du thread JavaFX
+            new Thread(() -> {
+                try {
+                    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+                        Desktop.getDesktop().open(fichier);
+                        return;
+                    }
+                } catch (IOException | RuntimeException ignore) {
+                    // pas de lecteur PDF associé : message ci-dessous
+                }
+                javafx.application.Platform.runLater(() -> erreur(
+                        "Impossible d'ouvrir le PDF automatiquement. Il se trouve ici :\n" + fichier.getAbsolutePath()));
+            }, "ouverture-pdf").start();
+        });
     }
 
     // actions : ateliers

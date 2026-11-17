@@ -96,6 +96,10 @@ CREATE TABLE IF NOT EXISTS resultats (
 MERGE INTO utilisateurs (id, identifiant, mot_de_passe, role, actif) KEY(id)
 VALUES (1, 'admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'ADMINISTRATEUR', TRUE);
 
+-- Compte invité par défaut (identifiant: invité / mdp: invitationPPS), utilisé par le bouton "Non, je veux uniquement suivre le classement"
+MERGE INTO utilisateurs (identifiant, mot_de_passe, role, actif) KEY(identifiant)
+VALUES ('invité', '26767f9b3ea850a91cf7c1b4492b3969f269465c60f9ef3625059b2298cadb7e', 'PILOTE', TRUE);
+
 -- ============================================================
 -- Colonnes de synchronisation Supabase (version 0.3)
 -- Ajoutées avec IF NOT EXISTS : ne modifie rien chez ceux qui n'utilisent pas la synchronisation.
