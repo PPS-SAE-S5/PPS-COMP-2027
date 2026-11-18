@@ -6,7 +6,8 @@
 //  - Détail par épreuve : épreuves dont "afficher_classement" est vrai, résultats triés par points décroissants.
 //
 // Les points sont déjà calculés et stockés dans resultats.points par l'appli et dans la BD : donc on ne fait que les lire.
-// Les rangs et le filtre Mixte / Hommes / Femmes sont appliqués côté navigateur.
+// Les rangs et les filtres Général / Hommes / Femmes et Pompiers / Open sont appliqués côté navigateur.
+// Catégorie (issue #46) : "POMPIER" (championnat) ou "OPEN" (hors championnat), colonne pilotes.categorie.
 
 const TAILLE_PAGE = 1000; // limite par défaut de l'API REST Supabase
 
@@ -36,6 +37,20 @@ async function lire(table, colonnes, ordre) {
 
 const arrondir = (n) => Math.round(n * 100) / 100;
 
+// Toute valeur autre que OPEN (vide, colonne absente...) est considérée comme POMPIER, comme dans l'appli
+const categorieDe = (p) => (String(p.categorie || "").trim().toUpperCase() === "OPEN" ? "OPEN" : "POMPIER");
+
+// Pilotes avec leur catégorie. Si la colonne n'existe pas encore dans Supabase (script de migration
+// pas encore exécuté), on relit sans elle : la page continue de fonctionner, tout le monde est "pompier".
+async function lirePilotes() {
+  try {
+    return await lire("pilotes", "id,nom,prenom,departement,genre,categorie", "nom.asc,prenom.asc");
+  } catch (e) {
+    if (!/categorie/i.test(e.message)) throw e;
+    return lire("pilotes", "id,nom,prenom,departement,genre", "nom.asc,prenom.asc");
+  }
+}
+
 // Calcul pur
 function calculer({ pilotes, epreuves, inscriptions, resultats }) {
   const piloteParId = new Map(pilotes.map((p) => [p.id, p]));
@@ -61,7 +76,7 @@ function calculer({ pilotes, epreuves, inscriptions, resultats }) {
   const lignes = new Map(
     pilotes.map((p) => [
       p.id,
-      { nom: nomDe(p), departement: p.departement || "", genre: p.genre || "", total: 0 },
+      { nom: nomDe(p), departement: p.departement || "", genre: p.genre || "", categorie: categorieDe(p), total: 0 },
     ])
   );
 
@@ -91,6 +106,7 @@ function calculer({ pilotes, epreuves, inscriptions, resultats }) {
           nom: p ? nomDe(p) : "?",
           departement: p ? p.departement || "" : "",
           genre: p ? p.genre || "" : "",
+          categorie: p ? categorieDe(p) : "POMPIER",
           points: arrondir(Number(r.points) || 0),
           disqualifie: !!r.disqualifie,
         };
@@ -109,7 +125,7 @@ async function handler(req, res) {
 
     // Seulement les colonnes nécessaires : pas d'e-mail, de poids, de n° de licence, etc.
     const [pilotes, epreuves, inscriptions, resultats] = await Promise.all([
-      lire("pilotes", "id,nom,prenom,departement,genre", "nom.asc,prenom.asc"),
+      lirePilotes(),
       lire("epreuves", "id,nom,actif,compte_dans_general,afficher_classement,ordre", "ordre.asc,id.asc"),
       lire("inscriptions_epreuve", "pilote_id,epreuve_id", "id.asc"),
       lire("resultats", "epreuve_id,pilote_id,points,disqualifie", "id.asc"),
