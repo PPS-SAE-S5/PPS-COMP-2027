@@ -22,18 +22,25 @@ public class ClassementService {
     private final ResultatDAO resultatDAO = new ResultatDAO();
     private final InscriptionDAO inscriptionDAO = new InscriptionDAO();
 
-    /** Classement général mixte (hommes + femmes). */
+    /** Classement général (hommes + femmes, toutes catégories). */
     public List<LigneClassement> calculerClassementGeneral() throws SQLException {
-        return calculerClassementGeneral(FiltreGenre.MIXTE);
+        return calculerClassementGeneral(FiltreGenre.GENERAL, FiltreCategorie.TOUTES);
+    }
+
+    public List<LigneClassement> calculerClassementGeneral(FiltreGenre filtre) throws SQLException {
+        return calculerClassementGeneral(filtre, FiltreCategorie.TOUTES);
     }
 
     /**
      * Classement général restreint à un genre. Les rangs sont recalculés parmi les pilotes retenus
      * (la 1re femme du classement « Femmes » a le rang 1). Un pilote dont le genre n'est pas renseigné
-     * n'apparaît que dans le classement mixte.
+     * n'apparaît que dans le classement général. Le filtre de catégorie (pompier / open) s'applique de la même façon.
      */
-    public List<LigneClassement> calculerClassementGeneral(FiltreGenre filtre) throws SQLException {
-        List<Pilote> pilotes = piloteDAO.listerTous().stream().filter(filtre::accepte).toList();
+    public List<LigneClassement> calculerClassementGeneral(FiltreGenre filtre, FiltreCategorie categorie) throws SQLException {
+        List<Pilote> pilotes = piloteDAO.listerTous().stream()
+                .filter(filtre::accepte)
+                .filter(categorie::accepte)
+                .toList();
         List<Epreuve> epreuves = epreuveDAO.listerToutes();
         List<Epreuve> epreuvesComptees = epreuves.stream()
                 .filter(Epreuve::isActif)
@@ -69,17 +76,21 @@ public class ClassementService {
 
     /** Classement d'une seule épreuve (pour affichage détaillé), respecte le flag "afficherClassement". */
     public List<Resultat> calculerClassementEpreuve(Epreuve epreuve) throws SQLException {
-        return calculerClassementEpreuve(epreuve, FiltreGenre.MIXTE);
+        return calculerClassementEpreuve(epreuve, FiltreGenre.GENERAL, FiltreCategorie.TOUTES);
     }
 
-    /** Classement d'une épreuve restreint à un genre (le rang affiché est la position dans la liste filtrée). */
     public List<Resultat> calculerClassementEpreuve(Epreuve epreuve, FiltreGenre filtre) throws SQLException {
+        return calculerClassementEpreuve(epreuve, filtre, FiltreCategorie.TOUTES);
+    }
+
+    /** Classement d'une épreuve restreint à un genre et une catégorie (le rang affiché est la position dans la liste filtrée). */
+    public List<Resultat> calculerClassementEpreuve(Epreuve epreuve, FiltreGenre filtre, FiltreCategorie categorie) throws SQLException {
         List<Resultat> resultats = new ArrayList<>(resultatDAO.listerParEpreuve(epreuve.getId()));
         List<Pilote> pilotes = piloteDAO.listerTous();
         Map<Integer, Pilote> piloteParId = new HashMap<>();
         for (Pilote p : pilotes) piloteParId.put(p.getId(), p);
         for (Resultat r : resultats) r.setPilote(piloteParId.get(r.getPiloteId()));
-        resultats.removeIf(r -> !filtre.accepte(r.getPilote()));
+        resultats.removeIf(r -> !filtre.accepte(r.getPilote()) || !categorie.accepte(r.getPilote()));
 
         resultats.sort(Comparator.comparingDouble(Resultat::getPoints).reversed());
         return resultats;

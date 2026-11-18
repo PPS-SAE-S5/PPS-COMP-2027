@@ -1,5 +1,6 @@
 package com.pps.parapente.dao;
 
+import com.pps.parapente.model.Categorie;
 import com.pps.parapente.model.Pilote;
 
 import java.sql.*;
@@ -31,8 +32,8 @@ public class PiloteDAO {
     }
 
     public void creer(Pilote p) throws SQLException {
-        String sql = "INSERT INTO pilotes (numero_licence, nom, prenom, departement, poids, email, annee_naissance, genre) " +
-                "VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO pilotes (numero_licence, nom, prenom, departement, poids, email, annee_naissance, genre, " +
+                "numero_pilote, categorie) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = DatabaseManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             remplirParametres(ps, p);
             ps.executeUpdate();
@@ -44,10 +45,10 @@ public class PiloteDAO {
 
     public void mettreAJour(Pilote p) throws SQLException {
         String sql = "UPDATE pilotes SET numero_licence=?, nom=?, prenom=?, departement=?, poids=?, email=?, annee_naissance=?, genre=?, " +
-                "updated_at=CURRENT_TIMESTAMP WHERE id=?";
+                "numero_pilote=?, categorie=?, updated_at=CURRENT_TIMESTAMP WHERE id=?";
         try (PreparedStatement ps = DatabaseManager.getConnection().prepareStatement(sql)) {
             remplirParametres(ps, p);
-            ps.setInt(9, p.getId());
+            ps.setInt(11, p.getId());
             ps.executeUpdate();
         }
     }
@@ -69,6 +70,8 @@ public class PiloteDAO {
         ps.setString(6, p.getEmail());
         if (p.getAnneeNaissance() != null) ps.setInt(7, p.getAnneeNaissance()); else ps.setNull(7, Types.INTEGER);
         ps.setString(8, p.getGenre());
+        if (p.getNumeroPilote() != null) ps.setInt(9, p.getNumeroPilote()); else ps.setNull(9, Types.INTEGER);
+        ps.setString(10, p.getCategorie().name());
     }
 
     private Pilote mapper(ResultSet rs) throws SQLException {
@@ -84,6 +87,9 @@ public class PiloteDAO {
         int annee = rs.getInt("annee_naissance");
         p.setAnneeNaissance(rs.wasNull() ? null : annee);
         p.setGenre(rs.getString("genre"));
+        int numero = rs.getInt("numero_pilote");
+        p.setNumeroPilote(rs.wasNull() ? null : numero);
+        p.setCategorie(Categorie.depuisCode(rs.getString("categorie")));
         Timestamp ts = rs.getTimestamp("date_inscription");
         if (ts != null) p.setDateInscription(ts.toLocalDateTime());
         return p;

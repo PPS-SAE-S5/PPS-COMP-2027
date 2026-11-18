@@ -11,7 +11,9 @@
             <Label text="Classements" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Label text="Classement :"/>
-            <ComboBox fx:id="comboFiltreGenre" prefWidth="220"/>
+            <ComboBox fx:id="comboFiltreGenre" prefWidth="200"/>
+            <Label text="Catégorie :"/>
+            <ComboBox fx:id="comboFiltreCategorie" prefWidth="200"/>
             <Button text="Actualiser" styleClass="bouton-principal" onAction="#actualiser"/>
         </HBox>
     </top>
@@ -48,6 +50,7 @@
                                 <TableColumn fx:id="colDetailPilote" text="Pilote" prefWidth="180"/>
                                 <TableColumn fx:id="colDetailDepartement" text="Département" prefWidth="150"/>
                                 <TableColumn fx:id="colDetailGenre" text="Genre" prefWidth="70"/>
+                                <TableColumn fx:id="colDetailCategorie" text="Catégorie" prefWidth="80"/>
                                 <TableColumn fx:id="colDetailValeurs" text="Valeurs saisies" prefWidth="220"/>
                                 <TableColumn fx:id="colDetailPoints" text="Points" prefWidth="80"/>
                                 <TableColumn fx:id="colDetailDisqualifie" text="Disqualifié" prefWidth="90"/>

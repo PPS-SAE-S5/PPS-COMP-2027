@@ -51,6 +51,7 @@ public final class DatabaseManager {
             }
             // UTF-8 explicite : sinon, sous Windows avec Java 17, « invité » serait mal lu (encodage système)
             String script = new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+            script = script.replaceAll("(?m)^\\s*--.*$", "");
             Connection conn = getConnection();
             try (Statement stmt = conn.createStatement()) {
                 // H2 accepte l'exécution de plusieurs instructions séparées par ';' via execute()

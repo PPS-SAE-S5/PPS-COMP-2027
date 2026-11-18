@@ -40,5 +40,7 @@ public class PiloteService {
             throw new IllegalArgumentException("Le nom est obligatoire");
         if (p.getPrenom() == null || p.getPrenom().isBlank())
             throw new IllegalArgumentException("Le prénom est obligatoire");
+        if (p.getNumeroPilote() != null && p.getNumeroPilote() <= 0)
+            throw new IllegalArgumentException("Le numéro de pilote doit être un nombre entier positif");
     }
 }

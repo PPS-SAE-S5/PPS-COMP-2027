@@ -1,6 +1,7 @@
 package com.pps.parapente.sync;
 
 import com.pps.parapente.dao.DatabaseManager;
+import com.pps.parapente.model.Categorie;
 import com.pps.parapente.model.Utilisateur;
 import com.pps.parapente.util.SessionManager;
 import org.json.JSONArray;
@@ -498,6 +499,7 @@ public class SyncService {
                         maj.setInt(10, localId);
                         maj.executeUpdate();
                     }
+                    recevoirCategorie(conn, localId, r);
                     rapport.pilotesRecus++;
                 } else {
                     try (PreparedStatement maj = conn.prepareStatement("UPDATE pilotes SET uuid=? WHERE id=? AND uuid IS NULL")) {
@@ -522,15 +524,40 @@ public class SyncService {
                     ins.setTimestamp(10, Timestamp.from(majDistante != null ? majDistante : Instant.now()));
                     ins.executeUpdate();
                 }
+                recevoirCategorie(conn, trouverId(conn, "SELECT id FROM pilotes WHERE numero_licence = ?", licence), r);
                 rapport.pilotesRecus++;
             }
+        }
+    }
+
+    /**
+     * Numéro de pilote et catégorie reçus de Supabase 
+	 */
+    private void recevoirCategorie(Connection conn, Integer localId, JSONObject r) throws SQLException {
+        if (localId == null || !r.has("categorie")) return;
+        try (PreparedStatement maj = conn.prepareStatement("UPDATE pilotes SET categorie=? WHERE id=?")) {
+            maj.setString(1, Categorie.depuisCode(r.optString("categorie", null)).name());
+            maj.setInt(2, localId);
+            maj.executeUpdate();
+        }
+        if (!r.has("numero_pilote")) return;
+        Integer numero = r.isNull("numero_pilote") ? null : r.getInt("numero_pilote");
+        if (numero != null) {
+            Integer autre = trouverId(conn, "SELECT id FROM pilotes WHERE numero_pilote = ? AND id <> ?", numero, localId);
+            if (autre != null) return;
+        }
+        try (PreparedStatement maj = conn.prepareStatement("UPDATE pilotes SET numero_pilote=? WHERE id=?")) {
+            if (numero != null) maj.setInt(1, numero); else maj.setNull(1, Types.INTEGER);
+            maj.setInt(2, localId);
+            maj.executeUpdate();
         }
     }
 
     private void pousserPilotes(Connection conn, RapportSync rapport) throws Exception {
         try (Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(
-                     "SELECT id, uuid, numero_licence, nom, prenom, departement, poids, email, annee_naissance, genre, updated_at FROM pilotes")) {
+                     "SELECT id, uuid, numero_licence, nom, prenom, departement, poids, email, annee_naissance, genre, " +
+                     "numero_pilote, categorie, updated_at FROM pilotes")) {
             while (rs.next()) {
                 JSONObject payload = new JSONObject();
                 payload.put("uuid", rs.getString("uuid"));
@@ -542,6 +569,8 @@ public class SyncService {
                 mettreOuNull(payload, "email", rs.getString("email"));
                 mettreIntOuNull(payload, "annee_naissance", rs, "annee_naissance");
                 mettreOuNull(payload, "genre", rs.getString("genre"));
+                mettreIntOuNull(payload, "numero_pilote", rs, "numero_pilote");
+                payload.put("categorie", Categorie.depuisCode(rs.getString("categorie")).name());
                 payload.put("updated_at", versIso(rs.getTimestamp("updated_at")));
 
                 // Fusion par numéro de licence : évite de créer un doublon si deux appareils

@@ -66,6 +66,10 @@
   .c-pilote { position: sticky; left: 64px; z-index: 1; font-weight: 600; }
   .valeurs { color: var(--discret); font-size: 0.85rem; }
   .disq { color: var(--erreur); font-weight: 600; }
+  .cat { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: 600; }
+  .cat-pompier { background: rgba(220,38,38,.12); color: #b91c1c; }
+  .cat-open { background: rgba(37,99,235,.12); color: var(--accent); }
+  :root[data-theme="dark"] .cat-pompier { background: rgba(248,113,113,.16); color: #fca5a5; }
   .pastille {
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 28px; height: 28px; border-radius: 14px; font-weight: 700; color: var(--accent);
@@ -106,9 +110,14 @@
       <button role="tab" id="onglet-detail" aria-selected="false">Détail par épreuve</button>
     </div>
     <div class="seg" role="group" aria-label="Filtre de genre">
-      <button data-genre="mixte" aria-pressed="true">Mixte</button>
+      <button data-genre="general" aria-pressed="true">Général</button>
       <button data-genre="hommes" aria-pressed="false">Hommes</button>
       <button data-genre="femmes" aria-pressed="false">Femmes</button>
+    </div>
+    <div class="seg" role="group" aria-label="Filtre de catégorie">
+      <button data-categorie="toutes" aria-pressed="true">Toutes catégories</button>
+      <button data-categorie="pompier" aria-pressed="false" title="Sapeurs-pompiers participant au championnat">Pompiers</button>
+      <button data-categorie="open" aria-pressed="false" title="Participants invités, hors championnat">Open</button>
     </div>
     <div id="bloc-epreuve" class="espace">
       <label for="choix-epreuve">Épreuve</label>
@@ -131,9 +140,15 @@
 <script>
   const INTERVALLE = 60000; // 60 secondes pour le refresh
   const GENRES = {
-    mixte:  { libelle: "Mixte",   valeur: null },
+    general: { libelle: "Général", valeur: null },
     hommes: { libelle: "Hommes",  valeur: "homme" },
     femmes: { libelle: "Femmes",  valeur: "femme" },
+  };
+  // Catégories (issue #46) : valeur renvoyée par /api/classement = "POMPIER" ou "OPEN"
+  const CATEGORIES = {
+    toutes:  { libelle: "Toutes catégories", valeur: null },
+    pompier: { libelle: "Pompiers",          valeur: "POMPIER" },
+    open:    { libelle: "Open",              valeur: "OPEN" },
   };
 
   let minuteur = null;
@@ -142,7 +157,8 @@
   let derniere = 0;       // horodatage de la dernière actualisation réussie
   let donnees = null;     // dernière réponse de /api/classement
   let vue = "general";    // "general" | "detail"
-  let genre = "mixte";
+  let genre = "general";
+  let categorie = "toutes";
   let epreuveId = null;
 
   const $ = (id) => document.getElementById(id);
@@ -153,11 +169,19 @@
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
-  // Le mode mixte accepte tout, sinon le genre doit correspondre
-  function accepte(genrePilote) {
-    const voulu = GENRES[genre].valeur;
-    if (!voulu) return true;
-    return String(genrePilote || "").trim().toLowerCase() === voulu;
+  // "Général" et "Toutes catégories" acceptent tout, sinon le genre / la catégorie doit correspondre
+  function accepte(ligne) {
+    const genreVoulu = GENRES[genre].valeur;
+    if (genreVoulu && String(ligne.genre || "").trim().toLowerCase() !== genreVoulu) return false;
+    const categorieVoulue = CATEGORIES[categorie].valeur;
+    if (categorieVoulue && (ligne.categorie || "POMPIER") !== categorieVoulue) return false;
+    return true;
+  }
+
+  function badgeCategorie(valeur) {
+    return valeur === "OPEN"
+      ? '<span class="cat cat-open">Open</span>'
+      : '<span class="cat cat-pompier">Pompier</span>';
   }
 
   function pastille(rang) {
@@ -168,17 +192,18 @@
   // Affichage
 
   function afficherGeneral() {
-    const lignes = donnees.general.filter((l) => accepte(l.genre));
+    const lignes = donnees.general.filter(accepte);
 
     $("table-general").querySelector("thead").innerHTML =
       "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Département</th><th>Genre</th>" +
-      "<th class='num'>Total</th></tr>";
+      "<th>Catégorie</th><th class='num'>Total</th></tr>";
 
     // Les rangs sont recalculés parmi les pilotes retenus par le filtre
     $("table-general").querySelector("tbody").innerHTML = lignes.map((l, i) =>
       `<tr><td class="c-rang">${pastille(i + 1)}</td>` +
       `<td class="c-pilote">${echapper(l.nom)}</td>` +
       `<td>${echapper(l.departement)}</td><td>${echapper(l.genre)}</td>` +
+      `<td>${badgeCategorie(l.categorie)}</td>` +
       `<td class="num total">${nombre.format(l.total)}</td></tr>`
     ).join("");
 
@@ -221,16 +246,17 @@
     const epreuve = donnees.epreuves.find((e) => e.id === epreuveId);
     if (!epreuve) return -1; // aucune épreuve à afficher
 
-    const lignes = epreuve.resultats.filter((r) => accepte(r.genre));
+    const lignes = epreuve.resultats.filter(accepte);
     $("table-detail").querySelector("thead").innerHTML =
       "<tr><th class='c-rang'>Rang</th><th class='c-pilote'>Pilote</th><th>Département</th><th>Genre</th>" +
-      "<th class='num'>Points</th><th>Disqualifié</th></tr>";
+      "<th>Catégorie</th><th class='num'>Points</th><th>Disqualifié</th></tr>";
 
-    // Rang = position dans la liste (triée par points décroissants, filtrée par genre)
+    // Rang = position dans la liste (triée par points décroissants, filtrée par genre et catégorie)
     $("table-detail").querySelector("tbody").innerHTML = lignes.map((r, i) =>
       `<tr><td class="c-rang">${pastille(i + 1)}</td>` +
       `<td class="c-pilote">${echapper(r.nom)}</td>` +
       `<td>${echapper(r.departement)}</td><td>${echapper(r.genre)}</td>` +
+      `<td>${badgeCategorie(r.categorie)}</td>` +
       `<td class="num total">${nombre.format(r.points)}</td>` +
       `<td>${r.disqualifie ? '<span class="disq">Oui</span>' : ""}</td></tr>`
     ).join("");
@@ -244,13 +270,19 @@
     $("onglet-detail").setAttribute("aria-selected", vue === "detail");
     document.querySelectorAll("[data-genre]").forEach((b) =>
       b.setAttribute("aria-pressed", b.dataset.genre === genre));
+    document.querySelectorAll("[data-categorie]").forEach((b) =>
+      b.setAttribute("aria-pressed", b.dataset.categorie === categorie));
     majSelect();
 
+    const filtreGenre = genre !== "general";
+    const filtreCategorie = categorie !== "toutes";
+    const selection = [filtreGenre ? GENRES[genre].libelle : "", filtreCategorie ? CATEGORIES[categorie].libelle : ""]
+      .filter(Boolean).join(" · ");
     const note = $("note");
-    note.hidden = genre === "mixte";
-    note.textContent = genre === "mixte" ? "" :
-      `Classement « ${GENRES[genre].libelle} » : les rangs sont recalculés parmi ces pilotes. ` +
-      "Les pilotes dont le genre n'est pas renseigné n'apparaissent que dans le classement mixte.";
+    note.hidden = !filtreGenre && !filtreCategorie;
+    note.textContent = note.hidden ? "" :
+      `Classement « ${selection} » : les rangs sont recalculés parmi ces pilotes.` +
+      (filtreGenre ? " Les pilotes dont le genre n'est pas renseigné n'apparaissent que dans le classement général." : "");
 
     if (!donnees) return;
 
@@ -263,7 +295,7 @@
     const vide = $("vide");
     vide.hidden = nb > 0;
     if (nb === -1) vide.textContent = "Aucune épreuve n'a son classement affiché pour le moment.";
-    else if (nb === 0) vide.textContent = genre === "mixte"
+    else if (nb === 0) vide.textContent = genre === "general" && categorie === "toutes"
       ? "Aucun résultat pour le moment."
       : "Aucun pilote dans ce classement.";
   }
@@ -336,6 +368,8 @@
   $("onglet-detail").addEventListener("click", () => { vue = "detail"; afficher(); });
   document.querySelectorAll("[data-genre]").forEach((b) =>
     b.addEventListener("click", () => { genre = b.dataset.genre; afficher(); }));
+  document.querySelectorAll("[data-categorie]").forEach((b) =>
+    b.addEventListener("click", () => { categorie = b.dataset.categorie; afficher(); }));
   $("choix-epreuve").addEventListener("change", (e) => { epreuveId = Number(e.target.value); afficher(); });
 
   function majBoutonTheme() {
