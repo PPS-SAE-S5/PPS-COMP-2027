@@ -122,7 +122,6 @@ class SuiviParticipantServiceTest {
     }
 
     private void ligneClassement(Pilote p, double total, int rang) {
-        int id = p.getId();
         LigneClassement l = mock(LigneClassement.class);
         when(l.getPilote()).thenReturn(p);
         when(l.getTotalPoints()).thenReturn(total);
