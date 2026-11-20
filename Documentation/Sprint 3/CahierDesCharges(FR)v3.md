@@ -106,7 +106,7 @@ Fonctionnalités à venir :
 
 ### 3.1 Diagramme de cas d'utilisation
 
-![Use case v1](./../Sprint%201/Use%20case%20V1.png)
+![Use case v3](./../Sprint%203/Use%20case%20V3.png)
 
 
 ### 3.2 Description des cas d'utilisation
