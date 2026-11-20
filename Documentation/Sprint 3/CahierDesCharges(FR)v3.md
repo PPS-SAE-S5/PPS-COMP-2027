@@ -73,6 +73,8 @@ Les exigences fonctionnelles seront précisées et validées progressivement ave
 * **Gestion des comptes utilisateurs** : création, modification et gestion des comptes ainsi que des droits d'accès des différents utilisateurs.
 * **Planning des journées** : Un outil de planification permettant d'organiser les ateliers sur des journées découpées en créneaux du matin et de l'après-midi.
 * **Suivi des participants** : une interface qui affiche les informations détaillées des participants (épreuves, points, classement, etc.).
+
+ Fonctionnalité supplémentaire :  - un site web permettant de consulter le classement.
  
 Fonctionnalités à venir :
 - Classement par équipe
@@ -124,13 +126,14 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 | CU 07 | Saisir les points d'un participant | Bénévole ou responsable d'épreuve | Connecté, le participant et l'épreuve existent | Le bénévole (ou le responsable d'épreuve) sélectionne l'épreuve et le participant, puis saisit les points | Le résultat est enregistré (y compris hors-ligne, synchronisé ensuite) et les classements sont mis à jour | US 11 |
 | CU 08 | Modifier les points d'un participant | Membre du comité ou responsable d'épreuve | Connecté, un résultat existe | Le membre du comité (ou le responsable d'épreuve) modifie les points en cas de litige, de pénalité ou de retrait | Les points sont modifiés, la modification est tracée dans l'historique et les classements sont recalculés | US 12 |
 | CU 09 | Consulter l'historique des modifications | Membre du comité | Connecté | Le membre du comité ouvre l'historique des modifications de points | La liste des modifications s'affiche, ce qui garantit la traçabilité des litiges | US 13 |
-| CU 10 | Gérer les rôles | Administrateur | Connecté | L'administrateur attribue ou modifie le rôle d'un utilisateur | L'utilisateur n'accède qu'aux fonctionnalités de son rôle | US 14 |
+| CU 10 | Consulter le suivi des participants | Administrateur | Connecté | Cliquer sur l'onglet Suivi des participants, puis cliquer sur un participant | les informations de ce participant s'affichent (points, classement, épreuves effectuées, etc.). | US 04 |
+| CU 11 | Planification des journées | Administrateur | Connecté | Cliquer sur Planification | il est possible d'ajouter des journées et de définir les ateliers pour ces journées (avec la possibilité de modifier et supprimer également). | US 3 |
 
 ---
 
 ## 4. Périmètre et contraintes
 
-### 4.1 Périmètre de la V1
+### 4.1 Périmètre de la Version
 
 **Inclus dans la V1**
 - Gestion des épreuves (paramétrables), des ateliers et des journées de compétition
@@ -140,7 +143,15 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 - Gestion des comptes et des rôles
 - Consultation des classements en lecture seule, sans compte
 - Fonctionnement hors-ligne avec synchronisation au retour de la connexion
-- Application mobile, application PC et page web
+- Application mobile, application PC 
+
+**Inclus dans la V2**
+- Synchronisation entre l'application et la base de données
+
+**Inclus dans la V3**
+-  Un outil de planification permettant d'organiser les ateliers sur des journées découpées en créneaux du matin et de l'après-midi.
+-  Une interface qui affiche les informations détaillées des participants (épreuves, points, classement, etc.).
+-  Page web
 
 ### 4.2 Contraintes
 
@@ -200,6 +211,7 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 | [Backlog Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md) | **01/09/2026 - 20/09/2026** |
 | [Backlog Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2?closed=1) | **21/09/2026 - 02/10/2026** |
 | [Backlog Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3?closed=1) | **05/10/2026 - 23/10/2026** |
+| [Backlog Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Backlog%20sprint%203.md) | **05/10/2026 - 23/10/2026** |
 
 ### 6.3 Planification des sprints
 
