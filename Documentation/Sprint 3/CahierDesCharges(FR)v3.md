@@ -64,13 +64,19 @@ Les principales fonctionnalités de l'application sont détaillées en [section 
 ### 2.1 Exigences fonctionnelles
 
 Les exigences fonctionnelles seront précisées et validées progressivement avec le client.
-À ce stade (V1), les principales fonctionnalités envisagées sont les suivantes :
+À ce stade (V3), les principales fonctionnalités envisagées sont les suivantes :
 
 * **Gestion des épreuves** : création, modification, configuration et gestion des différentes épreuves.
 * **Gestion des pilotes** : création et gestion des profils des pilotes participant aux épreuves.
 * **Saisie des résultats** : enregistrement et gestion des résultats obtenus par les pilotes lors des différentes épreuves.
 * **Génération automatique des classements et des notes** : calcul automatique des résultats, des notes et des classements selon les règles définies pour chaque épreuve. Mise à jour des informations et des classements en quasi temps réel.
 * **Gestion des comptes utilisateurs** : création, modification et gestion des comptes ainsi que des droits d'accès des différents utilisateurs.
+* **Planning des journées** : Un outil de planification permettant d'organiser les ateliers sur des journées découpées en créneaux du matin et de l'après-midi.
+* **Suivi des participants** : une interface qui affiche les informations détaillées des participants (épreuves, points, classement, etc.).
+ 
+Fonctionnalités à venir :
+- Classement par équipe
+- Un lecteur de CSV pour les inscriptions
 
 ### 2.2 Exigences non fonctionnelles
 
