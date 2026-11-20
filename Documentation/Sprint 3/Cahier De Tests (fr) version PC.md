@@ -85,7 +85,7 @@ Chaque test repart d'un état vierge : les tests sont indépendants.
 | CS-05 | `recalculerBareme` | Tri ASC | barème 100/80, temps 50 et 20 | 20→100, 50→80 | Réussi |
 | CS-06 | `recalculerBareme` | Disqualifié sans rang | disqualifié à 99, normal à 10 | 0 et 100 | Réussi |
 | CS-07 | `recalculerBareme` | Résultat sans valeur clé | un avec `temps` seul, un avec `distance` | 0 et 100 | Réussi |
-| CS-08 | `recalculerBareme` | Au-delà du barème | barème 100/50, 3 pilotes | 3e pilote : 50 | À faire |
+| CS-08 | `recalculerBareme` | Au-delà du barème | barème 100/50, 3 pilotes | 3e pilote : 50 | Réussi |
 | CS-09 | `recalculerBareme` | Barème vide | aucun palier | 0 point | À faire |
 | CS-10 | `recalculerBareme` | Valeur clé vide ou null | `" "`, `null` | `IllegalStateException` | À faire |
 | CS-11 | `recalculerBareme` | Mauvais mode | épreuve FORMULE | `IllegalStateException` | À faire |
