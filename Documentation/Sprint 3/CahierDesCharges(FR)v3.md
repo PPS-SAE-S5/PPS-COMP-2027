@@ -94,10 +94,10 @@ Fonctionnalités à venir :
 ### 2.3 Utilisateurs et rôles
 
 - **Administrateur** : tous les droits, dont la gestion des comptes et des rôles.
-- **Bénévole** : saisit les points des pilotes. Il ne peut ni inscrire ni modifier un pilote.
-- **Responsable d'épreuve** : inscrit et gère les pilotes, crée et configure les épreuves, organise les ateliers et les journées, saisit et modifie les points. Toute modification de points est enregistrée dans l'historique.
-- **Pilote** : se connecte pour consulter les classements et ses propres résultats.
-- **Comité des pilotes** : consulte les classements, modifie les points en cas de litige, de pénalité ou de retrait, et consulte l'historique des modifications.
+- **Bénévole** : Il peut saisir les résultats, gérer le planning des journées, gérer les pilotes et consulter le suivi des participants.
+- **Responsable d'épreuve** : Il peut saisir les résultats, gérer les pilotes, les épreuves et le planning de la journée, synchroniser les données, ainsi que consulter le classement et le suivi des participants.
+- **Pilote** : Il peut uniquement se connecter pour consulter le classement.
+- **Comité des pilotes** : Il peut gérer le planning et consulter le classement.
 - **Visiteur (sans compte)** : consulte les classements en lecture seule.
 
 ---
