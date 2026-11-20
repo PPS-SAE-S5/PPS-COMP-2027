@@ -16,3 +16,12 @@
 - Limites connues et suite
 
 ---
+
+## 1. Objectif et périmètre
+
+Ce cahier permet de vérifier que les règles de calcul des points fonctionnent et de détecter rapidement les régressions après chaque modification du code.
+
+| | Éléments |
+|---|---|
+| **Testé** | `CalculService` : `evaluerFormule`, `recalculerBareme`, `calculerEtEnregistrerFormule` |
+| **Non testé pour le moment** | `ClassementService`, `enregistrerValeurBareme`, DAO et SQL, contrôleurs JavaFX, synchronisation Supabase |
