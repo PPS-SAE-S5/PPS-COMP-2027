@@ -25,7 +25,7 @@
    - 6.1 [Application PC](#61-application-pc)
    - 6.2 [Application mobile](#62-application-mobile)
    - 6.3 [Base de données et backend](#63-base-de-données-et-backend)
-7. [Évolutions par rapport à la v1](#7-évolutions-par-rapport-à-la-v1)
+7. [Évolution des versions](#7-évolution-des-versions)
 8. [Tests](#8-tests)
    - 8.1 [Stratégie de test](#81-stratégie-de-test)
    - 8.2 [Tests](#82-tests)
