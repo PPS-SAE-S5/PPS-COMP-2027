@@ -62,3 +62,15 @@ Les tests sont dans `src/test/java/com/pps/parapente/service/`, dans le même pa
 | **Ce que ça ne prouve pas** | Que le SQL des DAO est correct, que le JSON des valeurs est bien relu, que le schéma correspond au code |
 
 Les tests d'intégration sur une base H2 en mémoire compléteront cette approche.
+
+## 5. Mise en place et fonctions utilitaires
+
+| Élément | Rôle |
+|---|---|
+| `setUp` (`@BeforeEach`) | Active `mockConstruction` sur `ResultatDAO`, `PiloteDAO`, `InscriptionDAO`, **puis** crée un `CalculService` neuf et récupère le faux `ResultatDAO` |
+| `tearDown` (`@AfterEach`) | Ferme les interceptions pour ne pas fausser les autres tests |
+| `epreuveBareme(cle, sens, points...)` | Construit une épreuve BAREME (id 1). `sens` : DESC (plus grand gagne) ou ASC (plus petit gagne). Le 1er montant est le rang 1 |
+| `resultat(piloteId, valeurs, disqualifie)` | Construit le résultat d'un pilote sur l'épreuve 1, points à 0 au départ |
+| `epreuveFormule(formule)` | Construit une épreuve FORMULE (id 1) |
+
+Chaque test repart d'un état vierge : les tests sont indépendants.
