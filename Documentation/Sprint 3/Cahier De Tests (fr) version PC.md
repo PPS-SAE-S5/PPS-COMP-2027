@@ -37,3 +37,17 @@ Ce cahier permet de vérifier que les règles de calcul des points fonctionnent 
 | Maven Surefire | 3.5.4 | Plugin d'exécution des tests |
 
 > Mockito 5.18.0 est nécessaire avec le JDK 24 : la version 5.11.0 échoue avec l'erreur « Java 24 (68) is not supported ».
+
+## 3. Lancer les tests
+
+Depuis le dossier `Version PC/parapente-pps` (celui qui contient le `pom.xml`) :
+
+```
+mvn test                                          # tous les tests
+mvn -Dtest=CalculServiceTest test                 # une seule classe
+mvn -Dtest=CalculServiceTest#formuleSimple test   # une seule méthode
+```
+
+Résultat attendu : `BUILD SUCCESS`, `Failures: 0, Errors: 0`. Les avertissements Mockito sur l'agent Java sont sans conséquence.
+
+Les tests sont dans `src/test/java/com/pps/parapente/service/`, dans le même package que la classe testée, et ne sont jamais inclus dans l'application livrée.
