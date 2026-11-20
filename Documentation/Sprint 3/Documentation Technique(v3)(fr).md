@@ -58,7 +58,7 @@ flowchart LR
 | Application PC | Réalisée | Application de bureau JavaFX, base locale H2 |
 | Application mobile | Réalisée | Application Android (Kotlin, Jetpack Compose), base locale SQLite (Room) |
 | Base en ligne | Réalisée | Supabase (PostgreSQL) partagée, accessible par l'API REST |
-| Page web | À venir | Consultation des classements en lecture seule, sans compte (US 08, Sprint 3) |
+| Page web | Réalisée | Consultation des classements en lecture seule, sans compte (US 08, Sprint 3) |
 
 Il n'y a **pas de serveur applicatif intermédiaire** : les applications parlent directement à l'API REST fournie par Supabase.
 
@@ -269,9 +269,9 @@ Limites connues, assumées pour un outil interne au club à ce stade :
 
 ---
 
-## 7. Évolutions par rapport à la v1
+## 7. Évolution des versions
 
-| Sujet | Prévu en v1 | Réalisé (v2) |
+| Sujet | Prévu en v1 | Réalisé (v2) | 
 |---|---|---|
 | Frontend | React / Node.js, Tailwind CSS/ Java, JavaFX | **JavaFX** (PC) et **Kotlin / Jetpack Compose** (mobile), pas de Tailwind |
 | Architecture | Frontend + Supabase | Applications **locales** + synchronisation Supabase (offline-first) |
@@ -280,6 +280,11 @@ Limites connues, assumées pour un outil interne au club à ce stade :
 | Temps réel | Supabase Realtime (envisagé) | Synchronisation à la demande ou au démarrage |
 | Calcul des points | Non défini | Formule libre (exp4j) ou barème par rang |
 | Déploiement du frontend | Vercel | Application installable (PC) et APK (mobile) : Vercel réservé à la future page web |
+
+Les fonctionnalités ajoutées en V3 :  - Suivi des participants
+                                      - Planning de la compétition 
+Les fonctionnalités à venir : - Classement par équipe
+                              - Amélioration du filtrage du classement
 
 ---
 
