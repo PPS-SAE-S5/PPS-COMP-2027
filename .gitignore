@@ -1,7 +1,6 @@
 /Version PC/parapente-pps/target
 /Version PC/parapente-pps/.vscode
-/Version Mobile/parapente-pps-android/app/build
-/Version Mobile/parapente-pps-android/.gradle
-/Version Mobile/parapente-pps-android/.idea
-/Version Mobile/parapente-pps-android
 Version PC/parapente-pps/data/categories.properties
+/Version Mobile/parapente-pps-android-v0.99/build
+/Version Mobile/parapente-pps-android-v0.99/.gradle
+/Version Mobile/parapente-pps-android-v0.99/.idea
