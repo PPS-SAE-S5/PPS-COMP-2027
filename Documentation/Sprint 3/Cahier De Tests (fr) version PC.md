@@ -12,8 +12,7 @@
 - [Stratégie de test](#4-stratégie-de-test)
 - [Mise en place et fonctions utilitaires](#5-mise-en-place-et-fonctions-utilitaires)
 - [Cas de tests](#6-cas-de-tests)
-- Règles à confirmer
-- Limites connues et suite
+- [Limites connues et suite](#7-limites-connues-et-suite)
 
 ---
 
