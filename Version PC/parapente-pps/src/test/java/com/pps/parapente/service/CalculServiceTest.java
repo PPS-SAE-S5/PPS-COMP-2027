@@ -162,4 +162,15 @@ class CalculServiceTest {
 
         assertEquals(50, c.getPoints()); // rang 3, le barème s'arrête à 2
     }
+
+    @Test
+    void baremeVideToutLeMondeA0() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC); // aucun palier
+        Resultat a = resultat(1, Map.of("distance", 30.0), false);
+        when(resultatDAO.listerParEpreuve(1)).thenReturn(List.of(a));
+
+        service.recalculerBareme(e);
+
+        assertEquals(0, a.getPoints());
+    }
 }
