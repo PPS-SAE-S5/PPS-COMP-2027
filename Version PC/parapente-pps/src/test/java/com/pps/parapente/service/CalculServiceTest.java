@@ -149,4 +149,17 @@ class CalculServiceTest {
         assertEquals(0, incomplet.getPoints());
         assertEquals(100, normal.getPoints());
     }
+
+    @Test
+    void auDelaDuBaremeOnAppliqueLeDernierPalier() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100, 50);
+        Resultat a = resultat(1, Map.of("distance", 30.0), false);
+        Resultat b = resultat(2, Map.of("distance", 20.0), false);
+        Resultat c = resultat(3, Map.of("distance", 10.0), false);
+        when(resultatDAO.listerParEpreuve(1)).thenReturn(List.of(a, b, c));
+
+        service.recalculerBareme(e);
+
+        assertEquals(50, c.getPoints()); // rang 3, le barème s'arrête à 2
+    }
 }
