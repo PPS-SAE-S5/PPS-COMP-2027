@@ -6,11 +6,11 @@
 
 ## Sommaire
 
-- Objectif et périmètre
-- Environnement
-- Lancer les tests
-- Stratégie de test
-- Mise en place et fonctions utilitaires
+- O[Objectif et périmètre](#1-objectif-et-périmètre)
+- [Environnement](#2-environnement)
+- [Lancer les tests](#3-lancer-les-tests)
+- [Stratégie de test](#4-stratégie-de-test)
+- [Mise en place et fonctions utilitaires](#5-mise-en-place-et-fonctions-utilitaires)
 - Cas de tests
 - Règles à confirmer
 - Limites connues et suite
