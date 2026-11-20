@@ -15,7 +15,7 @@
    - 3.1 [Diagramme de cas d'utilisation](#31-diagramme-de-cas-dutilisation)
    - 3.2 [Description des cas d'utilisation](#32-description-des-cas-dutilisation)
 4. [Périmètre et contraintes](#4-périmètre-et-contraintes)
-   - 4.1 [Périmètre de la V1](#41-périmètre-de-la-v1)
+   - 4.1 [Périmètre de la Version](#41-périmètre-de-la-version)
    - 4.2 [Contraintes](#42-contraintes)
 5. [Livrables](#5-livrables)
 6. [User Stories et Backlog](#6-user-stories-et-backlog)
