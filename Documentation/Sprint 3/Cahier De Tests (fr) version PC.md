@@ -25,3 +25,15 @@ Ce cahier permet de vérifier que les règles de calcul des points fonctionnent 
 |---|---|
 | **Testé** | `CalculService` : `evaluerFormule`, `recalculerBareme`, `calculerEtEnregistrerFormule` |
 | **Non testé pour le moment** | `ClassementService`, `enregistrerValeurBareme`, DAO et SQL, contrôleurs JavaFX, synchronisation Supabase |
+
+## 2. Environnement
+
+| Outil | Version | Rôle |
+|---|---|---|
+| Java | release 17 (JDK 24) | Langage |
+| Maven | 3.x | Compilation et lancement des tests |
+| JUnit Jupiter | 5.10.2 | Écriture et exécution des tests |
+| Mockito | 5.18.0 | Faux objets (DAO simulés) |
+| Maven Surefire | 3.5.4 | Plugin d'exécution des tests |
+
+> Mockito 5.18.0 est nécessaire avec le JDK 24 : la version 5.11.0 échoue avec l'erreur « Java 24 (68) is not supported ».
