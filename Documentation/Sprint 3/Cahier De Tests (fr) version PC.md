@@ -96,3 +96,18 @@ Chaque test repart d'un état vierge : les tests sont indépendants.
 | CS-15 | `calculerEtEnregistrerFormule` | Mauvais mode | épreuve BAREME | `IllegalStateException` | À faire |
 
 Le statut est mis à jour à chaque nouveau test commité.
+
+## 7. Limites connues et suite
+
+**Limites actuelles**
+
+- Les DAO sont simulés : le SQL et le schéma ne sont pas vérifiés.
+- CS-03 attend une `Exception` générique : à préciser avec l'exception réelle d'exp4j.
+- Les tests de barème vérifient l'état des objets, pas les appels à `resultatDAO.enregistrer` (pas de `verify`).
+- `mockConstruction` est un contournement : l'injection des DAO par le constructeur serait plus propre.
+
+**À traiter ensuite**
+
+- Tests de `enregistrerValeurBareme` et de `ClassementService` (règle « pilote inscrit sans résultat = 0 point »).
+- Tests d'intégration des DAO avec une base H2 en mémoire.
+- Tests de synchronisation Supabase et de l'application mobile.
