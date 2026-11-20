@@ -136,4 +136,17 @@ class CalculServiceTest {
         assertEquals(0, disqualifie.getPoints());
         assertEquals(100, normal.getPoints()); // il récupère le rang 1
     }
+
+    @Test
+    void resultatSansValeurCleReste0() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100, 80);
+        Resultat incomplet = resultat(1, Map.of("temps", 5.0), false);
+        Resultat normal = resultat(2, Map.of("distance", 10.0), false);
+        when(resultatDAO.listerParEpreuve(1)).thenReturn(List.of(incomplet, normal));
+
+        service.recalculerBareme(e);
+
+        assertEquals(0, incomplet.getPoints());
+        assertEquals(100, normal.getPoints());
+    }
 }
