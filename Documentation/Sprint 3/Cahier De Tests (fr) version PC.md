@@ -11,7 +11,7 @@
 - [Lancer les tests](#3-lancer-les-tests)
 - [Stratégie de test](#4-stratégie-de-test)
 - [Mise en place et fonctions utilitaires](#5-mise-en-place-et-fonctions-utilitaires)
-- Cas de tests
+- [Cas de tests](#6-cas-de-tests)
 - Règles à confirmer
 - Limites connues et suite
 
