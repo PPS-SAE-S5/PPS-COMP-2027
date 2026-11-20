@@ -283,8 +283,9 @@ Limites connues, assumées pour un outil interne au club à ce stade :
 
 Les fonctionnalités ajoutées en V3 :  - Suivi des participants
                                       - Planning de la compétition 
-Les fonctionnalités à venir : - Classement par équipe
-                              - Amélioration du filtrage du classement
+
+Les fonctionnalités à venir :         - Classement par équipe
+                                      - Amélioration du filtrage du classement
 
 ---
 
