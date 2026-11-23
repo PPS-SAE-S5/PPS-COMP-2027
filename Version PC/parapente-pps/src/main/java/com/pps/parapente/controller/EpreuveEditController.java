@@ -55,12 +55,12 @@ public class EpreuveEditController {
     private final ObservableList<EpreuveParametre> parametres = FXCollections.observableArrayList();
     private final ObservableList<BaremePoint> bareme = FXCollections.observableArrayList();
 
-    private int epreuveIdEnEdition = 0; // 0 = nouvelle épreuve
+    private int epreuveIdEnEdition = 0; /* 0 = nouvelle épreuve */ 
     private boolean enregistre = false;
 
     @FXML
     public void initialize() {
-        // Bascule formule / barème
+        /* Bascule formule/barème */
         radioFormule.setSelected(true);
         blocBareme.setVisible(false);
         blocBareme.setManaged(false);
@@ -88,9 +88,11 @@ public class EpreuveEditController {
         colNomVariable.setCellFactory(TextFieldTableCell.forTableColumn());
         colNomVariable.setOnEditCommit(e -> {
             e.getRowValue().setNomVariable(nettoyerNomVariable(e.getNewValue()));
-            // Rafraîchit immédiatement la liste déroulante "valeur clé" : modifier le nom
-            // d'une variable existante ne déclenche pas d'événement de liste (ce n'est pas
-            // un ajout/suppression), donc on force le rafraîchissement ici.
+            /*  
+             ** Rafraîchit immédiatement la liste déroulante "valeur clé" : modifier le nom
+             ** d'une variable existante ne déclenche pas d'événement de liste (ce n'est pas
+             ** un ajout/suppression), donc on force le rafraîchissement ici.
+             */
             rafraichirListeVariables();
         });
 
@@ -105,7 +107,7 @@ public class EpreuveEditController {
         tableParametres.setItems(parametres);
         tableParametres.setEditable(true);
 
-        // La liste des variables disponibles pour le classement (mode barème) se met à jour automatiquement
+        /* La liste des variables disponibles pour le classement (mode barème) se met à jour automatiquement */
         parametres.addListener((javafx.collections.ListChangeListener<EpreuveParametre>) c -> rafraichirListeVariables());
     }
 
