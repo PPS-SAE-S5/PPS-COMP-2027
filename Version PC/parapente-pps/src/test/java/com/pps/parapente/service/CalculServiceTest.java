@@ -173,4 +173,13 @@ class CalculServiceTest {
 
         assertEquals(0, a.getPoints());
     }
+
+    @Test
+    void valeurCleVideOuNullLeveUneException() {
+        Epreuve vide = epreuveBareme(" ", SensClassement.DESC, 100);
+        Epreuve nulle = epreuveBareme(null, SensClassement.DESC, 100);
+
+        assertThrows(IllegalStateException.class, () -> service.recalculerBareme(vide));
+        assertThrows(IllegalStateException.class, () -> service.recalculerBareme(nulle));
+    }
 }
