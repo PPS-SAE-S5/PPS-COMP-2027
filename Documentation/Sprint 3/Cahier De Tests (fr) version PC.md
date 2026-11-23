@@ -54,14 +54,21 @@ Les tests sont dans `src/test/java/com/pps/parapente/service/`, dans le même pa
 
 ## 4. Stratégie de test
 
-`CalculService` crée ses DAO avec `new` dans ses champs : sans précaution, chaque test ouvrirait la vraie base H2. Les tests utilisent donc des **faux DAO** (Mockito `mockConstruction`), sans modifier le code de production.
+Les services créent leurs DAO avec `new` dans leurs champs : sans précaution, chaque test ouvrirait la vraie base H2. Les tests utilisent donc des **faux DAO** (Mockito `mockConstruction`), sans modifier le code de production.
+
+| Technique | Utilisée pour |
+|---|---|
+| `mockConstruction` | Remplacer les DAO créés avec `new` à l'intérieur des services |
+| `mockStatic` | Remplacer les classes statiques (`SecuriteUtil`, `SessionManager`) dans `AuthServiceTest` |
+| `ArgumentCaptor` et `verify` | Contrôler ce qui est réellement envoyé au DAO (bénévole, pilote, ordre des appels) |
+| Aucun mock | Méthodes statiques de `PlanningService` (validation des horaires) et `ExportPdfService`, qui génère de vrais PDF vérifiés en mémoire et dans un dossier temporaire (`@TempDir`) |
 
 | | Détail |
 |---|---|
-| **Ce que ça prouve** | Si la base renvoie ces résultats, les points sont correctement calculés (tri, rangs, disqualifiés, barème, formules) |
+| **Ce que ça prouve** | Si la base renvoie ces données, la logique métier produit le bon résultat (calculs, validations, tris, formats) |
 | **Ce que ça ne prouve pas** | Que le SQL des DAO est correct, que le JSON des valeurs est bien relu, que le schéma correspond au code |
 
-Les tests d'intégration sur une base H2 en mémoire compléteront cette approche.
+Les tests d'intégration sur une base H2 en mémoire compléteront cette approche (voir [Limites connues et suite](#8-limites-connues-et-suite)).
 
 ## 5. Mise en place et fonctions utilitaires
 
