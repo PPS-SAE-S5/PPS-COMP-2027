@@ -1,5 +1,6 @@
 package com.pps.parapente.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.MockedConstruction;
 import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.pps.parapente.dao.InscriptionDAO;
@@ -19,6 +22,7 @@ import com.pps.parapente.dao.ResultatDAO;
 import com.pps.parapente.model.BaremePoint;
 import com.pps.parapente.model.Epreuve;
 import com.pps.parapente.model.ModeCalcul;
+import com.pps.parapente.model.Pilote;
 import com.pps.parapente.model.Resultat;
 import com.pps.parapente.model.SensClassement;
 
@@ -197,5 +201,22 @@ class CalculServiceTest {
         e.setModeCalcul(ModeCalcul.FORMULE);
 
         assertThrows(IllegalStateException.class, () -> service.recalculerBareme(e));
+    }
+    
+    @Test
+    void formuleUtiliseAgeEtPoidsDuPilote() throws Exception {
+        Epreuve e = epreuveFormule("distance + age + poidsPilote");
+        Pilote p = new Pilote();
+        p.setId(7);
+        p.setAnneeNaissance(LocalDate.now().getYear() - 30); // age = 30
+        p.setPoids(80.0);
+
+        Resultat r = service.calculerEtEnregistrerFormule(e, p, Map.of("distance", 10.0), false, "benevole1");
+
+        assertEquals(120.0, r.getPoints(), 0.0001); // 10 + 30 + 80
+        ArgumentCaptor<Resultat> captor = ArgumentCaptor.forClass(Resultat.class);
+        verify(resultatDAO).enregistrer(captor.capture());
+        assertEquals("benevole1", captor.getValue().getSaisiPar());
+        assertEquals(7, captor.getValue().getPiloteId());
     }
 }
