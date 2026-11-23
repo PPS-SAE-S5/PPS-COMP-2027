@@ -55,7 +55,7 @@ public class PlanningController {
     private boolean peutModifier;
     private int journeeSelectionneeId = 0;
 
-    // Limite sur la liste des des journées
+    /* Limite sur la liste des des journées */ 
     private static final int MAX_ONGLETS = 7;
     private static final double LARGEUR_MIN_ONGLET = 118;
     private static final double ECART_ONGLETS = 10;
@@ -70,7 +70,7 @@ public class PlanningController {
             return;
         }
         if (u.getRole() == Role.PILOTE) {
-            // Le pilote n'a pas accès au planning donc on le redirige vers le classement général
+            /* Le pilote n'a pas accès au planning donc on le redirige vers le classement général */ 
             SceneManager.naviguerVers("classement.fxml", "Classement général");
             return;
         }
@@ -78,7 +78,7 @@ public class PlanningController {
         if (!peutModifier) {
             masquer(boutonNouvelleJournee, boutonNouvelAtelier);
         }
-        // Nbr d'onglets visibles à partir de la largeur dispo
+        /* Nbr d'onglets visibles à partir de la largeur dispo */
         ongletsJournees.widthProperty().addListener((obs, ancien, nouveau) -> afficherOnglets());
         rafraichir();
     }
@@ -97,7 +97,7 @@ public class PlanningController {
         }
     }
 
-    // onglets des journées
+    /* onglets des journées */
 
     private void construireOnglets(List<Journee> journees) {
         journeesAffichees = journees;
@@ -155,7 +155,7 @@ public class PlanningController {
             });
             ongletsJournees.getChildren().add(onglet);
         }
-        // Empêche de désélectionner l'onglet actif en recliquant dessus
+        /* Empêche de désélectionner l'onglet actif en recliquant dessus */ 
         groupe.selectedToggleProperty().addListener((obs, ancien, nouveau) -> {
             if (nouveau == null && ancien != null) ancien.setSelected(true);
         });
@@ -176,7 +176,7 @@ public class PlanningController {
         afficherOnglets();
     }
 
-    // contenu de la journée sélectionnée
+    /* contenu de la journée sélectionnée */
 
     private void construireContenuJournee(List<Journee> journees) throws SQLException {
         contenuJournee.getChildren().clear();
@@ -198,7 +198,7 @@ public class PlanningController {
         actionsJournee.setManaged(true);
         labelJournee.setText(courante.getNom() + (courante.getDateJournee() == null ? "" : " · " + courante.getDateFormatee()));
         if (!peutModifier) {
-            // Lecture seule : on garde le titre et l'export PDF, on retire les boutons de modification
+            /* Lecture seule : on garde le titre et l'export PDF, on retire les boutons de modification */ 
             actionsJournee.getChildren().stream()
                     .filter(n -> n instanceof Button && n != boutonExportPdf)
                     .forEach(n -> masquer((Button) n));
@@ -295,7 +295,7 @@ public class PlanningController {
         sb.append(texte);
     }
 
-    // panneau "épreuves à placer"
+    /* panneau "épreuves à placer" */ 
 
     private void construirePanneauEpreuves() throws SQLException {
         List<Epreuve> libres = planningService.listerEpreuvesNonAffectees();
@@ -305,7 +305,7 @@ public class PlanningController {
         labelResume.setText(total + (total > 1 ? " épreuves actives" : " épreuve active") + " · " + libres.size() + " à placer");
     }
 
-    // actions : journées
+    /* actions : journées */
 
     @FXML
     private void nouvelleJournee() {
@@ -402,7 +402,7 @@ public class PlanningController {
         }
     }
 
-    // action : export PDF de la journée
+    /* action : export PDF de la journée */ 
 
     @FXML
     private void exporterPdf() {
@@ -451,7 +451,7 @@ public class PlanningController {
         info.setTitle("Export PDF");
         info.setHeaderText("Export terminé");
         info.showAndWait().filter(rep -> rep == ouvrir).ifPresent(rep -> {
-            // Ouverture hors du thread JavaFX
+            /* Ouverture hors du thread JavaFX */
             new Thread(() -> {
                 try {
                     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
@@ -459,7 +459,7 @@ public class PlanningController {
                         return;
                     }
                 } catch (IOException | RuntimeException ignore) {
-                    // pas de lecteur PDF associé : message ci-dessous
+                    /* pas de lecteur PDF associé : message ci-dessous */
                 }
                 javafx.application.Platform.runLater(() -> erreur(
                         "Impossible d'ouvrir le PDF automatiquement. Il se trouve ici :\n" + fichier.getAbsolutePath()));
@@ -467,7 +467,7 @@ public class PlanningController {
         });
     }
 
-    // actions : ateliers
+    /* actions : ateliers */
 
     @FXML
     private void nouvelAtelier() {
@@ -512,7 +512,7 @@ public class PlanningController {
         });
     }
 
-    // divers
+    /* divers */ 
 
     @FXML
     private void retour() {
