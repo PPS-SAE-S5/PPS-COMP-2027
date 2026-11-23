@@ -1,6 +1,6 @@
-# Cahier des charges fonctionnel
+# Cahier des charges fonctionnel (v3)
 
-> Ce document décrit **ce que l'application doit faire** et **pourquoi**. Les choix techniques (architecture, technologies, base de données, tests, déploiement) sont détaillés dans le [Document technique](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Documentation%20Technique(v3)(fr).md).
+> Ce document décrit **ce que l'application doit faire** et **pourquoi**. Les choix techniques (architecture, technologies, base de données, tests, déploiement) sont détaillés dans le [Document technique v3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Documentation%20Technique(v3)(fr).md).
 
 ## Table des matières
 
@@ -15,12 +15,12 @@
    - 3.1 [Diagramme de cas d'utilisation](#31-diagramme-de-cas-dutilisation)
    - 3.2 [Description des cas d'utilisation](#32-description-des-cas-dutilisation)
 4. [Périmètre et contraintes](#4-périmètre-et-contraintes)
-   - 4.1 [Périmètre de la Version](#41-périmètre-de-la-version)
+   - 4.1 [Périmètre](#41-périmètre)
    - 4.2 [Contraintes](#42-contraintes)
 5. [Livrables](#5-livrables)
-6. [User Stories et Backlog](#6-user-stories-et-backlog)
-   - 6.1 [User Stories](#61-user-stories)
-   - 6.2 [Backlog produit](#62-backlog-produit)
+6. [User stories et backlog](#6-user-stories-et-backlog)
+   - 6.1 [User stories](#61-user-stories)
+   - 6.2 [Backlogs](#62-backlogs)
    - 6.3 [Planification des sprints](#63-planification-des-sprints)
 7. [Organisation du projet](#7-organisation-du-projet)
    - 7.1 [Parties prenantes](#71-parties-prenantes)
@@ -35,27 +35,25 @@
 
 ### 1.1 Contexte du projet
 
-Le club de parapente Parapente Pays de Sault (PPS), situé dans l'Aude, organisera à l'été 2027 le Championnat de France des Pompiers de Parapente.
+Le club Parapente Pays de Sault (PPS), situé dans l'Aude, organise à l'été 2027 le Championnat de France de Parapente des sapeurs-pompiers.
 
-Actuellement, l'organisation de cette compétition repose principalement sur l'utilisation de documents papier et de fichiers Excel. Les informations et les résultats sont collectés et traités manuellement, notamment afin de réaliser les classements provisoires à la fin de chaque journée.
+Jusqu'ici, l'organisation de la compétition repose sur des documents papier et des fichiers Excel. Les résultats sont collectés et traités à la main, en particulier pour établir les classements provisoires à la fin de chaque journée.
 
-Afin de moderniser et de simplifier ce processus, le club souhaite mettre en place une solution numérique permettant de centraliser les différentes informations liées à la compétition et de faciliter leur gestion.
+Le club veut remplacer ce fonctionnement par un outil numérique qui centralise les informations de la compétition : pilotes, épreuves, planning, résultats et classements.
 
 ### 1.2 Objectifs
 
-L'objectif du projet est de concevoir et de développer une application mobile, une application PC et une page web dédiées à la gestion d'une compétition de parapente.
+Le projet consiste à concevoir et développer une application pour ordinateur, une application mobile (Android) et une page web dédiées à la gestion de la compétition.
 
-Les utilisateurs pourront utiliser l'application mobile ou PC selon leur besoin. Les applications fonctionnent avec un serveur et une base de données en ligne, mais aussi sans internet grâce à une base de données locale, les données sont transmises sur internet dès que la connexion est rétablie.
+Chaque utilisateur choisit l'application qui lui convient. Les deux applications enregistrent les données dans une base locale et fonctionnent donc sans internet, dès qu'une connexion est disponible, elles se synchronisent avec une base de données en ligne partagée.\
+La page web lit cette base en ligne pour afficher le classement.
 
-Il existe également différents rôles, qui ont des droits différents.
+L'accès aux fonctionnalités dépend du rôle de l'utilisateur (voir [section 2.3](#23-utilisateurs-et-rôles)).
 
-Selon les exigences du client, l'application doit être conçue de manière durable et évolutive afin de pouvoir s'adapter aux besoins futurs. De nouvelles épreuves ou de nouvelles règles pourront être introduites à l'avenir. L'application ne doit donc pas être limitée à un ensemble prédéfini de types d'épreuves.
+Le client attend un outil durable et évolutif.\
+De nouvelles épreuves ou de nouvelles règles pourront apparaître : l'application ne doit pas se limiter à une liste figée de types d'épreuves. Les épreuves doivent être entièrement paramétrables, pour que le club puisse en créer de nouvelles sans modifier le code.
 
-Le client souhaite que les épreuves soient entièrement paramétrables, afin de pouvoir créer et configurer de nouveaux types d'épreuves en fonction de ses besoins, sans nécessiter de modifications importantes du système.
-
-Par ailleurs, l'application doit être accessible et facile à utiliser par tous les types d'utilisateurs. L'interface doit être claire, lisible et intuitive, et les fonctionnalités doivent être simples à comprendre et à utiliser, même pour des utilisateurs peu familiers avec les outils numériques.
-
-Les principales fonctionnalités de l'application sont détaillées en [section 2.1](#21-exigences-fonctionnelles).
+L'interface doit rester lisible et simple à utiliser, y compris pour des personnes peu habituées aux outils numériques.
 
 ---
 
@@ -63,44 +61,49 @@ Les principales fonctionnalités de l'application sont détaillées en [section 
 
 ### 2.1 Exigences fonctionnelles
 
-Les exigences fonctionnelles seront précisées et validées progressivement avec le client.
-À ce stade (V3), les principales fonctionnalités envisagées sont les suivantes :
+Les exigences sont précisées et validées avec le client au fil des sprints.\
+À la fin du Sprint 3, elles sont les suivantes :
 
-* **Gestion des épreuves** : création, modification, configuration et gestion des différentes épreuves.
-* **Gestion des pilotes** : création et gestion des profils des pilotes participant aux épreuves.
-* **Saisie des résultats** : enregistrement et gestion des résultats obtenus par les pilotes lors des différentes épreuves.
-* **Génération automatique des classements et des notes** : calcul automatique des résultats, des notes et des classements selon les règles définies pour chaque épreuve. Mise à jour des informations et des classements en quasi temps réel.
-* **Gestion des comptes utilisateurs** : création, modification et gestion des comptes ainsi que des droits d'accès des différents utilisateurs.
-* **Planning des journées** : Un outil de planification permettant d'organiser les ateliers sur des journées découpées en créneaux du matin et de l'après-midi.
-* **Suivi des participants** : une interface qui affiche les informations détaillées des participants (épreuves, points, classement, etc.).
+* **Gestion des épreuves** : création, modification, duplication et suppression d'épreuves, avec leurs variables à saisir et leur mode de calcul des points (formule ou barème par rang).
+* **Gestion des pilotes** : inscription et modification des fiches pilotes. Chaque pilote appartient à une catégorie : **pompier** (participe au championnat) ou **open** (invité, classé mais hors championnat).\
+La catégorie est déduite du numéro de pilote.
+* **Saisie des résultats** : enregistrement des valeurs mesurées pour chaque pilote et chaque épreuve, avec la possibilité de disqualifier un pilote (0 point).
+* **Calcul automatique des points et des classements** : classement général et classement par épreuve, filtrés par genre (général, hommes, femmes) et par catégorie (pompiers, open). Les classements sont mis à jour en quasi temps réel.
+* **Planning des journées** : organisation des ateliers sur des journées découpées en créneaux du matin et de l'après-midi, avec export du planning d'une journée en PDF.
+* **Suivi des participants** : fiche détaillée d'un pilote (total de points, rang, épreuves passées, score par épreuve), avec une recherche par nom, prénom, licence ou département.
+* **Gestion des comptes** : création, désactivation et suppression des comptes, attribution des rôles.
+* **Consultation du classement sans compte** : depuis l'écran de connexion des applications, et depuis une page web publique.
+* **Historique des modifications de points** : traçabilité des ajouts et retraits de points en cas de litige ([US#13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39) en cours).
 
- Fonctionnalité supplémentaire :  - un site web permettant de consulter le classement.
- 
-Fonctionnalités à venir :
-- Classement par équipe
-- Un lecteur de CSV pour les inscriptions
+Les fonctionnalités demandées pour les prochains sprints sont listées en [section 9](#9-améliorations-futures).
 
 ### 2.2 Exigences non fonctionnelles
 
 **Multiplateforme**
-- L'application doit être accessible et pleinement fonctionnelle depuis un ordinateur et un smartphone.
-- L'interface devra s'adapter aux différents formats d'écran afin de garantir une utilisation confortable sur les différents appareils.
+- L'application doit être utilisable sur ordinateur (Windows et Mac) et sur smartphone Android.
+- L'interface doit s'adapter à la taille de l'écran.
 
-**Ergonomie et simplicité d'utilisation**
-- L'application devra être conçue de manière à être facilement utilisable par des personnes non informaticiennes.
-- Les différentes fonctionnalités devront être accessibles de manière claire et intuitive, sans nécessiter de connaissances techniques particulières.
+**Fonctionnement hors-ligne**
+- La saisie et la consultation doivent fonctionner sans réseau, sur le terrain. Les données sont synchronisées au retour de la connexion.
+
+**Ergonomie**
+- L'application doit être utilisable par des personnes non informaticiennes, sans connaissance technique particulière.
 
 **Autres exigences**
-- Les autres exigences non fonctionnelles, notamment concernant la sécurité, les performances, l'accessibilité et le déploiement, seront précisées avec le client au cours du projet.
+- Les exigences de sécurité, de performance, d'accessibilité et de protection des données personnelles (RGPD) restent à préciser avec le client.
 
 ### 2.3 Utilisateurs et rôles
 
-- **Administrateur** : tous les droits, dont la gestion des comptes et des rôles.
-- **Bénévole** : Il peut saisir les résultats, gérer le planning des journées, gérer les pilotes et consulter le suivi des participants.
-- **Responsable d'épreuve** : Il peut saisir les résultats, gérer les pilotes, les épreuves et le planning de la journée, synchroniser les données, ainsi que consulter le classement et le suivi des participants.
-- **Pilote** : Il peut uniquement se connecter pour consulter le classement.
-- **Comité des pilotes** : Il peut gérer le planning et consulter le classement.
-- **Visiteur (sans compte)** : consulte les classements en lecture seule.
+| Rôle | Droits |
+|---|---|
+| **Administrateur** | Tous les droits, dont la gestion des comptes et des rôles |
+| **Responsable d'épreuve** | Gestion des épreuves, du planning et des pilotes, saisie des résultats, suivi des participants, classements, synchronisation |
+| **Bénévole** | Gestion des pilotes, saisie des résultats, suivi des participants, classements, consultation du planning |
+| **Comité des pilotes** | Consultation du planning et des classements. Les droits prévus par les [US 12](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20) et [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) (modification des points, historique) ne sont pas encore en place |
+| **Visiteur** | Consultation des classements en lecture seule, sans identifiant : bouton "Non, je veux uniquement suivre le classement" des applications, ou page web |
+
+Dans les applications, l'accès visiteur passe par un compte invité interne de rôle "Pilote.\
+Ce rôle ne sert qu'à consulter le classement.
 
 ---
 
@@ -108,59 +111,60 @@ Fonctionnalités à venir :
 
 ### 3.1 Diagramme de cas d'utilisation
 
-![Use case v3](./../Sprint%203/Use%20case%20V3.png)
-
+![Diagramme de cas d'utilisation v3](/Documentation/Sprint%203/Captures/Use%20case%20V3.png)
 
 ### 3.2 Description des cas d'utilisation
 
-Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-rôles). Cette section décrit ce que chaque acteur fait concrètement dans l'application.
+Les droits de chaque rôle sont décrits en [section 2.3](#23-utilisateurs-et-rôles). Le tableau ci-dessous décrit ce que chaque acteur fait dans l'application.
 
-| N° | Cas d'utilisation | Acteur | Préconditions | Scénario principal | Résultat | US |
+| N° | Cas d'utilisation | Acteurs | Préconditions | Scénario principal | Résultat | US |
 |---|---|---|---|---|---|---|
-| CU 01 | Se connecter | Utilisateur avec compte | Le compte existe | L'utilisateur saisit ses identifiants | Il accède aux fonctionnalités de son rôle | US 14 |
-| CU 02 | Consulter les classements | Visiteur ou tout utilisateur connecté | Aucune | L'utilisateur ouvre l'application ou la page web, puis choisit le classement du jour ou le classement final | Le classement s'affiche en lecture seule et se rafraîchit automatiquement | US 05, 06, 07, 08 |
-| CU 03 | Consulter le score d'un participant | Utilisateur | Le participant a au moins un résultat | L'utilisateur sélectionne un participant | Le score total du participant s'affiche | US 04 |
-| CU 04 | Inscrire un participant | Responsable d'épreuve | Connecté | Le responsable d'épreuve saisit le nom et le prénom du participant | Le participant est créé | US 01 |
-| CU 05 | Créer une épreuve | Responsable d'épreuve | Connecté | Le responsable d'épreuve crée l'épreuve, choisit son mode de notation (points de temps, nombre de sauts, etc.) et règle l'affichage ou non des points dans le classement | L'épreuve est disponible pour la saisie des résultats | US 09, 10 |
-| CU 06 | Organiser la compétition | Responsable d'épreuve | Des épreuves existent | Le responsable d'épreuve regroupe des épreuves en ateliers, puis répartit les ateliers dans des journées (matin, après-midi, 2e journée) | La structure de la compétition est définie | US 02, 03 |
-| CU 07 | Saisir les points d'un participant | Bénévole ou responsable d'épreuve | Connecté, le participant et l'épreuve existent | Le bénévole (ou le responsable d'épreuve) sélectionne l'épreuve et le participant, puis saisit les points | Le résultat est enregistré (y compris hors-ligne, synchronisé ensuite) et les classements sont mis à jour | US 11 |
-| CU 08 | Modifier les points d'un participant | Membre du comité ou responsable d'épreuve | Connecté, un résultat existe | Le membre du comité (ou le responsable d'épreuve) modifie les points en cas de litige, de pénalité ou de retrait | Les points sont modifiés, la modification est tracée dans l'historique et les classements sont recalculés | US 12 |
-| CU 09 | Consulter l'historique des modifications | Membre du comité | Connecté | Le membre du comité ouvre l'historique des modifications de points | La liste des modifications s'affiche, ce qui garantit la traçabilité des litiges | US 13 |
-| CU 10 | Consulter le suivi des participants | Administrateur | Connecté | Cliquer sur l'onglet Suivi des participants, puis cliquer sur un participant | les informations de ce participant s'affichent (points, classement, épreuves effectuées, etc.). | US 04 |
-| CU 11 | Planification des journées | Administrateur | Connecté | Cliquer sur Planification | il est possible d'ajouter des journées et de définir les ateliers pour ces journées (avec la possibilité de modifier et supprimer également). | US 3 |
+| CU 01 | Se connecter | Utilisateur avec compte | Le compte existe et est actif | L'utilisateur saisit son identifiant et son mot de passe | Il accède aux fonctionnalités de son rôle | [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) |
+| CU 02 | Consulter les classements | Visiteur, tout utilisateur connecté | Aucune | Le visiteur clique sur "Non, je veux uniquement suivre le classement" ou ouvre la page web, un utilisateur connecté ouvre la carte Classements | Le classement général ou par épreuve s'affiche en lecture seule | [US 05](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/13), [US 06](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/14), [US 07](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/15), [US 08](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16) |
+| CU 03 | Consulter le suivi d'un participant | Administrateur, responsable d'épreuve, bénévole | Connecté | L'utilisateur ouvre le suivi des participants, recherche un pilote et le sélectionne | Le total de points, le rang et le score par épreuve du pilote s'affichent | [US 04](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/12) |
+| CU 04 | Inscrire un pilote | Administrateur, responsable d'épreuve, bénévole | Connecté | L'utilisateur remplit la fiche pilote (licence, nom, prénom, numéro de pilote...) | Le pilote est créé, sa catégorie est déduite de son numéro, et il est inscrit aux épreuves actives | [US 01](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/9) |
+| CU 05 | Créer une épreuve | Administrateur, responsable d'épreuve | Connecté | L'utilisateur définit les variables à saisir, le mode de calcul et les options d'affichage | L'épreuve est disponible pour la saisie des résultats | [US 09](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/17), [US 10](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/18) |
+| CU 06 | Organiser le planning | Administrateur, responsable d'épreuve | Des épreuves existent | L'utilisateur crée des journées, puis des ateliers (créneau, horaires, lieu, responsable) auxquels il ajoute des épreuves | La structure de la compétition est définie ; les autres rôles consultent le planning | [US 02](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/10), [US 03](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/11) |
+| CU 07 | Exporter le planning d'une journée | Tout rôle ayant accès au planning | Une journée existe | L'utilisateur choisit la journée et clique sur "Exporter en PDF" | Un fichier PDF de la journée est enregistré (version PC) | [Fix 06](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/50) |
+| CU 08 | Saisir les points d'un pilote | Administrateur, responsable d'épreuve, bénévole | Connecté, le pilote est inscrit à l'épreuve | L'utilisateur choisit l'épreuve et le pilote, puis saisit les valeurs mesurées | Le résultat est enregistré, y compris hors-ligne, et les classements sont recalculés | [US 11](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/19) |
+| CU 09 | Modifier les points d'un pilote | Responsable d'épreuve (prévu aussi pour le comité) | Un résultat existe | L'utilisateur corrige le résultat en cas de litige, de pénalité ou de retrait | Les points et les classements sont recalculés | [US 12](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20) |
+| CU 10 | Consulter l'historique des modifications | Membre du comité | Connecté | Le membre du comité ouvre l'historique des modifications de points | La liste des modifications s'affiche | [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) (en cours) |
+| CU 11 | Gérer les comptes | Administrateur | Connecté | L'administrateur crée un compte avec un rôle, le désactive, change son mot de passe ou le supprime | Les droits de chaque personne sont à jour | [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) |
+| CU 12 | Synchroniser les données | Administrateur, responsable d'épreuve | Connexion internet disponible | L'utilisateur choisit le sens de la synchronisation | Les données de l'appareil et de la base en ligne sont échangées | - |
 
 ---
 
 ## 4. Périmètre et contraintes
 
-### 4.1 Périmètre de la Version
+### 4.1 Périmètre
 
-**Inclus dans la V1**
-- Gestion des épreuves (paramétrables), des ateliers et des journées de compétition
+**Version attendue pour le championnat (été 2027)**
+- Gestion des épreuves paramétrables, des ateliers et des journées de compétition
 - Gestion des pilotes et saisie des résultats
-- Calcul automatique des notes et des classements (du jour et final), mis à jour en quasi temps réel
+- Calcul automatique des points et des classements, mis à jour en quasi temps réel
 - Historique des modifications de points
 - Gestion des comptes et des rôles
 - Consultation des classements en lecture seule, sans compte
 - Fonctionnement hors-ligne avec synchronisation au retour de la connexion
-- Application mobile, application PC 
+- Application pour ordinateur, application mobile et page web
 
-**Inclus dans la V2**
-- Synchronisation entre l'application et la base de données
+**Réalisé par release**
 
-**Inclus dans la V3**
--  Un outil de planification permettant d'organiser les ateliers sur des journées découpées en créneaux du matin et de l'après-midi.
--  Une interface qui affiche les informations détaillées des participants (épreuves, points, classement, etc.).
--  Page web
+| Release | Contenu |
+|---|---|
+| Release 1 ([Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2)) | Base de données, interfaces de base PC et mobile, inscription des pilotes, rôles |
+| [Release 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1) ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) | Épreuves paramétrables, ateliers, journées, saisie et modification des points, classements, affichage des scores optionnel, synchronisation avec la base en ligne |
+| [Release 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v3) ([Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) | Planning des journées, suivi des participants, consultation du classement sans compte (bouton visiteur et page web), catégories pompier / open, export PDF d'une journée, logo définitif |
 
 ### 4.2 Contraintes
 
-- **Délai** : l'application doit être opérationnelle pour le Championnat de France de Parapente des sapeurs pompiers, à l'été 2027
-- **Conditions d'utilisation** : usage sur le terrain, avec un réseau potentiellement faible ou absent (d'où le mode hors-ligne)
-- **Public** : utilisateurs peu familiers avec les outils numériques
-- **Évolutivité** : de nouvelles épreuves et de nouvelles règles pourront être ajoutées sans modification importante du système
-- **Budget et hébergement** : solution privilégiant des services gratuits ou peu coûteux *(voir 7.3)*
-- **Sécurité et données personnelles** : les données des pilotes doivent être protégées *(voir 2.2)*
+- **Délai (du projet)** : l'application doit être opérationnelle pour le Championnat de France de Parapente des sapeurs-pompiers, à l'été 2027.
+- **Délai réel (de la SAE) :** Fin du Sprint 5 le 18 Décembre 2026.
+- **Conditions d'utilisation** : usage sur le terrain, avec un réseau faible ou absent, d'où le mode hors-ligne.
+- **Public** : utilisateurs peu familiers avec les outils numériques.
+- **Évolutivité** : de nouvelles épreuves et de nouvelles règles doivent pouvoir être ajoutées sans modifier le code.
+- **Budget et hébergement** : services gratuits ou peu coûteux *(voir 7.3)*.
+- **Données personnelles** : les données des pilotes (poids, année de naissance, email) doivent être protégées ; les exigences précises restent à définir *(voir 2.2)*.
 
 ---
 
@@ -168,73 +172,91 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 
 | Livrable | Description | Statut |
 |---|---|---|
-| Application mobile | Application utilisable sur smartphone, avec mode hors-ligne | En cours (Release 2 : démo + installation) |
-| Application PC | Application utilisable sur ordinateur, avec mode hors-ligne | En cours (Release 2 : démo + installation) |
-| Page web | Consultation des classements en lecture seule, sans compte | À livrer |
-| Base de données | Base en ligne et base locale, avec schéma documenté | En cours |
-| Code source | Dépôt GitHub (PPS-SAE-S5/PPS-COMP-2027) | En cours |
+| Application PC | Application de bureau avec base locale, fichier `.jar` | [Release 2.1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1) publiée sur GitHub |
+| Application mobile | Application Android avec base locale, fichier `.apk` | [Release 2.1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1) publiée sur GitHub |
+| Page web | Classement en lecture seule : [pps-classement.vercel.app](https://pps-classement.vercel.app/) | En ligne |
+| Base de données | Base en ligne (Supabase) & bases locales & schéma documenté | En cours  |
+| Code source | Dépôt GitHub PPS-SAE-S5/PPS-COMP-2027 | En cours |
 | Cahier des charges | Le présent document | En cours |
 | Document technique | Architecture, base de données, API, tests, déploiement | En cours |
 | Backlog produit et user stories | Suivi des besoins et des sprints | En cours |
-| Plan de tests | Cas de test et résultats de validation | À faire |
-| Manuel utilisateur | Guide simple pour les bénévoles, responsables d'épreuve et pilotes | En cours |
-
-**Conditions de livraison** *(à valider avec le client)* : format, qui héberge l'application après la livraison, qui assure la maintenance, licence du code et propriété des données.
+| Plan de tests | Cas de test et résultats de validation | En cours |
+| Manuels utilisateur | Guides pour l'administrateur, les responsables d'épreuve et les bénévoles (versions PC et mobile) | En cours |
 
 ---
-
-## 6. User Stories et Backlog
-
-### 6.1 User Stories
-
-| US | Titre de l'US | Statut |
-|---|---|---|
-| [US 01](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/9) | **En tant que responsable d'épreuve, je veux inscrire un pilote avec son nom/prénom** |  Terminé (Sprint 1) |
-| [US 02](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/10) | **En tant que responsable d'épreuve, je veux créer un atelier composé de plusieurs épreuves afin de structurer une journée de compétition** |  Terminé (Sprint 2) |
-| [US 03](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/11) | **En tant que responsable d'épreuve, je veux organiser une journée contenant des ateliers (matin, après-midi, 2e journée) afin de répartir les épreuves dans le temps** |  Terminé |
-| [US 04](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/12) | **En tant qu'utilisateur, je veux voir le score total d'un pilote ("Participant n°X points") afin de suivre sa performance globale** |  Terminé |
-| [US 05](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/13) | **En tant qu'utilisateur, je veux consulter le classement du jour afin de suivre l'évolution de la compétition** |  En cours (Sprint 3, 1/2 critères validés) |
-| [US 06](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/14) | **En tant qu'utilisateur, je veux consulter le classement final afin de connaître les résultats globaux** |  Terminé (Sprint 2) |
-| [US 07](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/15) | **En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page** |  En cours (Sprint 3, critère validé, issue à clôturer) |
-| [US 08](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16) | **En tant que visiteur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement** |  Prévu au Sprint 3 (0/1 critère validé) |
-| [US 09](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/17) | **En tant que responsable d'épreuve, je veux pouvoir créer une épreuve en choisissant son mode de notation (points de temps, nombre de sauts, etc.) afin d'adapter le barème à chaque discipline** |  Terminé (Sprint 2) |
-| [US 10](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/18) | **En tant que responsable d'épreuve, je veux activer/désactiver l'affichage des points dans le classement (switch) afin de ne montrer que le rang si besoin** |  Terminé (Sprint 2) |
-| [US 11](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/19) | **En tant que bénévole ou responsable d'épreuve, je veux attribuer des points à un participant pour une épreuve donnée afin d'enregistrer sa performance** |  Terminé (Sprint 2) |
-| [US 12](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20) | **En tant que membre du comité ou responsable d'épreuve, je veux modifier les points d'un pilote (litige, pénalité, retrait) afin de traiter les cas exceptionnels** |  Terminé (Sprint 2) |
-| [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) | **En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges** |  En cours (Sprint 3, 1/2 critères validés) |
-| [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) | **En tant qu'administrateur, je veux gérer les rôles (responsable d'épreuve, bénévole, membre du comité, pilote) afin que chacun n'accède qu'aux fonctionnalités qui le concernent** |  Terminé (Sprint 2) |
-
-### 6.2 Backlog produit
-
-| Backlog | Période du backlog |
-|---|---|
-| [Backlog Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md) | **01/09/2026 - 20/09/2026** |
-| [Backlog Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2?closed=1) | **21/09/2026 - 02/10/2026** |
-| [Backlog Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3?closed=1) | **05/10/2026 - 23/10/2026** |
-| [Backlog Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Backlog%20sprint%203.md) | **05/10/2026 - 23/10/2026** |
-
-### 6.3 Planification des sprints
-
-| Sprint | Période du sprint | Statut |
-|---|---|---|
-| [Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1) | **01/09/2026 - 18/09/2026** |  Terminé |
-| [Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2) | **21/09/2026 - 02/10/2026** |  Terminé |
-| [Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3) | **05/10/2026 - 23/10/2026** |  Terminé |
-| Vacances (Toussaint) | **26/10/2026 - 30/10/2026** | |
-| [Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4) | **02/11/2026 - 27/11/2026** | À venir |
-| Sprint 4-5 ([4](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/5) / [5](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/6)) | **30/11/2026 - 18/12/2026** | À venir |
-| Vacances (Noël) | **21/12/2026 - 01/01/2027** | |
-| [Sprint 6](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/7) | **04/01/2027 - 22/01/2027** | À venir |
 
 </br>
 
-> **N.B. : planification au-delà du Sprint 6**
->
-> Le planning des sprints ci-dessus s'arrête au 22/01/2027. La suite du projet (corrections, recette client, répétition en conditions réelles, déploiement et formation des bénévoles) n'est pas encore planifiée : ses dates et la répartition des responsabilités seront définies avec le club PPS. Cette planification devra être complétée avant la fin du Sprint 6, afin que l'application soit opérationnelle pour le Championnat de France de Parapente sapeur pompier, à l'été 2027.
->
-> Le Sprint 4-5 correspond à deux sprints menés sur la même période (30/11/2026 - 18/12/2026).
+**Conditions de livraison** : format de livraison, hébergement après le projet, maintenance, licence du code et propriété des données.\
+Lors de la réunion 4, il a été décidé qu'un dépôt dédié à la maintenance sera créé et que le lien de téléchargement définitif sera communiqué à la fin du projet.
 
 ---
+
+## 6. User stories et backlog
+
+### 6.1 User stories
+
+| US | Titre de l'US | Statut |
+|---|---|---|
+| [US 01](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/9) | **En tant que responsable d'épreuve, je veux inscrire un pilote avec son nom et son prénom** | Terminé ([Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2)) |
+| [US 02](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/10) | **En tant que responsable d'épreuve, je veux créer un atelier composé de plusieurs épreuves afin de structurer une journée de compétition** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
+| [US 03](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/11) | **En tant que responsable d'épreuve, je veux organiser une journée contenant des ateliers (matin, après-midi, 2e journée) afin de répartir les épreuves dans le temps** | Terminé ([Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) |
+| [US 04](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/12) | **En tant qu'utilisateur, je veux voir le score total d'un pilote ("Participant n°X points") afin de suivre sa performance globale** | Terminé ([Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) |
+| [US 05](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/13) | **En tant qu'utilisateur, je veux consulter le classement du jour afin de suivre l'évolution de la compétition** | Terminé ([Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) |
+| [US 06](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/14) | **En tant qu'utilisateur, je veux consulter le classement final afin de connaître les résultats globaux** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
+| [US 07](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/15) | **En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page** | Terminé ([Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) |
+| [US 08](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16) | **En tant que visiteur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement** | Terminé ([Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) |
+| [US 09](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/17) | **En tant que responsable d'épreuve, je veux créer une épreuve en choisissant son mode de notation (points de temps, nombre de sauts, etc.) afin d'adapter le barème à chaque discipline** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
+| [US 10](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/18) | **En tant que responsable d'épreuve, je veux activer ou désactiver l'affichage des points dans le classement afin de ne montrer que le rang si besoin** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
+| [US 11](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/19) | **En tant que bénévole ou responsable d'épreuve, je veux attribuer des points à un pilote pour une épreuve donnée afin d'enregistrer sa performance** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
+| [US 12](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20) | **En tant que membre du comité ou responsable d'épreuve, je veux modifier les points d'un pilote (litige, pénalité, retrait) afin de traiter les cas exceptionnels** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
+| [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) | **En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges** | En cours (issue ouverte au [Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) |
+| [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) | **En tant qu'administrateur, je veux gérer les rôles (responsable d'épreuve, bénévole, membre du comité) afin que chacun n'accède qu'aux fonctionnalités qui le concernent** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
+
+---
+
+</br>
+
+### 6.2 Backlogs
+
+| Backlog | Période |
+|---|---|
+| [Backlog produit (Sprint 0)](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%200/Backlog%20Produit%20v0.md) | **01/09/2026 - 18/09/2026** |
+| [Backlog Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Backlog%20sprint%201.md) | **21/09/2026 - 02/10/2026** |
+| [Backlog Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Backlog%20sprint%202.md) | **05/10/2026 - 23/10/2026** |
+| [Backlog Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Backlog%20sprint%203.md) | **02/11/2026 - 27/11/2026** |
+---
+
+</br>
+
+### 6.3 Planification des sprints
+
+| Sprint | Période | Statut |
+|---|---|---|
+| [Sprint 0](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/1) | **01/09/2026 - 18/09/2026** | Terminé |
+| [Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2) | **21/09/2026 - 02/10/2026** | Terminé |
+| [Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3) | **05/10/2026 - 23/10/2026** | Terminé |
+| Vacances (Toussaint) | **26/10/2026 - 30/10/2026** | |
+| [Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4) | **02/11/2026 - 27/11/2026** | En cours |
+| Sprint [4](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/5) - [5](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/6) | **30/11/2026 - 18/12/2026** | À venir |
+| Vacances (Noël) | **21/12/2026 - 01/01/2027** | |
+| [Sprint 6](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/7) | **04/01/2027 - 22/01/2027** | À venir |
+
+---
+
+</br>
+
+> **Planification au-delà du Sprint 6**
+>
+> Le planning s'arrête au 22/01/2027.
+>
+> La suite du projet (corrections, maintenance, utilisation) n'est pas prise en charge dans cette SAE.
+
+
+
+---
+
+</br>
 
 ## 7. Organisation du projet
 
@@ -242,32 +264,50 @@ Les rôles et leurs droits sont décrits en [section 2.3](#23-utilisateurs-et-r�
 
 | Rôle | Description |
 |---|---|
-| Client | Club Parapente Pays de Sault avec **Jean-Marie Rolando** |
-| Équipe projet | Erwan Pauloin : Développeur<br>Adam Labadi : Chef de projet<br>Jinhai-andrei Feng : Développeur<br>Alexis Piquepé : Product Owner |
-| Validation | **Jean-Marie Rolando** & **Jean-Michel Bruel** |
+| Client | Club Parapente Pays de Sault, représenté par **Jean-Marie Rolando** |
+| Équipe projet | Erwan Pauloin<br>Adam Labadi<br>Jinhai-andrei Feng<br>Alexis Piquepé |
+| Validation | **Jean-Marie Rolando** et [**Jean-Michel Bruel**](https://github.com/jmbruel) |
+| Gestion de projet | [**L.Pradel**](https://github.com/ludopradel) et [**E.Pandaries**](https://github.com/ependaries)|
+
+---
+
+</br>
 
 ### 7.2 Fonctionnement et communication
 
-- Méthode de travail : **agile**, par sprints (voir 6.3)
+- Méthode de travail : agile par sprints (voir 6.3)
 - Suivi : issues et milestones GitHub
-- Revue de sprint avec le client : lorsque nécessaire / pertinent
+- Réunion avec le client en fin de sprint pour la démonstration de la release et les retours ([réunion 4](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%204.md) et [réunion 4bis](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%204bis.md) pour le [Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4))
 - Les exigences sont précisées et validées progressivement avec le client
 
 ### 7.3 Budget
 
-- Outils et hébergement : services gratuits pour l'usage prévu (Supabase, et Vercel *à confirmer*).
-- Budget global : 0 € *pour l'instant*
+- Outils et hébergement : offres gratuites de Supabase (base en ligne) et de Vercel (page web).
+- Budget global : est et restera à 0 € 
 
 ---
+
+</br>
 
 ## 8. Recette et validation
 
-- La recette est réalisée avec le client à la fin des sprints concernés, puis avant la compétition
-- Chaque livrable est validé au regard des exigences (section 2) et des user stories (section 6) : une user story est validée lorsque son comportement a été vérifié par le client
-- Des tests sont réalisés sur les différents cas d'utilisation, sur toutes les plateformes, y compris en mode hors-ligne puis resynchronisé (stratégie détaillée dans le [Document technique](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%201/Documentation%20Technique(v1)(fr).md))
+- La recette se fait avec le client à la fin des sprints concernés, puis avant la compétition.
+- Une user story est validée lorsque le client a vérifié son comportement, au regard des exigences (section 2) et des user stories (section 6).
+- Les cas d'utilisation sont testés sur toutes les plateformes y compris en mode hors-ligne puis après synchronisation.\
+La stratégie de test est décrite dans le [Document technique v3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Documentation%20Technique(v3)(fr).md#8-tests).
 
 ---
 
+</br>
+
 ## 9. Améliorations futures
 
-*To be continued*
+Demandes du client issues de la [réunion 4bis](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%204bis.md) (12/11/2026) et fonctionnalités restantes :
+
+- Historique des modifications de points ([US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21), issues [#21](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) et [#39](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39))
+- Import des pilotes depuis le fichier Excel des réponses au Google Form d'inscription ([issue #48](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/48))
+- Export des classements en Excel : pompiers ou open, hommes ou femmes, général et par épreuve ([issue #49](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/49))
+- Limites des ateliers réglées dans un fichier de configuration ([issue #51](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/51))
+- Affichage des sponsors, fournis dans un fichier CSV, sur la page de connexion ([issue #53](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/53))
+- Classement par équipe ([Fix #2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/46))
+- Alignement de l'application mobile sur la version PC : catégories pompier / open, export PDF, champs obligatoires d'un atelier (voir le [Document technique v3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Documentation%20Technique(v3)(fr).md#10-limites-connues-et-suite))
