@@ -8,6 +8,7 @@ import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -227,5 +228,15 @@ class CalculServiceTest {
         Resultat r = service.calculerEtEnregistrerFormule(e, new Pilote(), Map.of("distance", 10.0), false, "x");
 
         assertEquals(10.0, r.getPoints(), 0.0001); // age = 0, poidsPilote = 0
+    }
+
+    @Test
+    void formuleDisqualifieDonne0PointSansEvaluer() throws Exception {
+        Epreuve e = epreuveFormule("formule invalide (((");
+
+        Resultat r = service.calculerEtEnregistrerFormule(e, new Pilote(), Map.of(), true, "benevole1");
+
+        assertEquals(0, r.getPoints());
+        assertTrue(r.isDisqualifie());
     }
 }
