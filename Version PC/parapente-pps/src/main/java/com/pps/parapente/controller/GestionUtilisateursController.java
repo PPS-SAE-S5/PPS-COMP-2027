@@ -53,7 +53,7 @@ public class GestionUtilisateursController {
     private void chargerDonnees() {
         try {
             donnees.setAll(utilisateurDAO.listerTous());
-            // Recharge aussi la sélection affichée (son statut actif a pu changer)
+            /* Recharge aussi la sélection affichée (son statut actif a pu changer) */
             Utilisateur selection = tableUtilisateurs.getSelectionModel().getSelectedItem();
             afficherSelection(selection);
         } catch (SQLException e) {
@@ -87,7 +87,7 @@ public class GestionUtilisateursController {
             return;
         }
         try {
-            // "Jean" et "jean" seraient deux comptes distincts en base mais confondus par la synchronisation : on refuse.
+            /* "Jean" et "jean" seraient deux comptes distincts en base mais confondus par la synchronisation : on refuse. */ 
             for (Utilisateur existant : utilisateurDAO.listerTous()) {
                 if (existant.getIdentifiant().equalsIgnoreCase(identifiant)) {
                     afficherErreur("Un compte avec cet identifiant existe déjà (les majuscules/minuscules ne comptent pas).");
