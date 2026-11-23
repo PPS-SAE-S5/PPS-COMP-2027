@@ -82,7 +82,22 @@ Les tests d'intégration sur une base H2 en mémoire compléteront cette approch
 
 Chaque test repart d'un état vierge : les tests sont indépendants.
 
-## 6. Cas de tests
+## 6. Synthèse par classe
+
+| Classe testée | Fichier de test | Tests | Ce qui est vérifié |
+|---|---|---|---|
+| `CalculService` | `CalculServiceTest` | 16 | Formules, barème (tri, rangs, cas limites), enregistrement |
+| `ClassementService` | `ClassementServiceTest` | 12 | Classement général et par épreuve, règle « inscrit sans résultat = 0 point », filtres genre et catégorie |
+| `EpreuveService` | `EpreuveServiceTest` | 18 | Validation, création, mise à jour, duplication |
+| `PiloteService` | `PiloteServiceTest` | 18 | Validation de la fiche pilote, inscription aux épreuves actives |
+| `PlanningService` | `PlanningServiceTest` | 36 | Horaires, champs obligatoires, journées, ateliers (1 test désactivé : bug connu) |
+| `SuiviParticipantService` | `SuiviParticipantServiceTest` | 24 | Détail par pilote : statuts, total, rang, formatage des valeurs |
+| `AuthService` | `AuthServiceTest` | 5 | Connexion, déconnexion, erreurs |
+| `ExportPdfService` | `ExportPdfServiceTest` | 18 | Nom de fichier, génération et pagination du PDF, écriture du fichier |
+
+Nombres issus de la dernière exécution de `mvn test`, à mettre à jour après chaque ajout.
+
+## 7. Cas de tests
 
 | ID | Fonction | Objectif | Entrée | Résultat attendu | Statut |
 |---|---|---|---|---|---|
