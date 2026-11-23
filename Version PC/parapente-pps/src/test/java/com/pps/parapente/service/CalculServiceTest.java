@@ -182,4 +182,12 @@ class CalculServiceTest {
         assertThrows(IllegalStateException.class, () -> service.recalculerBareme(vide));
         assertThrows(IllegalStateException.class, () -> service.recalculerBareme(nulle));
     }
+    
+    @Test
+    void mauvaisModeLeveUneException() {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100);
+        e.setModeCalcul(ModeCalcul.FORMULE);
+
+        assertThrows(IllegalStateException.class, () -> service.recalculerBareme(e));
+    }
 }
