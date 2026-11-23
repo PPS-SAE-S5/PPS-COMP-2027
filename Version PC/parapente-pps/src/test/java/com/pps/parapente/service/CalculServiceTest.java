@@ -73,6 +73,14 @@ class CalculServiceTest {
         r.setDisqualifie(disqualifie);
         return r;
     }
+
+    private Epreuve epreuveFormule(String formule) {
+        Epreuve e = new Epreuve();
+        e.setId(1);
+        e.setModeCalcul(ModeCalcul.FORMULE);
+        e.setFormule(formule);
+        return e;
+    }
     
     // ---------- evaluerFormule ----------
 
@@ -182,7 +190,7 @@ class CalculServiceTest {
         assertThrows(IllegalStateException.class, () -> service.recalculerBareme(vide));
         assertThrows(IllegalStateException.class, () -> service.recalculerBareme(nulle));
     }
-    
+
     @Test
     void mauvaisModeLeveUneException() {
         Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100);
