@@ -63,7 +63,7 @@ public class GestionPilotesController {
 
         champGenre.setItems(FXCollections.observableArrayList("Homme", "Femme"));
 
-        // Catégorie déduite du numéro de pilote dès qu'on le saisit (reste modifiable à la main)
+        /* Catégorie déduite du numéro de pilote dès qu'on le saisit (reste modifiable à la main) */
         champCategorie.setItems(FXCollections.observableArrayList(Categorie.values()));
         champCategorie.setValue(Categorie.POMPIER);
         champNumeroPilote.setTextFormatter(new TextFormatter<String>(c ->
