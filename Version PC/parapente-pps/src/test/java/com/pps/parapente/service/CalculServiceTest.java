@@ -239,4 +239,12 @@ class CalculServiceTest {
         assertEquals(0, r.getPoints());
         assertTrue(r.isDisqualifie());
     }
+
+    @Test
+    void formuleMauvaisModeLeveUneException() {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100);
+
+        assertThrows(IllegalStateException.class,
+                () -> service.calculerEtEnregistrerFormule(e, new Pilote(), Map.of(), false, "x"));
+    }
 }
