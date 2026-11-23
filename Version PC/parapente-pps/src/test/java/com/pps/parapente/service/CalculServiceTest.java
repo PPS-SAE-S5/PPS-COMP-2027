@@ -219,4 +219,13 @@ class CalculServiceTest {
         assertEquals("benevole1", captor.getValue().getSaisiPar());
         assertEquals(7, captor.getValue().getPiloteId());
     }
+
+    @Test
+    void piloteSansPoidsNiAnneeDeNaissanceVaut0DansLaFormule() throws Exception {
+        Epreuve e = epreuveFormule("distance + age + poidsPilote");
+
+        Resultat r = service.calculerEtEnregistrerFormule(e, new Pilote(), Map.of("distance", 10.0), false, "x");
+
+        assertEquals(10.0, r.getPoints(), 0.0001); // age = 0, poidsPilote = 0
+    }
 }
