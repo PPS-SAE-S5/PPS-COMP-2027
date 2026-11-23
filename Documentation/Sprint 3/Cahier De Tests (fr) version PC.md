@@ -99,6 +99,17 @@ Nombres issus de la dernière exécution de `mvn test`, à mettre à jour après
 
 ## 7. Cas de tests
 
+### Classe `AuthServiceTest`
+
+| ID | Fonction | Objectif | Entrée | Résultat attendu | Statut |
+|---|---|---|---|---|---|
+| CS-01 | `connexionReussie` | Identifiants valides | Identifiant `alice`, mot de passe `secret123` | Session ouverte | Réussi |
+| CS-02 | `mauvaisIdentifiant` | Identifiant inconnu | Identifiant `inconnu`, mot de passe `secret123` | Pas d'ouverture de session | Réussi |
+| CS-03 | `mauvaisMotdePasse` | Mot de passe erroné| Identifiant `alice`, mot de passe `mauvais` | N'ouvre pas de session | Réussi |
+| CS-04 | `erreurSQL` | Erreur SQL | Identifiant `alice`, mot de passe `secret123`, DAO déclenchant une `SQLException` | SQLException, pas de session | Réussi |
+| CS-05 | `seDeconnecter` | Deconnexion | Appel de `seDeconnecter()` | Appelle `SessionManager.deconnecter()` une seule fois | Réussi |
+
+
 ### Classe `CalculService`
 
 | ID | Fonction | Objectif | Entrée | Résultat attendu | Statut |
