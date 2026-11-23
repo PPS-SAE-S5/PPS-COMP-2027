@@ -71,9 +71,7 @@ class PlanningServiceTest {
         return j;
     }
 
-    // =====================================================================
-    // heureValide
-    // =====================================================================
+    // ---------- heureValide ----------
 
     @Test
     @DisplayName("heureValide : formats HH:mm valides (bornes comprises)")
@@ -106,9 +104,7 @@ class PlanningServiceTest {
         assertFalse(PlanningService.heureValide("08:00:00"));
     }
 
-    // =====================================================================
-    // erreursHoraires
-    // =====================================================================
+    // ---------- erreursHoraires ----------
 
     @Test
     @DisplayName("erreursHoraires : horaires valides et cohérents => aucune erreur")
@@ -181,9 +177,7 @@ class PlanningServiceTest {
         assertEquals(1, erreurs.size());
     }
 
-    // =====================================================================
-    // champsObligatoiresManquants
-    // =====================================================================
+    // ---------- champsObligatoiresManquants ----------
 
     @Test
     @DisplayName("champsObligatoiresManquants : atelier complet => liste vide")
@@ -251,9 +245,7 @@ class PlanningServiceTest {
                 PlanningService.CHAMP_RESPONSABLE), PlanningService.champsObligatoiresManquants(a));
     }
 
-    // =====================================================================
-    // messageChampsManquants
-    // =====================================================================
+    // ---------- messageChampsManquants ----------
 
     @Test
     @DisplayName("messageChampsManquants : un seul champ => phrase simple")
@@ -271,9 +263,7 @@ class PlanningServiceTest {
                 + "\n  • lieu\n  • responsable", message);
     }
 
-    // =====================================================================
-    // Journées
-    // =====================================================================
+    // ---------- Journées ----------
 
     @Test
     @DisplayName("creerJournee : valide => nom nettoyé (trim) puis délégation au DAO")
@@ -323,9 +313,7 @@ class PlanningServiceTest {
         assertThrows(SQLException.class, () -> service.creerJournee(j));
     }
 
-    // =====================================================================
-    // Ateliers
-    // =====================================================================
+    // ---------- Ateliers ----------
 
     @Test
     @DisplayName("creerAtelier : valide => champs nettoyés (trim) puis délégation au DAO")
@@ -441,9 +429,7 @@ class PlanningServiceTest {
         assertDoesNotThrow(() -> service.validerAtelier(atelierValide()));
     }
 
-    // =====================================================================
-    // Délégations simples
-    // =====================================================================
+    // ---------- Délégations simples ----------
 
     @Test
     @DisplayName("Listes et compteurs : délégués au DAO")
