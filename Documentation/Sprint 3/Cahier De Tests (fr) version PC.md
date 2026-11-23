@@ -2,7 +2,7 @@
 
 > Ce document décrit **comment** la logique métier de l'application PC est testée : environnement, stratégie, cas de tests et règles encore à confirmer. L'architecture et la logique métier sont décrites dans le [Document technique](https://github.com/PPS-SAE-S5/PPS-COMP-2027/tree/main/Documentation).
 >
-> **Version 1** : ce cahier couvre pour l'instant les tests unitaires de `CalculService` (application PC, JUnit 5 et Mockito).
+> **Version 2** : ce cahier couvre les tests unitaires des services de l'application PC (JUnit 5 et Mockito).
 
 ## Sommaire
 
@@ -11,8 +11,9 @@
 - [Lancer les tests](#3-lancer-les-tests)
 - [Stratégie de test](#4-stratégie-de-test)
 - [Mise en place et fonctions utilitaires](#5-mise-en-place-et-fonctions-utilitaires)
-- [Cas de tests](#6-cas-de-tests)
-- [Limites connues et suite](#7-limites-connues-et-suite)
+- [Synthèse par classe](#6-synthèse-par-classe)
+- [Cas de tests](#7-cas-de-tests)
+- [Limites connues et suite](#8-limites-connues-et-suite)
 
 ---
 
@@ -22,8 +23,8 @@ Ce cahier permet de vérifier que les règles de calcul des points fonctionnent 
 
 | | Éléments |
 |---|---|
-| **Testé** | `CalculService` : `evaluerFormule`, `recalculerBareme`, `calculerEtEnregistrerFormule` |
-| **Non testé pour le moment** | `ClassementService`, `enregistrerValeurBareme`, DAO et SQL, contrôleurs JavaFX, synchronisation Supabase |
+| **Testé** | `CalculService`, `ClassementService`, `EpreuveService`, `PiloteService`, `PlanningService`, `SuiviParticipantService`, `AuthService`, `ExportPdfService` |
+| **Non testé pour le moment** | DAO et SQL, package `sync` (synchronisation Supabase), `SecuriteUtil`, contrôleurs JavaFX, application mobile |
 
 ## 2. Environnement
 
