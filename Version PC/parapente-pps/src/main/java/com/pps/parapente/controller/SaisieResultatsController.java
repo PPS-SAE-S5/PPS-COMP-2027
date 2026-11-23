@@ -107,9 +107,11 @@ public class SaisieResultatsController {
             champsEnOrdre.add(champ);
             conteneurChampsDynamiques.getChildren().addAll(label, champ);
         }
-        // Appuyer sur Entrée passe au champ suivant (comme un tableau Excel) au lieu de
-        // valider/recharger l'écran à chaque champ : seule la touche Entrée sur le DERNIER
-        // champ enregistre le résultat, une seule fois.
+        /* 
+         ** Appuyer sur Entrée passe au champ suivant (comme un tableau Excel) au lieu de
+         ** valider/recharger l'écran à chaque champ : seule la touche Entrée sur le DERNIER
+         ** champ enregistre le résultat, une seule fois. 
+         */
         for (int i = 0; i < champsEnOrdre.size(); i++) {
             TextField champActuel = champsEnOrdre.get(i);
             TextField champSuivant = (i < champsEnOrdre.size() - 1) ? champsEnOrdre.get(i + 1) : null;
@@ -137,8 +139,10 @@ public class SaisieResultatsController {
     private void chargerTableResultats(Epreuve epreuve) {
         try {
             List<Resultat> resultats = new com.pps.parapente.service.ClassementService().calculerClassementEpreuve(epreuve);
-            // .getItems().setAll(...) plutôt que .setItems(nouvelle liste) : conserve la position
-            // de défilement du tableau au lieu de la remettre en haut à chaque actualisation.
+            /*  
+             ** .getItems().setAll(...) plutôt que .setItems(nouvelle liste) : conserve la position
+             ** de défilement du tableau au lieu de la remettre en haut à chaque actualisation.
+            */
             tableResultats.getItems().setAll(resultats);
         } catch (SQLException e) {
             afficherErreur("Erreur de chargement des résultats : " + MessageErreurUtil.traduire(e));
