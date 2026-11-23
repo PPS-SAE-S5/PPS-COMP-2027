@@ -170,8 +170,10 @@ public class AtelierEditController {
         masquerErreur();
         Journee journee = champJournee.getValue();
 
-        // Saisie copiée dans un objet temporaire : l'atelier d'origine (affiché dans le planning)
-        // n'est modifié que si les contrôles passent (obligé pour rétablir les valeurs précédentes en cas d'erreur de saisie)
+        /* 
+         ** Saisie copiée dans un objet temporaire : l'atelier d'origine (affiché dans le planning) 
+         ** n'est modifié que si les contrôles passent (obligé pour rétablir les valeurs précédentes en cas d'erreur de saisie) 
+         */ 
         Atelier saisie = new Atelier();
         saisie.setNom(champNom.getText());
         saisie.setJourneeId(journee == null ? 0 : journee.getId());
@@ -189,7 +191,7 @@ public class AtelierEditController {
             return;
         }
 
-        // Format HH:mm des horaires
+        /* Format HH:mm des horaires */ 
         List<String> erreursHoraires = PlanningService.erreursHoraires(saisie.getHeureDebut(), saisie.getHeureFin());
         if (!erreursHoraires.isEmpty()) {
             if (!PlanningService.heureValide(saisie.getHeureDebut())) marquer(champDebut);
