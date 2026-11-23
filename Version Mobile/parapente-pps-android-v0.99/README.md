@@ -1,105 +1,93 @@
-# PPS Championnat — version mobile (Android / Kotlin)
+# PPS Championnat - version mobile 2.0 (Android / Kotlin)
 
-Version Android de l'application du Championnat de France Pompiers de Parapente
-(Parapente Pays de Sault). Fonctionnalités alignées sur la version PC (JavaFX) :
+Application Android du Championnat de France Pompiers de Parapente, organisé par le club Parapente Pays de Sault.\
+Elle reprend les fonctions de la version PC (JavaFX) et partage la même base en ligne Supabase.
 
-- connexion par rôle (Administrateur, Responsable de l'épreuve, Bénévole, Pilote, Comité des pilotes)
-  — compte par défaut : `admin` / `admin123`
-- gestion des pilotes (licence, nom, prénom, caserne, poids, email, année de naissance, **genre**
-  — Homme/Femme uniquement)
-- épreuves 100 % paramétrables : variables saisissables, calcul par **formule** ou par **barème de rang**,
-  options « afficher le classement » et « compte au général »
-- saisie des résultats (formulaire généré selon l'épreuve, case « disqualifié / sécurité »)
-- classement général + détail par épreuve (règle : pilote inscrit sans résultat = 0 point)
-- gestion des comptes (Administrateur) : créer, **activer/désactiver**, **changer le mot de passe**,
-  supprimer (sauf le compte `admin`)
-- **stockage 100 % local** (SQLite/Room) : fonctionne sans internet
-- **synchronisation en ligne avec Supabase** (écran "Synchronisation en ligne", Administrateur et
-  Responsable de l'épreuve) — voir plus bas
-- messages d'erreur en français
+## Fonctionnalités
 
-## Nouveautés (alignées sur la version PC mise à jour par un camarade)
+- **Connexion par rôle** : Administrateur, Responsable de l'épreuve, Bénévole, Comité des pilotes. Le compte créé au premier lancement est `admin` / `admin123`, changez son mot de passe avant toute utilisation réelle.
+- **Accès invité** : le bouton "Non, je veux uniquement suivre le classement" de l'écran de connexion ouvre directement le classement, en lecture seule. Il utilise le compte `invité` (rôle Pilote), créé automatiquement s'il n'existe pas sur le téléphone. Le bouton de retour le déconnecte.
+- **Tableau de bord** en trois sections : Préparer la compétition, Pendant la compétition, Administration. Seules les cartes autorisées pour le rôle s'affichent.
+- **Gestion des pilotes** : licence, nom, prénom, département, poids, email, année de naissance, genre (Homme ou Femme).
+- **Épreuves paramétrables** : variables à saisir, calcul par formule (exp4j) ou par barème de rang, options "afficher le classement" et "compte au général". Une épreuve peut être dupliquée avec ses variables et son barème, sans ses résultats.
+- **Planning des journées** : journée, ateliers du matin ou de l'après-midi, épreuves, avec horaires, lieu, responsable et ordre de passage. L'administrateur et le responsable de l'épreuve le modifient, le bénévole et le comité le consultent.
+- **Saisie des résultats** : formulaire généré selon l'épreuve, case "disqualifié / problème de sécurité" (0 point).
+- **Classements** : général et détail par épreuve, filtre Mixte / Hommes / Femmes. Un pilote inscrit sans résultat obtient 0 point.
+- **Suivi des participants** : recherche d'un pilote, total de points, rang et scores épreuve par épreuve (administrateur, responsable, bénévole).
+- **Gestion des comptes** (administrateur) : créer, activer ou désactiver, changer le mot de passe, supprimer. Le compte `admin` ne peut être ni supprimé ni désactivé.
+- **Stockage local** (SQLite / Room) : l'application fonctionne sans internet.
+- **Synchronisation avec Supabase** (administrateur et responsable de l'épreuve), voir plus bas.
+- Messages d'erreur en français.
 
-- **Planning des journées** : journées > créneaux (matin / après-midi) > ateliers > épreuves, avec horaires,
-  lieu, responsable et ordre de passage. Seuls l'administrateur et le responsable de l'épreuve le modifient ;
-  les autres rôles (sauf Pilote) le consultent. Synchronisé avec Supabase.
-- **Suivi des participants** : recherche d'un pilote, total de points, rang, scores épreuve par épreuve
-  (administrateur, responsable, bénévole).
-- **Dupliquer une épreuve** (variables et barème inclus, sans les résultats) depuis la liste des épreuves.
-- **Compte invité** : bouton « Non, je veux uniquement suivre le classement » sur l'écran de connexion.
-  Le compte `invité` (rôle Pilote = classement seulement) est créé automatiquement s'il n'existe pas.
-  Un compte de rôle **Pilote** arrive directement sur le classement ; « retour » le déconnecte.
-- **Tableau de bord** rangé en trois sections (Préparer / Pendant la compétition / Administration).
+## Corrections de la version 2.0
 
-### Corrections importantes
-- **Données qui « disparaissaient » après une coupure réseau** : l'envoi d'une épreuve supprime puis réécrit
-  ses variables et son barème en plusieurs requêtes ; une coupure entre les deux laissait l'épreuve VIDE en
-  ligne, et la réception suivante vidait ensuite les listes sur les autres appareils.
-  Désormais : (1) le démarrage automatique ne fait que **recevoir** (jamais d'envoi ni de suppression) ;
-  (2) une épreuve sans variables en ligne ne vide plus celles de l'appareil ; (3) on n'efface jamais en
-  ligne les variables d'une épreuve qui n'en a aucune ici ; (4) test de connexion rapide avant toute
-  synchronisation (échec en quelques secondes sans réseau).
-- **Modifier une épreuve changeait son identifiant (uuid)** : la synchronisation la prenait pour une autre
-  épreuve (doublons / épreuve supprimée qui réapparaît). L'identité est maintenant conservée.
-- **Valeurs vides lues « null »** : sur Android, un champ JSON `null` (caserne, genre, email...) était
-  enregistré comme le texte « null ». Corrigé (cela excluait aussi des pilotes des classements Hommes/Femmes).
-- **Base de données version 3 avec vraie migration** : les données du téléphone sont conservées.
-
-### Scripts Supabase (éditeur SQL)
-- `supabase_migration_v5_planning.sql` : tables du planning (inutile si elles existent déjà).
-- `supabase_migration_v4_suppression_comptes.sql` : à exécuter si un compte supprimé réapparaît en ligne.
+- **Épreuves vidées après une coupure réseau.**\
+L'envoi d'une épreuve supprime puis réécrit ses variables et son barème en plusieurs requêtes. Une coupure entre ces requêtes laissait l'épreuve vide en ligne, et la réception suivante vidait les listes des autres appareils. Désormais :
+  1. la synchronisation au démarrage ne fait que recevoir, sans envoi ni suppression
+  2. une épreuve sans variables en ligne ne vide plus celles du téléphone
+  3. les variables d'une épreuve ne sont jamais effacées en ligne si le téléphone n'en a aucune
+  4. un test de connexion rapide précède chaque synchronisation, qui échoue en quelques secondes sans réseau.
+- **Identifiant (uuid) modifié à chaque édition d'une épreuve.**\
+La synchronisation prenait l'épreuve modifiée pour une autre, ce qui créait des doublons ou faisait réapparaître des épreuves supprimées. L'identifiant est maintenant conservé.
+- **Champs vides enregistrés comme le texte "null".**\
+Sous Android, un champ JSON `null` (département, genre, email...) devenait la chaîne "null", ce qui excluait certains pilotes des classements Hommes et Femmes. Corrigé.
+- **Migrations de la base locale.**\
+Les mises à jour conservent les données du téléphone (voir plus bas).
 
 ## Lancer le projet
 
-1. Installer **Android Studio** (version récente, JDK 17 inclus).
-2. `File > Open` et choisir le dossier `parapente-pps-android`.
-3. Attendre la synchronisation Gradle (internet nécessaire la première fois).
-4. Brancher un téléphone Android (débogage USB activé) ou créer un émulateur, puis cliquer sur ▶ Run.
-5. Pour obtenir un fichier installable : `Build > Build Bundle(s) / APK(s) > Build APK(s)`.
+1. Installer **Android Studio** (version récente, JDK 17 inclus)
+2. `File > Open`, puis choisir le dossier `parapente-pps-android-v0.99`
+3. Attendre la synchronisation Gradle (internet nécessaire la première fois)
+4. Brancher un téléphone Android avec le débogage USB activé, ou créer un émulateur, puis cliquer sur ▶ Run
+5. Pour obtenir un fichier installable : `Build > Build Bundle(s) / APK(s) > Build APK(s)`
 
-Android 8.0 (API 26) minimum.
+Configuration : Android 8.0 (API 26) minimum, cible API 34, `versionName` 2.0
 
-La base locale est en **version 3** (ajout du planning). Depuis la version 2, la mise à jour se fait par une
-**vraie migration** : les données déjà présentes sur le téléphone sont conservées. (Seule une très vieille base
-en version 1 serait recréée.) En cas de doute, faites d'abord « Synchronisation → application → base en ligne »
-pour sauvegarder les données en ligne avant d'installer la mise à jour.
-
-## Changer le logo
-
-Remplacer `app/src/main/res/drawable/logo.png` par le logo du club (même nom de fichier,
-PNG, idéalement carré et fond transparent). Il sert aussi d'icône de l'application.
+La base locale est en **version 4**.\
+Les données du téléphone sont conservées, seule une base en version 1 est recréée donc par précaution, lancez "Application → base en ligne" avant d'installer une mise à jour, pour avoir une copie des données en ligne.
 
 ## Synchronisation en ligne (Supabase)
 
-Utilise **exactement la même base Supabase que la version PC** : si elle est déjà configurée côté
-PC (scripts `supabase_migration*.sql` déjà exécutés), il suffit de renseigner la même URL et la
-même clé API publique dans l'écran "Synchronisation en ligne" du téléphone — aucune configuration
-Supabase supplémentaire n'est nécessaire côté mobile.
+L'application utilise la même base Supabase que la version PC. Il suffit de saisir la même URL de projet et la même clé API publique dans l'écran "Synchronisation en ligne" du téléphone.
 
 Dans cet écran :
-1. Collez l'URL du projet et la clé API publique.
-2. "Tester la connexion" pour vérifier.
-3. Choisissez le sens : « base en ligne → application » (comme `git pull`), « application → base en ligne »
-   (comme `git push`) ou « Fusionner » (ne supprime jamais rien). Les deux premiers rendent les deux bases
-   identiques (suppressions comprises, comptes inclus sauf `admin`) et demandent une confirmation.
-   Pour supprimer quelque chose partout : le supprimer sur un appareil, puis « application → base en ligne » ;
-   sur les autres appareils, « base en ligne → application ».
-4. La case « au démarrage » récupère silencieusement les **nouveautés** à chaque ouverture (réception seule :
-   rien n'est envoyé ni supprimé ; n'empêche jamais l'ouverture hors ligne).
+1. Collez l'URL du projet et la clé API publique, puis enregistrez.
+2. Cliquez sur "Tester la connexion"
+3. Choisissez le sens :
+   - "Base en ligne → application" (comme `git pull`) : le téléphone devient identique à la base en ligne
+   - "Application → base en ligne" (comme `git push`) : la base en ligne devient identique au téléphone
+   - "Fusionner" : échange dans les deux sens, sans rien supprimer
 
-Les pilotes se fusionnent par numéro de licence, les comptes par identifiant, les inscriptions et
-résultats par couple pilote+épreuve : pas de doublon si la même donnée est créée indépendamment sur
-plusieurs appareils avant leur première synchronisation.
+   Les deux premiers modes suppriment ce qui n'existe plus de l'autre côté, comptes compris (sauf `admin`), et demandent une confirmation.\
+   Pour supprimer une donnée partout : supprimez-la sur un appareil et lancez "Application → base en ligne", puis "Base en ligne → application" sur les autres appareils.
+4. La case "au démarrage" récupère les nouveautés à chaque ouverture. Elle ne fait que recevoir et n'empêche pas l'ouverture hors-ligne
 
-**Les comptes utilisateurs sont eux aussi synchronisés** (mot de passe haché inclus) — choix
-volontaire pour un outil interne au club, identique à la version PC.
+Les pilotes sont rapprochés par numéro de licence, les comptes par identifiant, les inscriptions et les résultats par couple pilote + épreuve : une même donnée créée sur deux appareils avant leur première synchronisation ne produit pas de doublon.\
+En cas de conflit, la modification la plus récente est conservée.
+
+Les comptes utilisateurs sont synchronisés avec leur mot de passe haché (SHA-256), comme sur la version PC.\
+C'est un choix volontaire pour un outil interne au club.
 
 ## Structure
 
 ```
 app/src/main/java/com/pps/parapente/
 ├── MainActivity.kt
-├── data/      # Room (entités, DAO, base), Repository = logique métier (calcul formule/barème, classements)
-├── sync/      # Synchronisation Supabase (SyncConfig, SupabaseClient, SyncService, RapportSync)
-└── ui/        # Jetpack Compose : thème, composants, navigation, et screens/ (un fichier par écran)
+|
+├── data/      Room (entités, DAO, base, migrations), Repository : logique métier (calculs, classements, planning, comptes)
+|
+├── sync/      Synchronisation Supabase (SyncConfig, SupabaseClient, SyncService, RapportSync)
+|
+└── ui/        Jetpack Compose : thème, composants, navigation, et screens/ (un fichier par écran)
 ```
+
+## État par rapport à la version PC
+
+L'application mobile est en attente de synchronisation avec le build le plus récent de la version PC.\
+Ces fonctions de la version PC n'y sont pas encore :
+- numéro de pilote et catégorie pompier / open, avec le filtre de classement par catégorie
+- filtre "Général" à la place de "Mixte"
+- champs obligatoires d'un atelier (seul le nom l'est sur mobile)
+- export PDF du planning d'une journée
+- logo définitif
