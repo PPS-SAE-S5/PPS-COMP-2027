@@ -12,7 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.MockedConstruction;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -246,5 +248,23 @@ class CalculServiceTest {
 
         assertThrows(IllegalStateException.class,
                 () -> service.calculerEtEnregistrerFormule(e, new Pilote(), Map.of(), false, "x"));
+    }
+
+    @Test
+    void enregistrerValeurBaremeEnregistrePuisRecalcule() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100, 80);
+        Pilote p = new Pilote();
+        p.setId(7);
+
+        service.enregistrerValeurBareme(e, p, Map.of("distance", 12.0), false, "benevole1");
+
+        InOrder ordre = inOrder(resultatDAO);
+        ArgumentCaptor<Resultat> captor = ArgumentCaptor.forClass(Resultat.class);
+        ordre.verify(resultatDAO).enregistrer(captor.capture());
+        ordre.verify(resultatDAO).listerParEpreuve(1); // le recalcul relit les résultats
+
+        assertEquals(7, captor.getValue().getPiloteId());
+        assertEquals(0, captor.getValue().getPoints()); // les points sont calculés ensuite
+        assertEquals("benevole1", captor.getValue().getSaisiPar());
     }
 }
