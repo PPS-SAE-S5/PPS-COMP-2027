@@ -61,15 +61,15 @@ public class ClassementController {
     @FXML
     public void initialize() {
         if (estPilote()) {
-            // Le pilote n'a pas de tableau de bord : le bouton sert à se déconnecter
+            /* Le pilote n'a pas de tableau de bord : le bouton sert à se déconnecter */ 
             boutonRetour.setText("Déconnexion");
         }
         configurerColonnesDetail();
-        // Filtre Général / Hommes / Femmes
+        /* Filtre Général / Hommes / Femmes */
         comboFiltreGenre.setItems(FXCollections.observableArrayList(FiltreGenre.values()));
         comboFiltreGenre.setValue(FiltreGenre.GENERAL);
         comboFiltreGenre.valueProperty().addListener((obs, ancien, nouveau) -> actualiser());
-        // Filtre Toutes catégories / Pompiers / Open
+        /* Filtre Toutes catégories / Pompiers / Open */
         comboFiltreCategorie.setItems(FXCollections.observableArrayList(FiltreCategorie.values()));
         comboFiltreCategorie.setValue(FiltreCategorie.TOUTES);
         comboFiltreCategorie.valueProperty().addListener((obs, ancien, nouveau) -> actualiser());
@@ -100,14 +100,14 @@ public class ClassementController {
             labelFiltre.setManaged(afficherNote);
 
             chargerListeEpreuvesAffichables();
-            // Recharge explicitement le détail : si l'épreuve sélectionnée n'a pas changé, aucun événement n'est émis
+            /* Recharge explicitement le détail : si l'épreuve sélectionnée n'a pas changé, aucun événement n'est émis */
             chargerDetailEpreuve(comboEpreuveDetail.getValue());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Erreur de calcul du classement : " + MessageErreurUtil.traduire(e)).showAndWait();
         }
     }
 
-    // Classement général
+    /* Classement général */ 
 
     private void construireColonnesClassementGeneral() throws SQLException {
         tableClassement.getColumns().clear();
@@ -141,7 +141,7 @@ public class ClassementController {
         List<Epreuve> epreuvesComptees = epreuveService.listerToutes().stream()
                 .filter(Epreuve::isActif)
                 .filter(Epreuve::isCompteDansGeneral)
-                .filter(Epreuve::isAfficherClassement) // check si respecte la case "afficher le classement ou non"
+                .filter(Epreuve::isAfficherClassement) /*  check si la case "afficher le classement ou non" est respecter */
                 .toList();
 
         for (Epreuve epreuve : epreuvesComptees) {
@@ -159,7 +159,7 @@ public class ClassementController {
         tableClassement.getColumns().add(colTotal);
     }
 
-    // Détail par épreuve
+    /* Détail par épreuve */ 
 
     private void configurerColonnesDetail() {
         colDetailRang.setCellValueFactory(c -> new javafx.beans.property.SimpleIntegerProperty(
@@ -208,10 +208,10 @@ public class ClassementController {
             return;
         }
         try {
-            // Résultats triés par points décroissants = classement de cette seule épreuve
+            /* Résultats triés par points décroissants = classement de cette seule épreuve */ 
             List<Resultat> resultats = classementService.calculerClassementEpreuve(epreuve, filtreCourant(), categorieCourante());
             tableDetailEpreuve.getItems().setAll(resultats);
-            tableDetailEpreuve.refresh(); // pour recalculer les rangs affichés (basés sur la position dans la liste)
+            tableDetailEpreuve.refresh(); /* pour recalculer les rangs affichés (basés sur la position dans la liste) */
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Erreur de chargement du détail : " + MessageErreurUtil.traduire(e)).showAndWait();
         }
