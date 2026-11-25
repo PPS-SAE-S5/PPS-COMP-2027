@@ -220,3 +220,31 @@ ALTER TABLE pilotes ADD COLUMN IF NOT EXISTS categorie VARCHAR(10) DEFAULT 'POMP
 UPDATE pilotes SET categorie = 'POMPIER' WHERE categorie IS NULL OR categorie NOT IN ('POMPIER', 'OPEN');
 ALTER TABLE pilotes ALTER COLUMN categorie SET DEFAULT 'POMPIER';
 ALTER TABLE pilotes ALTER COLUMN categorie SET NOT NULL;
+
+-- ============================================================
+-- Historique des modifications de points (traçabilité) - version 0.7
+-- Journal en lecture seule : l'application ne fait QUE des INSERT et des SELECT sur cette table
+-- (aucune méthode de modification ou de suppression dans HistoriqueDAO).
+-- Volontairement SANS clé étrangère : l'historique doit survivre à la suppression d'une épreuve,
+-- d'un pilote ou d'un résultat (les autres tables utilisent ON DELETE CASCADE).
+-- Les noms (pilote, épreuve, catégorie) sont donc recopiés au moment de l'action.
+-- "uuid" : identifiant stable, pour une future synchronisation Supabase (simple union des lignes).
+-- ============================================================
+CREATE TABLE IF NOT EXISTS historique_points (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    uuid            VARCHAR(36) DEFAULT RANDOM_UUID() NOT NULL UNIQUE,
+    date_action     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    auteur          VARCHAR(100),           -- identifiant de l'utilisateur connecté
+    auteur_role     VARCHAR(40),            -- ADMINISTRATEUR, BENEVOLE, COMITE_PILOTES...
+    pilote_licence  VARCHAR(50),
+    pilote_nom      VARCHAR(220),
+    epreuve_uuid    VARCHAR(36),
+    epreuve_nom     VARCHAR(150),
+    categorie       VARCHAR(30),            -- ex : Pompier-H, Open-F
+    type_action     VARCHAR(20) NOT NULL,   -- SAISIE, MODIFICATION, DISQUALIFICATION, RECALCUL_BAREME, SUPPRESSION
+    points_avant    DOUBLE,                 -- NULL pour une première saisie
+    points_apres    DOUBLE,
+    motif           VARCHAR(500),           -- ex : Descente dangereuse
+    valeurs_json    VARCHAR(2000)           -- valeurs saisies après l'action
+);
+CREATE INDEX IF NOT EXISTS ix_historique_points_date ON historique_points(date_action)

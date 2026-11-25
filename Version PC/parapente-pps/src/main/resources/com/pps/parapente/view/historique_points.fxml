@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Historique des modifications de points : consultation uniquement (administrateur et comité des pilotes) -->
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pps.parapente.controller.HistoriquePointsController" prefWidth="1200" prefHeight="720">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
+            <Button text="&#8592; Retour" styleClass="bouton-secondaire" onAction="#retour"/>
+            <Label text="Historique des points" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Actualiser" styleClass="bouton-principal" onAction="#actualiser"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="12">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Épreuve :"/>
+                <ComboBox fx:id="comboEpreuve" prefWidth="240"/>
+                <Label text="Pilote :"/>
+                <TextField fx:id="champRecherche" promptText="Nom, prénom ou licence..." prefWidth="240"/>
+                <CheckBox fx:id="checkMasquerRecalculs" text="Masquer les recalculs automatiques du barème"/>
+            </HBox>
+
+            <TableView fx:id="tableHistorique" VBox.vgrow="ALWAYS" editable="false">
+                <placeholder>
+                    <Label text="Aucune modification de points enregistrée pour le moment." style="-fx-text-fill:#7f8c8d;"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="colDate" text="Date" prefWidth="140"/>
+                    <TableColumn fx:id="colAction" text="Action" prefWidth="130"/>
+                    <TableColumn fx:id="colMessage" text="Journal" prefWidth="700"/>
+                    <TableColumn fx:id="colEcart" text="Écart" prefWidth="80"/>
+                    <TableColumn fx:id="colTotal" text="Points après" prefWidth="100"/>
+                </columns>
+            </TableView>
+
+            <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
+            <Label fx:id="labelNbLignes" style="-fx-text-fill:#566779; -fx-font-size:12px;"/>
+        </VBox>
+    </center>
+</BorderPane>

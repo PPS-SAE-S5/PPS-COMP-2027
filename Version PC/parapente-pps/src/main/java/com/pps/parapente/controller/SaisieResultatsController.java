@@ -29,6 +29,7 @@ public class SaisieResultatsController {
     @FXML private ComboBox<Pilote> comboPilote;
     @FXML private VBox conteneurChampsDynamiques;
     @FXML private CheckBox checkDisqualifie;
+    @FXML private TextField champMotif;
     @FXML private Label labelErreur;
     @FXML private Label labelInfo;
 
@@ -153,6 +154,7 @@ public class SaisieResultatsController {
         try {
             var resultatOpt = new com.pps.parapente.dao.ResultatDAO().trouver(epreuve.getId(), pilote.getId());
             checkDisqualifie.setSelected(false);
+            champMotif.clear();
             for (TextField champ : champsDynamiques.values()) champ.clear();
             resultatOpt.ifPresent(r -> {
                 checkDisqualifie.setSelected(r.isDisqualifie());
@@ -189,15 +191,17 @@ public class SaisieResultatsController {
         }
 
         boolean disqualifie = checkDisqualifie.isSelected();
+        String motif = champMotif.getText() != null && !champMotif.getText().isBlank() ? champMotif.getText().trim() : null;
         String saisiPar = SessionManager.getUtilisateurConnecte() != null
                 ? SessionManager.getUtilisateurConnecte().getIdentifiant() : "inconnu";
 
         try {
             if (epreuve.getModeCalcul() == ModeCalcul.FORMULE) {
-                calculService.calculerEtEnregistrerFormule(epreuve, pilote, valeurs, disqualifie, saisiPar);
+                calculService.calculerEtEnregistrerFormule(epreuve, pilote, valeurs, disqualifie, saisiPar, motif);
             } else {
-                calculService.enregistrerValeurBareme(epreuve, pilote, valeurs, disqualifie, saisiPar);
+                calculService.enregistrerValeurBareme(epreuve, pilote, valeurs, disqualifie, saisiPar, motif);
             }
+            champMotif.clear();
             afficherInfo("Résultat enregistré pour " + pilote.getNomComplet() + ".");
             chargerTableResultats(epreuve);
         } catch (IllegalStateException | IllegalArgumentException e) {
