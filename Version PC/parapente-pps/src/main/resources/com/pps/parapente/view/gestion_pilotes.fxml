@@ -14,6 +14,8 @@
     <center>
         <TableView fx:id="tablePilotes" BorderPane.alignment="CENTER">
             <columns>
+                <TableColumn fx:id="colNumeroPilote" text="N° pilote" prefWidth="70"/>
+                <TableColumn fx:id="colCategorie" text="Catégorie" prefWidth="80"/>
                 <TableColumn fx:id="colLicence" text="N° Licence" prefWidth="100"/>
                 <TableColumn fx:id="colNom" text="Nom" prefWidth="110"/>
                 <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="110"/>
@@ -26,10 +28,22 @@
         </TableView>
     </center>
     <right>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;">
         <VBox spacing="8" prefWidth="290" styleClass="carte-menu">
             <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
             <Label text="Fiche pilote" styleClass="sous-titre"/>
 
+            <HBox spacing="8">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="N° de pilote"/>
+                    <TextField fx:id="champNumeroPilote" promptText="ex : 45"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Catégorie"/>
+                    <ComboBox fx:id="champCategorie" maxWidth="Infinity"/>
+                </VBox>
+            </HBox>
+            <Label fx:id="labelRegleCategorie" wrapText="true" style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
             <Label text="N° de licence *"/>
             <TextField fx:id="champLicence"/>
             <Label text="Nom *"/>
@@ -58,5 +72,6 @@
                 <Button text="Nouveau" styleClass="bouton-secondaire" onAction="#viderFormulaire"/>
             </HBox>
         </VBox>
+        </ScrollPane>
     </right>
 </BorderPane>

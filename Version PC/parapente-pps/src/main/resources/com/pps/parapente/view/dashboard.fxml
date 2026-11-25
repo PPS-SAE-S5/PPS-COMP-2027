@@ -9,8 +9,8 @@
             fx:controller="com.pps.parapente.controller.DashboardController" prefWidth="1200" prefHeight="900">
     <top>
         <HBox alignment="CENTER_LEFT" spacing="12" styleClass="bandeau">
-            <!-- Remplacer le logo quand on aura le vrai logo (viiite) -->
-            <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+            <!-- Emplacement du logo -->
+            <ImageView fitWidth="90" fitHeight="90" preserveRatio="true" smooth="true">
                 <Image url="@logo.png"/>
             </ImageView>
             <Label text="Championnat de France de Parapente sapeur-pompiers" style="-fx-font-size:18px; -fx-font-weight:bold;"/>

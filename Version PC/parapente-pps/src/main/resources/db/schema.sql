@@ -96,6 +96,10 @@ CREATE TABLE IF NOT EXISTS resultats (
 MERGE INTO utilisateurs (id, identifiant, mot_de_passe, role, actif) KEY(id)
 VALUES (1, 'admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'ADMINISTRATEUR', TRUE);
 
+-- Compte invité par défaut (identifiant: invité / mdp: invitationPPS), utilisé par le bouton "Non, je veux uniquement suivre le classement"
+MERGE INTO utilisateurs (identifiant, mot_de_passe, role, actif) KEY(identifiant)
+VALUES ('invité', '26767f9b3ea850a91cf7c1b4492b3969f269465c60f9ef3625059b2298cadb7e', 'PILOTE', TRUE);
+
 -- ============================================================
 -- Colonnes de synchronisation Supabase (version 0.3)
 -- Ajoutées avec IF NOT EXISTS : ne modifie rien chez ceux qui n'utilisent pas la synchronisation.
@@ -160,7 +164,8 @@ ALTER TABLE resultats ALTER COLUMN updated_at SET DEFAULT CURRENT_TIMESTAMP;
 -- "catégorie" (texte libre) remplacé par "genre" (Homme / Femme) - version 0.4
 -- ============================================================
 ALTER TABLE pilotes ADD COLUMN IF NOT EXISTS genre VARCHAR(10);
-ALTER TABLE pilotes DROP COLUMN IF EXISTS categorie;
+-- (L'ancienne colonne texte libre "categorie" était supprimée ici. Le nom est réutilisé
+--  à partir de la version 0.6 pour la catégorie POMPIER / OPEN : voir plus bas.)
 
 -- ============================================================
 -- Planning : journees > ateliers > epreuves - version 0.5
@@ -201,3 +206,17 @@ CREATE TABLE IF NOT EXISTS atelier_epreuves (
     FOREIGN KEY (epreuve_id) REFERENCES epreuves(id) ON DELETE CASCADE,
     UNIQUE(epreuve_id)
 );
+
+-- ============================================================
+-- Catégories pompier / open
+-- "numero_pilote" : numéro attribué par l'organisation (facultatif, unique s'il est renseigné).
+-- "categorie"     : POMPIER (participe au championnat) ou OPEN (classé, mais hors championnat).
+--                   Déduite du numéro de pilote à l'inscription (règle dans data/categories.properties).
+-- Les pilotes déjà enregistrés passent en POMPIER, une ancienne valeur texte libre est remplacée.
+-- ============================================================
+ALTER TABLE pilotes ADD COLUMN IF NOT EXISTS numero_pilote INT;
+CREATE UNIQUE INDEX IF NOT EXISTS ux_pilotes_numero_pilote ON pilotes(numero_pilote);
+ALTER TABLE pilotes ADD COLUMN IF NOT EXISTS categorie VARCHAR(10) DEFAULT 'POMPIER';
+UPDATE pilotes SET categorie = 'POMPIER' WHERE categorie IS NULL OR categorie NOT IN ('POMPIER', 'OPEN');
+ALTER TABLE pilotes ALTER COLUMN categorie SET DEFAULT 'POMPIER';
+ALTER TABLE pilotes ALTER COLUMN categorie SET NOT NULL;

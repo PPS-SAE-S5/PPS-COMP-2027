@@ -141,7 +141,7 @@ public class SuiviParticipantsController {
         int n = pilotesFiltres.size();
         labelNbResultats.setText(n + (n > 1 ? " pilotes" : " pilote") + (n == tousLesPilotes.size() ? "" : " sur " + tousLesPilotes.size()));
 
-        // Un seul résultat
+        /* Un seul résultat */ 
         if (n == 1) {
             listePilotes.getSelectionModel().select(0);
         }

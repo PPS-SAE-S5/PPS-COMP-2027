@@ -56,7 +56,7 @@ public class SuiviParticipantService {
         }
 
         // Total & rang 
-        List<LigneClassement> classement = classementService.calculerClassementGeneral(FiltreGenre.MIXTE);
+        List<LigneClassement> classement = classementService.calculerClassementGeneral(FiltreGenre.GENERAL);
         double total = 0;
         int rang = 0;
         for (LigneClassement l : classement) {

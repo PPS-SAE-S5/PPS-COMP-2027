@@ -9,7 +9,8 @@ public class Atelier {
     private String uuid;
     private int journeeId;
     private String nom;
-    private Creneau creneau = Creneau.MATIN;
+    /** null tant que le créneau n'a pas été choisi : il est obligatoire à l'enregistrement. */
+    private Creneau creneau;
     private String heureDebut;
     private String heureFin;
     private String lieu;

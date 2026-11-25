@@ -41,6 +41,9 @@ public final class MessageErreurUtil {
         }
 
         if (m.contains("unique index or primary key violation") || m.contains("duplicate")) {
+            if (m.contains("numero_pilote")) {
+                return "Ce numéro de pilote est déjà attribué à un autre pilote.";
+            }
             if (m.contains("numero_licence") || m.contains("pilotes")) {
                 return "Ce numéro de licence est déjà utilisé par un autre pilote.";
             }

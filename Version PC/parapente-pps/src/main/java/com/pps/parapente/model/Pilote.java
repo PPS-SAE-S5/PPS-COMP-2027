@@ -16,6 +16,10 @@ public class Pilote {
     private Integer anneeNaissance;
     private String genre;
     private LocalDateTime dateInscription;
+    /** Numéro de pilote (dossard) attribué par l'organisation ; facultatif. */
+    private Integer numeroPilote;
+    /** Pompier (championnat) ou open (hors championnat), déduite du numéro de pilote à l'inscription. */
+    private Categorie categorie = Categorie.POMPIER;
 
     public Pilote() {}
 
@@ -55,6 +59,10 @@ public class Pilote {
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }
 
+    public Integer getNumeroPilote() { return numeroPilote; }
+    public void setNumeroPilote(Integer numeroPilote) { this.numeroPilote = numeroPilote; }
+    public Categorie getCategorie() { return categorie; }
+    public void setCategorie(Categorie categorie) { this.categorie = categorie != null ? categorie : Categorie.POMPIER; }
     public LocalDateTime getDateInscription() { return dateInscription; }
     public void setDateInscription(LocalDateTime dateInscription) { this.dateInscription = dateInscription; }
 

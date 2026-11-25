@@ -1,5 +1,6 @@
 package com.pps.parapente.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,10 +8,15 @@ import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.MockedConstruction;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.pps.parapente.dao.InscriptionDAO;
@@ -19,6 +25,7 @@ import com.pps.parapente.dao.ResultatDAO;
 import com.pps.parapente.model.BaremePoint;
 import com.pps.parapente.model.Epreuve;
 import com.pps.parapente.model.ModeCalcul;
+import com.pps.parapente.model.Pilote;
 import com.pps.parapente.model.Resultat;
 import com.pps.parapente.model.SensClassement;
 
@@ -73,6 +80,14 @@ class CalculServiceTest {
         r.setDisqualifie(disqualifie);
         return r;
     }
+
+    private Epreuve epreuveFormule(String formule) {
+        Epreuve e = new Epreuve();
+        e.setId(1);
+        e.setModeCalcul(ModeCalcul.FORMULE);
+        e.setFormule(formule);
+        return e;
+    }
     
     // ---------- evaluerFormule ----------
 
@@ -122,5 +137,134 @@ class CalculServiceTest {
 
         assertEquals(100, rapide.getPoints());
         assertEquals(80, lent.getPoints());
+    }
+
+    @Test
+    void disqualifieReste0EtNePrendPasDeRang() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100, 80);
+        Resultat disqualifie = resultat(1, Map.of("distance", 99.0), true);
+        Resultat normal = resultat(2, Map.of("distance", 10.0), false);
+        when(resultatDAO.listerParEpreuve(1)).thenReturn(List.of(disqualifie, normal));
+
+        service.recalculerBareme(e);
+
+        assertEquals(0, disqualifie.getPoints());
+        assertEquals(100, normal.getPoints()); // il récupère le rang 1
+    }
+
+    @Test
+    void resultatSansValeurCleReste0() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100, 80);
+        Resultat incomplet = resultat(1, Map.of("temps", 5.0), false);
+        Resultat normal = resultat(2, Map.of("distance", 10.0), false);
+        when(resultatDAO.listerParEpreuve(1)).thenReturn(List.of(incomplet, normal));
+
+        service.recalculerBareme(e);
+
+        assertEquals(0, incomplet.getPoints());
+        assertEquals(100, normal.getPoints());
+    }
+
+    @Test
+    void auDelaDuBaremeOnAppliqueLeDernierPalier() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100, 50);
+        Resultat a = resultat(1, Map.of("distance", 30.0), false);
+        Resultat b = resultat(2, Map.of("distance", 20.0), false);
+        Resultat c = resultat(3, Map.of("distance", 10.0), false);
+        when(resultatDAO.listerParEpreuve(1)).thenReturn(List.of(a, b, c));
+
+        service.recalculerBareme(e);
+
+        assertEquals(50, c.getPoints()); // rang 3, le barème s'arrête à 2
+    }
+
+    @Test
+    void baremeVideToutLeMondeA0() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC); // aucun palier
+        Resultat a = resultat(1, Map.of("distance", 30.0), false);
+        when(resultatDAO.listerParEpreuve(1)).thenReturn(List.of(a));
+
+        service.recalculerBareme(e);
+
+        assertEquals(0, a.getPoints());
+    }
+
+    @Test
+    void valeurCleVideOuNullLeveUneException() {
+        Epreuve vide = epreuveBareme(" ", SensClassement.DESC, 100);
+        Epreuve nulle = epreuveBareme(null, SensClassement.DESC, 100);
+
+        assertThrows(IllegalStateException.class, () -> service.recalculerBareme(vide));
+        assertThrows(IllegalStateException.class, () -> service.recalculerBareme(nulle));
+    }
+
+    @Test
+    void mauvaisModeLeveUneException() {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100);
+        e.setModeCalcul(ModeCalcul.FORMULE);
+
+        assertThrows(IllegalStateException.class, () -> service.recalculerBareme(e));
+    }
+    
+    @Test
+    void formuleUtiliseAgeEtPoidsDuPilote() throws Exception {
+        Epreuve e = epreuveFormule("distance + age + poidsPilote");
+        Pilote p = new Pilote();
+        p.setId(7);
+        p.setAnneeNaissance(LocalDate.now().getYear() - 30); // age = 30
+        p.setPoids(80.0);
+
+        Resultat r = service.calculerEtEnregistrerFormule(e, p, Map.of("distance", 10.0), false, "benevole1");
+
+        assertEquals(120.0, r.getPoints(), 0.0001); // 10 + 30 + 80
+        ArgumentCaptor<Resultat> captor = ArgumentCaptor.forClass(Resultat.class);
+        verify(resultatDAO).enregistrer(captor.capture());
+        assertEquals("benevole1", captor.getValue().getSaisiPar());
+        assertEquals(7, captor.getValue().getPiloteId());
+    }
+
+    @Test
+    void piloteSansPoidsNiAnneeDeNaissanceVaut0DansLaFormule() throws Exception {
+        Epreuve e = epreuveFormule("distance + age + poidsPilote");
+
+        Resultat r = service.calculerEtEnregistrerFormule(e, new Pilote(), Map.of("distance", 10.0), false, "x");
+
+        assertEquals(10.0, r.getPoints(), 0.0001); // age = 0, poidsPilote = 0
+    }
+
+    @Test
+    void formuleDisqualifieDonne0PointSansEvaluer() throws Exception {
+        Epreuve e = epreuveFormule("formule invalide (((");
+
+        Resultat r = service.calculerEtEnregistrerFormule(e, new Pilote(), Map.of(), true, "benevole1");
+
+        assertEquals(0, r.getPoints());
+        assertTrue(r.isDisqualifie());
+    }
+
+    @Test
+    void formuleMauvaisModeLeveUneException() {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100);
+
+        assertThrows(IllegalStateException.class,
+                () -> service.calculerEtEnregistrerFormule(e, new Pilote(), Map.of(), false, "x"));
+    }
+
+    @Test
+    void enregistrerValeurBaremeEnregistrePuisRecalcule() throws Exception {
+        Epreuve e = epreuveBareme("distance", SensClassement.DESC, 100, 80);
+        Pilote p = new Pilote();
+        p.setId(7);
+
+        service.enregistrerValeurBareme(e, p, Map.of("distance", 12.0), false, "benevole1");
+
+        InOrder ordre = inOrder(resultatDAO);
+        ArgumentCaptor<Resultat> captor = ArgumentCaptor.forClass(Resultat.class);
+        ordre.verify(resultatDAO).enregistrer(captor.capture());
+        ordre.verify(resultatDAO).listerParEpreuve(1); // le recalcul relit les résultats
+
+        assertEquals(7, captor.getValue().getPiloteId());
+        assertEquals(0, captor.getValue().getPoints()); // les points sont calculés ensuite
+        assertEquals("benevole1", captor.getValue().getSaisiPar());
     }
 }
