@@ -131,4 +131,14 @@ class PlanningDAOTest extends DaoTestBase {
         assertEquals(2, dao.compterAteliers(j1.getId()));
         assertEquals(0, dao.compterAteliers(j2.getId()));
     }
+    
+    @Test
+    void compterEpreuvesActivesIgnoreLesInactives() throws SQLException {
+        nouvelleEpreuve("Active");
+        Epreuve inactive = nouvelleEpreuve("Inactive");
+        inactive.setActif(false);
+        new EpreuveDAO().mettreAJour(inactive);
+
+        assertEquals(1, dao.compterEpreuvesActives());
+    }
 }
