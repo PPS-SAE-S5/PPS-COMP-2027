@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -91,5 +92,18 @@ class PlanningDAOTest extends DaoTestBase {
         assertEquals(List.of("Libre"),
                 dao.listerEpreuvesNonAffectees().stream().map(Epreuve::getNom).toList());
         assertEquals(2, dao.listerEpreuvesDisponibles(a.getId()).size()); // libre + déjà dans l'atelier
+    }
+
+    @Test
+    void champsVidesSontEnregistresCommeNull() throws SQLException {
+        Journee j = journee("J1");
+        Atelier a = atelier(j, "Atelier");
+        a.setLieu("   ");
+        a.setResponsable("");
+        dao.mettreAJourAtelier(a);
+
+        Atelier lu = dao.listerAteliers(j.getId()).get(0);
+        assertNull(lu.getLieu());
+        assertNull(lu.getResponsable());
     }
 }
