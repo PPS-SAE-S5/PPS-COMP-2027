@@ -35,4 +35,18 @@ class InscriptionDAOTest extends DaoTestBase {
 
         assertTrue(dao.listerPilotesInscrits(e.getId()).isEmpty());
     }
+
+    @Test
+    void inscrireTousLesPilotesSansDoubler() throws SQLException {
+        Pilote a = nouveauPilote("L1", "Dupont");
+        Pilote b = nouveauPilote("L2", "Martin");
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        dao.inscrire(a.getId(), e.getId()); // déjà inscrit
+
+        dao.inscrireTousLesPilotes(e.getId());
+
+        List<Integer> inscrits = dao.listerPilotesInscrits(e.getId());
+        assertEquals(2, inscrits.size());
+        assertTrue(inscrits.containsAll(List.of(a.getId(), b.getId())));
+    }
 }
