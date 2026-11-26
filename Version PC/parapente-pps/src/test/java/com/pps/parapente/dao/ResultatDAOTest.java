@@ -7,6 +7,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.pps.parapente.model.Epreuve;
@@ -41,5 +42,19 @@ class ResultatDAOTest extends DaoTestBase {
         assertFalse(lu.isDisqualifie());
         assertEquals("benevole1", lu.getSaisiPar());
         assertNotNull(lu.getDateSaisie());
+    }
+
+    @Test
+    void enregistrerDeuxFoisMetAJourSansDoublon() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        Pilote p = nouveauPilote("L1", "Dupont");
+        dao.enregistrer(resultat(e, p, 10.0, false));
+
+        dao.enregistrer(resultat(e, p, 55.0, true));
+
+        assertEquals(1, dao.listerParEpreuve(e.getId()).size());
+        Resultat lu = dao.trouver(e.getId(), p.getId()).orElseThrow();
+        assertEquals(55.0, lu.getPoints(), 1e-9);
+        assertTrue(lu.isDisqualifie());
     }
 }
