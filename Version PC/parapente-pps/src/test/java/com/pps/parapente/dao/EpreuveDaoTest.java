@@ -63,4 +63,17 @@ class EpreuveDAOTest extends DaoTestBase {
         assertEquals(2, lue.getBareme().size());
         assertTrue(lue.getParametres().isEmpty());
     }
+
+    @Test
+    void listerToutesTrieParOrdre() throws SQLException {
+        Epreuve b = nouvelleEpreuve("B");
+        b.setOrdre(2);
+        dao.mettreAJour(b);
+        Epreuve a = nouvelleEpreuve("A");
+        a.setOrdre(1);
+        dao.mettreAJour(a);
+
+        assertEquals(List.of("A", "B"),
+                dao.listerToutes().stream().map(Epreuve::getNom).toList());
+    }
 }
