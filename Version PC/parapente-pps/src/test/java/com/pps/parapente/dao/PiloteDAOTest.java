@@ -78,4 +78,19 @@ class PiloteDAOTest extends DaoTestBase {
 
         assertThrows(SQLException.class, () -> dao.mettreAJour(b));
     }
+
+    @Test
+    void mettreAJourModifieLesChamps() throws SQLException {
+        Pilote p = nouveauPilote("LIC-001", "Dupont");
+        p.setNom("Durand");
+        p.setPoids(75.0);
+        p.setCategorie(Categorie.OPEN);
+
+        dao.mettreAJour(p);
+
+        Pilote lu = dao.trouverParId(p.getId()).orElseThrow();
+        assertEquals("Durand", lu.getNom());
+        assertEquals(75.0, lu.getPoids(), 1e-9);
+        assertEquals(Categorie.OPEN, lu.getCategorie());
+    }
 }
