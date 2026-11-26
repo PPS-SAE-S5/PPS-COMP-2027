@@ -13,10 +13,11 @@
 - [9. Classements](#9-classements)
 - [10. Suivi des participants](#10-suivi-des-participants)
 - [11. Gestion des comptes (administrateur)](#11-gestion-des-comptes-administrateur)
-- [12. Synchronisation en ligne](#12-synchronisation-en-ligne)
-- [13. Stockage des données et sauvegarde](#13-stockage-des-données-et-sauvegarde)
-- [14. Classement sur internet](#14-classement-sur-internet)
-- [15. Questions fréquentes](#15-questions-fréquentes)
+- [12. Historique des points](#12-historique-des-points)
+- [13. Synchronisation en ligne](#13-synchronisation-en-ligne)
+- [14. Stockage des données et sauvegarde](#14-stockage-des-données-et-sauvegarde)
+- [15. Classement sur internet](#15-classement-sur-internet)
+- [16. Questions fréquentes](#16-questions-fréquentes)
 
 ---
 
@@ -318,7 +319,75 @@ Cet écran, réservé à l'administrateur, gère les comptes des personnes qui o
 
 ---
 
-## 12. Synchronisation en ligne
+## 12. Historique des points
+ 
+Cet écran garde la trace des modifications de points : **qui** a modifié, **quand**, **pour quel pilote**, **sur quelle épreuve** et, s'il a été indiqué, **pourquoi**. Il permet de vérifier un score en cas de litige.
+ 
+Il est réservé à l'**administrateur** et au **comité des pilotes**. Depuis le tableau de bord, cliquez sur la carte **Historique des points** (section **Administration**).
+ 
+![Historique des points](./Captures/interface_historique.png)
+ 
+### 12.1 Ce qui est enregistré
+ 
+Les lignes sont ajoutées automatiquement lors de la saisie des résultats ([section 8](#8-saisie-des-résultats)) :
+ 
+| Action | Quand la ligne est ajoutée |
+|---|---|
+| **Saisie** | Premier résultat d'un pilote sur une épreuve |
+| **Modification** | Un résultat déjà saisi est corrigé et les points ou la disqualification changent |
+| **Disqualification** | Un pilote est disqualifié, dès la première saisie ou lors d'une correction |
+| **Recalcul du barème** | Les points d'un autre pilote changent à la suite d'une saisie, sur une épreuve en mode barème |
+ 
+> Une correction qui ne change ni les points ni la disqualification n'ajoute aucune ligne.
+ 
+### 12.2 Indiquer un motif
+ 
+Dans l'écran **Saisie des résultats**, le champ **Motif (facultatif, conservé dans l'historique des points)** permet d'expliquer une saisie ou une correction, par exemple « Descente dangereuse ». Remplissez-le avant de cliquer sur **Enregistrer le résultat**. Il est limité à 500 caractères.
+ 
+> Le motif ne peut pas être ajouté après coup. Il n'est pas conservé si l'enregistrement ne change ni les points ni la disqualification.
+ 
+### 12.3 Lire le tableau
+ 
+Les lignes sont affichées de la plus récente à la plus ancienne.
+ 
+| Colonne | Contenu |
+|---|---|
+| **Date** | Date et heure de l'action (jour/mois/année, heures:minutes:secondes) |
+| **Action** | Saisie, Modification, Disqualification ou Recalcul du barème |
+| **Journal** | Phrase qui résume l'action : rôle et identifiant de l'auteur, pilote, points gagnés ou perdus, catégorie, épreuve et motif |
+| **Écart** | Différence de points : en vert pour un gain, en rouge pour une perte, 0 si le total ne change pas |
+| **Points après** | Points du pilote sur l'épreuve après l'action |
+ 
+Exemple de phrase du journal :
+ 
+```
+Responsable de l'épreuve [jmartin] : Participant [Jean Dupont] perd 550 pts en catégorie Pompier-H sur « Précision » pour « Descente dangereuse » (disqualification)
+```
+ 
+Si la phrase est coupée, placez la souris dessus pour l'afficher en entier.
+ 
+> Pour un **recalcul du barème**, l'auteur indiqué est la personne dont la saisie a déclenché le recalcul.
+ 
+### 12.4 Filtrer et actualiser
+ 
+- **Épreuve** : affiche une seule épreuve, ou **Toutes les épreuves**.
+- **Pilote** : recherche par nom, prénom ou numéro de licence.
+- **Masquer les recalculs automatiques du barème** : n'affiche que les autres actions.
+- **Actualiser** : recharge l'historique.
+- **← Retour** : revient au tableau de bord.
+Les filtres se combinent. Le nombre de lignes affichées, sur le total, est indiqué sous le tableau.
+ 
+### 12.5 À savoir
+ 
+- L'historique est en **lecture seule** : aucune ligne ne peut être modifiée ou supprimée depuis l'application.
+- Les lignes restent visibles après la **suppression d'un pilote ou d'une épreuve**. La suppression elle-même n'ajoute pas de ligne.
+- Les noms du pilote et de l'épreuve, ainsi que la catégorie, sont ceux **au moment de l'action** : un changement ultérieur ne modifie pas les anciennes lignes.
+- L'historique est **propre à chaque ordinateur** : il n'est pas envoyé par la synchronisation en ligne ([section 13](#13-synchronisation-en-ligne)). Il est enregistré dans le dossier `data/` : pensez à le sauvegarder ([section 14](#14-stockage-des-données-et-sauvegarde)).
+ 
+
+---
+
+## 13. Synchronisation en ligne
 
 Les données sont enregistrées sur l'ordinateur. Quand internet est disponible, cet écran envoie ou reçoit les données de la base en ligne (Supabase), partagée entre tous les ordinateurs et téléphones du championnat.
 
@@ -326,13 +395,13 @@ Cet écran est réservé à l'administrateur et au responsable de l'épreuve.
 
 ![Synchronisation en ligne](../Sprint%202/Captures/interface_sync.png)
 
-### 12.1 Première configuration
+### 13.1 Première configuration
 
 1. Collez l'**URL du projet** et la **clé API publique**, fournies par la personne en charge technique.
 2. Cliquez sur **Enregistrer la configuration**, puis sur **Tester la connexion**.
 3. (Facultatif) Cochez la **récupération automatique au démarrage** : à chaque lancement, l'application récupère les nouveautés en ligne. Elle ne fait que recevoir : rien n'est envoyé ni supprimé, et le lancement n'est pas bloqué si vous êtes hors-ligne.
 
-### 12.2 Choisir le sens de la synchronisation
+### 13.2 Choisir le sens de la synchronisation
 
 | Bouton | Effet |
 |---|---|
@@ -350,7 +419,7 @@ Un résumé indique ensuite le nombre de lignes reçues, envoyées ou supprimée
 
 ---
 
-## 13. Stockage des données et sauvegarde
+## 14. Stockage des données et sauvegarde
 
 Toutes les données (pilotes, épreuves, planning, résultats, comptes) sont stockées sur l'ordinateur, dans le dossier `data/` situé à côté de l'application. L'application n'a pas besoin d'internet pour fonctionner ; la synchronisation ([section 12](#12-synchronisation-en-ligne)) sert à partager les données.
 
@@ -362,7 +431,7 @@ Le dossier `data/` contient aussi deux fichiers de réglages :
 
 ---
 
-## 14. Classement sur internet
+## 15. Classement sur internet
 
 Le classement est publié en lecture seule sur la page [pps-classement.vercel.app](https://pps-classement.vercel.app/), accessible depuis n'importe quel navigateur, sans compte.
 
@@ -377,7 +446,7 @@ La page affiche les données de la base en ligne : un résultat saisi sur un ord
 
 ---
 
-## 15. Questions fréquentes
+## 16. Questions fréquentes
 
 **Un pilote n'apparaît pas dans la liste au moment de la saisie des résultats.**
 Vérifiez que l'épreuve est cochée « Active ». Un pilote est inscrit automatiquement aux épreuves actives au moment de son ajout.
