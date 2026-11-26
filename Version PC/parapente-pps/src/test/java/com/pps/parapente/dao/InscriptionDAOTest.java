@@ -76,4 +76,18 @@ class InscriptionDAOTest extends DaoTestBase {
             assertEquals(1, dao.listerEpreuvesDuPilote(p.getId()).size()); // pas de cascade
         }
     }
+
+    @Test
+    void listerEpreuvesDuPiloteRetourneSesEpreuves() throws SQLException {
+        Pilote p = nouveauPilote("L1", "Dupont");
+        Epreuve e1 = nouvelleEpreuve("E1");
+        Epreuve e2 = nouvelleEpreuve("E2");
+        dao.inscrire(p.getId(), e1.getId());
+        dao.inscrire(p.getId(), e2.getId());
+
+        List<Integer> epreuves = dao.listerEpreuvesDuPilote(p.getId());
+
+        assertEquals(2, epreuves.size());
+        assertTrue(epreuves.containsAll(List.of(e1.getId(), e2.getId())));
+    }
 }
