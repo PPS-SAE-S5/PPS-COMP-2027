@@ -76,4 +76,13 @@ class EpreuveDAOTest extends DaoTestBase {
         assertEquals(List.of("A", "B"),
                 dao.listerToutes().stream().map(Epreuve::getNom).toList());
     }
+
+    @Test
+    void supprimerRetireLEpreuve() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+
+        dao.supprimer(e.getId());
+
+        assertTrue(dao.trouverParId(e.getId()).isEmpty());
+    }
 }
