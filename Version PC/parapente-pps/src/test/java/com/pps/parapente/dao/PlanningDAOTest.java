@@ -181,4 +181,13 @@ class PlanningDAOTest extends DaoTestBase {
         assertEquals("Finale", lue.getNom());
         assertEquals(LocalDate.of(2027, 1, 2), lue.getDateJournee());
     }
+
+    @Test
+    void journeeSansDateEstRelueNull() throws SQLException {
+        Journee j = new Journee();
+        j.setNom("Sans date");
+        dao.creerJournee(j);
+
+        assertNull(dao.listerJournees().get(0).getDateJournee());
+    }
 }
