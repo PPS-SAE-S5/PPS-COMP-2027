@@ -113,4 +113,18 @@ class ResultatDAOTest extends DaoTestBase {
         assertEquals(3.25, lues.get("temps"), 1e-9);
         assertEquals(4.0, lues.get("balises"), 1e-9);
     }
+
+    @Test
+    void deuxPilotesSurLaMemeEpreuveSontDistincts() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        Pilote a = nouveauPilote("L1", "Dupont");
+        Pilote b = nouveauPilote("L2", "Martin");
+
+        dao.enregistrer(resultat(e, a, 10.0, false));
+        dao.enregistrer(resultat(e, b, 20.0, false));
+
+        assertEquals(2, dao.listerParEpreuve(e.getId()).size());
+        assertEquals(10.0, dao.trouver(e.getId(), a.getId()).orElseThrow().getPoints(), 1e-9);
+        assertEquals(20.0, dao.trouver(e.getId(), b.getId()).orElseThrow().getPoints(), 1e-9);
+    }
 }
