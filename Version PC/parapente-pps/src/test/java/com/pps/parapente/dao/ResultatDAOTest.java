@@ -79,4 +79,15 @@ class ResultatDAOTest extends DaoTestBase {
         assertEquals(1, dao.listerParEpreuve(e1.getId()).size());
         assertEquals(2, dao.listerTous().size());
     }
+
+    @Test
+    void supprimerRetireLeResultat() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        Pilote p = nouveauPilote("L1", "Dupont");
+        dao.enregistrer(resultat(e, p, 1.0, false));
+
+        dao.supprimer(e.getId(), p.getId());
+
+        assertTrue(dao.trouver(e.getId(), p.getId()).isEmpty());
+    }
 }
