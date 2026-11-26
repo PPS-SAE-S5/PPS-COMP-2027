@@ -120,4 +120,15 @@ class PlanningDAOTest extends DaoTestBase {
         assertTrue(new EpreuveDAO().trouverParId(e.getId()).isPresent());
         assertEquals(1, dao.listerEpreuvesNonAffectees().size()); // redevient « à placer »
     }
+
+    @Test
+    void compterAteliersParJournee() throws SQLException {
+        Journee j1 = journee("J1");
+        Journee j2 = journee("J2");
+        atelier(j1, "A");
+        atelier(j1, "B");
+
+        assertEquals(2, dao.compterAteliers(j1.getId()));
+        assertEquals(0, dao.compterAteliers(j2.getId()));
+    }
 }
