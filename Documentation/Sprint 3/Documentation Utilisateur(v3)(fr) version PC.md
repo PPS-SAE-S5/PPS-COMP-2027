@@ -92,7 +92,7 @@ Après la connexion, le tableau de bord affiche, sous forme de cartes cliquables
 
 Votre identifiant et votre rôle s'affichent en haut de l'écran, à côté du bouton **Déconnexion**.
 
-![Tableau de bord](../Sprint%202/Captures/interface_dashboard.png)
+![Tableau de bord](../Sprint%203/Captures/interface_dashboard.png.png)
 
 ---
 
@@ -377,12 +377,14 @@ Si la phrase est coupée, placez la souris dessus pour l'afficher en entier.
 - **← Retour** : revient au tableau de bord.
 Les filtres se combinent. Le nombre de lignes affichées, sur le total, est indiqué sous le tableau.
  
+![Filtres](../Sprint%203/Captures/interface_logs.png)
+
 ### 12.5 À savoir
  
 - L'historique est en **lecture seule** : aucune ligne ne peut être modifiée ou supprimée depuis l'application.
 - Les lignes restent visibles après la **suppression d'un pilote ou d'une épreuve**. La suppression elle-même n'ajoute pas de ligne.
 - Les noms du pilote et de l'épreuve, ainsi que la catégorie, sont ceux **au moment de l'action** : un changement ultérieur ne modifie pas les anciennes lignes.
-- L'historique est **propre à chaque ordinateur** : il n'est pas envoyé par la synchronisation en ligne ([section 13](#13-synchronisation-en-ligne)). Il est enregistré dans le dossier `data/` : pensez à le sauvegarder ([section 14](#14-stockage-des-données-et-sauvegarde)).
+- L'historique est **propre à chaque ordinateur** : il n'est pas envoyé par la synchronisation en ligne ([section 13](#13-synchronisation-en-ligne)). Il est enregistré dans le dossier `data/` ([section 14](#14-stockage-des-données-et-sauvegarde)).
  
 
 ---

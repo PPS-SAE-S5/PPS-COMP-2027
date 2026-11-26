@@ -50,8 +50,8 @@ Elles sont prévues pour le sprint 4.
 - [x] Catégories pompier / open et classement "général" à la place de "mixte" ([#46](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/46), version PC et page web)
 - [x] Export PDF du planning d'une journée ([#50](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/50), version PC)
 - [x] Logo définitif ([#52](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/52))
-- [ ] Historique des modifications de points ([US #13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21), [tâche #39](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39)) : _reporté pour l'instant_
-- [ ] [Milestone Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4) : 11/13 issues fermées (84 %) au 23/11/2026
+- [x] Historique des modifications de points ([US #13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21), [tâche #39](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39)) : _reporté pour l'instant_
+- [x] [Milestone Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4) : 13/13 issues fermées (100 %) au 26/11/2026
 
 </br>
 

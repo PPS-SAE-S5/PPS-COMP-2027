@@ -58,6 +58,10 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 | Cahier Des Charges (FR) v2 : nouveaux rôles, statuts des user stories, planification des sprints
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 2]
 
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/CahierDesCharges(FR)v3.md[Cahier Des Charges v3]
+| Cahier Des Charges (FR) v2 : nouveaux rôles, statuts des user stories, planification des sprints
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 2]
+
 |===
 
 ---
@@ -81,6 +85,10 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Backlog%20sprint%202.md[Backlog de sprint v2]
 | Document sur le backlog de sprint lors du second sprint
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 2]
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Backlog%20sprint%202.md[Backlog de sprint v2]
+| Document sur le backlog de sprint lors du troisième sprint
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3[sprint 3]
 
 |===
 
