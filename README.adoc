@@ -462,8 +462,6 @@ Liste informative sur toutes les Fix (ToDo / En cours / Fait)
 
 === 4.4 Planning de télétravail
 
-=== 4.4 Planning de télétravail
-
 [cols="1,1,1", options="header"]
 |===
 | Date
