@@ -1,6 +1,7 @@
 package com.pps.parapente.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -101,5 +102,17 @@ class PiloteDAOTest extends DaoTestBase {
         dao.supprimer(p.getId());
 
         assertTrue(dao.trouverParId(p.getId()).isEmpty());
+    }
+
+    @Test
+    void listerTousTrieParNomPuisPrenom() throws SQLException {
+        nouveauPilote("L3", "Martin");
+        nouveauPilote("L1", "Dupont");
+        nouveauPilote("L2", "Bernard");
+
+        List<Pilote> liste = dao.listerTous();
+
+        assertEquals(List.of("Bernard", "Dupont", "Martin"),
+                liste.stream().map(Pilote::getNom).toList());
     }
 }
