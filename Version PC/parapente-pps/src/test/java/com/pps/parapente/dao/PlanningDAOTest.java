@@ -168,4 +168,17 @@ class PlanningDAOTest extends DaoTestBase {
         assertEquals(List.of("E2"), lu.getEpreuves().stream().map(Epreuve::getNom).toList());
         assertEquals(List.of("E1"), dao.listerEpreuvesNonAffectees().stream().map(Epreuve::getNom).toList());
     }
+
+    @Test
+    void mettreAJourJourneeModifieNomEtDate() throws SQLException {
+        Journee j = journee("J1");
+        j.setNom("Finale");
+        j.setDateJournee(LocalDate.of(2027, 1, 2));
+
+        dao.mettreAJourJournee(j);
+
+        Journee lue = dao.listerJournees().get(0);
+        assertEquals("Finale", lue.getNom());
+        assertEquals(LocalDate.of(2027, 1, 2), lue.getDateJournee());
+    }
 }
