@@ -67,4 +67,16 @@ class ResultatDAOTest extends DaoTestBase {
 
         assertThrows(SQLException.class, () -> dao.enregistrer(resultat(e, fantome, 1.0, false)));
     }
+
+    @Test
+    void listerParEpreuveEtListerTous() throws SQLException {
+        Epreuve e1 = nouvelleEpreuve("E1");
+        Epreuve e2 = nouvelleEpreuve("E2");
+        Pilote p = nouveauPilote("L1", "Dupont");
+        dao.enregistrer(resultat(e1, p, 1.0, false));
+        dao.enregistrer(resultat(e2, p, 2.0, false));
+
+        assertEquals(1, dao.listerParEpreuve(e1.getId()).size());
+        assertEquals(2, dao.listerTous().size());
+    }
 }
