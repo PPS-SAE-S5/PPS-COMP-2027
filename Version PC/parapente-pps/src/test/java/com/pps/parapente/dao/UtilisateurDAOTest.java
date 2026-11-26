@@ -1,6 +1,7 @@
 package com.pps.parapente.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -77,5 +78,18 @@ class UtilisateurDAOTest extends DaoTestBase {
 
         assertTrue(dao.trouverParIdentifiant("alice").isEmpty());
         assertTrue(dao.listerTous().stream().noneMatch(x -> x.getId() == u.getId()));
+    }
+
+    @Test
+    void listerTousTrieParIdentifiant() throws SQLException {
+        utilisateur("zoe", true);
+        utilisateur("alice", true);
+        utilisateur("marc", false);
+
+        List<String> ids = dao.listerTous().stream().map(Utilisateur::getIdentifiant).toList();
+
+        assertTrue(ids.indexOf("alice") < ids.indexOf("marc"));
+        assertTrue(ids.indexOf("marc") < ids.indexOf("zoe"));
+        assertTrue(ids.contains("marc")); // un compte inactif est bien listé
     }
 }
