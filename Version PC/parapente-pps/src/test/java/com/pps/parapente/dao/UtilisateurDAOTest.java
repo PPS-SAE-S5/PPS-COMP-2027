@@ -42,4 +42,13 @@ class UtilisateurDAOTest extends DaoTestBase {
 
         assertTrue(dao.trouverParIdentifiant("bob").isEmpty());
     }
+
+    @Test
+    void definirActifReactiveLeCompte() throws SQLException {
+        Utilisateur u = utilisateur("bob", false);
+
+        dao.definirActif(u.getId(), true);
+
+        assertTrue(dao.trouverParIdentifiant("bob").isPresent());
+    }
 }
