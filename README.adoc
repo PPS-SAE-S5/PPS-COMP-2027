@@ -44,13 +44,13 @@ _Lien vers le site_ : https://pps-classement.vercel.app/[PPS-Classement]
 
 === 2.2 Pour accéder à l'application sur PC
 
-_Lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1[PPS-COMP v2.1] +
-_Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v2.1/PPS-COMP.v2.1-SNAPSHOT.jar[PPS-COMP PC 2.1]
+_Lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v3[PPS-COMP v3] +
+_Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v3/parapente-pps-3.0-SNAPSHOT.jar[PPS-COMP PC 3.0]
 
 === 2.3 Pour accéder à l'application sur mobile
 
-_Lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1[PPS-COMP v2.1] +
-_Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v2.1/PPS-COMP-2.1.apk[PPS-COMP Mobile 2.1] 
+_Lien vers la release_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v3[PPS-COMP v3] +
+_Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/download/v3/PPS-COMP-3.0.apk[PPS-COMP Mobile 3.0] 
 
 == 3. Gestion de projet & Qualité
 
@@ -304,7 +304,7 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 
 === 4.3 Informations complémentaires
 
-- Version courante : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases#release-v2.1[Release v2.1]
+- Version courante : https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v3[Release v3.0]
 - Lien vers la documentation technique générale (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Documentation%20Technique(v3)(fr).md[Version sprint 3] (https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Technique(v2)(fr).md[version sprint 2])
 
 - Lien vers la documentation utilisateur PC (FR) : https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Documentation%20Utilisateur(v3)(fr)%20version%20PC.md[Version PC sprint 3], (https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%202/Documentation%20Utilisateur(v2)(fr)%20version%20PC.md[version PC sprint 2])
