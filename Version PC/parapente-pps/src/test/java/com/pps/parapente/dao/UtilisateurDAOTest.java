@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
+import com.pps.parapente.model.Pilote;
 import com.pps.parapente.model.Role;
 import com.pps.parapente.model.Utilisateur;
 
@@ -100,5 +101,19 @@ class UtilisateurDAOTest extends DaoTestBase {
         dao.definirActif(u.getId(), false);
 
         assertTrue(dao.trouverParIdentifiant("alice").isEmpty());
+    }
+
+    @Test
+    void utilisateurLieAUnPiloteConserveSonPiloteId() throws SQLException {
+        Pilote p = nouveauPilote("L1", "Dupont");
+        Utilisateur u = new Utilisateur();
+        u.setIdentifiant("jean");
+        u.setMotDePasseHache("h");
+        u.setRole(Role.values()[0]);
+        u.setActif(true);
+        u.setPiloteId(p.getId());
+        dao.creer(u);
+
+        assertEquals(Integer.valueOf(p.getId()), dao.trouverParIdentifiant("jean").orElseThrow().getPiloteId());
     }
 }
