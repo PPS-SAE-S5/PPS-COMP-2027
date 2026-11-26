@@ -153,4 +153,19 @@ class PlanningDAOTest extends DaoTestBase {
         assertEquals(0, dao.compterAteliers(j.getId()));
         assertEquals(1, dao.listerEpreuvesNonAffectees().size());
     }
+
+    @Test
+    void mettreAJourAtelierRemplaceLesEpreuves() throws SQLException {
+        Journee j = journee("J1");
+        Epreuve e1 = nouvelleEpreuve("E1");
+        Epreuve e2 = nouvelleEpreuve("E2");
+        Atelier a = atelier(j, "Atelier", e1);
+
+        a.setEpreuves(new ArrayList<>(List.of(e2)));
+        dao.mettreAJourAtelier(a);
+
+        Atelier lu = dao.listerAteliers(j.getId()).get(0);
+        assertEquals(List.of("E2"), lu.getEpreuves().stream().map(Epreuve::getNom).toList());
+        assertEquals(List.of("E1"), dao.listerEpreuvesNonAffectees().stream().map(Epreuve::getNom).toList());
+    }
 }
