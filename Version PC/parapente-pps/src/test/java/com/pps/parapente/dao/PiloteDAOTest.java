@@ -115,4 +115,13 @@ class PiloteDAOTest extends DaoTestBase {
         assertEquals(List.of("Bernard", "Dupont", "Martin"),
                 liste.stream().map(Pilote::getNom).toList());
     }
+
+    @Test
+    void categorieEstConservee() throws SQLException {
+        Pilote p = nouveauPilote("L1", "Dupont");
+        p.setCategorie(Categorie.OPEN);
+        dao.mettreAJour(p);
+
+        assertEquals(Categorie.OPEN, dao.trouverParId(p.getId()).orElseThrow().getCategorie());
+    }
 }
