@@ -33,4 +33,4 @@
 ## Notes de réunion à archiver
 
 [Compte rendu de la réunion 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%203.md)\
-[Compte rendu de la réunion 3 - Version PDF](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/b35d9c8418aab53550c73f0166fd34f6fdd6ba26/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%203.pdf)
+[Compte rendu de la réunion 3 - Version PDF](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/R%C3%A9unions/Compte%20rendu%20de%20r%C3%A9union%203.pdf)

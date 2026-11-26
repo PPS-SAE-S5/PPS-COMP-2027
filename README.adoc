@@ -338,7 +338,7 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/13[US 05]
 | En tant qu'utilisateur, je veux consulter le classement du jour afin de suivre l'évolution de la compétition
-| In Progress
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/14[US 06]
 | En tant qu'utilisateur, je veux consulter le classement final afin de connaître les résultats globaux
@@ -346,7 +346,7 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/15[US 07]
 | En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page
-| In Progress
+| Done
 
 | https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16[US 08]
 | En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement
@@ -462,7 +462,47 @@ Liste informative sur toutes les Fix (ToDo / En cours / Fait)
 
 === 4.4 Planning de télétravail
 
+=== 4.4 Planning de télétravail
 
+[cols="1,1,1", options="header"]
+|===
+| Date
+| Heure de début
+| Heure de fin
+
+| 14/09/2026
+| 14:15
+| 17:00
+
+| 17/09/2026
+| 9:30
+| 12:30
+
+| 24/09/2026
+| 8:00
+| 12:30
+
+| 05/10/2026
+| 13:00
+| 17:00
+
+| 08/10/2026
+| 9:30
+| 12:30
+
+| 09/10/2026
+| 10:00
+| 13:00
+
+| 16/10/2026
+| 10:00
+| 14:00
+
+| 22/10/2026
+| 8:00
+| 15:00
+
+|===
 
 == 5. Contributeurs
 
