@@ -124,4 +124,12 @@ class PiloteDAOTest extends DaoTestBase {
 
         assertEquals(Categorie.OPEN, dao.trouverParId(p.getId()).orElseThrow().getCategorie());
     }
+
+    @Test
+    void deuxPilotesSansNumeroPiloteSontAutorises() throws SQLException {
+        nouveauPilote("L1", "Dupont");
+        nouveauPilote("L2", "Martin");
+
+        assertEquals(2, dao.listerTous().size());
+    }
 }
