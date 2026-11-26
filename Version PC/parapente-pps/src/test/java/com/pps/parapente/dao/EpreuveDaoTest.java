@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
@@ -129,5 +130,20 @@ class EpreuveDAOTest extends DaoTestBase {
         List<BaremePoint> bareme = dao.trouverParId(e.getId()).orElseThrow().getBareme();
 
         assertEquals(List.of(1, 2, 3), bareme.stream().map(BaremePoint::getRang).toList());
+    }
+
+    @Test
+    void indicateursBooleensSontConserves() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        e.setAfficherClassement(true);
+        e.setCompteDansGeneral(false);
+        e.setActif(false);
+        dao.mettreAJour(e);
+
+        Epreuve lue = dao.trouverParId(e.getId()).orElseThrow();
+
+        assertTrue(lue.isAfficherClassement());
+        assertFalse(lue.isCompteDansGeneral());
+        assertFalse(lue.isActif());
     }
 }
