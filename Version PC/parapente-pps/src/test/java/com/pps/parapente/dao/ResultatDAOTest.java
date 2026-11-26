@@ -98,4 +98,19 @@ class ResultatDAOTest extends DaoTestBase {
 
         assertTrue(dao.trouver(e.getId(), p.getId()).isEmpty());
     }
+
+    @Test
+    void plusieursValeursSontToutesRelues() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        Pilote p = nouveauPilote("L1", "Dupont");
+        Resultat r = resultat(e, p, 0.0, false);
+        r.setValeurs(new LinkedHashMap<>(Map.of("distance", 12.5, "temps", 3.25, "balises", 4.0)));
+
+        dao.enregistrer(r);
+
+        Map<String, Double> lues = dao.trouver(e.getId(), p.getId()).orElseThrow().getValeurs();
+        assertEquals(3, lues.size());
+        assertEquals(3.25, lues.get("temps"), 1e-9);
+        assertEquals(4.0, lues.get("balises"), 1e-9);
+    }
 }
