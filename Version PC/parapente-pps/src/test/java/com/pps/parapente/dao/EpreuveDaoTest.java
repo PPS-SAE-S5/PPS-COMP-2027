@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -84,5 +85,20 @@ class EpreuveDAOTest extends DaoTestBase {
         dao.supprimer(e.getId());
 
         assertTrue(dao.trouverParId(e.getId()).isEmpty());
+    }
+
+    @Test
+    void creerInvalideAnnuleToutEtRestitueLAutoCommit() throws Exception {
+        Epreuve e = new Epreuve();
+        e.setNom(null); // refusé par le schéma
+        e.setModeCalcul(ModeCalcul.FORMULE);
+        e.setSensClassement(SensClassement.DESC);
+        e.setParametres(new ArrayList<>());
+        e.setBareme(new ArrayList<>());
+
+        assertThrows(SQLException.class, () -> dao.creer(e));
+
+        assertTrue(dao.listerToutes().isEmpty());
+        assertTrue(DatabaseManager.getConnection().getAutoCommit());
     }
 }
