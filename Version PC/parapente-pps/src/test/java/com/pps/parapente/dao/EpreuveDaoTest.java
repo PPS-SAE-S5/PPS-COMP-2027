@@ -101,4 +101,9 @@ class EpreuveDAOTest extends DaoTestBase {
         assertTrue(dao.listerToutes().isEmpty());
         assertTrue(DatabaseManager.getConnection().getAutoCommit());
     }
+
+    @Test
+    void trouverParIdInconnuRetourneVide() throws SQLException {
+        assertTrue(dao.trouverParId(9999).isEmpty());
+    }
 }
