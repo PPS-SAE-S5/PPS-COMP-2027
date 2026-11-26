@@ -116,4 +116,9 @@ class UtilisateurDAOTest extends DaoTestBase {
 
         assertEquals(Integer.valueOf(p.getId()), dao.trouverParIdentifiant("jean").orElseThrow().getPiloteId());
     }
+
+    @Test
+    void identifiantInconnuRetourneVide() throws SQLException {
+        assertTrue(dao.trouverParIdentifiant("personne").isEmpty());
+    }
 }
