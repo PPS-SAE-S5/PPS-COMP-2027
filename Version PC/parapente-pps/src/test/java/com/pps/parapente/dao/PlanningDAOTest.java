@@ -141,4 +141,16 @@ class PlanningDAOTest extends DaoTestBase {
 
         assertEquals(1, dao.compterEpreuvesActives());
     }
+
+    @Test
+    void supprimerAtelierLiberLesEpreuves() throws SQLException {
+        Journee j = journee("J1");
+        Epreuve e = nouvelleEpreuve("E1");
+        Atelier a = atelier(j, "Atelier", e);
+
+        dao.supprimerAtelier(a.getId());
+
+        assertEquals(0, dao.compterAteliers(j.getId()));
+        assertEquals(1, dao.listerEpreuvesNonAffectees().size());
+    }
 }
