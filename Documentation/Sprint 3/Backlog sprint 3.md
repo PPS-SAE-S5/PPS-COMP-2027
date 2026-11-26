@@ -13,14 +13,14 @@
 | [#13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/13) | [US #05] Classement du jour | En tant qu'utilisateur, je veux consulter le classement du jour afin de suivre l'évolution de la compétition | must | Terminé |
 | [#15](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/15) | [US #07] Rafraîchissement automatique du classement | En tant qu'utilisateur, je veux que le classement se rafraîchisse automatiquement afin d'avoir des données à jour sans recharger la page | must | Terminé |
 | [#16](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/16) | [US #08] Classements sans compte | En tant qu'utilisateur, je veux accéder aux classements sans compte (lecture seule) afin de suivre la compétition facilement | must | Terminé |
-| [#21](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) | [US #13] Historique des modifications de points | En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges | could | Terminé |
-| [#30](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/30) | Tâche : recherche | Ajouter une fonction de recherche (recherche d'un pilote dans le suivi des participants) | could | Terminé |
-| [#33](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/33) | Tâche : classement en lecture seule | Mettre en place la page du classement du tournoi actuel en lecture seule (liée à l'US #08) | should | Terminé |
 | [#39](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39) | Tâche : journal des points | Mettre en place un historique (logs) de l'ajout et du retrait de points (liée à l'US #13) | must | Terminé |
-| [#45](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/45) | [Fix #1] Champs obligatoires d'un atelier | Un atelier pouvait être enregistré sans créneau, horaires, lieu ni responsable | should | Terminé |
-| [#46](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/46) | [Fix #2] Catégories pompier / open | Distinguer les pompiers du championnat des participants « open » (invités) grâce au numéro de pilote, et renommer « mixte » en « général » | should | Terminé |
 | [#50](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/50) | [Fix #6] Export PDF des journées | Exporter le planning d'une journée (ateliers, créneaux, horaires, lieux, responsables, épreuves) en PDF pour l'imprimer ou le diffuser | must | Terminé |
 | [#52](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/52) | [Fix #8] Logo définitif | Remplacer le logo provisoire par le logo définitif sur la page de connexion des applications et sur la page web | must | Terminé |
+| [#45](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/45) | [Fix #1] Champs obligatoires d'un atelier | Un atelier pouvait être enregistré sans créneau, horaires, lieu ni responsable | should | Terminé |
+| [#46](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/46) | [Fix #2] Catégories pompier / open | Distinguer les pompiers du championnat des participants « open » (invités) grâce au numéro de pilote, et renommer « mixte » en « général » | should | Terminé |
+| [#33](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/33) | Tâche : classement en lecture seule | Mettre en place la page du classement du tournoi actuel en lecture seule (liée à l'US #08) | should | Terminé |
+| [#21](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) | [US #13] Historique des modifications de points | En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges | could | Terminé |
+| [#30](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/30) | Tâche : recherche | Ajouter une fonction de recherche (recherche d'un pilote dans le suivi des participants) | could | Terminé |
 
 ---
 
@@ -28,7 +28,7 @@
 
 ### Demandes de la réunion 4bis, hors milestone Sprint 3
 
-Ces demandes du client ont été enregistrées pendant le sprint mais ne font pas partie du milestone 4.\
+Ces demandes du client ont été enregistrées pendant le sprint mais ne font pas partie du milestone 4 ([Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)).\
 Elles sont prévues pour le sprint 4.
 
 | ID | Tâche | Statut |
@@ -50,7 +50,7 @@ Elles sont prévues pour le sprint 4.
 - [x] Catégories pompier / open et classement "général" à la place de "mixte" ([#46](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/46), version PC et page web)
 - [x] Export PDF du planning d'une journée ([#50](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/50), version PC)
 - [x] Logo définitif ([#52](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/52))
-- [x] Historique des modifications de points ([US #13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21), [tâche #39](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39)) : _reporté pour l'instant_
+- [x] Historique des modifications de points ([US #13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21), [tâche #39](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39))
 - [x] [Milestone Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4) : 13/13 issues fermées (100 %) au 26/11/2026
 
 </br>

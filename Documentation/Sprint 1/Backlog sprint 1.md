@@ -1,18 +1,19 @@
 # Backlog de sprint - Sprint 1
 
 **Durée :** Semaines 39–40 (lundi 21 sept. – 02 oct. 2026)\
-**Objectif du sprint :** Release 1 et installation application
+**Objectif du sprint :** Release 1 et installation application\
+**Milestone :** [Sprint 1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/2)
 
 ## Tâches
 
-| ID | Tâche | Description | Responsable | Statut |
+| ID | Tâche | Description | Priorité | Statut |
 |---|---|---|---|---|
-| [#9](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/9) | [US #01] Inscription d'un participant | En tant que gestionnaire, je veux inscrire un participant avec son nom/prénom (5/5 critères validés) | Équipe |  terminé |
-| [#23](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/23) | Conception de la base de données | Modélisation et conception de la base de données (priorité urgente) | Équipe |  terminé |
-| [#24](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/24) | Création des permissions utilisateurs | Mise en place des permissions / rôles des utilisateurs | Équipe |  terminé |
-| [#25](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/25) | Création de l'interface de base mobile | Interface de base de l'application mobile | Équipe |  terminé |
-| [#26](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/26) | Création de l'interface de base PC | Interface de base de l'application PC | Équipe |  terminé |
-| [#27](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/27) | Gestion des préinscriptions pour les utilisateurs | Gestion des préinscriptions côté utilisateurs | Équipe |  terminé |
+| [#9](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/9) | [US #01] Inscription d'un participant | En tant que gestionnaire, je veux inscrire un participant avec son nom/prénom (5/5 critères validés) | must |  terminé |
+| [#23](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/23) | Conception de la base de données | Modélisation et conception de la base de données (priorité urgente) | must |  terminé |
+| [#24](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/24) | Création des permissions utilisateurs | Mise en place des permissions / rôles des utilisateurs | must |  terminé |
+| [#25](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/25) | Création de l'interface de base mobile | Interface de base de l'application mobile | must |  terminé |
+| [#26](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/26) | Création de l'interface de base PC | Interface de base de l'application PC | must |  terminé |
+| [#27](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/27) | Gestion des préinscriptions pour les utilisateurs | Gestion des préinscriptions côté utilisateurs | must |  terminé |
 
 </br>
 
