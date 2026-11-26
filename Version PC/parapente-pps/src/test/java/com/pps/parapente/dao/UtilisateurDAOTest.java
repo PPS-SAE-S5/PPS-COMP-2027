@@ -51,4 +51,13 @@ class UtilisateurDAOTest extends DaoTestBase {
 
         assertTrue(dao.trouverParIdentifiant("bob").isPresent());
     }
+
+    @Test
+    void mettreAJourMotDePasse() throws SQLException {
+        Utilisateur u = utilisateur("alice", true);
+
+        dao.mettreAJourMotDePasse(u.getId(), "hash-2");
+
+        assertEquals("hash-2", dao.trouverParIdentifiant("alice").orElseThrow().getMotDePasseHache());
+    }
 }
