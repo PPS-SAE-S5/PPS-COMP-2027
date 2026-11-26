@@ -1,0 +1,48 @@
+package com.pps.parapente.dao;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import com.pps.parapente.model.BaremePoint;
+import com.pps.parapente.model.Epreuve;
+import com.pps.parapente.model.EpreuveParametre;
+import com.pps.parapente.model.ModeCalcul;
+import com.pps.parapente.model.SensClassement;
+
+class EpreuveDAOTest extends DaoTestBase {
+
+    private final EpreuveDAO dao = new EpreuveDAO();
+
+    @Test
+    void creerEnregistreParametresEtBareme() throws SQLException {
+        Epreuve e = new Epreuve();
+        e.setNom("Précision");
+        e.setModeCalcul(ModeCalcul.BAREME);
+        e.setValeurCle("temps");
+        e.setSensClassement(SensClassement.ASC);
+        e.setActif(true);
+        EpreuveParametre p = new EpreuveParametre("temps", "Temps", "s");
+        p.setObligatoire(true);
+        p.setOrdre(1);
+        e.setParametres(new ArrayList<>(List.of(p)));
+        e.setBareme(new ArrayList<>(List.of(new BaremePoint(1, 100), new BaremePoint(2, 80))));
+
+        dao.creer(e);
+
+        assertTrue(e.getId() > 0);
+        Epreuve lue = dao.trouverParId(e.getId()).orElseThrow();
+        assertEquals("Précision", lue.getNom());
+        assertEquals(ModeCalcul.BAREME, lue.getModeCalcul());
+        assertEquals(SensClassement.ASC, lue.getSensClassement());
+        assertEquals(1, lue.getParametres().size());
+        assertEquals("temps", lue.getParametres().get(0).getNomVariable());
+        assertTrue(lue.getParametres().get(0).isObligatoire());
+        assertEquals(2, lue.getBareme().size());
+        assertEquals(80.0, lue.getBareme().get(1).getPoints(), 1e-9);
+    }
+}
