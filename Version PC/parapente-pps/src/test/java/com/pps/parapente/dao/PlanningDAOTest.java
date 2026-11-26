@@ -80,4 +80,16 @@ class PlanningDAOTest extends DaoTestBase {
         assertTrue(lePremier.getEpreuves().isEmpty());
         assertEquals(1, ateliers.stream().mapToInt(a -> a.getEpreuves().size()).sum());
     }
+
+    @Test
+    void listerEpreuvesNonAffecteesEtDisponibles() throws SQLException {
+        Journee j = journee("J1");
+        Epreuve placee = nouvelleEpreuve("Placée");
+        Epreuve libre = nouvelleEpreuve("Libre");
+        Atelier a = atelier(j, "Atelier", placee);
+
+        assertEquals(List.of("Libre"),
+                dao.listerEpreuvesNonAffectees().stream().map(Epreuve::getNom).toList());
+        assertEquals(2, dao.listerEpreuvesDisponibles(a.getId()).size()); // libre + déjà dans l'atelier
+    }
 }
