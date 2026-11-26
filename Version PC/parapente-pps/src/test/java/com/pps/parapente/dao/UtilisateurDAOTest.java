@@ -68,4 +68,14 @@ class UtilisateurDAOTest extends DaoTestBase {
 
         assertThrows(SQLException.class, () -> utilisateur("alice", true));
     }
+
+    @Test
+    void supprimerRetireLUtilisateur() throws SQLException {
+        Utilisateur u = utilisateur("alice", true);
+
+        dao.supprimer(u.getId());
+
+        assertTrue(dao.trouverParIdentifiant("alice").isEmpty());
+        assertTrue(dao.listerTous().stream().noneMatch(x -> x.getId() == u.getId()));
+    }
 }
