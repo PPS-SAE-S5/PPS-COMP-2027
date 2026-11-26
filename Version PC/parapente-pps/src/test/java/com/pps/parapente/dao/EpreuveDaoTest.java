@@ -45,4 +45,22 @@ class EpreuveDAOTest extends DaoTestBase {
         assertEquals(2, lue.getBareme().size());
         assertEquals(80.0, lue.getBareme().get(1).getPoints(), 1e-9);
     }
+
+    @Test
+    void mettreAJourRemplaceParametresEtBareme() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        e.setBareme(new ArrayList<>(List.of(new BaremePoint(1, 10))));
+        e.setParametres(new ArrayList<>(List.of(new EpreuveParametre("a", "A", "m"))));
+        dao.mettreAJour(e);
+
+        e.setNom("Vitesse 2");
+        e.setBareme(new ArrayList<>(List.of(new BaremePoint(1, 50), new BaremePoint(2, 40))));
+        e.setParametres(new ArrayList<>());
+        dao.mettreAJour(e);
+
+        Epreuve lue = dao.trouverParId(e.getId()).orElseThrow();
+        assertEquals("Vitesse 2", lue.getNom());
+        assertEquals(2, lue.getBareme().size());
+        assertTrue(lue.getParametres().isEmpty());
+    }
 }
