@@ -73,7 +73,7 @@ La catégorie est déduite du numéro de pilote.
 * **Suivi des participants** : fiche détaillée d'un pilote (total de points, rang, épreuves passées, score par épreuve), avec une recherche par nom, prénom, licence ou département.
 * **Gestion des comptes** : création, désactivation et suppression des comptes, attribution des rôles.
 * **Consultation du classement sans compte** : depuis l'écran de connexion des applications, et depuis une page web publique.
-* **Historique des modifications de points** : traçabilité des ajouts et retraits de points en cas de litige ([US#13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39) en cours).
+* **Historique des modifications de points** : traçabilité des ajouts et retraits de points en cas de litige.
 
 Les fonctionnalités demandées pour les prochains sprints sont listées en [section 9](#9-améliorations-futures).
 
@@ -96,11 +96,11 @@ Les fonctionnalités demandées pour les prochains sprints sont listées en [sec
 
 | Rôle | Droits |
 |---|---|
-| **Administrateur** | Tous les droits, dont la gestion des comptes et des rôles |
-| **Responsable d'épreuve** | Gestion des épreuves, du planning et des pilotes, saisie des résultats, suivi des participants, classements, synchronisation |
-| **Bénévole** | Gestion des pilotes, saisie des résultats, suivi des participants, classements, consultation du planning |
-| **Comité des pilotes** | Consultation du planning et des classements. Les droits prévus par les [US 12](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20) et [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) (modification des points, historique) ne sont pas encore en place |
-| **Visiteur** | Consultation des classements en lecture seule, sans identifiant : bouton "Non, je veux uniquement suivre le classement" des applications, ou page web |
+| **Administrateur** | Tous les droits, dont la gestion des comptes et des rôles. |
+| **Responsable d'épreuve** | Gestion des épreuves, du planning et des pilotes, saisie des résultats, suivi des participants, classements, synchronisation. |
+| **Bénévole** | Gestion des pilotes, saisie des résultats, suivi des participants, classements, consultation du planning. |
+| **Comité des pilotes** | Consultation du planning et des classements. Modification des points et visualisation de l'historique. |
+| **Visiteur** | Consultation des classements en lecture seule, sans identifiant : bouton "Non, je veux uniquement suivre le classement" des applications, ou page web. |
 
 Dans les applications, l'accès visiteur passe par un compte invité interne de rôle "Pilote.\
 Ce rôle ne sert qu'à consulter le classement.
@@ -128,7 +128,7 @@ Les droits de chaque rôle sont décrits en [section 2.3](#23-utilisateurs-et-r�
 | CU 07 | Exporter le planning d'une journée | Tout rôle ayant accès au planning | Une journée existe | L'utilisateur choisit la journée et clique sur "Exporter en PDF" | Un fichier PDF de la journée est enregistré (version PC) | [Fix 06](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/50) |
 | CU 08 | Saisir les points d'un pilote | Administrateur, responsable d'épreuve, bénévole | Connecté, le pilote est inscrit à l'épreuve | L'utilisateur choisit l'épreuve et le pilote, puis saisit les valeurs mesurées | Le résultat est enregistré, y compris hors-ligne, et les classements sont recalculés | [US 11](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/19) |
 | CU 09 | Modifier les points d'un pilote | Responsable d'épreuve (prévu aussi pour le comité) | Un résultat existe | L'utilisateur corrige le résultat en cas de litige, de pénalité ou de retrait | Les points et les classements sont recalculés | [US 12](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20) |
-| CU 10 | Consulter l'historique des modifications | Membre du comité | Connecté | Le membre du comité ouvre l'historique des modifications de points | La liste des modifications s'affiche | [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) (en cours) |
+| CU 10 | Consulter l'historique des modifications | Membre du comité | Connecté | Le membre du comité ouvre l'historique des modifications de points | La liste des modifications s'affiche | [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) |
 | CU 11 | Gérer les comptes | Administrateur | Connecté | L'administrateur crée un compte avec un rôle, le désactive, change son mot de passe ou le supprime | Les droits de chaque personne sont à jour | [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) |
 | CU 12 | Synchroniser les données | Administrateur, responsable d'épreuve | Connexion internet disponible | L'utilisateur choisit le sens de la synchronisation | Les données de l'appareil et de la base en ligne sont échangées | - |
 
@@ -172,8 +172,8 @@ Les droits de chaque rôle sont décrits en [section 2.3](#23-utilisateurs-et-r�
 
 | Livrable | Description | Statut |
 |---|---|---|
-| Application PC | Application de bureau avec base locale, fichier `.jar` | [Release 2.1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1) publiée sur GitHub |
-| Application mobile | Application Android avec base locale, fichier `.apk` | [Release 2.1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1) publiée sur GitHub |
+| Application PC | Application de bureau avec base locale, fichier `.jar` | [Release 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v3) publiée sur GitHub |
+| Application mobile | Application Android avec base locale, fichier `.apk` | [Release 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v3) publiée sur GitHub |
 | Page web | Classement en lecture seule : [pps-classement.vercel.app](https://pps-classement.vercel.app/) | En ligne |
 | Base de données | Base en ligne (Supabase) & bases locales & schéma documenté | En cours  |
 | Code source | Dépôt GitHub PPS-SAE-S5/PPS-COMP-2027 | En cours |
@@ -210,7 +210,7 @@ Lors de la réunion 4, il a été décidé qu'un dépôt dédié à la maintenan
 | [US 10](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/18) | **En tant que responsable d'épreuve, je veux activer ou désactiver l'affichage des points dans le classement afin de ne montrer que le rang si besoin** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
 | [US 11](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/19) | **En tant que bénévole ou responsable d'épreuve, je veux attribuer des points à un pilote pour une épreuve donnée afin d'enregistrer sa performance** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
 | [US 12](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/20) | **En tant que membre du comité ou responsable d'épreuve, je veux modifier les points d'un pilote (litige, pénalité, retrait) afin de traiter les cas exceptionnels** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
-| [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) | **En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges** | En cours (issue ouverte au [Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) |
+| [US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) | **En tant que membre du comité, je veux consulter l'historique des modifications de points afin de garder une traçabilité des litiges** | Terminé ([Sprint 3](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4)) |
 | [US 14](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/22) | **En tant qu'administrateur, je veux gérer les rôles (responsable d'épreuve, bénévole, membre du comité) afin que chacun n'accède qu'aux fonctionnalités qui le concernent** | Terminé ([Sprint 2](https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/3)) |
 
 ---
