@@ -7,6 +7,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -56,5 +57,14 @@ class ResultatDAOTest extends DaoTestBase {
         Resultat lu = dao.trouver(e.getId(), p.getId()).orElseThrow();
         assertEquals(55.0, lu.getPoints(), 1e-9);
         assertTrue(lu.isDisqualifie());
+    }
+
+    @Test
+    void piloteInexistantEstRefuse() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        Pilote fantome = new Pilote();
+        fantome.setId(9999);
+
+        assertThrows(SQLException.class, () -> dao.enregistrer(resultat(e, fantome, 1.0, false)));
     }
 }
