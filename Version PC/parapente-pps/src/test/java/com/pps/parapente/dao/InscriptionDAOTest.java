@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.pps.parapente.model.Epreuve;
@@ -22,5 +23,16 @@ class InscriptionDAOTest extends DaoTestBase {
         dao.inscrire(p.getId(), e.getId());
 
         assertEquals(List.of(p.getId()), dao.listerPilotesInscrits(e.getId()));
+    }
+
+    @Test
+    void desinscrireRetireLInscription() throws SQLException {
+        Pilote p = nouveauPilote("L1", "Dupont");
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        dao.inscrire(p.getId(), e.getId());
+
+        dao.desinscrire(p.getId(), e.getId());
+
+        assertTrue(dao.listerPilotesInscrits(e.getId()).isEmpty());
     }
 }
