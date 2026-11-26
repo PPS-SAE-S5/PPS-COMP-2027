@@ -53,4 +53,9 @@ class PiloteDAOTest extends DaoTestBase {
         assertNull(lu.getAnneeNaissance());
         assertNull(lu.getNumeroPilote());
     }
+    
+    @Test
+    void trouverParIdInconnuRetourneVide() throws SQLException {
+        assertTrue(dao.trouverParId(9999).isEmpty());
+    }
 }
