@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -59,5 +60,12 @@ class UtilisateurDAOTest extends DaoTestBase {
         dao.mettreAJourMotDePasse(u.getId(), "hash-2");
 
         assertEquals("hash-2", dao.trouverParIdentifiant("alice").orElseThrow().getMotDePasseHache());
+    }
+
+    @Test
+    void identifiantEnDoubleEstRefuse() throws SQLException {
+        utilisateur("alice", true);
+
+        assertThrows(SQLException.class, () -> utilisateur("alice", true));
     }
 }
