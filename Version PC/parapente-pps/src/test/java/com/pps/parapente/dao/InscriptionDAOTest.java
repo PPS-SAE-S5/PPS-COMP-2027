@@ -90,4 +90,13 @@ class InscriptionDAOTest extends DaoTestBase {
         assertEquals(2, epreuves.size());
         assertTrue(epreuves.containsAll(List.of(e1.getId(), e2.getId())));
     }
+
+    @Test
+    void inscrireTousLesPilotesSansPiloteNeFaitRien() throws SQLException {
+        Epreuve e = nouvelleEpreuve("E1");
+
+        dao.inscrireTousLesPilotes(e.getId());
+
+        assertTrue(dao.listerPilotesInscrits(e.getId()).isEmpty());
+    }
 }
