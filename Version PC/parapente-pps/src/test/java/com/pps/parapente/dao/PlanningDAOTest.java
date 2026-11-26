@@ -106,4 +106,18 @@ class PlanningDAOTest extends DaoTestBase {
         assertNull(lu.getLieu());
         assertNull(lu.getResponsable());
     }
+
+    @Test
+    void supprimerJourneeSupprimeSesAteliersMaisPasLesEpreuves() throws SQLException {
+        Journee j = journee("J1");
+        Epreuve e = nouvelleEpreuve("E1");
+        atelier(j, "Atelier", e);
+
+        dao.supprimerJournee(j.getId());
+
+        assertTrue(dao.listerJournees().isEmpty());
+        assertEquals(0, dao.compterAteliers(j.getId()));
+        assertTrue(new EpreuveDAO().trouverParId(e.getId()).isPresent());
+        assertEquals(1, dao.listerEpreuvesNonAffectees().size()); // redevient « à placer »
+    }
 }
