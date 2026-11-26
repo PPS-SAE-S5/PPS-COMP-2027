@@ -432,6 +432,7 @@ Ajouts du Sprint 3 :
 - catégories pompier / open et filtre « Général » (PC et page web)
 - champs obligatoires d'un atelier et export PDF d'une journée (PC)
 - logo définitif (PC)
+- logs (ajout et retrait des points) (PC)
 - migrations Room sans perte de données (mobile)
 - tests unitaires JUnit (PC)
 
@@ -443,7 +444,7 @@ Ajouts du Sprint 3 :
 
 ### 8.1 Stratégie de test
 
-- Tests unitaires JUnit sur la logique métier de la version PC (couche `service`).
+- Tests unitaires JUnit sur la logique métier de la version PC (couche `service`, `util`).
 - Tests manuels des cas d'utilisation sur toutes les plateformes, y compris en mode hors-ligne puis après synchronisation.
 - À venir : tests de la synchronisation sous contrainte (modifications concurrentes sur deux appareils, coupures réseau, base vide ou très remplie).
 
@@ -454,7 +455,7 @@ Ajouts du Sprint 3 :
 
 | Type de test | État |
 |---|---|
-| Tests unitaires JUnit (PC) | 140 tests dans 8 classes : `PlanningServiceTest` (36), `SuiviParticipantServiceTest` (24), `EpreuveServiceTest` (18), `PiloteServiceTest` (18), `ExportPdfServiceTest` (18), `ClassementServiceTest` (12), `CalculServiceTest` (9), `AuthServiceTest` (5). Lancement : `mvn test` |
+| Tests unitaires JUnit (PC) | 190 tests dans 10 classes : `PlanningServiceTest` (36), `SuiviParticipantServiceTest` (24), `EpreuveServiceTest` (18), `PiloteServiceTest` (18), `ExportPdfServiceTest` (18), `ClassementServiceTest` (12), `CalculServiceTest` (9), `AuthServiceTest` (5), `CategorieConfigTest` (21), `MessageEreurUtilTest` (29). Lancement : `mvn test` |
 | Tests unitaires (mobile) | À faire : aucun test dans le dépôt |
 | Tests de synchronisation (conflits, hors-ligne) | À faire |
 | Tests manuels des cas d'utilisation (CU 01 à CU 12) | Réalisés lors des démonstrations de fin de sprint |
@@ -487,10 +488,9 @@ Il n'y a pas de déploiement continu : les releases sont préparées à la fin d
 
 ## 10. Limites connues et suite
 
-- **Historique des modifications de points** ([US 13](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21), issues [#21](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/21) et [#39](https://github.com/PPS-SAE-S5/PPS-COMP-2027/issues/39)) : non réalisé.
-- **Alignement de la version mobile** sur la branche PC : catégories pompier / open et numéro de pilote, filtre "Général", champs obligatoires d'un atelier, export PDF, logo définitif (le logo du mobile est encore le logo provisoire).
+- **Alignement de la version mobile** sur la branche PC : catégories pompier / open et numéro de pilote, filtre "Général", champs obligatoires d'un atelier, export PDF, logo définitif (le logo du mobile est encore le logo provisoire), historique des modifications de points.
 - **Numéros de version** : le dossier mobile s'appelle `parapente-pps-android-v0.99`, `build.gradle.kts` indique `versionName = "2.0"` et `pom.xml` indique `2.0-SNAPSHOT`, alors que la release publiée est la [2.1](https://github.com/PPS-SAE-S5/PPS-COMP-2027/releases/tag/v2.1).\
-Les trois sont à harmoniser d'ici la fin du sprint 3.
+Les trois sont à harmoniser d'ici la fin du sprint 4.
 - **Scripts de la base en ligne** à regrouper et à mettre à jour, ainsi que [`BaseDeDonnées.md`](https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Base-de-donnees/BaseDeDonn%C3%A9es.md).
 - **Sécurité** : hachage, droits côté serveur (RLS par rôle), retrait de `sync.properties` et de la base locale du dépôt.
 - **Tests** : tests de la version mobile, tests de synchronisation et plan de tests formalisé.
