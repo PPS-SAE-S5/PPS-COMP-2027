@@ -106,4 +106,17 @@ class EpreuveDAOTest extends DaoTestBase {
     void trouverParIdInconnuRetourneVide() throws SQLException {
         assertTrue(dao.trouverParId(9999).isEmpty());
     }
+
+    @Test
+    void listerToutesChargeParametresEtBareme() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        e.setBareme(new ArrayList<>(List.of(new BaremePoint(1, 10), new BaremePoint(2, 5))));
+        e.setParametres(new ArrayList<>(List.of(new EpreuveParametre("t", "Temps", "s"))));
+        dao.mettreAJour(e);
+
+        Epreuve lue = dao.listerToutes().get(0);
+
+        assertEquals(2, lue.getBareme().size());
+        assertEquals(1, lue.getParametres().size());
+    }
 }
