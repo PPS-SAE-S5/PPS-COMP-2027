@@ -35,4 +35,11 @@ class UtilisateurDAOTest extends DaoTestBase {
         assertEquals(Role.values()[0], lu.getRole());
         assertNull(lu.getPiloteId());
     }
+
+    @Test
+    void compteInactifNEstPasTrouveALaConnexion() throws SQLException {
+        utilisateur("bob", false);
+
+        assertTrue(dao.trouverParIdentifiant("bob").isEmpty());
+    }
 }
