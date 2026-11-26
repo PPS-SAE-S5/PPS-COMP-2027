@@ -52,4 +52,18 @@ class PlanningDAOTest extends DaoTestBase {
         assertTrue(liste.get(0).getOrdre() < liste.get(1).getOrdre());
         assertEquals(LocalDate.of(2026, 6, 15), liste.get(0).getDateJournee());
     }
+
+    @Test
+    void creerAtelierConserveLOrdreDesEpreuves() throws SQLException {
+        Journee j = journee("J1");
+        Epreuve e1 = nouvelleEpreuve("E1");
+        Epreuve e2 = nouvelleEpreuve("E2");
+        Epreuve e3 = nouvelleEpreuve("E3");
+
+        atelier(j, "Atelier", e3, e1, e2);
+
+        Atelier lu = dao.listerAteliers(j.getId()).get(0);
+        assertEquals(List.of("E3", "E1", "E2"),
+                lu.getEpreuves().stream().map(Epreuve::getNom).toList());
+    }
 }
