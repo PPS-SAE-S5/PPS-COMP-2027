@@ -99,4 +99,15 @@ class InscriptionDAOTest extends DaoTestBase {
 
         assertTrue(dao.listerPilotesInscrits(e.getId()).isEmpty());
     }
+
+    @Test
+    void inscrirePiloteDeuxFoisNeDoublePasLesInscriptions() throws SQLException {
+        Epreuve e = nouvelleEpreuve("E1");
+        Pilote p = nouveauPilote("L1", "Dupont");
+
+        dao.inscrirePiloteAToutesLesEpreuvesActives(p.getId());
+        dao.inscrirePiloteAToutesLesEpreuvesActives(p.getId());
+
+        assertEquals(List.of(e.getId()), dao.listerEpreuvesDuPilote(p.getId()));
+    }
 }
