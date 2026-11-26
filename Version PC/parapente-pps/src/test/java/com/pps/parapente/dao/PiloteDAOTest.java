@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -40,5 +41,16 @@ class PiloteDAOTest extends DaoTestBase {
         assertEquals(Integer.valueOf(7), lu.getNumeroPilote());
         assertEquals(Categorie.OPEN, lu.getCategorie());
         assertNotNull(lu.getDateInscription());
+    }
+
+    @Test
+    void champsOptionnelsAbsentsSontRelusNull() throws SQLException {
+        Pilote p = nouveauPilote("LIC-002", "Martin");
+
+        Pilote lu = dao.trouverParId(p.getId()).orElseThrow();
+
+        assertNull(lu.getPoids());
+        assertNull(lu.getAnneeNaissance());
+        assertNull(lu.getNumeroPilote());
     }
 }
