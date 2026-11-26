@@ -92,4 +92,13 @@ class UtilisateurDAOTest extends DaoTestBase {
         assertTrue(ids.indexOf("marc") < ids.indexOf("zoe"));
         assertTrue(ids.contains("marc")); // un compte inactif est bien listé
     }
+
+    @Test
+    void definirActifFalseDesactiveLeCompte() throws SQLException {
+        Utilisateur u = utilisateur("alice", true);
+
+        dao.definirActif(u.getId(), false);
+
+        assertTrue(dao.trouverParIdentifiant("alice").isEmpty());
+    }
 }
