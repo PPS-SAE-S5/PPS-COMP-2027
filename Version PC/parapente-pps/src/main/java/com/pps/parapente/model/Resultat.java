@@ -11,7 +11,7 @@ public class Resultat {
     private int id;
     private int epreuveId;
     private int piloteId;
-    private Map<String, Double> valeurs = new LinkedHashMap<>(); // nomVariable -> valeur saisie
+    private Map<String, Double> valeurs = new LinkedHashMap<>();
     private double points;
     private boolean disqualifie; // sécurité : passe automatiquement à 0 pt
     private String saisiPar;
@@ -19,6 +19,13 @@ public class Resultat {
 
     // Champs pratiques pour l'affichage (non stockés directement, remplis par les services)
     private transient Pilote pilote;
+
+    // Contexte pour l'historique des points (non stocké dans la table resultats, lu par ResultatDAO)
+    private transient TypeActionPoints typeActionHistorique;
+    private transient String motifHistorique;
+    private transient boolean sansHistorique;
+    private transient boolean etatAvantFourni;
+    private transient Resultat etatAvant;
 
     public Resultat() {}
 
@@ -48,4 +55,21 @@ public class Resultat {
 
     public Pilote getPilote() { return pilote; }
     public void setPilote(Pilote pilote) { this.pilote = pilote; }
+
+    public TypeActionPoints getTypeActionHistorique() { return typeActionHistorique; }
+    public void setTypeActionHistorique(TypeActionPoints typeActionHistorique) { this.typeActionHistorique = typeActionHistorique; }
+
+    public String getMotifHistorique() { return motifHistorique; }
+    public void setMotifHistorique(String motifHistorique) { this.motifHistorique = motifHistorique; }
+
+    public boolean isSansHistorique() { return sansHistorique; }
+    public void setSansHistorique(boolean sansHistorique) { this.sansHistorique = sansHistorique; }
+
+    public boolean isEtatAvantFourni() { return etatAvantFourni; }
+    public Resultat getEtatAvant() { return etatAvant; }
+    /** Impose l'état de référence "avant" de l'historique (null = le pilote n'avait pas encore de résultat). */
+    public void setEtatAvant(Resultat etatAvant) {
+        this.etatAvant = etatAvant;
+        this.etatAvantFourni = true;
+    }
 }

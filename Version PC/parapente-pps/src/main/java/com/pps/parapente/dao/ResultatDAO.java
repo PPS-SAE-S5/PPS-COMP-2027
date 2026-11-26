@@ -11,6 +11,9 @@ import java.util.Optional;
 
 public class ResultatDAO {
 
+    /** Chaque création / modification / suppression de résultat est tracée dans l'historique des points. */
+    private final HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+
     public List<Resultat> listerParEpreuve(int epreuveId) throws SQLException {
         List<Resultat> liste = new ArrayList<>();
         String sql = "SELECT * FROM resultats WHERE epreuve_id = ?";
@@ -35,7 +38,12 @@ public class ResultatDAO {
         return Optional.empty();
     }
 
-    /** Crée ou met à jour le résultat (unique par couple épreuve/pilote). */
+    /**
+     * Crée ou met à jour le résultat (unique par couple épreuve/pilote), puis ajoute une ligne
+     * à l'historique des points si les points ou la disqualification ont changé.
+     * (Le type d'action, le motif et l'état de référence peuvent être précisés sur le Resultat,
+     * voir les champs "historique" de la classe Resultat.)
+     */
     public void enregistrer(Resultat r) throws SQLException {
         Optional<Resultat> existant = trouver(r.getEpreuveId(), r.getPiloteId());
         JSONObject json = new JSONObject(r.getValeurs());
@@ -63,15 +71,22 @@ public class ResultatDAO {
                 ps.executeUpdate();
             }
         }
+
+        if (!r.isSansHistorique()) {
+            Resultat avant = r.isEtatAvantFourni() ? r.getEtatAvant() : existant.orElse(null);
+            historiqueDAO.journaliser(avant, r);
+        }
     }
 
     public void supprimer(int epreuveId, int piloteId) throws SQLException {
+        Optional<Resultat> existant = trouver(epreuveId, piloteId);
         String sql = "DELETE FROM resultats WHERE epreuve_id=? AND pilote_id=?";
         try (PreparedStatement ps = DatabaseManager.getConnection().prepareStatement(sql)) {
             ps.setInt(1, epreuveId);
             ps.setInt(2, piloteId);
             ps.executeUpdate();
         }
+        if (existant.isPresent()) historiqueDAO.journaliserSuppression(existant.get());
     }
 
     /** Tous les résultats du championnat (utilisé pour le classement général). */

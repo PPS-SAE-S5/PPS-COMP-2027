@@ -26,6 +26,8 @@
                 <Label text="Saisie de la performance" styleClass="sous-titre"/>
                 <VBox fx:id="conteneurChampsDynamiques" spacing="8"/>
                 <CheckBox fx:id="checkDisqualifie" text="Disqualifié / problème de sécurité (0 point automatique)"/>
+                <Label text="Motif (facultatif, conservé dans l'historique des points)"/>
+                <TextField fx:id="champMotif" promptText="ex : Descente dangereuse"/>
                 <Label fx:id="labelErreur" styleClass="erreur" wrapText="true" managed="false" visible="false"/>
                 <Button text="Enregistrer le résultat" styleClass="bouton-principal" onAction="#enregistrerResultat"/>
                 <Label fx:id="labelInfo" wrapText="true" style="-fx-text-fill:#27ae60; -fx-font-weight:bold;" managed="false" visible="false"/>

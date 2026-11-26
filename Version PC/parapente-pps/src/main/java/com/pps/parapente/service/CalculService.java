@@ -36,6 +36,12 @@ public class CalculService {
      */
     public Resultat calculerEtEnregistrerFormule(Epreuve epreuve, Pilote pilote, Map<String, Double> valeursSaisies,
                                                   boolean disqualifie, String saisiPar) throws SQLException {
+        return calculerEtEnregistrerFormule(epreuve, pilote, valeursSaisies, disqualifie, saisiPar, null);
+    }
+
+    /** Idem, avec un motif (facultatif) conservé dans l'historique des points, ex : "Descente dangereuse". */
+    public Resultat calculerEtEnregistrerFormule(Epreuve epreuve, Pilote pilote, Map<String, Double> valeursSaisies,
+                                                  boolean disqualifie, String saisiPar, String motif) throws SQLException {
         if (epreuve.getModeCalcul() != ModeCalcul.FORMULE) {
             throw new IllegalStateException("Cette épreuve n'est pas en mode FORMULE");
         }
@@ -52,6 +58,7 @@ public class CalculService {
         r.setPoints(points);
         r.setDisqualifie(disqualifie);
         r.setSaisiPar(saisiPar);
+        r.setMotifHistorique(motif);
         resultatDAO.enregistrer(r);
         return r;
     }
@@ -63,6 +70,18 @@ public class CalculService {
      */
     public void enregistrerValeurBareme(Epreuve epreuve, Pilote pilote, Map<String, Double> valeursSaisies,
                                          boolean disqualifie, String saisiPar) throws SQLException {
+        enregistrerValeurBareme(epreuve, pilote, valeursSaisies, disqualifie, saisiPar, null);
+    }
+
+    /**
+     * Idem, avec un motif (facultatif) pour l'historique.
+     * Historique : l'écriture intermédiaire (points à 0) n'est pas tracée ; la ligne d'historique du pilote
+     * est écrite pendant le recalcul, en comparant avec son résultat d'AVANT la saisie.
+     */
+    public void enregistrerValeurBareme(Epreuve epreuve, Pilote pilote, Map<String, Double> valeursSaisies,
+                                         boolean disqualifie, String saisiPar, String motif) throws SQLException {
+        Resultat avantSaisie = resultatDAO.trouver(epreuve.getId(), pilote.getId()).orElse(null);
+
         Resultat r = new Resultat();
         r.setEpreuveId(epreuve.getId());
         r.setPiloteId(pilote.getId());
@@ -70,8 +89,9 @@ public class CalculService {
         r.setPoints(0);
         r.setDisqualifie(disqualifie);
         r.setSaisiPar(saisiPar);
+        r.setSansHistorique(true);
         resultatDAO.enregistrer(r);
-        recalculerBareme(epreuve);
+        recalculerBareme(epreuve, pilote.getId(), avantSaisie, motif);
     }
 
     /**
@@ -80,6 +100,15 @@ public class CalculService {
      * puis applique la table de points par rang. Les disqualifiés restent à 0 et ne prennent pas de rang.
      */
     public void recalculerBareme(Epreuve epreuve) throws SQLException {
+        recalculerBareme(epreuve, null, null, null);
+    }
+
+    /**
+     * Recalcul avec le contexte de l'historique : le pilote qui vient d'être saisi (piloteSaisiId) est tracé
+     * comme une saisie / modification par rapport à "avantSaisie" ; les autres pilotes dont les points
+     * changent à cause du décalage des rangs sont tracés en RECALCUL_BAREME.
+     */
+    private void recalculerBareme(Epreuve epreuve, Integer piloteSaisiId, Resultat avantSaisie, String motif) throws SQLException {
         if (epreuve.getModeCalcul() != ModeCalcul.BAREME) {
             throw new IllegalStateException("Cette épreuve n'est pas en mode BAREME");
         }
@@ -111,6 +140,7 @@ public class CalculService {
         for (Resultat r : classables) {
             double points = baremeParRang.getOrDefault(rang, dernierPointsBareme); // au-delà du barème -> dernier palier
             r.setPoints(points);
+            preparerHistorique(r, piloteSaisiId, avantSaisie, motif);
             resultatDAO.enregistrer(r);
             rang++;
         }
@@ -118,8 +148,18 @@ public class CalculService {
         for (Resultat r : resultats) {
             if (r.isDisqualifie() || !r.getValeurs().containsKey(epreuve.getValeurCle())) {
                 r.setPoints(0);
+                preparerHistorique(r, piloteSaisiId, avantSaisie, motif);
                 resultatDAO.enregistrer(r);
             }
+        }
+    }
+
+    private void preparerHistorique(Resultat r, Integer piloteSaisiId, Resultat avantSaisie, String motif) {
+        if (piloteSaisiId != null && r.getPiloteId() == piloteSaisiId) {
+            r.setEtatAvant(avantSaisie);   // compare avec le résultat d'avant la saisie (null = première saisie)
+            r.setMotifHistorique(motif);
+        } else {
+            r.setTypeActionHistorique(TypeActionPoints.RECALCUL_BAREME);
         }
     }
 

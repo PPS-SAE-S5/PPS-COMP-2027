@@ -24,6 +24,7 @@ public class DashboardController {
     @FXML private VBox carteClassement;
     @FXML private VBox carteScoreParticipant;
     @FXML private VBox carteUtilisateurs;
+    @FXML private VBox carteHistorique;
     @FXML private VBox carteSync;
 
     private final AuthService authService = new AuthService();
@@ -47,15 +48,16 @@ public class DashboardController {
      * - Bénévole : planning (lecture seule), saisie des résultats, suivi des participants, classement
      * - Pilote : classement uniquement (pas de planning, pas de suivi individuel)
      * - Comité des pilotes : planning (lecture seule) et classement (consultation), pas de suivi individuel
+     * L'historique des points (lecture seule) n'est visible que de l'administrateur et du comité des pilotes.
      * Le planning est visible de tous sauf du pilote ; seuls l'administrateur et le responsable peuvent le modifier
      * (voir PlanningController).
      */
     private void appliquerDroitsAccesParRole(Role role) {
         switch (role) {
             case ADMINISTRATEUR -> { /* tout visible par défaut */ }
-            case RESPONSABLE_EPREUVE -> masquer(carteUtilisateurs);
-            case BENEVOLE -> masquer(carteUtilisateurs, carteEpreuves, carteSync);
-            case PILOTE -> masquer(carteUtilisateurs, carteEpreuves, carteSaisie, cartePilotes, cartePlanning, carteSync, carteScoreParticipant);
+            case RESPONSABLE_EPREUVE -> masquer(carteUtilisateurs, carteHistorique);
+            case BENEVOLE -> masquer(carteUtilisateurs, carteEpreuves, carteSync, carteHistorique);
+            case PILOTE -> masquer(carteUtilisateurs, carteEpreuves, carteSaisie, cartePilotes, cartePlanning, carteSync, carteScoreParticipant, carteHistorique);
             case COMITE_PILOTES -> masquer(carteUtilisateurs, carteEpreuves, carteSaisie, cartePilotes, carteSync, carteScoreParticipant);
         }
     }
@@ -86,6 +88,7 @@ public class DashboardController {
     @FXML private void ouvrirSuiviParticipants() { SceneManager.naviguerVers("suivi_participants.fxml", "Suivi des participants"); }
     @FXML private void ouvrirClassement() { SceneManager.naviguerVers("classement.fxml", "Classement général"); }
     @FXML private void ouvrirGestionUtilisateurs() { SceneManager.naviguerVers("gestion_utilisateurs.fxml", "Gestion des comptes"); }
+    @FXML private void ouvrirHistorique() { SceneManager.naviguerVers("historique_points.fxml", "Historique des points"); }
     @FXML private void ouvrirSync() { SceneManager.naviguerVers("sync.fxml", "Synchronisation en ligne"); }
 
     @FXML
