@@ -93,4 +93,13 @@ class PiloteDAOTest extends DaoTestBase {
         assertEquals(75.0, lu.getPoids(), 1e-9);
         assertEquals(Categorie.OPEN, lu.getCategorie());
     }
+
+    @Test
+    void supprimerRetireLePilote() throws SQLException {
+        Pilote p = nouveauPilote("LIC-001", "Dupont");
+
+        dao.supprimer(p.getId());
+
+        assertTrue(dao.trouverParId(p.getId()).isEmpty());
+    }
 }
