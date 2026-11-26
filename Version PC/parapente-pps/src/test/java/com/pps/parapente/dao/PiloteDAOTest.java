@@ -66,4 +66,16 @@ class PiloteDAOTest extends DaoTestBase {
 
         assertThrows(SQLException.class, () -> nouveauPilote("LIC-001", "Autre"));
     }
+
+    @Test
+    void numeroPiloteEnDoubleEstRefuse() throws SQLException {
+        Pilote a = nouveauPilote("LIC-001", "Dupont");
+        a.setNumeroPilote(7);
+        dao.mettreAJour(a);
+
+        Pilote b = nouveauPilote("LIC-002", "Martin");
+        b.setNumeroPilote(7);
+
+        assertThrows(SQLException.class, () -> dao.mettreAJour(b));
+    }
 }
