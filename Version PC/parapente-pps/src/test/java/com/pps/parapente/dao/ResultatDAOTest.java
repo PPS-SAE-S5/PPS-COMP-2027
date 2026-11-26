@@ -90,4 +90,12 @@ class ResultatDAOTest extends DaoTestBase {
 
         assertTrue(dao.trouver(e.getId(), p.getId()).isEmpty());
     }
+
+    @Test
+    void trouverInconnuRetourneVide() throws SQLException {
+        Epreuve e = nouvelleEpreuve("Vitesse");
+        Pilote p = nouveauPilote("L1", "Dupont");
+
+        assertTrue(dao.trouver(e.getId(), p.getId()).isEmpty());
+    }
 }
