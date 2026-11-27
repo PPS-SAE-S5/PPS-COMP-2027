@@ -170,6 +170,19 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 
 |===
 
+==== 3.3.3 Documentation de tests
+
+[cols="1,4,1", options="header"]
+|===
+| Documentation
+| Description
+| Période de sprint
+
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/blob/main/Documentation/Sprint%203/Cahier%20De%20Tests%20(fr)%20version%20PC.md[Cahier de tests S3]
+| Cahier de tests (vPC)
+| https://github.com/PPS-SAE-S5/PPS-COMP-2027/milestone/4[sprint 3]
+
+|===
 
 == 4. Livrables et état d'avancement
 
@@ -378,7 +391,7 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 
 |===
 
-Liste informative sur toutes les Fix (ToDo / En cours / Fait)
+=== Liste informative sur toutes les Fix (ToDo / En cours / Fait)
 
 [cols="1,4,1", options="header"]
 |===
@@ -521,4 +534,4 @@ Liste informative sur toutes les Fix (ToDo / En cours / Fait)
 </table>
 ++++
 
-Clients du projet:: Jean Marie Rolando, Jean-Michel Bruel
+Clients du projet:: Jean Marie Rolando (Lieutenant Sapeur-Pompier), Jean-Michel Bruel (Professeur à l'IUT de Blagnac)
