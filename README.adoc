@@ -513,6 +513,10 @@ _Lien direct vers l'application_ : https://github.com/PPS-SAE-S5/PPS-COMP-2027/r
 | 8:00
 | 15:00
 
+| 27/11/2026
+| 15:45
+| 17:15
+
 |===
 
 == 5. Contributeurs
