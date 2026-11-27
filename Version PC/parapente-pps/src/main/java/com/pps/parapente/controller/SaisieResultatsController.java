@@ -9,10 +9,8 @@ import com.pps.parapente.service.PiloteService;
 import com.pps.parapente.util.SceneManager;
 import com.pps.parapente.util.SessionManager;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;

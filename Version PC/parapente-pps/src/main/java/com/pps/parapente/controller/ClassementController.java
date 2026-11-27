@@ -14,7 +14,6 @@ import com.pps.parapente.service.EpreuveService;
 import com.pps.parapente.util.SceneManager;
 import com.pps.parapente.util.SessionManager;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
