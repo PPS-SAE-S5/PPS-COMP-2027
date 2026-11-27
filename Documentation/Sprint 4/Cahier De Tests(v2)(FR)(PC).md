@@ -25,8 +25,8 @@ Ce cahier permet de vérifier que les règles de calcul des points, les validati
 |---|---|
 | **Testé (services)** | `CalculService`, `ClassementService`, `EpreuveService`, `PiloteService`, `PlanningService`, `SuiviParticipantService`, `AuthService`, `ExportPdfService` |
 | **Testé (DAO)** | `EpreuveDAO`, `InscriptionDAO`, `PiloteDAO`, `PlanningDAO`, `ResultatDAO`, `UtilisateurDAO`, `DatabaseManager` (dossier de données) |
-| **Testé (utilitaires)** | `CategorieConfig`, `MessageErreurUtil` |
-| **Non testé pour le moment** | Package `sync` (synchronisation Supabase), `SecuriteUtil`, contrôleurs JavaFX, application mobile |
+| **Testé (utilitaires)** | `CategorieConfig`, `MessageErreurUtil`, `PdfSimple`, `SecuriteUtil` `SessionManager` |
+| **Non testé pour le moment** | Package `sync` (synchronisation Supabase), contrôleurs JavaFX, application mobile |
 
 ## 2. Environnement
 
@@ -134,7 +134,10 @@ Chaque test repart d'un état vierge : les tests sont indépendants.
 | `DatabaseManager` | `DatabaseManagerTest` | 1 | Dossier de données |
 | `CategorieConfig` | `CategorieConfigTest` | 22 | Lecture de la règle, déduction de la catégorie, description |
 | `MessageErreurUtil` | `MessageErreurUtilTest` | 29 | Traduction des erreurs techniques en messages lisibles, ordre des règles |
-| **Total** | | **256** | dont 1 désactivé |
+| `PdfSimple` | `PdfSimpleTest` | 56 | |
+| `SecuriteUtil` | `SecuriteUtilTest` | 9 | |
+| `SessionManager` | `SessionManagerTest` | 7 | |
+| **Total** | | **328** | dont 1 désactivé |
 
 Nombres issus de la dernière exécution de `mvn test`, à mettre à jour après chaque ajout.
 
@@ -482,6 +485,12 @@ Les identifiants sont uniques dans tout le cahier, avec un préfixe par classe :
 | ME-27 | `traduire` | `IllegalStateException` en français | « L'épreuve à dupliquer n'existe plus. » | message renvoyé tel quel | Réussi |
 | ME-28 | `traduire` | Exception sans message utile | `IllegalArgumentException()`, `IllegalStateException("   ")` | « La demande n'a pas pu être traitée. » | Réussi |
 | ME-29 | `traduire` | Message multi-lignes | message d'atelier invalide avec puces | message conservé tel quel (sauts de ligne compris) | Réussi |
+
+### Classe `PdfSimpleTest`
+
+### Classe `SecuriteUtilTest`
+
+### Classe `SessionManagerTest`
 
 ## 8. Limites connues et suite
 
