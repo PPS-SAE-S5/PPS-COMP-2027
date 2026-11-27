@@ -455,7 +455,7 @@ Ajouts du Sprint 3 :
 
 | Type de test | État |
 |---|---|
-| Tests unitaires JUnit (PC) | 256 tests dans 17 classes : `DatabaseManagerTest` (1), `EpreuveDAOTest` (9), `InscriptionDAOTest` (8), `PiloteDAOTest` (10), `PlanningDAOTest` (12), `ResultatDAOTest` (8), `UtilisateurDAOTest` (10), `PlanningServiceTest` (36), `SuiviParticipantServiceTest` (24), `EpreuveServiceTest` (18), `PiloteServiceTest` (18), `ExportPdfServiceTest` (18), `ClassementServiceTest` (12), `CalculServiceTest` (16), `AuthServiceTest` (5), `CategorieConfigTest` (22), `MessageErreurUtilTest` (29). Lancement : `mvn test` |
+| Tests unitaires JUnit (PC) | 328 tests dans 20 classes : `DatabaseManagerTest` (1), `EpreuveDAOTest` (9), `InscriptionDAOTest` (8), `PiloteDAOTest` (10), `PlanningDAOTest` (12), `ResultatDAOTest` (8), `UtilisateurDAOTest` (10), `PlanningServiceTest` (36), `SuiviParticipantServiceTest` (24), `EpreuveServiceTest` (18), `PiloteServiceTest` (18), `ExportPdfServiceTest` (18), `ClassementServiceTest` (12), `CalculServiceTest` (16), `AuthServiceTest` (5), `CategorieConfigTest` (22), `MessageErreurUtilTest` (29), `PdfSimpleTest` (56), `SecuriteUtilTest` (9), `SessionManagerTest` (7). Lancement : `mvn test` |
 | Tests unitaires (mobile) | À faire : aucun test dans le dépôt |
 | Tests de synchronisation (conflits, hors-ligne) | À faire |
 | Tests manuels des cas d'utilisation (CU 01 à CU 12) | Réalisés lors des démonstrations de fin de sprint |
